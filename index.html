@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raw AI Business Solutions — AI Agents for Your Business</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;--text:#e8e8f0;--muted:#8888aa;--accent:#00d4ff;--accent2:#00ff88;--gold:#ffd700;--gradient:linear-gradient(135deg,#00d4ff,#00ff88);--gradient2:linear-gradient(135deg,#00ff88,#ffd700)}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;position:relative}
+a{color:var(--accent);text-decoration:none;transition:.3s}
+a:hover{color:var(--accent2)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* TECH BACKGROUND */
+.tech-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.tech-bg::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle 1.5px at 40px 40px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 120px 40px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 200px 40px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 280px 40px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 40px 120px, rgba(0,255,136,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 120px 120px, rgba(0,255,136,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 200px 120px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 280px 120px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 40px 200px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 120px 200px, rgba(0,212,255,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 200px 200px, rgba(0,255,136,0.04) 100%, transparent 100%),
+  radial-gradient(circle 1.5px at 280px 200px, rgba(0,212,255,0.04) 100%, transparent 100%);
+  background-size:320px 240px;
+  animation:techPulse 6s ease-in-out infinite alternate}
+.tech-bg::after{content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(90deg, transparent 39px, rgba(0,212,255,0.015) 39px, rgba(0,212,255,0.015) 41px, transparent 41px),
+    linear-gradient(0deg, transparent 39px, rgba(0,255,136,0.015) 39px, rgba(0,255,136,0.015) 41px, transparent 41px),
+    linear-gradient(90deg, transparent 119px, rgba(0,212,255,0.015) 119px, rgba(0,212,255,0.015) 121px, transparent 121px),
+    linear-gradient(0deg, transparent 119px, rgba(0,255,136,0.015) 119px, rgba(0,255,136,0.015) 121px, transparent 121px);
+  background-size:320px 240px;
+  animation:techPulse 6s ease-in-out infinite alternate-reverse}
+@keyframes techPulse{0%{opacity:.5}100%{opacity:1}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);padding:16px 0;transition:.3s}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center}
+.logo svg{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{color:var(--muted);font-size:.9rem;font-weight:500;transition:.3s}
+.nav-links a:hover{color:var(--text)}
+.lang-toggle{background:var(--bg3);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:8px 16px;border-radius:50px;cursor:pointer;font-size:.85rem;font-weight:600;transition:.3s;display:flex;align-items:center;gap:6px}
+.lang-toggle:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(0,212,255,.15)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--text);transition:.3s;border-radius:2px}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(0,212,255,.08) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(0,255,136,.06) 0%,transparent 50%);animation:heroGlow 8s ease-in-out infinite alternate}
+@keyframes heroGlow{0%{transform:translate(0,0)}100%{transform:translate(-2%,-2%)}}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);padding:8px 20px;border-radius:50px;font-size:.85rem;color:var(--accent);margin-bottom:24px;animation:fadeInUp .8s ease}
+.hero-badge .dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:24px;animation:fadeInUp .8s ease .1s both}
+.hero h1 .highlight{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--muted);margin-bottom:40px;max-width:600px;animation:fadeInUp .8s ease .2s both}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px;animation:fadeInUp .8s ease .3s both}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;border:none;transition:.3s;text-decoration:none}
+.btn-primary{background:var(--gradient);color:#0a0a0f;box-shadow:0 4px 30px rgba(0,212,255,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(0,212,255,.4);color:#0a0a0f}
+.btn-secondary{background:transparent;border:2px solid rgba(255,255,255,.15);color:var(--text)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn-sm{padding:12px 24px;font-size:.9rem;border-radius:10px}
+.btn-lg{padding:20px 48px;font-size:1.15rem;border-radius:14px}
+
+/* SECTIONS */
+section{padding:100px 0;position:relative;z-index:1}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:20px;line-height:1.2}
+.section-subtitle{font-size:1.1rem;color:var(--muted);max-width:600px;margin-bottom:60px}
+
+/* STATS */
+.stats{background:var(--bg2);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.stat-card{text-align:center;padding:32px 16px}
+.stat-number{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.stat-label{margin-top:8px;color:var(--muted);font-size:.95rem}
+
+/* REVOLUTION */
+.revolution{background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(0,255,136,.05));position:relative}
+.revolution::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,212,255,.1),transparent 60%)}
+.revolution-content{position:relative;text-align:center;max-width:800px;margin:0 auto}
+.revolution-content .section-title{font-size:clamp(2.2rem,5vw,3.5rem)}
+.revolution-quote{font-size:clamp(1.2rem,2.5vw,1.6rem);color:var(--text);font-style:italic;margin:40px 0;padding:32px;background:rgba(255,255,255,.03);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.revolution-points{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin:48px 0;text-align:left}
+.rev-point{display:flex;gap:16px;align-items:flex-start;padding:20px;background:rgba(255,255,255,.03);border-radius:12px;border:1px solid rgba(255,255,255,.05);transition:.3s}
+.rev-point:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
+.rev-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.rev-text{font-size:.95rem;color:var(--muted)}
+.rev-text strong{color:var(--text)}
+
+/* WHAT I DO */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.feature-card{padding:36px;background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:16px;transition:.4s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);transform:scaleX(0);transition:.4s;transform-origin:left}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-card:hover{border-color:rgba(0,212,255,.15);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.feature-icon{font-size:2.5rem;margin-bottom:20px}
+.feature-card h3{font-size:1.2rem;margin-bottom:12px;font-weight:700}
+.feature-card p{color:var(--muted);font-size:.95rem}
+
+/* HOW IT WORKS */
+.steps{counter-reset:step}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px}
+.step{position:relative;padding:40px 32px;background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:16px;transition:.4s;counter-increment:step}
+.step::before{content:counter(step);position:absolute;top:-16px;left:32px;width:40px;height:40px;background:var(--gradient);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#0a0a0f;line-height:40px;text-align:center}
+.step:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.15)}
+.step h3{margin-top:16px;margin-bottom:12px;font-size:1.15rem;font-weight:700}
+.step p{color:var(--muted);font-size:.9rem}
+
+/* FREE AUDIT SECTION */
+.audit-section{background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(0,255,136,.04));position:relative;overflow:hidden}
+.audit-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.1),transparent 70%)}
+.audit-container{position:relative;max-width:1000px;margin:0 auto}
+.audit-header{text-align:center;margin-bottom:60px}
+.audit-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.25);padding:8px 20px;border-radius:50px;font-size:.9rem;color:var(--accent2);font-weight:700;margin-bottom:20px}
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px}
+.audit-card{background:rgba(255,255,255,.03);border:1px solid rgba(0,212,255,.15);border-radius:16px;padding:36px}
+.audit-card h3{font-size:1.3rem;font-weight:700;margin-bottom:24px;color:var(--text)}
+.audit-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.audit-item .check{flex-shrink:0;width:24px;height:24px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#0a0a0f;font-weight:900;margin-top:2px}
+.audit-item-content h4{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.audit-item-content p{font-size:.9rem;color:var(--muted);line-height:1.5}
+.audit-after{background:rgba(255,255,255,.03);border:1px solid rgba(0,255,136,.15);border-radius:16px;padding:36px}
+.audit-after h3{font-size:1.3rem;font-weight:700;margin-bottom:24px;color:var(--text)}
+.audit-after-item{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.audit-after-item .arrow-icon{flex-shrink:0;color:var(--accent2);font-size:1.1rem;margin-top:2px}
+.audit-after-item p{color:var(--muted);font-size:.95rem}
+.audit-cta{text-align:center;margin-top:48px}
+.audit-cta p{color:var(--muted);font-size:1rem;margin-bottom:20px}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.service-card{padding:40px 32px;background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:16px;transition:.4s;display:flex;flex-direction:column}
+.service-card.featured{border-color:rgba(0,212,255,.3);background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(0,255,136,.03))}
+.service-card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.2)}
+.service-icon{font-size:2.5rem;margin-bottom:20px}
+.service-card h3{font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.service-price{font-size:.95rem;color:var(--accent);font-weight:600;margin-bottom:16px}
+.service-card p{color:var(--muted);font-size:.9rem;flex:1;margin-bottom:24px}
+.service-card .btn{width:100%;justify-content:center}
+
+/* PROOF */
+.proof{background:var(--bg2)}
+.proof-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.proof-text h3{font-size:1.8rem;font-weight:800;margin-bottom:20px}
+.proof-text p{color:var(--muted);margin-bottom:16px;font-size:1.05rem}
+.proof-list{list-style:none;margin:24px 0}
+.proof-list li{display:flex;align-items:center;gap:12px;padding:10px 0;color:var(--muted);font-size:1rem}
+.proof-list li::before{content:'✓';color:var(--accent2);font-weight:700;font-size:1.1rem}
+.proof-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.proof-stat{padding:28px;background:rgba(255,255,255,.03);border-radius:16px;border:1px solid rgba(255,255,255,.05);text-align:center}
+.proof-stat .num{font-size:2.2rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.proof-stat .label{color:var(--muted);font-size:.85rem;margin-top:4px}
+
+/* TESTIMONIAL */
+.testimonial-section{background:linear-gradient(135deg,rgba(0,255,136,.03),rgba(255,215,0,.03))}
+.testimonial-card{max-width:800px;margin:0 auto;padding:48px;background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:20px;text-align:center;position:relative}
+.testimonial-card::before{content:'"';position:absolute;top:-20px;left:40px;font-size:8rem;color:rgba(0,212,255,.1);font-family:Georgia,serif;line-height:1}
+.testimonial-text{font-size:clamp(1.1rem,2vw,1.4rem);font-style:italic;margin-bottom:24px;position:relative;z-index:1}
+.testimonial-author{color:var(--accent);font-weight:700}
+.testimonial-role{color:var(--muted);font-size:.9rem}
+
+/* FAQ */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.05);overflow:hidden}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-size:1.05rem;font-weight:600;padding:24px 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit;transition:.3s}
+.faq-q:hover{color:var(--accent)}
+.faq-q .arrow{transition:.3s;font-size:1.2rem;color:var(--accent)}
+.faq-item.open .faq-q .arrow{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:.4s ease;color:var(--muted);font-size:.95rem;line-height:1.7}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:24px}
+
+/* FINAL CTA */
+.final-cta{text-align:center;background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(0,255,136,.05));position:relative}
+.final-cta .section-title{max-width:700px;margin-left:auto;margin-right:auto}
+.final-cta p{color:var(--muted);max-width:600px;margin:0 auto 40px;font-size:1.1rem}
+.final-cta .hero-ctas{justify-content:center}
+
+/* FOOTER */
+footer{padding:40px 0;background:var(--bg2);border-top:1px solid rgba(255,255,255,.05);text-align:center;color:var(--muted);font-size:.85rem;position:relative;z-index:1}
+footer a{color:var(--accent)}
+
+/* AUDIT FORM WIZARD */
+.audit-form-section{background:var(--bg);position:relative;overflow:hidden;padding:100px 0}
+.audit-form-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.06),transparent 70%)}
+.audit-form-wrap{position:relative;max-width:720px;margin:0 auto;background:var(--bg2);border:1px solid rgba(0,212,255,.15);border-radius:20px;padding:48px 40px;box-shadow:0 20px 80px rgba(0,0,0,.4)}
+@media(max-width:768px){.audit-form-wrap{padding:32px 20px;border-radius:14px}}
+
+/* Progress */
+.af-progress{margin-bottom:36px}
+.af-progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.af-progress-fill{height:100%;background:var(--gradient);border-radius:3px;transition:width .5s ease}
+.af-progress-label{font-size:.85rem;color:var(--muted);text-align:center}
+
+/* Steps */
+.af-step{display:none;animation:afFadeIn .4s ease}
+.af-step.active{display:block}
+@keyframes afFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.af-step h3{font-size:1.4rem;font-weight:800;margin-bottom:24px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Form elements */
+.af-group{margin-bottom:20px}
+.af-label{display:block;font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:8px}
+.af-input,.af-select,.af-textarea{width:100%;padding:14px 16px;background:var(--bg3);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;transition:.3s;outline:none}
+.af-input:focus,.af-select:focus,.af-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.12)}
+.af-input::placeholder,.af-textarea::placeholder{color:rgba(255,255,255,.25)}
+.af-select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888aa' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.af-select option{background:var(--bg3);color:var(--text)}
+.af-textarea{resize:vertical;min-height:80px}
+
+/* Checkboxes & Radios */
+.af-checks{display:flex;flex-wrap:wrap;gap:10px}
+.af-check,.af-radio{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--bg3);border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:.3s;font-size:.9rem;color:var(--muted)}
+.af-check:hover,.af-radio:hover{border-color:rgba(0,212,255,.3);color:var(--text)}
+.af-check input,.af-radio input{display:none}
+.af-check.checked,.af-radio.checked{border-color:var(--accent);background:rgba(0,212,255,.08);color:var(--text)}
+.af-check .mark,.af-radio .mark{width:20px;height:20px;border:2px solid rgba(255,255,255,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.3s;font-size:.7rem}
+.af-radio .mark{border-radius:50%}
+.af-check.checked .mark{background:var(--accent);border-color:var(--accent);color:#0a0a0f}
+.af-radio.checked .mark{border-color:var(--accent)}
+.af-radio.checked .mark::after{content:'';width:10px;height:10px;background:var(--accent);border-radius:50%}
+
+/* Radio group (vertical) */
+.af-radios{display:flex;flex-direction:column;gap:8px}
+.af-radios .af-radio{width:100%}
+
+/* Star ratings */
+.af-stars-group{margin-bottom:20px}
+.af-stars-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.af-stars-row:last-child{border-bottom:none}
+.af-star-label{flex:1;font-size:.9rem;color:var(--muted)}
+.af-stars{display:flex;gap:4px}
+.af-star{width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:rgba(255,255,255,.15);transition:.2s;border-radius:4px}
+.af-star:hover,.af-star.active{color:var(--gold)}
+
+/* Range slider */
+.af-range-wrap{position:relative;padding:8px 0}
+.af-range{width:100%;-webkit-appearance:none;appearance:none;height:6px;background:rgba(255,255,255,.08);border-radius:3px;outline:none}
+.af-range::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gradient);cursor:pointer;border:2px solid var(--bg2);box-shadow:0 2px 10px rgba(0,212,255,.3)}
+.af-range::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--bg2)}
+.af-range-val{text-align:center;font-size:1.5rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:8px}
+
+/* Buttons */
+.af-btns{display:flex;gap:12px;margin-top:32px}
+.af-btn{flex:1;padding:16px;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;transition:.3s;font-family:inherit}
+.af-btn-next{background:var(--gradient);color:#0a0a0f}
+.af-btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.3)}
+.af-btn-back{background:transparent;border:2px solid rgba(255,255,255,.1);color:var(--muted)}
+.af-btn-back:hover{border-color:var(--accent);color:var(--text)}
+.af-btn-submit{background:linear-gradient(135deg,#00ff88,#00d4ff);color:#0a0a0f;font-size:1.1rem;padding:18px}
+.af-btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.3)}
+
+/* Summary */
+.af-summary{background:var(--bg3);border-radius:12px;padding:24px;margin-bottom:24px;max-height:400px;overflow-y:auto;font-size:.9rem;line-height:1.7}
+.af-summary h4{color:var(--accent);margin:16px 0 8px;font-size:.95rem}
+.af-summary h4:first-child{margin-top:0}
+.af-summary p{color:var(--muted);margin:2px 0}
+.af-summary strong{color:var(--text)}
+.af-disclaimer{text-align:center;color:var(--muted);font-size:.9rem;margin:20px 0}
+
+/* Thank you */
+.af-thankyou{display:none;text-align:center;padding:40px 20px;animation:afFadeIn .6s ease}
+.af-thankyou h3{font-size:2rem;margin-bottom:16px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.af-thankyou p{color:var(--muted);margin-bottom:24px;font-size:1.05rem}
+.af-thankyou .af-send-btns{display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto}
+.af-send-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 24px;border-radius:12px;font-size:1rem;font-weight:700;text-decoration:none;transition:.3s;cursor:pointer;border:none;font-family:inherit}
+.af-send-wa{background:#25d366;color:#fff}
+.af-send-wa:hover{background:#1ebe5d;transform:translateY(-2px);color:#fff}
+.af-send-email{background:transparent;border:2px solid rgba(255,255,255,.15);color:var(--text)}
+.af-send-email:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.af-checkmark{font-size:4rem;margin-bottom:16px;animation:afPop .6s ease}
+@keyframes afPop{0%{transform:scale(0) rotate(-45deg);opacity:0}60%{transform:scale(1.2) rotate(0deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;width:64px;height:64px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.4);transition:.3s;cursor:pointer;text-decoration:none}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links a:not(.lang-toggle-wrap){display:none}
+  .hamburger{display:flex}
+  .nav-links.open{position:absolute;top:100%;left:0;right:0;background:rgba(10,10,15,.98);flex-direction:column;padding:24px;gap:16px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .nav-links.open a{display:block;font-size:1.1rem}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .proof-content{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .features-grid,.steps-grid,.services-grid{grid-template-columns:1fr}
+  .audit-grid{grid-template-columns:1fr}
+  section{padding:60px 0}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-card{padding:20px 8px}
+  .proof-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TECH BACKGROUND -->
+<div class="tech-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo">
+      <svg height="36" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00d4ff"/>
+            <stop offset="100%" stop-color="#00ff88"/>
+          </linearGradient>
+        </defs>
+        <!-- RAW in bold -->
+        <text x="0" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-size="32" font-weight="900" fill="#e8e8f0">RAW</text>
+        <!-- AI outlined with gradient -->
+        <text x="95" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-size="32" font-weight="900" fill="none" stroke="url(#logoGrad)" stroke-width="1.5">AI</text>
+        <!-- Circuit node dots -->
+        <circle cx="88" cy="8" r="2.5" fill="url(#logoGrad)"/>
+        <circle cx="88" cy="20" r="1.5" fill="url(#logoGrad)" opacity=".6"/>
+        <line x1="88" y1="10.5" x2="88" y2="18.5" stroke="url(#logoGrad)" stroke-width="1" opacity=".4"/>
+        <!-- Small circuit line from W to AI -->
+        <line x1="82" y1="28" x2="92" y2="28" stroke="url(#logoGrad)" stroke-width="1" opacity=".3"/>
+        <circle cx="92" cy="28" r="1.5" fill="url(#logoGrad)" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#audit-form" data-en="Free Audit" data-pt="Diagnóstico Grátis">Free Audit</a>
+      <a href="#features" data-en="What I Do" data-pt="O Que Eu Faço">What I Do</a>
+      <a href="#services" data-en="Services" data-pt="Serviços">Services</a>
+      <a href="#proof" data-en="Results" data-pt="Resultados">Results</a>
+      <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
+      <span class="lang-toggle-wrap">
+        <button class="lang-toggle" id="langBtn" onclick="toggleLang()">🌐 <span id="langLabel">PT-BR</span></button>
+      </span>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> <span data-en="AI Agents Working 24/7 Right Now" data-pt="Agentes IA Trabalhando 24/7 Agora Mesmo">AI Agents Working 24/7 Right Now</span></div>
+      <h1 data-en="Your Business Deserves<br>an <span class='highlight'>AI Employee</span><br>That Never Sleeps" data-pt="Seu Negócio Merece<br>um <span class='highlight'>Funcionário IA</span><br>Que Nunca Dorme">Your Business Deserves<br>an <span class="highlight">AI Employee</span><br>That Never Sleeps</h1>
+      <p data-en="I build AI agents that answer your leads at 3 AM, follow up like your best salesperson, and manage your entire pipeline — so you can focus on what matters." data-pt="Eu crio agentes de IA que respondem seus leads às 3 da manhã, fazem follow-up como seu melhor vendedor, e gerenciam todo seu pipeline — pra você focar no que importa.">I build AI agents that answer your leads at 3 AM, follow up like your best salesperson, and manage your entire pipeline — so you can focus on what matters.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="💬 Talk to André on WhatsApp" data-pt="💬 Fale com André no WhatsApp">💬 Talk to André on WhatsApp</a>
+        <a href="mailto:rawandre@gmail.com" class="btn btn-secondary" data-en="📧 Send an Email" data-pt="📧 Enviar um Email">📧 Send an Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-number">15+</div><div class="stat-label" data-en="Years in Business" data-pt="Anos de Experiência">Years in Business</div></div>
+      <div class="stat-card reveal"><div class="stat-number">500+</div><div class="stat-label" data-en="Events Delivered" data-pt="Eventos Realizados">Events Delivered</div></div>
+      <div class="stat-card reveal"><div class="stat-number">200+</div><div class="stat-label" data-en="Leads Managed by AI" data-pt="Leads Gerenciados por IA">Leads Managed by AI</div></div>
+      <div class="stat-card reveal"><div class="stat-number">24/7</div><div class="stat-label" data-en="AI Never Stops" data-pt="IA Nunca Para">AI Never Stops</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVOLUTION -->
+<section class="revolution" id="revolution">
+  <div class="container">
+    <div class="revolution-content reveal">
+      <div class="section-label" data-en="⚡ The Great Reset" data-pt="⚡ O Grande Reset">⚡ The Great Reset</div>
+      <div class="section-title" data-en="The AI Revolution<br>Is Happening <span class='highlight'>Right Now</span>" data-pt="A Revolução da IA<br>Está Acontecendo <span class='highlight'>Agora Mesmo</span>">The AI Revolution<br>Is Happening <span class="highlight">Right Now</span></div>
+      <div class="revolution-quote" data-en="Average people are building $500K/year businesses with AI. You don't need money, big teams, or tech skills. You just need to act — NOW." data-pt="Pessoas comuns estão construindo negócios de R$2,5M/ano com IA. Você não precisa de dinheiro, equipe grande, ou ser técnico. Só precisa agir — AGORA.">"Average people are building $500K/year businesses with AI. You don't need money, big teams, or tech skills. You just need to act — NOW."</div>
+      <div class="revolution-points">
+        <div class="rev-point"><span class="rev-icon">🚀</span><div class="rev-text" data-en="<strong>One AI agent</strong> can boost revenue by 5-15% in days — not months." data-pt="<strong>Um agente IA</strong> pode aumentar seu faturamento em 5-15% em dias — não meses."><strong>One AI agent</strong> can boost revenue by 5-15% in days — not months.</div></div>
+        <div class="rev-point"><span class="rev-icon">⏰</span><div class="rev-text" data-en="<strong>The window is closing.</strong> Businesses adopting AI this year will dominate. The rest will struggle to catch up." data-pt="<strong>A janela está fechando.</strong> Empresas que adotarem IA este ano vão dominar. O resto vai ficar pra trás."><strong>The window is closing.</strong> Businesses adopting AI this year will dominate. The rest will struggle to catch up.</div></div>
+        <div class="rev-point"><span class="rev-icon">💰</span><div class="rev-text" data-en="<strong>Near-zero cost.</strong> AI solves problems that used to require 5-8 employees — at a fraction of the price." data-pt="<strong>Custo quase zero.</strong> IA resolve problemas que antes precisavam de 5-8 funcionários — por uma fração do custo."><strong>Near-zero cost.</strong> AI solves problems that used to require 5-8 employees — at a fraction of the price.</div></div>
+        <div class="rev-point"><span class="rev-icon">🏗️</span><div class="rev-text" data-en="<strong>Small businesses</strong> — HVAC, catering, landscaping, contractors — are leaving massive money on the table." data-pt="<strong>Pequenos negócios</strong> — restaurantes, buffets, prestadores de serviço — estão deixando muito dinheiro na mesa."><strong>Small businesses</strong> — HVAC, catering, landscaping, contractors — are leaving massive money on the table.</div></div>
+      </div>
+      <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="🔥 I Want In — Talk to André" data-pt="🔥 Eu Quero — Falar com André">🔥 I Want In — Talk to André</a>
+    </div>
+  </div>
+</section>
+
+<!-- FREE AI AUDIT SECTION -->
+<section class="audit-section" id="audit">
+  <div class="container">
+    <div class="audit-container">
+      <div class="audit-header reveal">
+        <div class="audit-badge" data-en="🎯 100% FREE — No Strings Attached" data-pt="🎯 100% GRÁTIS — Sem Compromisso">🎯 100% FREE — No Strings Attached</div>
+        <div class="section-title" data-en="Get Your Free <span class='highlight'>AI Business Audit</span>" data-pt="Receba Seu <span class='highlight'>Diagnóstico IA</span> Grátis">Get Your Free <span class="highlight">AI Business Audit</span></div>
+        <div class="section-subtitle" style="max-width:700px;margin-left:auto;margin-right:auto" data-en="We analyze your business operations and show you exactly where AI can save time, capture more leads, and increase revenue. Here's what's included:" data-pt="Analisamos suas operações e mostramos exatamente onde a IA pode economizar tempo, capturar mais leads e aumentar seu faturamento. Veja o que está incluído:">We analyze your business operations and show you exactly where AI can save time, capture more leads, and increase revenue. Here's what's included:</div>
+      </div>
+
+      <div class="audit-grid">
+        <div class="audit-card reveal">
+          <h3 data-en="What the Free Audit Includes" data-pt="O Que o Diagnóstico Inclui">What the Free Audit Includes</h3>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="Response Time Analysis" data-pt="Análise de Tempo de Resposta">Response Time Analysis</h4>
+              <p data-en="How fast are you responding to leads? We measure your current response time and show you how much money you're losing per hour of delay." data-pt="Quão rápido você responde seus leads? Medimos seu tempo de resposta atual e mostramos quanto dinheiro você perde por hora de atraso.">How fast are you responding to leads? We measure your current response time and show you how much money you're losing per hour of delay.</p>
+            </div>
+          </div>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="Lead Leakage Scan" data-pt="Varredura de Vazamento de Leads">Lead Leakage Scan</h4>
+              <p data-en="We trace your lead pipeline from first contact to close. Where are leads falling through the cracks? After hours? Weekends? Follow-up gaps?" data-pt="Rastreamos seu pipeline de leads do primeiro contato ao fechamento. Onde os leads estão escapando? Fora do horário? Fins de semana? Falhas no follow-up?">We trace your lead pipeline from first contact to close. Where are leads falling through the cracks? After hours? Weekends? Follow-up gaps?</p>
+            </div>
+          </div>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="Communication Channel Audit" data-pt="Auditoria de Canais de Comunicação">Communication Channel Audit</h4>
+              <p data-en="Email, phone, SMS, social media, website forms — are you covering all channels? Which ones are being neglected?" data-pt="Email, telefone, SMS, redes sociais, formulários do site — você cobre todos os canais? Quais estão sendo negligenciados?">Email, phone, SMS, social media, website forms — are you covering all channels? Which ones are being neglected?</p>
+            </div>
+          </div>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="CRM & Follow-up Assessment" data-pt="Avaliação de CRM & Follow-up">CRM & Follow-up Assessment</h4>
+              <p data-en="Do you have a CRM? Is it being used properly? Are follow-ups happening on time? We identify every gap." data-pt="Você tem um CRM? Está sendo usado direito? Os follow-ups estão acontecendo no prazo? Identificamos cada falha.">Do you have a CRM? Is it being used properly? Are follow-ups happening on time? We identify every gap.</p>
+            </div>
+          </div>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="Automation Opportunity Map" data-pt="Mapa de Oportunidades de Automação">Automation Opportunity Map</h4>
+              <p data-en="A clear report showing exactly which tasks in your business can be automated with AI, ranked by impact and ease of implementation." data-pt="Um relatório claro mostrando exatamente quais tarefas no seu negócio podem ser automatizadas com IA, ranqueadas por impacto e facilidade de implementação.">A clear report showing exactly which tasks in your business can be automated with AI, ranked by impact and ease of implementation.</p>
+            </div>
+          </div>
+
+          <div class="audit-item">
+            <div class="check">✓</div>
+            <div class="audit-item-content">
+              <h4 data-en="Revenue Impact Estimate" data-pt="Estimativa de Impacto no Faturamento">Revenue Impact Estimate</h4>
+              <p data-en="Based on your data, we estimate how much additional revenue AI automation could generate. Typical results: 5-15% revenue increase." data-pt="Com base nos seus dados, estimamos quanta receita adicional a automação com IA pode gerar. Resultados típicos: 5-15% de aumento no faturamento.">Based on your data, we estimate how much additional revenue AI automation could generate. Typical results: 5-15% revenue increase.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="audit-after reveal">
+          <h3 data-en="What Happens After the Audit" data-pt="O Que Acontece Depois do Diagnóstico">What Happens After the Audit</h3>
+
+          <div class="audit-after-item">
+            <span class="arrow-icon">→</span>
+            <p data-en="You get a detailed report with findings and recommendations — yours to keep, no strings attached." data-pt="Você recebe um relatório detalhado com descobertas e recomendações — seu pra ficar, sem compromisso.">You get a detailed report with findings and recommendations — yours to keep, no strings attached.</p>
+          </div>
+
+          <div class="audit-after-item">
+            <span class="arrow-icon">→</span>
+            <p data-en="We walk you through the results on a call (15-30 min)." data-pt="Apresentamos os resultados numa call (15-30 min).">We walk you through the results on a call (15-30 min).</p>
+          </div>
+
+          <div class="audit-after-item">
+            <span class="arrow-icon">→</span>
+            <p data-en="If you want to move forward, we present a custom AI implementation plan with timeline and pricing." data-pt="Se quiser seguir em frente, apresentamos um plano personalizado de implementação de IA com cronograma e preço.">If you want to move forward, we present a custom AI implementation plan with timeline and pricing.</p>
+          </div>
+
+          <div class="audit-after-item">
+            <span class="arrow-icon">→</span>
+            <p data-en="No pressure, no hard sell. The audit speaks for itself." data-pt="Sem pressão, sem forçação. O diagnóstico fala por si.">No pressure, no hard sell. The audit speaks for itself.</p>
+          </div>
+
+          <div class="audit-after-item">
+            <span class="arrow-icon">→</span>
+            <p data-en="Most businesses that see the audit results move forward immediately — because the numbers don't lie." data-pt="A maioria dos negócios que veem os resultados do diagnóstico seguem em frente na hora — porque os números não mentem.">Most businesses that see the audit results move forward immediately — because the numbers don't lie.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="audit-cta reveal">
+        <p data-en="Ready to see what AI can do for your business? It takes 5 minutes." data-pt="Pronto pra ver o que a IA pode fazer pelo seu negócio? Leva 5 minutos.">Ready to see what AI can do for your business? It takes 5 minutes.</p>
+        <a href="#audit-form" class="btn btn-primary btn-lg" data-en="🎯 Start Your Free Audit →" data-pt="🎯 Começar Meu Diagnóstico Grátis →">🎯 Start Your Free Audit →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT FORM WIZARD -->
+<section class="audit-form-section" id="audit-form">
+  <div class="container">
+    <div class="audit-form-wrap reveal">
+      <!-- Progress -->
+      <div class="af-progress">
+        <div class="af-progress-bar"><div class="af-progress-fill" id="afProgressFill" style="width:16.66%"></div></div>
+        <div class="af-progress-label" id="afProgressLabel" data-en="Step 1 of 6 — Business Info" data-pt="Etapa 1 de 6 — Info do Negócio">Step 1 of 6 — Business Info</div>
+      </div>
+
+      <!-- STEP 1: Business Info -->
+      <div class="af-step active" id="afStep1">
+        <h3 data-en="📋 Business Information" data-pt="📋 Informações do Negócio">📋 Business Information</h3>
+        <div class="af-group">
+          <label class="af-label" data-en="Business Name" data-pt="Nome da Empresa">Business Name</label>
+          <input type="text" class="af-input" id="af-biz-name" data-en-ph="Your business name" data-pt-ph="Nome da sua empresa" placeholder="Your business name">
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Your Name" data-pt="Seu Nome">Your Name</label>
+          <input type="text" class="af-input" id="af-name" data-en-ph="Your full name" data-pt-ph="Seu nome completo" placeholder="Your full name">
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Industry / Sector" data-pt="Setor / Indústria">Industry / Sector</label>
+          <select class="af-select" id="af-industry">
+            <option value="" data-en="Select your industry..." data-pt="Selecione seu setor...">Select your industry...</option>
+            <option value="restaurant" data-en="Restaurant / Catering" data-pt="Restaurante / Buffet">Restaurant / Catering</option>
+            <option value="gym" data-en="Gym / Fitness" data-pt="Academia / Fitness">Gym / Fitness</option>
+            <option value="hvac" data-en="HVAC / Home Services" data-pt="HVAC / Serviços Residenciais">HVAC / Home Services</option>
+            <option value="landscaping" data-en="Landscaping" data-pt="Paisagismo / Jardinagem">Landscaping</option>
+            <option value="realestate" data-en="Real Estate" data-pt="Imobiliário">Real Estate</option>
+            <option value="consulting" data-en="Consulting" data-pt="Consultoria">Consulting</option>
+            <option value="retail" data-en="Retail" data-pt="Varejo">Retail</option>
+            <option value="healthcare" data-en="Healthcare" data-pt="Saúde">Healthcare</option>
+            <option value="other" data-en="Other" data-pt="Outro">Other</option>
+          </select>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Number of Locations" data-pt="Número de Unidades">Number of Locations</label>
+          <select class="af-select" id="af-locations">
+            <option value="" data-en="Select..." data-pt="Selecione...">Select...</option>
+            <option value="1">1</option>
+            <option value="2-5">2-5</option>
+            <option value="6-10">6-10</option>
+            <option value="10+">10+</option>
+          </select>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Number of Employees" data-pt="Número de Funcionários">Number of Employees</label>
+          <select class="af-select" id="af-employees">
+            <option value="" data-en="Select..." data-pt="Selecione...">Select...</option>
+            <option value="1-5">1-5</option>
+            <option value="6-15">6-15</option>
+            <option value="16-50">16-50</option>
+            <option value="50+">50+</option>
+          </select>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="WhatsApp Number" data-pt="Número do WhatsApp">WhatsApp Number</label>
+          <input type="tel" class="af-input" id="af-whatsapp" data-en-ph="+1 (555) 123-4567" data-pt-ph="+55 (61) 99999-9999" placeholder="+1 (555) 123-4567">
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Email" data-pt="Email">Email</label>
+          <input type="email" class="af-input" id="af-email" data-en-ph="you@company.com" data-pt-ph="voce@empresa.com" placeholder="you@company.com">
+        </div>
+        <div class="af-btns"><div style="flex:1"></div><button class="af-btn af-btn-next" onclick="afNext()" data-en="Next →" data-pt="Próximo →">Next →</button></div>
+      </div>
+
+      <!-- STEP 2: Lead Generation -->
+      <div class="af-step" id="afStep2">
+        <h3 data-en="📡 Lead Generation" data-pt="📡 Geração de Leads">📡 Lead Generation</h3>
+        <div class="af-group">
+          <label class="af-label" data-en="Where do your leads come from? (select all)" data-pt="De onde vêm seus leads? (selecione todos)">Where do your leads come from? (select all)</label>
+          <div class="af-checks" id="af-lead-sources">
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Website form"><span class="mark">✓</span><span data-en="Website form" data-pt="Formulário do site">Website form</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Phone calls"><span class="mark">✓</span><span data-en="Phone calls" data-pt="Ligações">Phone calls</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="WhatsApp"><span class="mark">✓</span><span>WhatsApp</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Instagram/Social DM"><span class="mark">✓</span><span data-en="Instagram/Social DM" data-pt="Instagram/Redes Sociais">Instagram/Social DM</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Google Ads"><span class="mark">✓</span><span>Google Ads</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Referrals"><span class="mark">✓</span><span data-en="Referrals" data-pt="Indicações">Referrals</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Walk-ins"><span class="mark">✓</span><span data-en="Walk-ins" data-pt="Presencial">Walk-ins</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Email"><span class="mark">✓</span><span>Email</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Other"><span class="mark">✓</span><span data-en="Other" data-pt="Outro">Other</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Monthly Lead Volume" data-pt="Volume Mensal de Leads">Monthly Lead Volume</label>
+          <select class="af-select" id="af-lead-volume">
+            <option value="" data-en="Select..." data-pt="Selecione...">Select...</option>
+            <option value="<20">&lt;20</option>
+            <option value="20-50">20-50</option>
+            <option value="50-100">50-100</option>
+            <option value="100-200">100-200</option>
+            <option value="200+">200+</option>
+            <option value="Don't know" data-en="Don't know" data-pt="Não sei">Don't know</option>
+          </select>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Monthly Ad Spend" data-pt="Gasto Mensal com Anúncios">Monthly Ad Spend</label>
+          <select class="af-select" id="af-ad-spend">
+            <option value="" data-en="Select..." data-pt="Selecione...">Select...</option>
+            <option value="None" data-en="None" data-pt="Nenhum">None</option>
+            <option value="<R$1K/<$500" data-en="< $500 / < R$1K" data-pt="< R$1K / < $500">&lt; $500 / &lt; R$1K</option>
+            <option value="R$1-5K/$500-2K" data-en="$500 - $2K / R$1-5K" data-pt="R$1-5K / $500-2K">$500 - $2K / R$1-5K</option>
+            <option value="R$5-15K/$2-5K" data-en="$2K - $5K / R$5-15K" data-pt="R$5-15K / $2-5K">$2K - $5K / R$5-15K</option>
+            <option value="R$15K+/$5K+" data-en="$5K+ / R$15K+" data-pt="R$15K+ / $5K+">$5K+ / R$15K+</option>
+          </select>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Current CRM or Tracking Tool" data-pt="CRM ou Ferramenta de Controle Atual">Current CRM or Tracking Tool</label>
+          <input type="text" class="af-input" id="af-crm" data-en-ph="e.g., HubSpot, Excel, none" data-pt-ph="Ex: HubSpot, Excel, nenhum" placeholder="e.g., HubSpot, Excel, none">
+        </div>
+        <div class="af-btns"><button class="af-btn af-btn-back" onclick="afBack()" data-en="← Back" data-pt="← Voltar">← Back</button><button class="af-btn af-btn-next" onclick="afNext()" data-en="Next →" data-pt="Próximo →">Next →</button></div>
+      </div>
+
+      <!-- STEP 3: Response & Follow-Up -->
+      <div class="af-step" id="afStep3">
+        <h3 data-en="⏱️ Response & Follow-Up" data-pt="⏱️ Resposta & Follow-Up">⏱️ Response & Follow-Up</h3>
+        <div class="af-group">
+          <label class="af-label" data-en="Average response time to a new lead" data-pt="Tempo médio de resposta a um novo lead">Average response time to a new lead</label>
+          <div class="af-radios" id="af-response-time">
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="<5 min"><span class="mark"></span><span>&lt;5 min</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="5-30 min"><span class="mark"></span><span>5-30 min</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="30min-1hr"><span class="mark"></span><span>30min - 1hr</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="1-4hrs"><span class="mark"></span><span>1-4hrs</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="4-24hrs"><span class="mark"></span><span>4-24hrs</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="24hrs+"><span class="mark"></span><span>24hrs+</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="response-time" value="Don't know"><span class="mark"></span><span data-en="Don't know" data-pt="Não sei">Don't know</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="After-hours coverage?" data-pt="Atendimento fora do horário?">After-hours coverage?</label>
+          <div class="af-radios" id="af-afterhours">
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="afterhours" value="Yes"><span class="mark"></span><span data-en="Yes" data-pt="Sim">Yes</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="afterhours" value="No"><span class="mark"></span><span data-en="No" data-pt="Não">No</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="afterhours" value="Sometimes"><span class="mark"></span><span data-en="Sometimes" data-pt="Às vezes">Sometimes</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Weekend coverage?" data-pt="Atendimento nos fins de semana?">Weekend coverage?</label>
+          <div class="af-radios" id="af-weekends">
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="weekends" value="Yes"><span class="mark"></span><span data-en="Yes" data-pt="Sim">Yes</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="weekends" value="No"><span class="mark"></span><span data-en="No" data-pt="Não">No</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="weekends" value="Sometimes"><span class="mark"></span><span data-en="Sometimes" data-pt="Às vezes">Sometimes</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="How many follow-up attempts per lead?" data-pt="Quantas tentativas de follow-up por lead?">How many follow-up attempts per lead?</label>
+          <div class="af-radios" id="af-followups">
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="followups" value="1"><span class="mark"></span><span>1</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="followups" value="2-3"><span class="mark"></span><span>2-3</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="followups" value="4-5"><span class="mark"></span><span>4-5</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="followups" value="5+"><span class="mark"></span><span>5+</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="followups" value="No formal process"><span class="mark"></span><span data-en="No formal process" data-pt="Sem processo definido">No formal process</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Follow-up channels (select all)" data-pt="Canais de follow-up (selecione todos)">Follow-up channels (select all)</label>
+          <div class="af-checks" id="af-followup-channels">
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Phone"><span class="mark">✓</span><span data-en="Phone" data-pt="Telefone">Phone</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="WhatsApp"><span class="mark">✓</span><span>WhatsApp</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="Email"><span class="mark">✓</span><span>Email</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="SMS"><span class="mark">✓</span><span>SMS</span></label>
+            <label class="af-check" onclick="afToggleCheck(this)"><input type="checkbox" value="None"><span class="mark">✓</span><span data-en="None" data-pt="Nenhum">None</span></label>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Automated follow-up sequences?" data-pt="Sequências de follow-up automatizadas?">Automated follow-up sequences?</label>
+          <div class="af-radios" id="af-automated">
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="automated" value="Yes"><span class="mark"></span><span data-en="Yes" data-pt="Sim">Yes</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="automated" value="No"><span class="mark"></span><span data-en="No" data-pt="Não">No</span></label>
+            <label class="af-radio" onclick="afToggleRadio(this)"><input type="radio" name="automated" value="Don't know what that is"><span class="mark"></span><span data-en="Don't know what that is" data-pt="Não sei o que é isso">Don't know what that is</span></label>
+          </div>
+        </div>
+        <div class="af-btns"><button class="af-btn af-btn-back" onclick="afBack()" data-en="← Back" data-pt="← Voltar">← Back</button><button class="af-btn af-btn-next" onclick="afNext()" data-en="Next →" data-pt="Próximo →">Next →</button></div>
+      </div>
+
+      <!-- STEP 4: Revenue & Conversion -->
+      <div class="af-step" id="afStep4">
+        <h3 data-en="💰 Revenue & Conversion" data-pt="💰 Receita & Conversão">💰 Revenue & Conversion</h3>
+        <div class="af-group">
+          <label class="af-label" data-en="Average Customer Value" data-pt="Valor Médio do Cliente">Average Customer Value</label>
+          <input type="text" class="af-input" id="af-customer-value" data-en-ph="e.g., R$200/month or $5,000 one-time" data-pt-ph="Ex: R$200/mês ou $5.000 único" placeholder="e.g., R$200/month or $5,000 one-time">
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="Lead → Customer Conversion Rate" data-pt="Taxa de Conversão Lead → Cliente">Lead → Customer Conversion Rate</label>
+          <div class="af-range-wrap">
+            <input type="range" class="af-range" id="af-conversion" min="0" max="100" value="20" oninput="document.getElementById('af-conv-val').textContent=this.value+'%'">
+            <div class="af-range-val" id="af-conv-val">20%</div>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="#1 Reason Leads DON'T Convert" data-pt="Razão #1 pela qual leads NÃO convertem">#1 Reason Leads DON'T Convert</label>
+          <textarea class="af-textarea" id="af-no-convert" data-en-ph="What's the main reason leads don't become customers?" data-pt-ph="Qual é o principal motivo pelo qual leads não viram clientes?" placeholder="What's the main reason leads don't become customers?"></textarea>
+        </div>
+        <div class="af-btns"><button class="af-btn af-btn-back" onclick="afBack()" data-en="← Back" data-pt="← Voltar">← Back</button><button class="af-btn af-btn-next" onclick="afNext()" data-en="Next →" data-pt="Próximo →">Next →</button></div>
+      </div>
+
+      <!-- STEP 5: Pain Points -->
+      <div class="af-step" id="afStep5">
+        <h3 data-en="🔥 Pain Points" data-pt="🔥 Pontos de Dor">🔥 Pain Points</h3>
+        <div class="af-group">
+          <label class="af-label" data-en="Rate how much each issue affects you (1-5 stars)" data-pt="Avalie o quanto cada problema te afeta (1-5 estrelas)">Rate how much each issue affects you (1-5 stars)</label>
+          <div class="af-stars-group" id="af-pain-stars">
+            <div class="af-stars-row" data-key="slow_response"><span class="af-star-label" data-en="Slow lead response" data-pt="Resposta lenta a leads">Slow lead response</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+            <div class="af-stars-row" data-key="missed_leads"><span class="af-star-label" data-en="Missed leads / no follow-up" data-pt="Leads perdidos / sem follow-up">Missed leads / no follow-up</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+            <div class="af-stars-row" data-key="inconsistent_cx"><span class="af-star-label" data-en="Inconsistent customer experience" data-pt="Experiência inconsistente do cliente">Inconsistent customer experience</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+            <div class="af-stars-row" data-key="manual_tasks"><span class="af-star-label" data-en="Manual / repetitive tasks" data-pt="Tarefas manuais / repetitivas">Manual / repetitive tasks</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+            <div class="af-stars-row" data-key="no_visibility"><span class="af-star-label" data-en="No visibility into sales pipeline" data-pt="Sem visibilidade do pipeline de vendas">No visibility into sales pipeline</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+            <div class="af-stars-row" data-key="staff_overwhelmed"><span class="af-star-label" data-en="Staff overwhelmed" data-pt="Equipe sobrecarregada">Staff overwhelmed</span><div class="af-stars" data-rating="0"><span class="af-star" onclick="afSetStar(this,1)">★</span><span class="af-star" onclick="afSetStar(this,2)">★</span><span class="af-star" onclick="afSetStar(this,3)">★</span><span class="af-star" onclick="afSetStar(this,4)">★</span><span class="af-star" onclick="afSetStar(this,5)">★</span></div></div>
+          </div>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="If AI could fix ONE thing tomorrow, what would it be?" data-pt="Se a IA pudesse resolver UMA coisa amanhã, o que seria?">If AI could fix ONE thing tomorrow, what would it be?</label>
+          <textarea class="af-textarea" id="af-one-fix" data-en-ph="Describe your #1 wish..." data-pt-ph="Descreva seu desejo #1..." placeholder="Describe your #1 wish..."></textarea>
+        </div>
+        <div class="af-group">
+          <label class="af-label" data-en="What keeps you up at night about your business?" data-pt="O que tira seu sono sobre o negócio?">What keeps you up at night about your business?</label>
+          <textarea class="af-textarea" id="af-keeps-up" data-en-ph="What worries you most?" data-pt-ph="O que mais te preocupa?" placeholder="What worries you most?"></textarea>
+        </div>
+        <div class="af-btns"><button class="af-btn af-btn-back" onclick="afBack()" data-en="← Back" data-pt="← Voltar">← Back</button><button class="af-btn af-btn-next" onclick="afNext()" data-en="Next →" data-pt="Próximo →">Next →</button></div>
+      </div>
+
+      <!-- STEP 6: Summary & Submit -->
+      <div class="af-step" id="afStep6">
+        <h3 data-en="✅ Review & Submit" data-pt="✅ Revisar & Enviar">✅ Review & Submit</h3>
+        <div class="af-summary" id="afSummary"></div>
+        <div class="af-disclaimer" data-en="By submitting, you'll receive your free AI audit analysis within 48 hours." data-pt="Ao enviar, você receberá sua análise gratuita de IA em até 48 horas.">By submitting, you'll receive your free AI audit analysis within 48 hours.</div>
+        <div class="af-btns"><button class="af-btn af-btn-back" onclick="afBack()" data-en="← Back" data-pt="← Voltar">← Back</button><button class="af-btn af-btn-submit" onclick="afSubmit()" data-en="🚀 Submit My Audit" data-pt="🚀 Enviar Meu Diagnóstico">🚀 Submit My Audit</button></div>
+      </div>
+
+      <!-- Thank You -->
+      <div class="af-thankyou" id="afThankyou">
+        <div class="af-checkmark">✅</div>
+        <h3 data-en="Audit Submitted!" data-pt="Diagnóstico Enviado!">Audit Submitted!</h3>
+        <p id="afThankyouMsg" data-en="Your audit has been sent to André automatically! He'll review it and get back to you within 48 hours." data-pt="Seu diagnóstico foi enviado para André automaticamente! Ele vai analisar e retornar em até 48 horas.">Your audit has been sent to André automatically! He'll review it and get back to you within 48 hours.</p>
+        <div id="afSendStatus" style="margin:16px 0;padding:12px 20px;border-radius:10px;font-size:0.9rem;"></div>
+        <div class="af-send-btns">
+          <a id="afWaBtn" href="#" target="_blank" class="af-send-btn af-send-wa" data-en="💬 Also Message on WhatsApp" data-pt="💬 Também Mandar no WhatsApp">💬 Also Message on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label reveal" data-en="🤖 What I Build For You" data-pt="🤖 O Que Eu Construo Pra Você">🤖 What I Build For You</div>
+    <div class="section-title reveal" data-en="AI Agents That Actually <span class='highlight'>Run Your Business</span>" data-pt="Agentes IA Que Realmente <span class='highlight'>Tocam Seu Negócio</span>">AI Agents That Actually <span class="highlight">Run Your Business</span></div>
+    <div class="section-subtitle reveal" data-en="Not chatbots. Not simple automations. Full AI employees that work harder than anyone on your payroll." data-pt="Não são chatbots. Não são automações simples. Funcionários IA que trabalham mais que qualquer um na sua folha.">Not chatbots. Not simple automations. Full AI employees that work harder than anyone on your payroll.</div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <h3 data-en="Instant Lead Response" data-pt="Resposta Instantânea a Leads">Instant Lead Response</h3>
+        <p data-en="Your AI answers calls, texts, and emails instantly — even at 3 AM. No lead ever waits. No lead ever gets lost." data-pt="Sua IA responde ligações, mensagens e e-mails na hora — mesmo às 3 da manhã. Nenhum lead espera. Nenhum lead se perde.">Your AI answers calls, texts, and emails instantly — even at 3 AM. No lead ever waits. No lead ever gets lost.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧠</div>
+        <h3 data-en="Smart Follow-ups (NEPQ)" data-pt="Follow-ups Inteligentes (NEPQ)">Smart Follow-ups (NEPQ)</h3>
+        <p data-en="Automated follow-ups using proven sales psychology. Your AI knows when to push, when to nurture, and when to close." data-pt="Follow-ups automatizados usando psicologia de vendas comprovada. Sua IA sabe quando pressionar, nutrir e fechar.">Automated follow-ups using proven sales psychology. Your AI knows when to push, when to nurture, and when to close.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3 data-en="CRM on Autopilot" data-pt="CRM no Piloto Automático">CRM on Autopilot</h3>
+        <p data-en="Every lead tracked, scored (hot/warm/cold), and managed. Your pipeline stays clean, organized, and always moving forward." data-pt="Todo lead rastreado, classificado (quente/morno/frio) e gerenciado. Seu pipeline sempre limpo, organizado e avançando.">Every lead tracked, scored (hot/warm/cold), and managed. Your pipeline stays clean, organized, and always moving forward.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📡</div>
+        <h3 data-en="All Channels Monitored" data-pt="Todos os Canais Monitorados">All Channels Monitored</h3>
+        <p data-en="Slack, email, SMS, WhatsApp — your AI watches everything in real-time and acts on it immediately." data-pt="Slack, email, SMS, WhatsApp — sua IA monitora tudo em tempo real e age imediatamente.">Slack, email, SMS, WhatsApp — your AI watches everything in real-time and acts on it immediately.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📋</div>
+        <h3 data-en="Quotes & Appointments" data-pt="Orçamentos & Agendamentos">Quotes & Appointments</h3>
+        <p data-en="Your AI generates quotes, books appointments, and sends confirmations — without you lifting a finger." data-pt="Sua IA gera orçamentos, agenda reuniões e envia confirmações — sem você mover um dedo.">Your AI generates quotes, books appointments, and sends confirmations — without you lifting a finger.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔄</div>
+        <h3 data-en="24/7/365 Operation" data-pt="Operação 24/7/365">24/7/365 Operation</h3>
+        <p data-en="No sick days. No vacations. No excuses. Your AI employee works every single day of the year, non-stop." data-pt="Sem folga. Sem férias. Sem desculpa. Seu funcionário IA trabalha todo santo dia do ano, sem parar.">No sick days. No vacations. No excuses. Your AI employee works every single day of the year, non-stop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label reveal" data-en="📋 How It Works" data-pt="📋 Como Funciona">📋 How It Works</div>
+    <div class="section-title reveal" data-en="From Zero to AI-Powered<br>in <span class='highlight'>4 Simple Steps</span>" data-pt="Do Zero ao Poder da IA<br>em <span class='highlight'>4 Passos Simples</span>">From Zero to AI-Powered<br>in <span class="highlight">4 Simple Steps</span></div>
+    <div class="section-subtitle reveal" data-en="No tech skills needed. I handle everything." data-pt="Não precisa saber nada de tecnologia. Eu cuido de tudo.">No tech skills needed. I handle everything.</div>
+    <div class="steps-grid steps">
+      <div class="step reveal">
+        <h3 data-en="Free AI Audit" data-pt="Diagnóstico IA Grátis">Free AI Audit</h3>
+        <p data-en="Tell me your biggest pain point. I'll show you exactly how AI can fix it — for free, no strings attached." data-pt="Me conta seu maior problema. Eu mostro exatamente como a IA resolve — de graça, sem compromisso.">Tell me your biggest pain point. I'll show you exactly how AI can fix it — for free, no strings attached.</p>
+      </div>
+      <div class="step reveal">
+        <h3 data-en="Custom Strategy" data-pt="Estratégia Personalizada">Custom Strategy</h3>
+        <p data-en="I design an AI system tailored to YOUR business. Not cookie-cutter — built specifically for how you operate." data-pt="Eu desenho um sistema IA sob medida pro SEU negócio. Não é receita de bolo — é feito especificamente pra como você opera.">I design an AI system tailored to YOUR business. Not cookie-cutter — built specifically for how you operate.</p>
+      </div>
+      <div class="step reveal">
+        <h3 data-en="Build & Deploy" data-pt="Construção & Deploy">Build & Deploy</h3>
+        <p data-en="I build your AI agents, integrate with your tools (CRM, email, phone), and launch everything — usually within days." data-pt="Eu construo seus agentes IA, integro com suas ferramentas (CRM, email, telefone), e lanço tudo — geralmente em dias.">I build your AI agents, integrate with your tools (CRM, email, phone), and launch everything — usually within days.</p>
+      </div>
+      <div class="step reveal">
+        <h3 data-en="Optimize & Scale" data-pt="Otimizar & Escalar">Optimize & Scale</h3>
+        <p data-en="I monitor performance, optimize your AI agents, and scale what's working. Your business grows on autopilot." data-pt="Eu monitoro performance, otimizo seus agentes IA e escalo o que funciona. Seu negócio cresce no piloto automático.">I monitor performance, optimize your AI agents, and scale what's working. Your business grows on autopilot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal" data-en="💼 Services" data-pt="💼 Serviços">💼 Services</div>
+    <div class="section-title reveal" data-en="Choose Your <span class='highlight'>AI Power Level</span>" data-pt="Escolha Seu <span class='highlight'>Nível de Poder IA</span>">Choose Your <span class="highlight">AI Power Level</span></div>
+    <div class="section-subtitle reveal" data-en="Every business is different. Pick what fits — or let's talk and I'll tell you what you need." data-pt="Cada negócio é diferente. Escolha o que faz sentido — ou vamos conversar e eu te digo o que você precisa.">Every business is different. Pick what fits — or let's talk and I'll tell you what you need.</div>
+    <div class="services-grid">
+      <div class="service-card featured reveal">
+        <div class="service-icon">🤖</div>
+        <h3 data-en="AI Employee Setup" data-pt="Setup de Funcionário IA">AI Employee Setup</h3>
+        <div class="service-price" data-en="Starting at $2,997" data-pt="A partir de R$14.997">Starting at $2,997</div>
+        <p data-en="One-time setup of your AI agent: lead response, CRM management, follow-ups, appointments — everything automated and running 24/7." data-pt="Setup completo do seu agente IA: resposta a leads, gestão de CRM, follow-ups, agendamentos — tudo automatizado e rodando 24/7.">One-time setup of your AI agent: lead response, CRM management, follow-ups, appointments — everything automated and running 24/7.</p>
+        <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20set%20up%20an%20AI%20employee%20for%20my%20business" target="_blank" class="btn btn-primary btn-sm" data-en="Get a Quote →" data-pt="Pedir Orçamento →">Get a Quote →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📈</div>
+        <h3 data-en="Monthly AI Management" data-pt="Gestão IA Mensal">Monthly AI Management</h3>
+        <div class="service-price" data-en="Custom Pricing" data-pt="Preço Personalizado">Custom Pricing</div>
+        <p data-en="Ongoing optimization, monitoring, and support. I keep your AI agents sharp, updated, and performing at peak level." data-pt="Otimização contínua, monitoramento e suporte. Eu mantenho seus agentes IA afiados, atualizados e performando no máximo.">Ongoing optimization, monitoring, and support. I keep your AI agents sharp, updated, and performing at peak level.</p>
+        <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20monthly%20AI%20management" target="_blank" class="btn btn-secondary btn-sm" data-en="Learn More →" data-pt="Saiba Mais →">Learn More →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏭</div>
+        <h3 data-en="Custom AI Solutions" data-pt="Soluções IA Personalizadas">Custom AI Solutions</h3>
+        <div class="service-price" data-en="Let's Talk" data-pt="Vamos Conversar">Let's Talk</div>
+        <p data-en="Full business automation from A to Z. Custom AI architecture designed for your specific industry, workflow, and goals." data-pt="Automação total do negócio de A a Z. Arquitetura IA personalizada pro seu setor, fluxo de trabalho e objetivos.">Full business automation from A to Z. Custom AI architecture designed for your specific industry, workflow, and goals.</p>
+        <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20need%20a%20custom%20AI%20solution" target="_blank" class="btn btn-secondary btn-sm" data-en="Let's Talk →" data-pt="Vamos Conversar →">Let's Talk →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof" id="proof">
+  <div class="container">
+    <div class="section-label reveal" data-en="🏆 Built & Proven" data-pt="🏆 Construído & Comprovado">🏆 Built & Proven</div>
+    <div class="proof-content">
+      <div class="reveal">
+        <div class="proof-text">
+          <h3 data-en="I Didn't Just Study AI.<br>I <span class='highlight'>Built It For Real Businesses.</span>" data-pt="Eu Não Só Estudei IA.<br>Eu <span class='highlight'>Construí Pra Negócios Reais.</span>">I Didn't Just Study AI.<br>I <span class="highlight">Built It For Real Businesses.</span></h3>
+          <p data-en="I work side by side with Rodrigo, owner of Comeketo Catering — an award-winning catering company with 15+ years and 500+ events. I also own Raw English, a language education platform. When I saw what AI could do, I built it for our businesses first." data-pt="Eu trabalho lado a lado com Rodrigo, dono da Comeketo Catering — empresa de buffet premiada com 15+ anos e 500+ eventos. Também sou dono da Raw English, uma plataforma de ensino de idiomas. Quando vi o que a IA podia fazer, construí pros nossos negócios primeiro.">I work side by side with Rodrigo, owner of Comeketo Catering — an award-winning catering company with 15+ years and 500+ events. I also own Raw English, a language education platform. When I saw what AI could do, I built it for our businesses first.</p>
+          <p data-en="My AI agent (Rawbot) monitors my CRM in real-time, sends personalized follow-ups, scores every lead, and manages 200+ active contacts. The results?" data-pt="Meu agente IA (Rawbot) monitora meu CRM em tempo real, envia follow-ups personalizados, classifica cada lead e gerencia 200+ contatos ativos. Os resultados?">My AI agent (Rawbot) monitors my CRM in real-time, sends personalized follow-ups, scores every lead, and manages 200+ active contacts. The results?</p>
+          <ul class="proof-list">
+            <li data-en="Instant response to every single lead" data-pt="Resposta instantânea a cada lead">Instant response to every single lead</li>
+            <li data-en="Automated lead scoring — hot, warm, cold" data-pt="Classificação automática de leads — quente, morno, frio">Automated lead scoring — hot, warm, cold</li>
+            <li data-en="Zero missed opportunities" data-pt="Zero oportunidades perdidas">Zero missed opportunities</li>
+            <li data-en="Running 24/7 while I sleep" data-pt="Funcionando 24/7 enquanto eu durmo">Running 24/7 while I sleep</li>
+          </ul>
+          <p style="color:var(--accent);font-weight:700;margin-top:24px" data-en="I'm not a tech bro selling theory. I'm a business owner and entrepreneur who built this for real businesses — and now I build it for you." data-pt="Eu não sou um cara de tech vendendo teoria. Sou empresário e empreendedor que construiu isso pra negócios reais — e agora construo pra você.">I'm not a tech bro selling theory. I'm a business owner and entrepreneur who built this for real businesses — and now I build it for you.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="proof-stats">
+          <div class="proof-stat"><div class="num">15+</div><div class="label" data-en="Years in Business" data-pt="Anos de Negócio">Years in Business</div></div>
+          <div class="proof-stat"><div class="num">500+</div><div class="label" data-en="Events Delivered" data-pt="Eventos Realizados">Events Delivered</div></div>
+          <div class="proof-stat"><div class="num">200+</div><div class="label" data-en="AI-Managed Leads" data-pt="Leads Gerenciados por IA">AI-Managed Leads</div></div>
+          <div class="proof-stat"><div class="num">0</div><div class="label" data-en="Missed Opportunities" data-pt="Oportunidades Perdidas">Missed Opportunities</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-text" data-en="Every hour your business doesn't have an AI agent working for you, you're leaving money on the table. The window to adopt is NOW — not 6 months from now. This year separates the businesses that thrive from the ones that get left behind." data-pt="Cada hora que seu negócio não tem um agente IA trabalhando pra você, você tá deixando dinheiro na mesa. A janela pra adotar é AGORA — não daqui 6 meses. Este ano separa os negócios que prosperam dos que ficam pra trás.">Every hour your business doesn't have an AI agent working for you, you're leaving money on the table. The window to adopt is NOW — not 6 months from now. This year separates the businesses that thrive from the ones that get left behind.</div>
+      <div class="testimonial-author">André Raw</div>
+      <div class="testimonial-role" data-en="Raw AI Business Solutions | Entrepreneur" data-pt="Raw AI Business Solutions | Empresário">Raw AI Business Solutions | Entrepreneur</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label reveal" data-en="❓ FAQ" data-pt="❓ Perguntas Frequentes">❓ FAQ</div>
+    <div class="section-title reveal" data-en="Got Questions? <span class='highlight'>I've Got Answers.</span>" data-pt="Tem Dúvidas? <span class='highlight'>Tenho Respostas.</span>">Got Questions? <span class="highlight">I've Got Answers.</span></div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Do I need technical skills to use AI agents?" data-pt="Preciso saber de tecnologia pra usar agentes IA?">Do I need technical skills to use AI agents?</span><span class="arrow">+</span></button>
+        <div class="faq-a" data-en="Absolutely not. I handle everything — the setup, integration, training, and deployment. You just tell me your problems, and I build the solution. Zero tech skills required." data-pt="De jeito nenhum. Eu cuido de tudo — setup, integração, treinamento e deploy. Você só me conta seus problemas e eu construo a solução. Zero conhecimento técnico necessário.">Absolutely not. I handle everything — the setup, integration, training, and deployment. You just tell me your problems, and I build the solution. Zero tech skills required.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="How fast can I see results?" data-pt="Quão rápido vejo resultados?">How fast can I see results?</span><span class="arrow">+</span></button>
+        <div class="faq-a" data-en="Most clients see their AI agent responding to leads within days of setup. Revenue impact — typically 5-15% increase — starts showing within the first weeks as your response time drops to near-zero and no leads slip through the cracks." data-pt="A maioria dos clientes vê seu agente IA respondendo leads em dias após o setup. Impacto no faturamento — geralmente 5-15% de aumento — começa a aparecer nas primeiras semanas quando seu tempo de resposta cai pra quase zero e nenhum lead escapa.">Most clients see their AI agent responding to leads within days of setup. Revenue impact — typically 5-15% increase — starts showing within the first weeks as your response time drops to near-zero and no leads slip through the cracks.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="What types of businesses do you work with?" data-pt="Com que tipos de negócio você trabalha?">What types of businesses do you work with?</span><span class="arrow">+</span></button>
+        <div class="faq-a" data-en="Any service-based business that gets leads and needs follow-up: catering, HVAC, landscaping, contractors, real estate, consulting, agencies — you name it. If you have a sales pipeline, I can automate it." data-pt="Qualquer negócio de serviço que recebe leads e precisa de follow-up: buffet, restaurantes, prestadores de serviço, imobiliárias, consultorias, agências — o que for. Se você tem um pipeline de vendas, eu posso automatizar.">Any service-based business that gets leads and needs follow-up: catering, HVAC, landscaping, contractors, real estate, consulting, agencies — you name it. If you have a sales pipeline, I can automate it.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Is this just a chatbot?" data-pt="Isso é só um chatbot?">Is this just a chatbot?</span><span class="arrow">+</span></button>
+        <div class="faq-a" data-en="Not even close. Chatbots follow scripts. My AI agents think, adapt, and act. They monitor your CRM, score leads, send personalized messages based on context, book appointments, and make decisions — like a real employee, but one that works 24/7." data-pt="Nem de longe. Chatbots seguem scripts. Meus agentes IA pensam, adaptam e agem. Eles monitoram seu CRM, classificam leads, enviam mensagens personalizadas, agendam reuniões e tomam decisões — como um funcionário real, só que trabalha 24/7.">Not even close. Chatbots follow scripts. My AI agents think, adapt, and act. They monitor your CRM, score leads, send personalized messages based on context, book appointments, and make decisions — like a real employee, but one that works 24/7.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-en="Do you serve US and Brazilian businesses?" data-pt="Você atende empresas nos EUA e no Brasil?">Do you serve US and Brazilian businesses?</span><span class="arrow">+</span></button>
+        <div class="faq-a" data-en="Yes! I'm fluent in English and Portuguese and have lived 16+ years in the US (Massachusetts and Florida). I serve both markets and understand the culture, language, and business dynamics of each." data-pt="Sim! Sou fluente em inglês e português e morei 16+ anos nos EUA (Massachusetts e Flórida). Atendo os dois mercados e entendo a cultura, idioma e dinâmica de negócios de cada um.">Yes! I'm fluent in English and Portuguese and have lived 16+ years in the US (Massachusetts and Florida). I serve both markets and understand the culture, language, and business dynamics of each.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-title" data-en="Stop Losing Leads.<br>Start <span class='highlight'>Making Money While You Sleep.</span>" data-pt="Pare de Perder Leads.<br>Comece a <span class='highlight'>Ganhar Dinheiro Enquanto Dorme.</span>">Stop Losing Leads.<br>Start <span class="highlight">Making Money While You Sleep.</span></div>
+      <p data-en="Book your free AI audit today. I'll show you exactly what's possible — no fluff, no BS, just results." data-pt="Agende seu diagnóstico IA grátis hoje. Eu te mostro exatamente o que é possível — sem enrolação, sem papo furado, só resultados.">Book your free AI audit today. I'll show you exactly what's possible — no fluff, no BS, just results.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="💬 Talk to André on WhatsApp" data-pt="💬 Fale com André no WhatsApp">💬 Talk to André on WhatsApp</a>
+        <a href="mailto:rawandre@gmail.com" class="btn btn-secondary" data-en="📧 Send an Email" data-pt="📧 Enviar um Email">📧 Send an Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p data-en="© 2025 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎" data-pt="© 2025 Raw AI Business Solutions. Baseado em Brasília, atendendo o mundo. 🌎">© 2025 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎</p>
+    <p style="margin-top:8px"><a href="mailto:rawandre@gmail.com">rawandre@gmail.com</a> · <a href="https://wa.me/5561998229223" target="_blank">WhatsApp</a></p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Language Toggle
+let currentLang = 'en';
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'pt' : 'en';
+  document.getElementById('langLabel').textContent = currentLang === 'en' ? 'PT-BR' : 'EN';
+  document.documentElement.lang = currentLang === 'en' ? 'en' : 'pt-BR';
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-pt');
+    if (text) el.innerHTML = text;
+  });
+  // Update placeholders
+  document.querySelectorAll('[data-en-ph]').forEach(el => {
+    el.placeholder = el.getAttribute(currentLang === 'en' ? 'data-en-ph' : 'data-pt-ph') || '';
+  });
+  // Update select options
+  document.querySelectorAll('select option[data-en]').forEach(opt => {
+    opt.textContent = opt.getAttribute(currentLang === 'en' ? 'data-en' : 'data-pt') || opt.textContent;
+  });
+  // Update WhatsApp links (not audit form ones)
+  const waText = currentLang === 'en'
+    ? 'Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business'
+    : 'Oi%20Andr%C3%A9!%20Quero%20saber%20sobre%20IA%20pro%20meu%20neg%C3%B3cio';
+  document.querySelectorAll('a[href*="wa.me"]:not(#afWaBtn)').forEach(a => {
+    a.href = a.href.replace(/text=.*$/, 'text=' + waText);
+  });
+  // Update form progress label
+  afUpdateProgress();
+}
+
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ====== AUDIT FORM WIZARD ======
+let afCurrentStep = 1;
+const afTotalSteps = 6;
+const afStepLabels = {
+  en: ['Business Info','Lead Generation','Response & Follow-Up','Revenue & Conversion','Pain Points','Review & Submit'],
+  pt: ['Info do Negócio','Geração de Leads','Resposta & Follow-Up','Receita & Conversão','Pontos de Dor','Revisar & Enviar']
+};
+
+function afUpdateProgress() {
+  const pct = (afCurrentStep / afTotalSteps) * 100;
+  document.getElementById('afProgressFill').style.width = pct + '%';
+  const lang = currentLang === 'en' ? 'en' : 'pt';
+  const stepWord = lang === 'en' ? 'Step' : 'Etapa';
+  const ofWord = lang === 'en' ? 'of' : 'de';
+  document.getElementById('afProgressLabel').textContent = stepWord + ' ' + afCurrentStep + ' ' + ofWord + ' ' + afTotalSteps + ' — ' + afStepLabels[lang][afCurrentStep - 1];
+}
+
+function afShowStep(n) {
+  document.querySelectorAll('.af-step').forEach(s => s.classList.remove('active'));
+  const step = document.getElementById('afStep' + n);
+  if (step) step.classList.add('active');
+  afCurrentStep = n;
+  afUpdateProgress();
+}
+
+function afNext() {
+  if (afCurrentStep === 5) afBuildSummary();
+  if (afCurrentStep < afTotalSteps) {
+    afShowStep(afCurrentStep + 1);
+    document.querySelector('.audit-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+function afBack() {
+  if (afCurrentStep > 1) {
+    afShowStep(afCurrentStep - 1);
+    document.querySelector('.audit-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Checkbox toggle
+function afToggleCheck(label) {
+  setTimeout(() => {
+    const inp = label.querySelector('input');
+    if (inp) label.classList.toggle('checked', inp.checked);
+  }, 10);
+}
+// Fallback: ensure all checkbox labels sync on any click
+document.addEventListener('click', function(e) {
+  const label = e.target.closest('.af-check');
+  if (label) {
+    setTimeout(() => {
+      const inp = label.querySelector('input');
+      if (inp) label.classList.toggle('checked', inp.checked);
+    }, 20);
+  }
+});
+
+// Radio toggle
+function afToggleRadio(label) {
+  const name = label.querySelector('input').name;
+  label.closest('.af-radios').querySelectorAll('.af-radio').forEach(r => r.classList.remove('checked'));
+  label.classList.add('checked');
+  label.querySelector('input').checked = true;
+}
+
+// Star rating
+function afSetStar(starEl, val) {
+  const row = starEl.closest('.af-stars');
+  row.dataset.rating = val;
+  row.querySelectorAll('.af-star').forEach((s, i) => {
+    s.classList.toggle('active', i < val);
+  });
+}
+
+// Get checked values from a checkbox group
+function afGetChecked(containerId) {
+  return Array.from(document.querySelectorAll('#' + containerId + ' input:checked')).map(i => i.value);
+}
+
+// Get radio value
+function afGetRadio(name) {
+  const el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : '';
+}
+
+// Collect all form data
+function afCollectData() {
+  return {
+    bizName: document.getElementById('af-biz-name').value,
+    name: document.getElementById('af-name').value,
+    industry: document.getElementById('af-industry').value ? document.getElementById('af-industry').selectedOptions[0].textContent : '',
+    locations: document.getElementById('af-locations').value,
+    employees: document.getElementById('af-employees').value,
+    whatsapp: document.getElementById('af-whatsapp').value,
+    email: document.getElementById('af-email').value,
+    leadSources: afGetChecked('af-lead-sources'),
+    leadVolume: document.getElementById('af-lead-volume').value,
+    adSpend: document.getElementById('af-ad-spend').value,
+    crm: document.getElementById('af-crm').value,
+    responseTime: afGetRadio('response-time'),
+    afterHours: afGetRadio('afterhours'),
+    weekends: afGetRadio('weekends'),
+    followups: afGetRadio('followups'),
+    followupChannels: afGetChecked('af-followup-channels'),
+    automated: afGetRadio('automated'),
+    customerValue: document.getElementById('af-customer-value').value,
+    conversion: document.getElementById('af-conversion').value + '%',
+    noConvert: document.getElementById('af-no-convert').value,
+    painRatings: {},
+    oneFix: document.getElementById('af-one-fix').value,
+    keepsUp: document.getElementById('af-keeps-up').value
+  };
+}
+
+function afCollectPainRatings(data) {
+  document.querySelectorAll('#af-pain-stars .af-stars-row').forEach(row => {
+    const key = row.dataset.key;
+    const label = row.querySelector('.af-star-label').textContent;
+    const rating = row.querySelector('.af-stars').dataset.rating;
+    data.painRatings[key] = { label, rating: parseInt(rating) || 0 };
+  });
+}
+
+function afBuildSummary() {
+  const d = afCollectData();
+  afCollectPainRatings(d);
+  const lang = currentLang;
+  const l = (en, pt) => lang === 'en' ? en : pt;
+  let h = '';
+  h += '<h4>' + l('Business Info','Info do Negócio') + '</h4>';
+  h += '<p><strong>' + l('Business:','Empresa:') + '</strong> ' + (d.bizName||'-') + '</p>';
+  h += '<p><strong>' + l('Name:','Nome:') + '</strong> ' + (d.name||'-') + '</p>';
+  h += '<p><strong>' + l('Industry:','Setor:') + '</strong> ' + (d.industry||'-') + '</p>';
+  h += '<p><strong>' + l('Locations:','Unidades:') + '</strong> ' + (d.locations||'-') + '</p>';
+  h += '<p><strong>' + l('Employees:','Funcionários:') + '</strong> ' + (d.employees||'-') + '</p>';
+  h += '<p><strong>WhatsApp:</strong> ' + (d.whatsapp||'-') + '</p>';
+  h += '<p><strong>Email:</strong> ' + (d.email||'-') + '</p>';
+
+  h += '<h4>' + l('Lead Generation','Geração de Leads') + '</h4>';
+  h += '<p><strong>' + l('Sources:','Fontes:') + '</strong> ' + (d.leadSources.join(', ')||'-') + '</p>';
+  h += '<p><strong>' + l('Monthly Volume:','Volume Mensal:') + '</strong> ' + (d.leadVolume||'-') + '</p>';
+  h += '<p><strong>' + l('Ad Spend:','Gasto com Ads:') + '</strong> ' + (d.adSpend||'-') + '</p>';
+  h += '<p><strong>CRM:</strong> ' + (d.crm||'-') + '</p>';
+
+  h += '<h4>' + l('Response & Follow-Up','Resposta & Follow-Up') + '</h4>';
+  h += '<p><strong>' + l('Response Time:','Tempo de Resposta:') + '</strong> ' + (d.responseTime||'-') + '</p>';
+  h += '<p><strong>' + l('After-hours:','Fora do horário:') + '</strong> ' + (d.afterHours||'-') + '</p>';
+  h += '<p><strong>' + l('Weekends:','Fins de semana:') + '</strong> ' + (d.weekends||'-') + '</p>';
+  h += '<p><strong>' + l('Follow-up Attempts:','Tentativas de Follow-up:') + '</strong> ' + (d.followups||'-') + '</p>';
+  h += '<p><strong>' + l('Follow-up Channels:','Canais de Follow-up:') + '</strong> ' + (d.followupChannels.join(', ')||'-') + '</p>';
+  h += '<p><strong>' + l('Automated Sequences:','Sequências Automatizadas:') + '</strong> ' + (d.automated||'-') + '</p>';
+
+  h += '<h4>' + l('Revenue & Conversion','Receita & Conversão') + '</h4>';
+  h += '<p><strong>' + l('Customer Value:','Valor do Cliente:') + '</strong> ' + (d.customerValue||'-') + '</p>';
+  h += '<p><strong>' + l('Conversion Rate:','Taxa de Conversão:') + '</strong> ' + d.conversion + '</p>';
+  h += '<p><strong>' + l('Why Leads Don\'t Convert:','Por que Leads Não Convertem:') + '</strong> ' + (d.noConvert||'-') + '</p>';
+
+  h += '<h4>' + l('Pain Points','Pontos de Dor') + '</h4>';
+  for (const k in d.painRatings) {
+    const p = d.painRatings[k];
+    h += '<p>' + p.label + ': ' + '★'.repeat(p.rating) + '☆'.repeat(5-p.rating) + '</p>';
+  }
+  h += '<p><strong>' + l('AI Fix #1:','IA Fix #1:') + '</strong> ' + (d.oneFix||'-') + '</p>';
+  h += '<p><strong>' + l('Keeps You Up:','Tira Seu Sono:') + '</strong> ' + (d.keepsUp||'-') + '</p>';
+
+  document.getElementById('afSummary').innerHTML = h;
+}
+
+function afBuildMessage() {
+  const d = afCollectData();
+  afCollectPainRatings(d);
+  const lang = currentLang;
+  const l = (en, pt) => lang === 'en' ? en : pt;
+  let m = '🎯 ' + l('FREE AI AUDIT REQUEST','PEDIDO DE DIAGNÓSTICO IA GRÁTIS') + '\n\n';
+  m += '📋 ' + l('BUSINESS INFO','INFO DO NEGÓCIO') + '\n';
+  m += l('Business: ','Empresa: ') + (d.bizName||'-') + '\n';
+  m += l('Name: ','Nome: ') + (d.name||'-') + '\n';
+  m += l('Industry: ','Setor: ') + (d.industry||'-') + '\n';
+  m += l('Locations: ','Unidades: ') + (d.locations||'-') + '\n';
+  m += l('Employees: ','Funcionários: ') + (d.employees||'-') + '\n';
+  m += 'WhatsApp: ' + (d.whatsapp||'-') + '\n';
+  m += 'Email: ' + (d.email||'-') + '\n\n';
+
+  m += '📡 ' + l('LEAD GENERATION','GERAÇÃO DE LEADS') + '\n';
+  m += l('Sources: ','Fontes: ') + (d.leadSources.join(', ')||'-') + '\n';
+  m += l('Monthly Volume: ','Volume Mensal: ') + (d.leadVolume||'-') + '\n';
+  m += l('Ad Spend: ','Gasto Ads: ') + (d.adSpend||'-') + '\n';
+  m += 'CRM: ' + (d.crm||'-') + '\n\n';
+
+  m += '⏱️ ' + l('RESPONSE & FOLLOW-UP','RESPOSTA & FOLLOW-UP') + '\n';
+  m += l('Response Time: ','Tempo Resposta: ') + (d.responseTime||'-') + '\n';
+  m += l('After-hours: ','Fora horário: ') + (d.afterHours||'-') + '\n';
+  m += l('Weekends: ','Fins semana: ') + (d.weekends||'-') + '\n';
+  m += l('Follow-ups: ','Follow-ups: ') + (d.followups||'-') + '\n';
+  m += l('Channels: ','Canais: ') + (d.followupChannels.join(', ')||'-') + '\n';
+  m += l('Automated: ','Automatizado: ') + (d.automated||'-') + '\n\n';
+
+  m += '💰 ' + l('REVENUE & CONVERSION','RECEITA & CONVERSÃO') + '\n';
+  m += l('Customer Value: ','Valor Cliente: ') + (d.customerValue||'-') + '\n';
+  m += l('Conversion: ','Conversão: ') + d.conversion + '\n';
+  m += l('Why No Convert: ','Por que Não Converte: ') + (d.noConvert||'-') + '\n\n';
+
+  m += '🔥 ' + l('PAIN POINTS','PONTOS DE DOR') + '\n';
+  for (const k in d.painRatings) {
+    const p = d.painRatings[k];
+    m += p.label + ': ' + '★'.repeat(p.rating) + '☆'.repeat(5-p.rating) + '\n';
+  }
+  m += l('AI Fix #1: ','IA Fix #1: ') + (d.oneFix||'-') + '\n';
+  m += l('Keeps Up at Night: ','Tira o Sono: ') + (d.keepsUp||'-') + '\n';
+  return m;
+}
+
+var lastAuditMsg = '';
+function afSubmit() {
+  var msg = afBuildMessage();
+  lastAuditMsg = msg;
+  var d = afCollectData();
+  afCollectPainRatings(d);
+
+  // Show thank you immediately
+  document.querySelectorAll('.af-step').forEach(function(s){s.classList.remove('active')});
+  document.querySelector('.af-progress').style.display = 'none';
+  document.getElementById('afThankyou').style.display = 'block';
+  document.querySelector('.audit-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  var statusEl = document.getElementById('afSendStatus');
+  statusEl.style.background = 'rgba(0,212,255,.1)';
+  statusEl.style.color = '#00d4ff';
+  statusEl.textContent = currentLang === 'en' ? '⏳ Sending your audit...' : '⏳ Enviando seu diagnóstico...';
+
+  // WhatsApp button (backup)
+  var waShort = currentLang === 'en'
+    ? 'Hi André! I just completed the Free AI Audit on your site.\n\nBusiness: ' + (d.bizName||'-') + '\nName: ' + (d.name||'-') + '\nIndustry: ' + (d.industry||'-') + '\nEmail: ' + (d.email||'-') + '\n\nI\'d love to discuss the results!'
+    : 'Oi André! Acabei de preencher o Diagnóstico IA Grátis no seu site.\n\nEmpresa: ' + (d.bizName||'-') + '\nNome: ' + (d.name||'-') + '\nSetor: ' + (d.industry||'-') + '\nEmail: ' + (d.email||'-') + '\n\nQuero discutir os resultados!';
+  document.getElementById('afWaBtn').href = 'https://wa.me/5561998229223?text=' + encodeURIComponent(waShort);
+
+  // Auto-send email via FormSubmit.co (free, no backend)
+  var subject = currentLang === 'en' ? 'New AI Audit Request' : 'Novo Pedido de Diagnóstico IA';
+  var formData = new FormData();
+  formData.append('name', d.name || 'Anonymous');
+  formData.append('email', d.email || 'no-email@provided.com');
+  formData.append('_subject', subject + ' — ' + (d.bizName || 'Unknown Business'));
+  formData.append('_replyto', d.email || '');
+  formData.append('_template', 'table');
+  formData.append('Business Name', d.bizName || '-');
+  formData.append('Contact Name', d.name || '-');
+  formData.append('Industry', d.industry || '-');
+  formData.append('Locations', d.locations || '-');
+  formData.append('Employees', d.employees || '-');
+  formData.append('WhatsApp', d.whatsapp || '-');
+  formData.append('Email', d.email || '-');
+  formData.append('Lead Sources', (d.leadSources||[]).join(', ') || '-');
+  formData.append('Monthly Lead Volume', d.leadVolume || '-');
+  formData.append('Ad Spend', d.adSpend || '-');
+  formData.append('CRM', d.crm || '-');
+  formData.append('Response Time', d.responseTime || '-');
+  formData.append('After Hours', d.afterHours || '-');
+  formData.append('Weekends', d.weekends || '-');
+  formData.append('Follow-up Attempts', d.followups || '-');
+  formData.append('Follow-up Channels', (d.followupChannels||[]).join(', ') || '-');
+  formData.append('Automated Sequences', d.automated || '-');
+  formData.append('Customer Value', d.customerValue || '-');
+  formData.append('Conversion Rate', d.conversion || '-');
+  formData.append('Why No Convert', d.noConvert || '-');
+  var painText = '';
+  for (var k in d.painRatings) {
+    var p = d.painRatings[k];
+    painText += p.label + ': ' + p.rating + '/5\n';
+  }
+  formData.append('Pain Ratings', painText || '-');
+  formData.append('AI Fix #1', d.oneFix || '-');
+  formData.append('Keeps Up at Night', d.keepsUp || '-');
+  formData.append('Full Audit Text', msg);
+
+  fetch('https://formsubmit.co/ajax/rawandre@gmail.com', {
+    method: 'POST',
+    body: formData
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
+      statusEl.style.background = 'rgba(126,200,70,.15)';
+      statusEl.style.color = '#7ec846';
+      statusEl.textContent = currentLang === 'en' ? '✅ Audit sent successfully! André will review it soon.' : '✅ Diagnóstico enviado com sucesso! André vai analisar em breve.';
+    } else {
+      statusEl.style.background = 'rgba(255,193,7,.15)';
+      statusEl.style.color = '#ffc107';
+      statusEl.textContent = currentLang === 'en' ? '⚠️ Email delivery pending — please also click WhatsApp below to make sure André gets it.' : '⚠️ Envio pendente — por favor clique também no WhatsApp abaixo para garantir.';
+    }
+  })
+  .catch(function() {
+    statusEl.style.background = 'rgba(255,193,7,.15)';
+    statusEl.style.color = '#ffc107';
+    statusEl.textContent = currentLang === 'en' ? '⚠️ Could not send automatically — please click WhatsApp below.' : '⚠️ Não foi possível enviar — por favor clique no WhatsApp abaixo.';
+  });
+
+  // Auto-open WhatsApp in new tab after short delay
+  setTimeout(function() {
+    window.open('https://wa.me/5561998229223?text=' + encodeURIComponent(waShort), '_blank');
+  }, 1500);
+}
+</script>
+</body>
+</html>

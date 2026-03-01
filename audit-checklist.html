@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FREE AI Business Audit — Raw AI Business Solutions</title>
+<style>
+  :root {
+    --cyan: #00d4ff;
+    --green: #00ff88;
+    --dark: #1a1a2e;
+    --text: #222;
+    --light-gray: #f4f4f4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 20mm 18mm;
+    position: relative;
+  }
+  .page + .page { page-break-before: always; }
+  
+  /* Cover */
+  .cover {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; min-height: 297mm; padding: 30mm 18mm;
+  }
+  .cover .brand-bar {
+    width: 80%; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    margin-bottom: 40px;
+  }
+  .cover h1 {
+    font-size: 36pt; font-weight: 800; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 12px;
+  }
+  .cover .company {
+    font-size: 16pt; font-weight: 600; color: var(--dark); margin-bottom: 30px;
+  }
+  .cover .tagline {
+    font-size: 12pt; color: #555; max-width: 500px; line-height: 1.7;
+  }
+  .cover .contact-footer {
+    margin-top: 50px; font-size: 10pt; color: #777;
+  }
+  .cover .contact-footer span { margin: 0 10px; }
+
+  /* Section headers */
+  .section-num {
+    display: inline-block; background: var(--dark); color: var(--cyan);
+    font-weight: 700; font-size: 10pt; padding: 3px 10px; border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-size: 18pt; font-weight: 700; color: var(--dark);
+    border-bottom: 3px solid var(--cyan); padding-bottom: 6px; margin-bottom: 18px;
+  }
+  h3 {
+    font-size: 12pt; font-weight: 700; color: var(--dark);
+    margin: 18px 0 8px; border-left: 3px solid var(--green); padding-left: 10px;
+  }
+
+  /* Form fields */
+  .field { margin-bottom: 12px; }
+  .field label { font-weight: 600; font-size: 10pt; display: block; margin-bottom: 2px; }
+  .field .line {
+    border-bottom: 1.5px dotted #999; min-height: 22px; width: 100%;
+  }
+  .field-inline {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .field-inline .field { flex: 1; min-width: 200px; }
+
+  /* Checkboxes */
+  .check-grid {
+    display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 8px 0 14px;
+  }
+  .check-item {
+    font-size: 10pt; display: flex; align-items: center; gap: 5px;
+  }
+  .box {
+    display: inline-block; width: 14px; height: 14px;
+    border: 1.5px solid #555; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* Rating scale */
+  .rating-row {
+    display: flex; align-items: center; margin-bottom: 6px;
+  }
+  .rating-label { flex: 1; font-size: 10pt; }
+  .rating-circles { display: flex; gap: 8px; }
+  .rating-circles span {
+    width: 22px; height: 22px; border: 1.5px solid #555; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 8pt; color: #777;
+  }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  th {
+    background: var(--dark); color: var(--cyan); font-size: 9pt;
+    padding: 6px 8px; text-align: left; font-weight: 600;
+  }
+  td {
+    border-bottom: 1px dotted #bbb; padding: 8px; font-size: 10pt;
+    min-height: 28px;
+  }
+
+  /* Auditor section */
+  .auditor-section {
+    background: linear-gradient(135deg, #f0fdff, #f0fff8);
+    border: 2px solid var(--cyan); border-radius: 8px; padding: 20px;
+    margin-bottom: 16px;
+  }
+  .auditor-section h2 { border-bottom-color: var(--green); }
+
+  /* Score boxes */
+  .score-grid {
+    display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0;
+  }
+  .score-box {
+    flex: 1; min-width: 120px; border: 2px solid var(--cyan); border-radius: 8px;
+    padding: 12px; text-align: center;
+  }
+  .score-box .label { font-size: 9pt; font-weight: 600; color: #555; }
+  .score-box .value { font-size: 20pt; font-weight: 800; color: var(--dark); margin-top: 4px; }
+
+  /* Revenue calc */
+  .calc {
+    background: var(--dark); color: #fff; border-radius: 8px;
+    padding: 16px; text-align: center; margin: 14px 0; font-size: 11pt;
+  }
+  .calc .formula { color: var(--cyan); font-weight: 700; font-size: 13pt; margin-bottom: 6px; }
+  .calc .result { color: var(--green); font-size: 20pt; font-weight: 800; }
+
+  /* Steps */
+  .steps { display: flex; gap: 14px; margin: 16px 0; flex-wrap: wrap; }
+  .step {
+    flex: 1; min-width: 140px; border: 2px solid var(--cyan); border-radius: 8px;
+    padding: 14px; text-align: center;
+  }
+  .step .num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    color: var(--dark); font-weight: 800; font-size: 14pt;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 6px;
+  }
+  .step .title { font-weight: 700; font-size: 10pt; }
+  .step .desc { font-size: 9pt; color: #666; margin-top: 4px; }
+
+  /* CTA */
+  .cta-box {
+    background: var(--dark); border-radius: 8px; padding: 24px;
+    text-align: center; margin-top: 24px;
+  }
+  .cta-box p { color: #ccc; font-size: 11pt; margin-bottom: 8px; }
+  .cta-box .headline { color: var(--green); font-size: 14pt; font-weight: 700; margin-bottom: 12px; }
+  .cta-box .contact { color: var(--cyan); font-size: 11pt; }
+
+  /* Footer */
+  .footer {
+    position: absolute; bottom: 10mm; left: 18mm; right: 18mm;
+    border-top: 1px solid #ddd; padding-top: 6px;
+    display: flex; justify-content: space-between; font-size: 8pt; color: #999;
+  }
+
+  /* Y/N inline */
+  .yn { display: inline-flex; gap: 12px; margin-left: 8px; }
+
+  /* Print */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { width: auto; margin: 0; padding: 15mm; }
+    .footer { position: fixed; bottom: 8mm; left: 15mm; right: 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="brand-bar"></div>
+  <h1>FREE AI<br>BUSINESS AUDIT</h1>
+  <div class="company">Raw AI Business Solutions</div>
+  <p class="tagline">This audit identifies exactly where your business is losing money and how AI can fix it — at no cost to you.</p>
+  <div class="contact-footer">
+    <span>rawandre@gmail.com</span> | <span>WhatsApp: +55 61 99822-9223</span>
+  </div>
+</div>
+
+<!-- PAGE 2: BUSINESS INFO -->
+<div class="page">
+  <span class="section-num">SECTION 1</span>
+  <h2>Business Information</h2>
+  <div class="field"><label>Business Name</label><div class="line"></div></div>
+  <div class="field-inline">
+    <div class="field"><label>Industry</label><div class="line"></div></div>
+    <div class="field"><label># of Locations</label><div class="line"></div></div>
+  </div>
+  <div class="field-inline">
+    <div class="field"><label>Monthly Revenue (approx.)</label><div class="line"></div></div>
+    <div class="field"><label># of Employees</label><div class="line"></div></div>
+  </div>
+  <div class="field"><label>Website</label><div class="line"></div></div>
+  <div class="field-inline">
+    <div class="field"><label>Contact Name</label><div class="line"></div></div>
+    <div class="field"><label>Role / Title</label><div class="line"></div></div>
+  </div>
+  <div class="field-inline">
+    <div class="field"><label>Phone / WhatsApp</label><div class="line"></div></div>
+    <div class="field"><label>Email</label><div class="line"></div></div>
+  </div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 2</span></div>
+</div>
+
+<!-- PAGE 3: LEAD GENERATION -->
+<div class="page">
+  <span class="section-num">SECTION 2</span>
+  <h2>Lead Generation</h2>
+  <h3>How do leads currently find you?</h3>
+  <div class="check-grid">
+    <div class="check-item"><span class="box"></span> Website Form</div>
+    <div class="check-item"><span class="box"></span> Phone</div>
+    <div class="check-item"><span class="box"></span> WhatsApp</div>
+    <div class="check-item"><span class="box"></span> Instagram / Social</div>
+    <div class="check-item"><span class="box"></span> Google Ads</div>
+    <div class="check-item"><span class="box"></span> Referrals</div>
+    <div class="check-item"><span class="box"></span> Walk-ins</div>
+    <div class="check-item"><span class="box"></span> Email</div>
+    <div class="check-item"><span class="box"></span> Other: _______________</div>
+  </div>
+  <div class="field-inline">
+    <div class="field"><label>Monthly Lead Volume (approx.)</label><div class="line"></div></div>
+    <div class="field"><label>Monthly Ad Spend</label><div class="line"></div></div>
+  </div>
+  <div class="field"><label>Current CRM / Lead Tracking System</label><div class="line"></div></div>
+  <div class="field"><label>Who Handles Incoming Leads?</label><div class="line"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;">
+    <label style="margin:0;">Do you receive leads after hours?</label>
+    <span class="yn"><span class="check-item"><span class="box"></span> Yes</span><span class="check-item"><span class="box"></span> No</span></span>
+  </div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 3</span></div>
+</div>
+
+<!-- PAGE 4: RESPONSE & FOLLOW-UP -->
+<div class="page">
+  <span class="section-num">SECTION 3</span>
+  <h2>Response &amp; Follow-Up</h2>
+  <h3>Average response time to a new lead?</h3>
+  <div class="check-grid">
+    <div class="check-item"><span class="box"></span> &lt; 5 min</div>
+    <div class="check-item"><span class="box"></span> 5–30 min</div>
+    <div class="check-item"><span class="box"></span> 30 min – 1 hr</div>
+    <div class="check-item"><span class="box"></span> 1–4 hrs</div>
+    <div class="check-item"><span class="box"></span> 4–24 hrs</div>
+    <div class="check-item"><span class="box"></span> 24 hrs+</div>
+    <div class="check-item"><span class="box"></span> Don't know</div>
+  </div>
+  <div class="field-inline">
+    <div class="field" style="display:flex;align-items:center;gap:8px;">
+      <label style="margin:0;">After-hours coverage?</label>
+      <span class="yn"><span class="check-item"><span class="box"></span> Y</span><span class="check-item"><span class="box"></span> N</span></span>
+    </div>
+    <div class="field" style="display:flex;align-items:center;gap:8px;">
+      <label style="margin:0;">Weekend coverage?</label>
+      <span class="yn"><span class="check-item"><span class="box"></span> Y</span><span class="check-item"><span class="box"></span> N</span></span>
+    </div>
+  </div>
+
+  <h3>How many follow-ups per lead?</h3>
+  <div class="check-grid">
+    <div class="check-item"><span class="box"></span> 1</div>
+    <div class="check-item"><span class="box"></span> 2–3</div>
+    <div class="check-item"><span class="box"></span> 4–5</div>
+    <div class="check-item"><span class="box"></span> 5+</div>
+    <div class="check-item"><span class="box"></span> No defined process</div>
+  </div>
+
+  <h3>Channels used for follow-up</h3>
+  <div class="check-grid">
+    <div class="check-item"><span class="box"></span> Phone</div>
+    <div class="check-item"><span class="box"></span> WhatsApp</div>
+    <div class="check-item"><span class="box"></span> Email</div>
+    <div class="check-item"><span class="box"></span> SMS</div>
+  </div>
+
+  <div class="field" style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+    <label style="margin:0;">Automated follow-up sequences?</label>
+    <span class="yn"><span class="check-item"><span class="box"></span> Yes</span><span class="check-item"><span class="box"></span> No</span></span>
+  </div>
+  <div class="field" style="margin-top:12px;"><label>Estimated % of leads that receive NO follow-up</label><div class="line"></div></div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 4</span></div>
+</div>
+
+<!-- PAGE 5: CONVERSION & REVENUE -->
+<div class="page">
+  <span class="section-num">SECTION 4</span>
+  <h2>Conversion &amp; Revenue</h2>
+  <div class="field-inline">
+    <div class="field"><label>Lead-to-Customer Conversion Rate (%)</label><div class="line"></div></div>
+    <div class="field"><label>Average Customer Value ($)</label><div class="line"></div></div>
+  </div>
+  <div class="field"><label>Customer Lifetime Value ($)</label><div class="line"></div></div>
+  <div class="field"><label>#1 Reason Leads Don't Convert</label><div class="line"></div></div>
+  <div class="field"><label>Top 3 Competitors</label><div class="line" style="margin-bottom:6px;"></div><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  <div class="field"><label>What Makes You Different? (Your Differentiator)</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 5</span></div>
+</div>
+
+<!-- PAGE 6: PAIN POINTS -->
+<div class="page">
+  <span class="section-num">SECTION 5</span>
+  <h2>Pain Points</h2>
+  <div class="field"><label>#1 Money Leak in Your Business</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  <div class="field"><label>#1 Time Waster</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  <div class="field"><label>What Keeps You Up at Night?</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  <div class="field"><label>If AI Could Fix ONE Thing in Your Business, What Would It Be?</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+
+  <h3>Rate Each Problem (1 = minor, 5 = critical)</h3>
+  <div class="rating-row"><span class="rating-label">Slow response to leads</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="rating-row"><span class="rating-label">Missed / lost leads</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="rating-row"><span class="rating-label">Inconsistent customer experience</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="rating-row"><span class="rating-label">Too many manual / repetitive tasks</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="rating-row"><span class="rating-label">No visibility into sales pipeline</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="rating-row"><span class="rating-label">Staff overwhelmed / stretched thin</span><div class="rating-circles"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 6</span></div>
+</div>
+
+<!-- PAGE 7: TECH STACK -->
+<div class="page">
+  <span class="section-num">SECTION 6</span>
+  <h2>Current Tech Stack</h2>
+  <p style="color:#666;margin-bottom:14px;font-size:10pt;">Check all that apply and note the specific tool or platform used.</p>
+
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">CRM</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Email Marketing</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Scheduling / Booking</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Website Platform</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Social Media Mgmt</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Accounting</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Phone System</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">WhatsApp Business</label><div class="line" style="flex:1;"></div></div>
+  <div class="field" style="display:flex;align-items:center;gap:8px;"><span class="box"></span><label style="margin:0;width:160px;">Other</label><div class="line" style="flex:1;"></div></div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 7</span></div>
+</div>
+
+<!-- PAGE 8: AUDITOR ANALYSIS -->
+<div class="page">
+  <span class="section-num">SECTION 7 — AUDITOR USE ONLY</span>
+  <h2>Auditor Analysis</h2>
+  <div class="auditor-section">
+    <h3>Response Time Test Results</h3>
+    <table>
+      <tr><th>Channel</th><th>Time Sent</th><th>Time Responded</th><th>Quality (1-5)</th></tr>
+      <tr><td>Website Form</td><td></td><td></td><td></td></tr>
+      <tr><td>Phone</td><td></td><td></td><td></td></tr>
+      <tr><td>WhatsApp</td><td></td><td></td><td></td></tr>
+      <tr><td>Email</td><td></td><td></td><td></td></tr>
+      <tr><td>Social Media DM</td><td></td><td></td><td></td></tr>
+    </table>
+
+    <h3>Audit Scores</h3>
+    <div class="score-grid">
+      <div class="score-box"><div class="label">Lead Leakage</div><div class="value">___/10</div></div>
+      <div class="score-box"><div class="label">Follow-Up</div><div class="value">___/10</div></div>
+      <div class="score-box"><div class="label">Technology</div><div class="value">___/10</div></div>
+      <div class="score-box" style="border-color:var(--green);"><div class="label">AI Readiness</div><div class="value">___/100</div></div>
+    </div>
+
+    <h3>Revenue Opportunity Calculator</h3>
+    <div class="calc">
+      <div class="formula">Monthly Leads × Conversion Improvement × Avg. Customer Value</div>
+      <div style="margin:8px 0;">_______ × _______ % × $ _______ =</div>
+      <div class="result">$ _______________ /month</div>
+    </div>
+
+    <h3>Top 3 AI Recommendations</h3>
+    <div class="field"><label>1.</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+    <div class="field"><label>2.</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+    <div class="field"><label>3.</label><div class="line" style="margin-bottom:6px;"></div><div class="line"></div></div>
+  </div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 8</span></div>
+</div>
+
+<!-- PAGE 9: WHAT HAPPENS NEXT -->
+<div class="page">
+  <span class="section-num">NEXT STEPS</span>
+  <h2>What Happens Next</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div class="title">We Analyze</div><div class="desc">We review every answer, test your response times, and identify the gaps.</div></div>
+    <div class="step"><div class="num">2</div><div class="title">We Call</div><div class="desc">30-minute results call to walk through findings and the revenue opportunity.</div></div>
+    <div class="step"><div class="num">3</div><div class="title">We Plan</div><div class="desc">Custom AI implementation roadmap tailored to your business.</div></div>
+    <div class="step"><div class="num">4</div><div class="title">You Decide</div><div class="desc">No pressure. The numbers speak for themselves.</div></div>
+  </div>
+
+  <div class="cta-box">
+    <div class="headline">"The numbers speak for themselves."</div>
+    <p>Ready to stop losing money? Let's talk.</p>
+    <div class="contact" style="margin-top:16px;">
+      <strong>Raw AI Business Solutions</strong><br>
+      rawandre@gmail.com<br>
+      WhatsApp: +55 61 99822-9223
+    </div>
+  </div>
+  <div class="footer"><span>Raw AI Business Solutions</span><span>Confidential</span><span>Page 9</span></div>
+</div>
+
+</body>
+</html>
