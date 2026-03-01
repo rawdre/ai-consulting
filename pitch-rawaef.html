@@ -749,12 +749,164 @@
 </div>
 
 <!-- LANGUAGE TOGGLE -->
-<div id="langToggle" style="position:fixed;top:20px;right:20px;z-index:9999;display:flex;gap:4px;background:rgba(0,0,0,0.8);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:4px;backdrop-filter:blur(10px);">
-  <button onclick="setLang('en')" id="btn-en" style="background:#f97316;color:#000;border:none;border-radius:6px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;">🇺🇸 EN</button>
-  <button onclick="setLang('pt')" id="btn-pt" style="background:transparent;color:#888;border:none;border-radius:6px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;">🇧🇷 PT</button>
+<div id="langToggle" style="position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:2px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:3px;backdrop-filter:blur(10px);">
+  <button onclick="setLang('en')" id="btn-en" style="background:#f97316;color:#000;border:none;border-radius:4px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;">EN</button>
+  <button onclick="setLang('pt')" id="btn-pt" style="background:transparent;color:#888;border:none;border-radius:4px;padding:4px 8px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;">PT</button>
 </div>
 
 <script>
+// Full text swap approach - find and replace all English strings with Portuguese
+const swapPairs = [
+  // Header
+  ["Revenue Impact Report", "Relatório de Impacto na Receita"],
+  ["How AI Can Recover Millions in Lost Revenue for Rawaef Fitness", "Como a IA Pode Recuperar Milhões em Receita Perdida para a Rawaef Fitness"],
+  ["Prepared for André Alexandre — Rawaef Fitness Network", "Preparado para André Alexandre — Rede Rawaef Fitness"],
+  // Section 1
+  ["Current Situation", "Situação Atual"],
+  ["Your Numbers Right Now — Per Location", "Seus Números Hoje — Por Unidade"],
+  ["New leads per week", "Novos leads por semana"],
+  ["Monthly leads", "Leads mensais"],
+  ["Current conversion rate", "Taxa de conversão atual"],
+  ["Lifetime value per member", "Valor vitalício por membro"],
+  ["Monthly membership", "Mensalidade"],
+  ["Signup / enrollment fee", "Taxa de matrícula"],
+  ["Average retention", "Retenção média"],
+  ["8 months", "8 meses"],
+  ["Lifetime Value (LTV)", "Valor Vitalício (LTV)"],
+  ["Per Month", "Por Mês"],
+  // Section 2
+  ["Single Location", "Uma Unidade"],
+  ["What's Happening at Each Location", "O Que Está Acontecendo em Cada Unidade"],
+  ['Out of 40 monthly leads, you convert 14. The other <strong>26 people</strong> — they raised their hand, said "I\'m interested" — and left without becoming a member.', 'De 40 leads mensais, você converte 14. Os outros <strong>26</strong> — levantaram a mão, disseram "tenho interesse" — e saíram sem virar membro.'],
+  ["Converted (34%)", "Convertidos (34%)"],
+  ["Leads LOST", "Leads PERDIDOS"],
+  ["Revenue captured (CLV)", "Receita capturada (CLV)"],
+  ["Revenue LOST (CLV)", "Receita PERDIDA (CLV)"],
+  ["Revenue LOST (annual)", "Receita PERDIDA (anual)"],
+  ["Lost per year at a SINGLE location — just from membership alone", "Perdidos por ano em UMA ÚNICA unidade — só de mensalidade"],
+  // Section 3
+  ["Full Network", "Rede Completa"],
+  ["Across 5-10 Locations — The Full Picture", "Nas 5-10 Unidades — O Cenário Completo"],
+  ["Conservative (5 Locations)", "Conservador (5 Unidades)"],
+  ["Full Network (10 Locations)", "Rede Completa (10 Unidades)"],
+  ["Metric", "Métrica"],
+  ["Monthly", "Mensal"],
+  ["Annual", "Anual"],
+  ["Total leads", "Total de leads"],
+  ["Leads converted (34%)", "Leads convertidos (34%)"],
+  ["Revenue captured", "Receita capturada"],
+  ["Revenue LOST", "Receita PERDIDA"],
+  ["Lost per year across your network — in membership revenue alone", "Perdidos por ano em toda a rede — só em receita de mensalidade"],
+  // Section 4
+  ["The Full Truth", "A Verdade Completa"],
+  ["But Memberships Are Just the Beginning...", "Mas Mensalidade é Só o Começo..."],
+  ["everything that member would have bought:", "tudo que esse membro teria comprado:"],
+  ["When a lead doesn't convert, you don't just lose R$200/month. You lose", "Quando um lead não converte, você não perde só R$200/mês. Você perde"],
+  ["Personal Training (1-2x/week)", "Personal Training (1-2x/semana)"],
+  ["Supplements & Nutrition Plans", "Suplementos e Planos Nutricionais"],
+  ["Specialty Classes (yoga, boxing, crossfit)", "Aulas Especiais (yoga, boxe, crossfit)"],
+  ["Wellness Services (massage, physio)", "Serviços de Bem-Estar (massagem, fisio)"],
+  ["Branded Merchandise", "Produtos da Marca"],
+  ["Premium App / Online Content", "App Premium / Conteúdo Online"],
+  ["Per member, per month", "Por membro, por mês"],
+  ["True Customer Value", "Valor Real do Cliente"],
+  ["Membership Only", "Só Mensalidade"],
+  ["With Upsells (30% buy rate)", "Com Upsells (30% compram)"],
+  ["LTV per member", "LTV por membro"],
+  ["Real Annual Loss — Full Revenue Picture", "Perda Anual Real — Receita Completa"],
+  ["Locations", "Unidades"],
+  ["Lost Leads/Year", "Leads Perdidos/Ano"],
+  ["Membership Loss", "Perda Mensalidade"],
+  ["+ Upsell Loss", "+ Perda Upsell"],
+  ["TOTAL LOST", "TOTAL PERDIDO"],
+  ["Total revenue lost per year when you include all services those members would have consumed", "Receita total perdida por ano incluindo todos os serviços que esses membros teriam consumido"],
+  // Section 5
+  ["The Solution", "A Solução"],
+  ["What AI Fixes — And How Much It Recovers", "O Que a IA Resolve — E Quanto Recupera"],
+  ["The 3 Biggest Revenue Killers", "Os 3 Maiores Assassinos de Receita"],
+  ["1. Speed to Lead", "1. Velocidade de Resposta"],
+  ["Your current response time: 30-60 minutes.", "Tempo atual de resposta: 30-60 minutos."],
+  ["Leads contacted in under 5 minutes are", "Leads contactados em menos de 5 minutos têm"],
+  ["21x more likely to convert", "21x mais chance de converter"],
+  ["Impact: +5-8% conversion rate", "Impacto: +5-8% na taxa de conversão"],
+  ["Impact: +3-5% conversion rate", "Impacto: +3-5% na taxa de conversão"],
+  ["2. Zero After-Hours & Weekend Coverage", "2. Zero Cobertura Fora do Horário e Fins de Semana"],
+  ["You're dark when 30% of leads come in.", "Você está offline quando 30% dos leads chegam."],
+  ["No sick days, no holidays.", "Sem folgas, sem feriados."],
+  ["3. No Automated Follow-Up", "3. Sem Follow-Up Automático"],
+  ["Manual, inconsistent, leads forgotten.", "Manual, inconsistente, leads esquecidos."],
+  ["across WhatsApp + SMS + Email for every single lead.", "via WhatsApp + SMS + Email para cada lead."],
+  ["AI responds in", "IA responde em"],
+  ["AI works", "IA funciona"],
+  ["AI runs a", "IA roda uma"],
+  ["5-touch sequence", "sequência de 5 toques"],
+  ["Combined Impact: 34% → 45-52% Conversion", "Impacto Combinado: 34% → 45-52% de Conversão"],
+  ["Scenario", "Cenário"],
+  ["Conversion", "Conversão"],
+  ["New Members/Month (10 loc)", "Novos Membros/Mês (10 unid)"],
+  ["Annual Revenue Gain", "Ganho Anual de Receita"],
+  ["Current", "Atual"],
+  ["Conservative (+11%)", "Conservador (+11%)"],
+  ["Optimistic (+18%)", "Otimista (+18%)"],
+  ["Recovered per year in membership revenue alone. Add upsells: R$1.3M — R$2.2M", "Recuperados por ano só em mensalidade. Com upsells: R$1,3M — R$2,2M"],
+  // Section 6
+  ["Investment", "Investimento"],
+  ["Choose Your Level", "Escolha Seu Nível"],
+  ["Starter", "Inicial"],
+  ["Prove It In One Location", "Prove em Uma Unidade"],
+  ["AI WhatsApp auto-responder (24/7)", "Resposta automática WhatsApp 24/7"],
+  ["5-day automated follow-up sequences", "Sequência automática de 5 dias"],
+  ["Lead tracking dashboard", "Painel de acompanhamento de leads"],
+  ["Weekly performance report", "Relatório semanal de performance"],
+  ["Expected: +8-12 members/month", "Esperado: +8-12 membros/mês"],
+  ["Growth", "Crescimento"],
+  ["Scale Across Locations", "Escale Pelas Unidades"],
+  ["Everything in Starter", "Tudo do Inicial"],
+  ["Everything in Growth", "Tudo do Crescimento"],
+  ["Instagram DM automation", "Automação Instagram DM"],
+  ["Multi-location lead routing", "Roteamento de leads multi-unidade"],
+  ["Per-location analytics", "Analytics por unidade"],
+  ["Staff performance tracking", "Acompanhamento de equipe"],
+  ["Up to 5 locations", "Até 5 unidades"],
+  ["Expected: +44 members/month", "Esperado: +44 membros/mês"],
+  ["Empire", "Império"],
+  ["AI-First Fitness Network", "Rede Fitness com IA"],
+  ["AI phone calling", "Ligações por IA"],
+  ["Churn prediction", "Previsão de cancelamento"],
+  ["Lapsed member re-engagement", "Reativação de membros inativos"],
+  ["Upsell automation", "Automação de upsell"],
+  ["All 10 locations", "Todas as 10 unidades"],
+  ["Monthly strategy call", "Reunião mensal de estratégia"],
+  ["Expected: +72 members/month", "Esperado: +72 membros/mês"],
+  // Section 7
+  ["The Bottom Line", "O Resumo Final"],
+  ["Annual Impact — Conservative Estimate (10 Locations)", "Impacto Anual — Estimativa Conservadora (10 Unidades)"],
+  ["Without AI", "Sem IA"],
+  ["With AI", "Com IA"],
+  ["Difference", "Diferença"],
+  ["Conversion rate", "Taxa de conversão"],
+  ["New members/year", "Novos membros/ano"],
+  ["Membership revenue", "Receita de mensalidade"],
+  ["+ Upsell revenue (30%)", "+ Receita de upsell (30%)"],
+  ["Total annual revenue", "Receita anual total"],
+  ["AI investment/year", "Investimento IA/ano"],
+  ["NET GAIN", "GANHO LÍQUIDO"],
+  ["For every R$1 invested in AI, you get R$18 back. That's not marketing. That's math.", "Para cada R$1 investido em IA, você recebe R$18 de volta. Isso não é marketing. É matemática."],
+  // Quote
+  ["The question isn't whether you can afford AI.", "A pergunta não é se você pode pagar por IA."],
+  ["It's whether you can afford to keep losing R$4-8 million a year without it.", "É se você pode continuar perdendo R$4-8 milhões por ano sem ela."],
+  // CTA
+  ["Ready to Stop Leaving Money on the Table?", "Pronto Para Parar de Deixar Dinheiro na Mesa?"],
+  ["30-minute discovery call. No pitch, no pressure.", "Ligação de 30 minutos. Sem pitch, sem pressão."],
+  ["Just the numbers for YOUR business.", "Apenas os números do SEU negócio."],
+  ["Schedule a Call on WhatsApp", "Agendar Ligação no WhatsApp"],
+  ["We prove it works at one location first. If the numbers don't speak for themselves, you pay nothing.", "Provamos que funciona em uma unidade primeiro. Se os números não falarem por si, você não paga nada."],
+  // Footer
+  ["AI Sales Automation Specialist", "Especialista em Automação de Vendas com IA"],
+  ["RECOMMENDED", "RECOMENDADO"]
+];
+
+let enHTML = '';
 const translations = {
   en: {
     // Header
@@ -921,7 +1073,21 @@ function applyTranslations(lang) {
 }
 
 function setLang(lang) {
-  applyTranslations(lang);
+  const container = document.querySelector('.container');
+  if (!enHTML) enHTML = container.innerHTML;
+  
+  if (lang === 'pt') {
+    let html = enHTML;
+    // Sort by length descending to avoid partial replacements
+    const sorted = [...swapPairs].sort((a, b) => b[0].length - a[0].length);
+    sorted.forEach(([en, pt]) => {
+      html = html.split(en).join(pt);
+    });
+    container.innerHTML = html;
+  } else {
+    container.innerHTML = enHTML;
+  }
+
   document.getElementById('btn-en').style.background = lang === 'en' ? '#f97316' : 'transparent';
   document.getElementById('btn-en').style.color = lang === 'en' ? '#000' : '#888';
   document.getElementById('btn-pt').style.background = lang === 'pt' ? '#f97316' : 'transparent';
@@ -930,8 +1096,8 @@ function setLang(lang) {
   localStorage.setItem('pitch-lang', lang);
 }
 
-// Auto-detect or restore preference
 document.addEventListener('DOMContentLoaded', () => {
+  enHTML = document.querySelector('.container').innerHTML;
   const saved = localStorage.getItem('pitch-lang');
   if (saved) setLang(saved);
 });
