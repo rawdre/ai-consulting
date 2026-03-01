@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Impact Report — Rawaef Fitness | Raw AI Business Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 50px;
+  }
+
+  .header .brand {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #f97316;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 38px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .header .subtitle {
+    font-size: 18px;
+    color: #888;
+    font-weight: 300;
+  }
+
+  .header .prepared {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #666;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #f97316;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin: 28px 0 14px;
+  }
+
+  p {
+    color: #b0b0b0;
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+
+  th {
+    background: rgba(249,115,22,0.1);
+    color: #f97316;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid rgba(249,115,22,0.3);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: #ccc;
+  }
+
+  tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .highlight td {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .loss td {
+    color: #ef4444;
+    font-weight: 600;
+  }
+
+  .gain td {
+    color: #22c55e;
+    font-weight: 600;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: rgba(249,115,22,0.08);
+    border-left: 4px solid #f97316;
+    padding: 24px;
+    margin: 28px 0;
+    border-radius: 0 12px 12px 0;
+  }
+
+  .callout.red {
+    background: rgba(239,68,68,0.08);
+    border-left-color: #ef4444;
+  }
+
+  .callout.green {
+    background: rgba(34,197,94,0.08);
+    border-left-color: #22c55e;
+  }
+
+  .callout p {
+    color: #ddd;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .callout .big-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .callout.red .big-number { color: #ef4444; }
+  .callout.green .big-number { color: #22c55e; }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .stat-card .number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .stat-card .number.red { color: #ef4444; }
+  .stat-card .number.green { color: #22c55e; }
+  .stat-card .number.orange { color: #f97316; }
+
+  .stat-card .label {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+  }
+
+  /* Tier cards */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .tier {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .tier:hover {
+    border-color: rgba(249,115,22,0.4);
+  }
+
+  .tier.recommended {
+    border-color: #f97316;
+    background: rgba(249,115,22,0.05);
+  }
+
+  .tier.recommended::before {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: #f97316;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 12px;
+    border-radius: 4px;
+  }
+
+  .tier .tier-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .tier .tier-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .tier .tier-price {
+    font-size: 28px;
+    font-weight: 800;
+    color: #f97316;
+    margin-bottom: 16px;
+  }
+
+  .tier .tier-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #888;
+  }
+
+  .tier ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tier li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #b0b0b0;
+  }
+
+  .tier li::before {
+    content: '✅ ';
+  }
+
+  .tier .roi {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 15px;
+    font-weight: 600;
+    color: #22c55e;
+  }
+
+  /* Revenue streams */
+  .revenue-stream {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .revenue-stream .icon {
+    font-size: 24px;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .revenue-stream .info {
+    flex: 1;
+    margin-left: 12px;
+  }
+
+  .revenue-stream .info .name {
+    font-weight: 600;
+    color: #ddd;
+    font-size: 15px;
+  }
+
+  .revenue-stream .info .range {
+    font-size: 13px;
+    color: #888;
+  }
+
+  .revenue-stream .amount {
+    font-weight: 700;
+    color: #f97316;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  /* Quote */
+  .quote {
+    text-align: center;
+    padding: 48px 24px;
+    margin: 40px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .quote p {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: 48px;
+    background: linear-gradient(135deg, rgba(249,115,22,0.1), rgba(249,115,22,0.02));
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 20px;
+    margin: 40px 0;
+  }
+
+  .cta h2 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .cta p {
+    color: #aaa;
+    margin-bottom: 24px;
+  }
+
+  .cta .btn {
+    display: inline-block;
+    background: #f97316;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .cta .btn:hover {
+    background: #fb923c;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    color: #555;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 40px;
+  }
+
+  .footer a {
+    color: #f97316;
+    text-decoration: none;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    margin: 48px 0;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    .callout .big-number { font-size: 28px; }
+    .stat-card .number { font-size: 24px; }
+    .tier .tier-price { font-size: 22px; }
+    .tiers { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">Raw AI Business Solutions</div>
+    <h1>Revenue Impact Report</h1>
+    <div class="subtitle">How AI Can Recover Millions in Lost Revenue for Rawaef Fitness</div>
+    <div class="prepared">Prepared for André Alexandre — Rawaef Fitness Network</div>
+  </div>
+
+  <!-- SECTION 1: BASE NUMBERS -->
+  <div class="section">
+    <div class="section-label">📊 Current Situation</div>
+    <h2>Your Numbers Right Now — Per Location</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="number">10</div>
+        <div class="label">New leads per week</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">40</div>
+        <div class="label">Monthly leads</div>
+      </div>
+      <div class="stat-card">
+        <div class="number orange">34%</div>
+        <div class="label">Current conversion rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">R$1,700</div>
+        <div class="label">Lifetime value per member</div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Metric</th><th>Per Month</th></tr>
+      <tr><td>Monthly membership</td><td>R$200</td></tr>
+      <tr><td>Signup / enrollment fee</td><td>R$100</td></tr>
+      <tr><td>Average retention</td><td>8 months</td></tr>
+      <tr class="highlight"><td>Lifetime Value (LTV)</td><td>R$100 + (R$200 × 8) = R$1,700</td></tr>
+    </table>
+  </div>
+
+  <!-- SECTION 2: SINGLE LOCATION LOSS -->
+  <div class="section">
+    <div class="section-label">🏋️ Single Location</div>
+    <h2>What's Happening at Each Location</h2>
+
+    <p>Out of 40 monthly leads, you convert 14. The other <strong>26 people</strong> — they raised their hand, said "I'm interested" — and left without becoming a member.</p>
+
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Monthly leads</td><td>40</td></tr>
+      <tr><td>Converted (34%)</td><td>14</td></tr>
+      <tr class="loss"><td>Leads LOST</td><td>26</td></tr>
+      <tr><td>Revenue captured (CLV)</td><td>R$23,800/month</td></tr>
+      <tr class="loss"><td>Revenue LOST (CLV)</td><td>R$44,200/month</td></tr>
+      <tr class="loss"><td>Revenue LOST (annual)</td><td>R$530,400/year</td></tr>
+    </table>
+
+    <div class="callout red">
+      <div class="big-number">R$530,400</div>
+      <p>Lost per year at a SINGLE location — just from membership alone</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: NETWORK LOSS -->
+  <div class="section">
+    <div class="section-label">🏢 Full Network</div>
+    <h2>Across 5-10 Locations — The Full Picture</h2>
+
+    <h3>Conservative (5 Locations)</h3>
+    <table>
+      <tr><th>Metric</th><th>Monthly</th><th>Annual</th></tr>
+      <tr><td>Total leads</td><td>200</td><td>2,400</td></tr>
+      <tr><td>Leads converted (34%)</td><td>68</td><td>816</td></tr>
+      <tr class="loss"><td>Leads LOST</td><td>132</td><td>1,584</td></tr>
+      <tr><td>Revenue captured</td><td>R$115,600</td><td>R$1,387,200</td></tr>
+      <tr class="loss"><td>Revenue LOST</td><td>R$224,400</td><td>R$2,692,800</td></tr>
+    </table>
+
+    <h3>Full Network (10 Locations)</h3>
+    <table>
+      <tr><th>Metric</th><th>Monthly</th><th>Annual</th></tr>
+      <tr><td>Total leads</td><td>400</td><td>4,800</td></tr>
+      <tr><td>Leads converted (34%)</td><td>136</td><td>1,632</td></tr>
+      <tr class="loss"><td>Leads LOST</td><td>264</td><td>3,168</td></tr>
+      <tr><td>Revenue captured</td><td>R$231,200</td><td>R$2,774,400</td></tr>
+      <tr class="loss"><td>Revenue LOST</td><td>R$448,800</td><td>R$5,385,600</td></tr>
+    </table>
+
+    <div class="callout red">
+      <div class="big-number">R$2.7M — R$5.4M</div>
+      <p>Lost per year across your network — in membership revenue alone</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4: HIDDEN REVENUE -->
+  <div class="section">
+    <div class="section-label">🔥 The Full Truth</div>
+    <h2>But Memberships Are Just the Beginning...</h2>
+
+    <p>When a lead doesn't convert, you don't just lose R$200/month. You lose <strong>everything that member would have bought:</strong></p>
+
+    <div class="revenue-stream">
+      <div class="icon">🏋️</div>
+      <div class="info">
+        <div class="name">Personal Training (1-2x/week)</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$400-800</div>
+    </div>
+
+    <div class="revenue-stream">
+      <div class="icon">🥤</div>
+      <div class="info">
+        <div class="name">Supplements & Nutrition Plans</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$100-200</div>
+    </div>
+
+    <div class="revenue-stream">
+      <div class="icon">🧘</div>
+      <div class="info">
+        <div class="name">Specialty Classes (yoga, boxing, crossfit)</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$100-150</div>
+    </div>
+
+    <div class="revenue-stream">
+      <div class="icon">💆</div>
+      <div class="info">
+        <div class="name">Wellness Services (massage, physio)</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$80-150</div>
+    </div>
+
+    <div class="revenue-stream">
+      <div class="icon">👕</div>
+      <div class="info">
+        <div class="name">Branded Merchandise</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$30-50</div>
+    </div>
+
+    <div class="revenue-stream">
+      <div class="icon">📱</div>
+      <div class="info">
+        <div class="name">Premium App / Online Content</div>
+        <div class="range">Per member, per month</div>
+      </div>
+      <div class="amount">R$30-50</div>
+    </div>
+
+    <h3>True Customer Value</h3>
+    <table>
+      <tr><th>Metric</th><th>Membership Only</th><th>With Upsells (30% buy rate)</th></tr>
+      <tr><td>LTV per member</td><td>R$1,700</td><td>R$4,364</td></tr>
+    </table>
+
+    <h3>Real Annual Loss — Full Revenue Picture</h3>
+    <table>
+      <tr><th>Locations</th><th>Lost Leads/Year</th><th>Membership Loss</th><th>+ Upsell Loss</th><th>TOTAL LOST</th></tr>
+      <tr class="loss"><td>5 locations</td><td>1,584</td><td>R$2,692,800</td><td>R$1,267,258</td><td>R$3,960,058</td></tr>
+      <tr class="loss"><td>10 locations</td><td>3,168</td><td>R$5,385,600</td><td>R$2,534,515</td><td>R$7,920,115</td></tr>
+    </table>
+
+    <div class="callout red">
+      <div class="big-number">R$4M — R$8M</div>
+      <p>Total revenue lost per year when you include all services those members would have consumed</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: WHAT AI FIXES -->
+  <div class="section">
+    <div class="section-label">🤖 The Solution</div>
+    <h2>What AI Fixes — And How Much It Recovers</h2>
+
+    <h3>The 3 Biggest Revenue Killers</h3>
+
+    <div class="callout">
+      <p><strong>1. Speed to Lead</strong> — Your current response time: 30-60 minutes.<br>
+      AI responds in <strong>&lt;30 seconds</strong>. Leads contacted in under 5 minutes are <strong>21x more likely to convert</strong>.<br>
+      <strong>Impact: +5-8% conversion rate</strong></p>
+    </div>
+
+    <div class="callout">
+      <p><strong>2. Zero After-Hours & Weekend Coverage</strong> — You're dark when 30% of leads come in.<br>
+      AI works <strong>24/7/365</strong>. No sick days, no holidays.<br>
+      <strong>Impact: +3-5% conversion rate</strong></p>
+    </div>
+
+    <div class="callout">
+      <p><strong>3. No Automated Follow-Up</strong> — Manual, inconsistent, leads forgotten.<br>
+      AI runs a <strong>5-touch sequence</strong> across WhatsApp + SMS + Email for every single lead.<br>
+      <strong>Impact: +3-5% conversion rate</strong></p>
+    </div>
+
+    <h3>Combined Impact: 34% → 45-52% Conversion</h3>
+    <table>
+      <tr><th>Scenario</th><th>Conversion</th><th>New Members/Month (10 loc)</th><th>Annual Revenue Gain</th></tr>
+      <tr><td>Current</td><td>34%</td><td>136</td><td>—</td></tr>
+      <tr class="gain"><td>Conservative (+11%)</td><td>45%</td><td>180</td><td>R$897,600</td></tr>
+      <tr class="gain"><td>Optimistic (+18%)</td><td>52%</td><td>208</td><td>R$1,468,800</td></tr>
+    </table>
+
+    <div class="callout green">
+      <div class="big-number">R$900K — R$1.5M</div>
+      <p>Recovered per year in membership revenue alone. Add upsells: R$1.3M — R$2.2M</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 6: PRICING -->
+  <div class="section">
+    <div class="section-label">💼 Investment</div>
+    <h2>Choose Your Level</h2>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">🥉 Starter</div>
+        <div class="tier-title">"Prove It In One Location"</div>
+        <div class="tier-price">R$1,500<span>/month</span></div>
+        <ul>
+          <li>AI WhatsApp auto-responder (24/7)</li>
+          <li>5-day automated follow-up sequences</li>
+          <li>Lead tracking dashboard</li>
+          <li>Weekly performance report</li>
+        </ul>
+        <div class="roi">Expected: +8-12 members/month<br>ROI: 9-14x</div>
+      </div>
+
+      <div class="tier recommended">
+        <div class="tier-name">🥈 Growth</div>
+        <div class="tier-title">"Scale Across Locations"</div>
+        <div class="tier-price">R$3,500<span>/month</span></div>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>Instagram DM automation</li>
+          <li>Multi-location lead routing</li>
+          <li>Per-location analytics</li>
+          <li>Staff performance tracking</li>
+          <li>Up to 5 locations</li>
+        </ul>
+        <div class="roi">Expected: +44 members/month<br>ROI: 21x</div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-name">🥇 Empire</div>
+        <div class="tier-title">"AI-First Fitness Network"</div>
+        <div class="tier-price">R$6,000<span>/month</span></div>
+        <ul>
+          <li>Everything in Growth</li>
+          <li>AI phone calling</li>
+          <li>Churn prediction</li>
+          <li>Lapsed member re-engagement</li>
+          <li>Upsell automation</li>
+          <li>All 10 locations</li>
+          <li>Monthly strategy call</li>
+        </ul>
+        <div class="roi">Expected: +72 members/month<br>ROI: 20x</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 7: BOTTOM LINE -->
+  <div class="section">
+    <div class="section-label">📈 The Bottom Line</div>
+    <h2>Annual Impact — Conservative Estimate (10 Locations)</h2>
+
+    <table>
+      <tr><th></th><th>Without AI</th><th>With AI</th><th>Difference</th></tr>
+      <tr><td>Conversion rate</td><td>34%</td><td>45%</td><td>+11%</td></tr>
+      <tr><td>New members/year</td><td>1,632</td><td>2,160</td><td>+528</td></tr>
+      <tr><td>Membership revenue</td><td>R$2,774,400</td><td>R$3,672,000</td><td>+R$897,600</td></tr>
+      <tr><td>+ Upsell revenue (30%)</td><td>R$1,304,794</td><td>R$1,727,136</td><td>+R$422,342</td></tr>
+      <tr class="highlight"><td>Total annual revenue</td><td>R$4,079,194</td><td>R$5,399,136</td><td>+R$1,319,942</td></tr>
+      <tr><td>AI investment/year</td><td>—</td><td>R$72,000</td><td></td></tr>
+      <tr class="gain"><td><strong>NET GAIN</strong></td><td></td><td></td><td><strong>R$1,247,942</strong></td></tr>
+    </table>
+
+    <div class="callout green">
+      <div class="big-number">18x ROI</div>
+      <p>For every R$1 invested in AI, you get R$18 back. That's not marketing. That's math.</p>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote">
+    <p>"The question isn't whether you can afford AI.<br>It's whether you can afford to keep losing R$4-8 million a year without it."</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to Stop Leaving Money on the Table?</h2>
+    <p>30-minute discovery call. No pitch, no pressure.<br>Just the numbers for YOUR business.</p>
+    <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9%2C%20I%20saw%20the%20revenue%20report.%20Let's%20talk." class="btn">📲 Schedule a Call on WhatsApp</a>
+    <p style="margin-top:16px;font-size:13px;color:#666;">We prove it works at one location first. If the numbers don't speak for themselves, you pay nothing.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p><strong>Raw AI Business Solutions</strong></p>
+    <p>André Raw — AI Sales Automation Specialist</p>
+    <p>📲 <a href="https://wa.me/5561998229223">+55 61 99822-9223</a> · 🌐 <a href="https://rawdre.github.io/ai-consulting">rawdre.github.io/ai-consulting</a></p>
+  </div>
+
+</div>
+
+</body>
+</html>
