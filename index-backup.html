@@ -18,8 +18,6 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<!-- UI UX Pro Max: Space Grotesk + DM Sans (tech/AI mood) -->
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSBN5K47B4"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XSBN5K47B4');</script>
@@ -27,7 +25,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;--text:#e8e8f0;--muted:#8888aa;--accent:#00d4ff;--accent2:#00ff88;--gold:#ffd700;--gradient:linear-gradient(135deg,#00d4ff,#00ff88);--gradient2:linear-gradient(135deg,#00ff88,#ffd700)}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;position:relative}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;position:relative}
 a{color:var(--accent);text-decoration:none;transition:.3s}
 a:hover{color:var(--accent2)}
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
@@ -80,7 +78,7 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);padding:8px 20px;border-radius:50px;font-size:.85rem;color:var(--accent);margin-bottom:24px;animation:fadeInUp .8s ease}
 .hero-badge .dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.hero h1{font-family:'Space Grotesk','DM Sans',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:24px;animation:fadeInUp .8s ease .1s both;letter-spacing:-0.02em}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:24px;animation:fadeInUp .8s ease .1s both}
 .hero h1 .highlight{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero p{font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--muted);margin-bottom:40px;max-width:600px;animation:fadeInUp .8s ease .2s both}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:16px;animation:fadeInUp .8s ease .3s both}
@@ -313,67 +311,6 @@ footer a{color:var(--accent)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
-/* === UI UX PRO MAX ENHANCEMENTS === */
-
-/* Scroll Progress Bar */
-.scroll-progress{position:fixed;top:0;left:0;height:3px;background:var(--gradient);z-index:1001;transition:width 50ms linear;width:0}
-
-/* Section titles: Space Grotesk */
-.section-title,.proof-text h3,.service-card h3,.feature-card h3,.step h3,.faq-q span{font-family:'Space Grotesk','DM Sans',sans-serif;letter-spacing:-0.01em}
-
-/* Glassmorphism Card Upgrade */
-.feature-card,.service-card,.step,.proof-stat{background:rgba(18,18,26,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.06)}
-
-/* Animated Gradient Border on Hover */
-.feature-card:hover,.service-card:hover,.step:hover{border-image:linear-gradient(135deg,rgba(0,212,255,.4),rgba(0,255,136,.4)) 1;border-image-slice:1}
-
-/* Glow effect on primary buttons */
-.btn-primary{position:relative;overflow:hidden}
-.btn-primary::after{content:'';position:absolute;inset:-2px;background:var(--gradient);filter:blur(20px);opacity:0;transition:.4s;z-index:-1;border-radius:inherit}
-.btn-primary:hover::after{opacity:.4}
-
-/* Card entrance stagger */
-.feature-card:nth-child(1){transition-delay:.05s}
-.feature-card:nth-child(2){transition-delay:.1s}
-.feature-card:nth-child(3){transition-delay:.15s}
-.feature-card:nth-child(4){transition-delay:.2s}
-.feature-card:nth-child(5){transition-delay:.25s}
-.feature-card:nth-child(6){transition-delay:.3s}
-
-/* Stat number glow */
-.stat-number{text-shadow:0 0 40px rgba(0,212,255,.15)}
-
-/* Hero floating particles */
-.hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-particle{position:absolute;width:4px;height:4px;background:rgba(0,212,255,.3);border-radius:50%;animation:floatUp linear infinite}
-.hero-particle:nth-child(even){background:rgba(0,255,136,.3)}
-@keyframes floatUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
-
-/* Improved audit badge pulse */
-.audit-badge{animation:badgePulse 3s ease-in-out infinite}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.2)}50%{box-shadow:0 0 20px 4px rgba(0,255,136,.15)}}
-
-/* Nav blur enhancement */
-nav{background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-
-/* Proof stat hover */
-.proof-stat{transition:.3s}
-.proof-stat:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.2);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-
-/* WhatsApp float pulse */
-.wa-float{animation:waPulse 3s ease-in-out infinite}
-@keyframes waPulse{0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.4)}50%{box-shadow:0 4px 40px rgba(37,211,102,.6)}}
-
-/* Service card featured glow */
-.service-card.featured{position:relative}
-.service-card.featured::after{content:'';position:absolute;inset:-1px;background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,255,136,.1));border-radius:16px;z-index:-1;filter:blur(8px);opacity:.6}
-
-/* Testimonial quote styling */
-.testimonial-card{background:rgba(18,18,26,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-
-/* Smoother reveal animation */
-.reveal{transition:.8s cubic-bezier(.16,1,.3,1)}
-
 /* MOBILE */
 @media(max-width:768px){
   .nav-links a:not(.lang-toggle-wrap){display:none}
@@ -397,9 +334,6 @@ nav{background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-fi
 </head>
 <body>
 
-<!-- SCROLL PROGRESS -->
-<div class="scroll-progress" id="scrollProgress"></div>
-
 <!-- TECH BACKGROUND -->
 <div class="tech-bg"></div>
 
@@ -415,9 +349,9 @@ nav{background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-fi
           </linearGradient>
         </defs>
         <!-- RAW in bold -->
-        <text x="0" y="30" font-family="'Space Grotesk','DM Sans',-apple-system,sans-serif" font-size="32" font-weight="900" fill="#e8e8f0">RAW</text>
+        <text x="0" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-size="32" font-weight="900" fill="#e8e8f0">RAW</text>
         <!-- AI outlined with gradient -->
-        <text x="95" y="30" font-family="'Space Grotesk','DM Sans',-apple-system,sans-serif" font-size="32" font-weight="900" fill="none" stroke="url(#logoGrad)" stroke-width="1.5">AI</text>
+        <text x="95" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" font-size="32" font-weight="900" fill="none" stroke="url(#logoGrad)" stroke-width="1.5">AI</text>
         <!-- Circuit node dots -->
         <circle cx="88" cy="8" r="2.5" fill="url(#logoGrad)"/>
         <circle cx="88" cy="20" r="1.5" fill="url(#logoGrad)" opacity=".6"/>
@@ -445,7 +379,6 @@ nav{background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-fi
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-particles" id="heroParticles"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-badge"><span class="dot"></span> <span data-en="AI Agents Working 24/7 Right Now" data-pt="Agentes IA Trabalhando 24/7 Agora Mesmo">AI Agents Working 24/7 Right Now</span></div>
@@ -1023,7 +956,7 @@ nav{background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-fi
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <p data-en="© 2026 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎" data-pt="© 2026 Raw AI Business Solutions. Baseado em Brasília, atendendo o mundo. 🌎">© 2026 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎</p>
+    <p data-en="© 2025 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎" data-pt="© 2025 Raw AI Business Solutions. Baseado em Brasília, atendendo o mundo. 🌎">© 2025 Raw AI Business Solutions. Based in Brasília, serving the world. 🌎</p>
     <p style="margin-top:8px"><a href="mailto:rawandre@gmail.com">rawandre@gmail.com</a> · <a href="https://wa.me/5561998229223" target="_blank">WhatsApp</a></p>
   </div>
 </footer>
@@ -1448,88 +1381,6 @@ if (logoEl) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
-
-// === UI UX PRO MAX ENHANCEMENTS ===
-
-// Scroll Progress Bar
-window.addEventListener('scroll', function() {
-  var h = document.documentElement;
-  var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  document.getElementById('scrollProgress').style.width = pct + '%';
-});
-
-// Stat Counter Animation (count up on scroll)
-var statCounted = false;
-function animateStats() {
-  if (statCounted) return;
-  var stats = document.querySelectorAll('.stat-number');
-  var first = stats[0];
-  if (!first) return;
-  var rect = first.getBoundingClientRect();
-  if (rect.top < window.innerHeight && rect.bottom > 0) {
-    statCounted = true;
-    stats.forEach(function(el) {
-      var text = el.textContent.trim();
-      var match = text.match(/^(\d+)/);
-      if (match) {
-        var target = parseInt(match[1]);
-        var suffix = text.replace(match[1], '');
-        var start = 0;
-        var duration = 1800;
-        var startTime = null;
-        function step(ts) {
-          if (!startTime) startTime = ts;
-          var progress = Math.min((ts - startTime) / duration, 1);
-          var eased = 1 - Math.pow(1 - progress, 3);
-          var current = Math.floor(eased * target);
-          el.textContent = current + suffix;
-          if (progress < 1) requestAnimationFrame(step);
-          else el.textContent = target + suffix;
-        }
-        requestAnimationFrame(step);
-      }
-    });
-    // Also animate proof stats
-    document.querySelectorAll('.proof-stat .num').forEach(function(el) {
-      var text = el.textContent.trim();
-      var match = text.match(/^(\d+)/);
-      if (match) {
-        var target = parseInt(match[1]);
-        var suffix = text.replace(match[1], '');
-        var start = 0;
-        var duration = 2000;
-        var startTime = null;
-        function step2(ts) {
-          if (!startTime) startTime = ts;
-          var progress = Math.min((ts - startTime) / duration, 1);
-          var eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.floor(eased * target) + suffix;
-          if (progress < 1) requestAnimationFrame(step2);
-          else el.textContent = target + suffix;
-        }
-        requestAnimationFrame(step2);
-      }
-    });
-  }
-}
-window.addEventListener('scroll', animateStats);
-animateStats();
-
-// Hero Floating Particles
-(function() {
-  var container = document.getElementById('heroParticles');
-  if (!container) return;
-  for (var i = 0; i < 20; i++) {
-    var p = document.createElement('div');
-    p.className = 'hero-particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    p.style.width = (2 + Math.random() * 4) + 'px';
-    p.style.height = p.style.width;
-    container.appendChild(p);
-  }
-})();
 </script>
 </body>
 </html>
