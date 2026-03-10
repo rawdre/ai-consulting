@@ -33,7 +33,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
 --navy:#1B2A4A;--navy-deep:#0F1A2E;--navy-light:#243656;
---amber:#F5A623;--amber-light:#FFD080;--amber-dark:#D4890A;
+--red:#D32F2F;--red-light:#EF5350;--red-dark:#B71C1C;
 --white:#FFFFFF;--gray-50:#F8F9FC;--gray-100:#EEF1F6;--gray-200:#D8DDE8;--gray-300:#B0B8C9;--gray-600:#5A6478;--gray-800:#2C3345;--gray-900:#1A1F2E;
 --radius:16px;--radius-sm:10px;--radius-lg:24px;
 --shadow:0 4px 24px rgba(27,42,74,.10);--shadow-lg:0 12px 48px rgba(27,42,74,.15);
@@ -50,14 +50,14 @@ img{max-width:100%;display:block}
 .header.scrolled{background:rgba(15,26,46,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:10px 0;box-shadow:0 2px 32px rgba(0,0,0,.2)}
 .header .container{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--amber),var(--amber-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:18px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:18px}
 .logo-text{font-size:20px;font-weight:700;color:var(--white)}
-.logo-text span{color:var(--amber)}
+.logo-text span{color:var(--red)}
 .nav{display:flex;align-items:center;gap:32px}
 .nav a{color:rgba(255,255,255,.8);font-size:14px;font-weight:500;transition:var(--transition);position:relative}
-.nav a:hover{color:var(--amber)}
-.nav-cta{background:var(--amber)!important;color:var(--navy)!important;padding:10px 24px;border-radius:50px;font-weight:600!important;transition:var(--transition)!important}
-.nav-cta:hover{background:var(--amber-light)!important;transform:translateY(-2px);box-shadow:0 4px 16px rgba(245,166,35,.4)}
+.nav a:hover{color:var(--red)}
+.nav-cta{background:var(--red)!important;color:var(--navy)!important;padding:10px 24px;border-radius:50px;font-weight:600!important;transition:var(--transition)!important}
+.nav-cta:hover{background:var(--red-light)!important;transform:translateY(-2px);box-shadow:0 4px 16px rgba(211,47,47,.4)}
 .mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
 .mobile-toggle span{display:block;width:24px;height:2px;background:var(--white);margin:6px 0;border-radius:2px;transition:var(--transition)}
 @media(max-width:768px){
@@ -68,33 +68,33 @@ img{max-width:100%;display:block}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,var(--navy-deep) 0%,var(--navy) 40%,var(--navy-light) 100%);overflow:hidden;padding:120px 0 80px}
-.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(245,166,35,.07) 0%,transparent 70%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(211,47,47,.07) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--gray-50),transparent);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;position:relative;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);border-radius:50px;padding:8px 20px;font-size:13px;color:var(--amber);font-weight:500;margin-bottom:20px;width:fit-content}
-.hero-badge::before{content:'';width:8px;height:8px;background:var(--amber);border-radius:50%;animation:pulse-dot 2s infinite}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(211,47,47,.12);border:1px solid rgba(211,47,47,.25);border-radius:50px;padding:8px 20px;font-size:13px;color:var(--red);font-weight:500;margin-bottom:20px;width:fit-content}
+.hero-badge::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse-dot 2s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 .hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px}
-.hero h1 span{background:linear-gradient(135deg,var(--amber),var(--amber-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 span{background:linear-gradient(135deg,var(--red),var(--red-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.65);line-height:1.6;max-width:560px;margin-bottom:36px}
 
 /* SEARCH BAR */
 .search-box{background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:24px;margin-bottom:36px;max-width:680px}
 .search-toggle{display:flex;gap:0;margin-bottom:16px;background:rgba(255,255,255,.06);border-radius:50px;overflow:hidden;width:fit-content}
 .search-toggle button{padding:10px 28px;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:var(--transition);border-radius:50px}
-.search-toggle button.active{background:var(--amber);color:var(--navy)}
+.search-toggle button.active{background:var(--red);color:var(--navy)}
 .search-fields{display:flex;gap:10px;flex-wrap:wrap}
 .search-input{flex:1;min-width:200px;padding:14px 18px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--white);font-family:inherit;font-size:14px;outline:none;transition:var(--transition)}
 .search-input::placeholder{color:rgba(255,255,255,.35)}
-.search-input:focus{border-color:var(--amber);background:rgba(255,255,255,.1)}
+.search-input:focus{border-color:var(--red);background:rgba(255,255,255,.1)}
 .search-select{padding:14px 18px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:inherit;font-size:14px;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:130px}
-.search-btn{padding:14px 32px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap}
-.search-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(245,166,35,.4)}
+.search-btn{padding:14px 32px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--navy);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap}
+.search-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(211,47,47,.4)}
 
 /* TRUST BADGES */
 .trust-badges{display:flex;flex-wrap:wrap;gap:16px}
 .trust-badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:12px 20px;transition:var(--transition)}
-.trust-badge:hover{background:rgba(255,255,255,.1);border-color:rgba(245,166,35,.3)}
+.trust-badge:hover{background:rgba(255,255,255,.1);border-color:rgba(211,47,47,.3)}
 .trust-badge .icon{font-size:24px}
 .trust-badge .info{display:flex;flex-direction:column}
 .trust-badge .num{font-size:18px;font-weight:700;color:var(--white);line-height:1.2}
@@ -102,16 +102,16 @@ img{max-width:100%;display:block}
 
 /* FLOATING SHAPES */
 .float-shape{position:absolute;border-radius:50%;opacity:.04;pointer-events:none}
-.float-shape.s1{width:400px;height:400px;background:var(--amber);top:10%;right:-5%;animation:float 20s ease-in-out infinite}
-.float-shape.s2{width:250px;height:250px;background:var(--amber);bottom:20%;left:-3%;animation:float 25s ease-in-out infinite reverse}
+.float-shape.s1{width:400px;height:400px;background:var(--red);top:10%;right:-5%;animation:float 20s ease-in-out infinite}
+.float-shape.s2{width:250px;height:250px;background:var(--red);bottom:20%;left:-3%;animation:float 25s ease-in-out infinite reverse}
 @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(5deg)}}
 
 /* SECTION COMMON */
 .section{padding:100px 0}
 .section-dark{background:var(--navy);color:var(--white)}
 .section-gray{background:var(--gray-50)}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
-.section-label::before{content:'';width:32px;height:2px;background:var(--amber);border-radius:2px}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.section-label::before{content:'';width:32px;height:2px;background:var(--red);border-radius:2px}
 .section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:16px}
 .section-desc{font-size:1.05rem;color:var(--gray-600);line-height:1.7;max-width:600px;margin-bottom:48px}
 .section-dark .section-desc{color:rgba(255,255,255,.6)}
@@ -142,17 +142,17 @@ img{max-width:100%;display:block}
 /* AI FEATURES */
 .ai-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
 .ai-card{background:rgba(255,255,255,.04);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:36px 28px;transition:var(--transition);position:relative;overflow:hidden}
-.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-light));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
+.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-light));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
 .ai-card:hover::before{transform:scaleX(1)}
-.ai-card:hover{background:rgba(255,255,255,.08);border-color:rgba(245,166,35,.2);transform:translateY(-4px)}
-.ai-icon{width:56px;height:56px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.05));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.ai-card:hover{background:rgba(255,255,255,.08);border-color:rgba(211,47,47,.2);transform:translateY(-4px)}
+.ai-icon{width:56px;height:56px;background:linear-gradient(135deg,rgba(211,47,47,.15),rgba(211,47,47,.05));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
 .ai-card h3{font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:10px}
 .ai-card p{font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6}
 
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
 .service-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 24px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
-.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--navy));transform:scaleX(0);transition:transform .4s ease}
 .service-card:hover::after{transform:scaleX(1)}
 .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
 .service-icon{font-size:40px;margin-bottom:16px;display:block}
@@ -162,18 +162,18 @@ img{max-width:100%;display:block}
 /* STATS */
 .stats-row{display:flex;flex-wrap:wrap;justify-content:center;gap:48px;margin-top:48px}
 .stat-item{text-align:center}
-.stat-num{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--amber);line-height:1}
+.stat-num{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--red);line-height:1}
 .stat-label{font-size:.85rem;color:var(--gray-600);margin-top:8px;font-weight:500}
 .about-story{max-width:720px;margin:0 auto 48px;text-align:center;font-size:1.1rem;line-height:1.8;color:var(--gray-600)}
 
 /* PROPRIETARIOS */
 .prop-section{background:linear-gradient(135deg,var(--navy-deep),var(--navy));position:relative;overflow:hidden}
-.prop-section::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(245,166,35,.06),transparent 70%);pointer-events:none}
+.prop-section::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(211,47,47,.06),transparent 70%);pointer-events:none}
 .prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 @media(max-width:768px){.prop-grid{grid-template-columns:1fr;gap:32px}}
 .prop-benefits{display:flex;flex-direction:column;gap:20px}
 .prop-benefit{display:flex;align-items:flex-start;gap:16px}
-.prop-check{width:32px;height:32px;min-width:32px;background:linear-gradient(135deg,rgba(245,166,35,.2),rgba(245,166,35,.08));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--amber)}
+.prop-check{width:32px;height:32px;min-width:32px;background:linear-gradient(135deg,rgba(211,47,47,.2),rgba(211,47,47,.08));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--red)}
 .prop-benefit h4{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:4px}
 .prop-benefit p{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.5}
 .prop-cta-box{background:rgba(255,255,255,.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:48px;text-align:center}
@@ -188,15 +188,15 @@ img{max-width:100%;display:block}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:24px}}
 .footer-brand h3{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:12px}
-.footer-brand h3 span{color:var(--amber)}
+.footer-brand h3 span{color:var(--red)}
 .footer-brand p{font-size:.9rem;line-height:1.6;max-width:360px}
 .footer h4{font-size:.85rem;font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
 .footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}
 .footer ul li{font-size:.9rem}
-.footer ul a:hover{color:var(--amber)}
+.footer ul a:hover{color:var(--red)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem}
 .footer-powered{opacity:.5}
-.footer-powered a{color:var(--amber);font-weight:500}
+.footer-powered a{color:var(--red);font-weight:500}
 .footer-powered a:hover{opacity:.8}
 
 /* WHATSAPP FLOAT */
@@ -219,11 +219,11 @@ img{max-width:100%;display:block}
 /* BACK TO TOP */
 .back-top{position:fixed;bottom:100px;right:30px;z-index:998;width:42px;height:42px;background:var(--navy);color:var(--white);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transform:translateY(20px);transition:var(--transition);box-shadow:var(--shadow)}
 .back-top.show{opacity:1;transform:translateY(0)}
-.back-top:hover{background:var(--amber);color:var(--navy)}
+.back-top:hover{background:var(--red);color:var(--navy)}
 
 /* SIMULADOR */
 .simulador-section{background:linear-gradient(160deg,var(--gray-50) 0%,#E8ECF4 100%);position:relative;overflow:hidden}
-.simulador-section::before{content:'';position:absolute;top:-30%;right:-15%;width:50%;height:160%;background:radial-gradient(ellipse,rgba(245,166,35,.08),transparent 70%);pointer-events:none}
+.simulador-section::before{content:'';position:absolute;top:-30%;right:-15%;width:50%;height:160%;background:radial-gradient(ellipse,rgba(211,47,47,.08),transparent 70%);pointer-events:none}
 .simulador-form{background:var(--white);border-radius:var(--radius-lg);padding:48px;box-shadow:var(--shadow-lg);max-width:800px;margin:0 auto;position:relative;z-index:2}
 .simulador-form h3{font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:8px}
 .simulador-form .sub{font-size:.95rem;color:var(--gray-600);margin-bottom:32px}
@@ -231,23 +231,23 @@ img{max-width:100%;display:block}
 @media(max-width:600px){.sim-grid{grid-template-columns:1fr}}
 .sim-field label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .sim-field select,.sim-field input{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);font-family:inherit;font-size:.95rem;color:var(--gray-800);background:var(--white);outline:none;transition:var(--transition)}
-.sim-field select:focus,.sim-field input:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.12)}
+.sim-field select:focus,.sim-field input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(211,47,47,.12)}
 .sim-toggle{display:flex;gap:10px}
 .sim-toggle button{flex:1;padding:12px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.9rem;font-weight:600;color:var(--gray-600);cursor:pointer;transition:var(--transition)}
-.sim-toggle button.active{border-color:var(--amber);background:rgba(245,166,35,.08);color:var(--amber-dark)}
-.btn-calcular{width:100%;padding:16px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:8px}
-.btn-calcular:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(245,166,35,.4)}
+.sim-toggle button.active{border-color:var(--red);background:rgba(211,47,47,.08);color:var(--red-dark)}
+.btn-calcular{width:100%;padding:16px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--navy);font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:8px}
+.btn-calcular:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(211,47,47,.4)}
 .sim-result{margin-top:32px;padding:32px;background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:var(--radius);text-align:center;display:none;animation:simReveal .6s ease forwards}
 @keyframes simReveal{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .sim-result.show{display:block}
 .sim-result .est-label{font-size:.85rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.sim-result .est-value{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--amber);margin-bottom:16px}
+.sim-result .est-value{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--red);margin-bottom:16px}
 .sim-result .est-cta{font-size:.95rem;color:rgba(255,255,255,.7);margin-bottom:20px}
 
 /* ADMIN SECTION */
 .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
 .admin-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 24px;transition:var(--transition);position:relative;overflow:hidden}
-.admin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
+.admin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--navy));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
 .admin-card:hover::before{transform:scaleX(1)}
 .admin-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
 .admin-card .card-icon{font-size:36px;margin-bottom:16px;display:block}
@@ -256,10 +256,10 @@ img{max-width:100%;display:block}
 
 /* COMO FUNCIONA - TIMELINE */
 .timeline{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto;position:relative}
-.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--amber),var(--navy));border-radius:3px}
+.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--red),var(--navy));border-radius:3px}
 @media(max-width:600px){.timeline::before{left:20px}}
 .timeline-step{display:flex;gap:24px;align-items:flex-start;padding:24px 0;position:relative}
-.timeline-num{width:56px;height:56px;min-width:56px;background:linear-gradient(135deg,var(--amber),var(--amber-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--navy);position:relative;z-index:2;box-shadow:0 4px 16px rgba(245,166,35,.3)}
+.timeline-num{width:56px;height:56px;min-width:56px;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--navy);position:relative;z-index:2;box-shadow:0 4px 16px rgba(211,47,47,.3)}
 .timeline-content h4{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:4px}
 .timeline-content p{font-size:.9rem;color:var(--gray-600);line-height:1.6}
 
@@ -271,8 +271,8 @@ img{max-width:100%;display:block}
 .predio-header .predio-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
 .predio-card h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:6px}
 .predio-card .predio-desc{font-size:.82rem;color:var(--gray-600);line-height:1.5;margin-bottom:16px}
-.predio-card .btn-ver{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:50px;border:1.5px solid var(--amber);font-size:.82rem;font-weight:600;color:var(--amber-dark);background:transparent;cursor:pointer;transition:var(--transition);margin:0 24px 24px}
-.predio-card .btn-ver:hover{background:var(--amber);color:var(--navy)}
+.predio-card .btn-ver{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:50px;border:1.5px solid var(--red);font-size:.82rem;font-weight:600;color:var(--red-dark);background:transparent;cursor:pointer;transition:var(--transition);margin:0 24px 24px}
+.predio-card .btn-ver:hover{background:var(--red);color:var(--navy)}
 
 /* BLOG CARDS */
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
@@ -285,8 +285,8 @@ img{max-width:100%;display:block}
 .blog-card .blog-meta{font-size:.75rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;gap:12px}
 .blog-card h3{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.4}
 .blog-card .excerpt{font-size:.82rem;color:var(--gray-600);line-height:1.5;margin-bottom:12px}
-.blog-card .read-more{font-size:.82rem;font-weight:600;color:var(--amber-dark);display:inline-flex;align-items:center;gap:4px}
-.blog-card .read-more:hover{color:var(--amber)}
+.blog-card .read-more{font-size:.82rem;font-weight:600;color:var(--red-dark);display:inline-flex;align-items:center;gap:4px}
+.blog-card .read-more:hover{color:var(--red)}
 
 /* VENDA */
 .venda-features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;margin-bottom:40px}
@@ -302,7 +302,7 @@ img{max-width:100%;display:block}
 @media(max-width:768px){.contato-grid{grid-template-columns:1fr;gap:32px}}
 .contato-info{display:flex;flex-direction:column;gap:24px}
 .contato-item{display:flex;align-items:flex-start;gap:16px}
-.contato-item .ci-icon{width:48px;height:48px;min-width:48px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.contato-item .ci-icon{width:48px;height:48px;min-width:48px;background:linear-gradient(135deg,rgba(211,47,47,.15),rgba(211,47,47,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
 .contato-item h4{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:2px}
 .contato-item p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
 .mapa-placeholder{margin-top:24px;height:180px;background:var(--gray-100);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:3rem;border:2px dashed var(--gray-200)}
@@ -310,10 +310,10 @@ img{max-width:100%;display:block}
 .contato-form .form-group{margin-bottom:16px}
 .contato-form label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .contato-form input,.contato-form select,.contato-form textarea{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);font-family:inherit;font-size:.9rem;color:var(--gray-800);background:var(--white);outline:none;transition:var(--transition)}
-.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.12)}
+.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(211,47,47,.12)}
 .contato-form textarea{resize:vertical;min-height:100px}
-.btn-enviar{width:100%;padding:14px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--transition)}
-.btn-enviar:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(245,166,35,.4)}
+.btn-enviar{width:100%;padding:14px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--navy);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--transition)}
+.btn-enviar:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(211,47,47,.4)}
 
 /* HAMBURGER ANIMATION */
 .mobile-toggle.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -341,16 +341,16 @@ img{max-width:100%;display:block}
 /* DUAL-PATH HERO CARDS */
 .dual-path{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px;max-width:680px}
 @media(max-width:600px){.dual-path{grid-template-columns:1fr;gap:16px}}
-.dual-path-card{background:rgba(255,255,255,.06);border:2px solid rgba(245,166,35,.25);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block}
-.dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,.08),transparent);opacity:0;transition:var(--transition)}
-.dual-path-card:hover{border-color:var(--amber);transform:translateY(-6px);box-shadow:0 12px 40px rgba(245,166,35,.25)}
+.dual-path-card{background:rgba(255,255,255,.06);border:2px solid rgba(211,47,47,.25);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block}
+.dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(211,47,47,.08),transparent);opacity:0;transition:var(--transition)}
+.dual-path-card:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 12px 40px rgba(211,47,47,.25)}
 .dual-path-card:hover::before{opacity:1}
 .dual-path-card .dp-emoji{font-size:48px;display:block;margin-bottom:16px;position:relative;z-index:1}
 .dual-path-card .dp-title{font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
 .dual-path-card .dp-sub{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.5;position:relative;z-index:1}
 
 /* PROPRIETÁRIOS BANNER */
-.prop-banner{background:linear-gradient(135deg,var(--amber),var(--amber-dark));padding:28px 0;position:relative;overflow:hidden}
+.prop-banner{background:linear-gradient(135deg,var(--red),var(--red-dark));padding:28px 0;position:relative;overflow:hidden}
 .prop-banner::before{content:'';position:absolute;top:-50%;right:-10%;width:40%;height:200%;background:radial-gradient(ellipse,rgba(255,255,255,.15),transparent 70%);pointer-events:none}
 .prop-banner .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
 .prop-banner-text{position:relative;z-index:1}
@@ -369,7 +369,7 @@ img{max-width:100%;display:block}
 .corretores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;margin-bottom:40px}
 @media(max-width:768px){.corretores-grid{grid-template-columns:1fr}}
 .corretor-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
-.corretor-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease}
+.corretor-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--navy));transform:scaleX(0);transition:transform .4s ease}
 .corretor-card:hover::after{transform:scaleX(1)}
 .corretor-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
 .corretor-card .cc-icon{font-size:44px;margin-bottom:16px;display:block}
@@ -382,16 +382,15 @@ img{max-width:100%;display:block}
 @media(max-width:600px){.venda-assistida-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:400px){.venda-assistida-grid{grid-template-columns:1fr}}
 .va-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:28px 18px;text-align:center;transition:var(--transition)}
-.va-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px);border-color:rgba(245,166,35,.3)}
+.va-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px);border-color:rgba(211,47,47,.3)}
 .va-card .va-icon{font-size:36px;margin-bottom:12px;display:block}
 .va-card h4{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:6px;line-height:1.3}
 .va-card p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.4}
-.venda-highlight{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2);border-radius:var(--radius);padding:24px 32px;text-align:center;margin-bottom:36px}
+.venda-highlight{background:rgba(211,47,47,.08);border:1px solid rgba(211,47,47,.2);border-radius:var(--radius);padding:24px 32px;text-align:center;margin-bottom:36px}
 .venda-highlight p{font-size:1.05rem;color:rgba(255,255,255,.75);line-height:1.6;font-weight:500}
-.venda-highlight strong{color:var(--amber)}
+.venda-highlight strong{color:var(--red)}
 
-/* DEMO BADGE */
-.demo-badge{position:fixed;top:80px;right:-38px;z-index:1001;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 48px;transform:rotate(45deg);box-shadow:0 2px 12px rgba(231,76,60,.4);pointer-events:none;opacity:.85}
+/* (demo badge removed) */
 
 /* HERO LOAD ANIMATION */
 .hero-content-anim{opacity:0;transform:translateY(30px);animation:heroFadeIn .8s ease forwards}
@@ -404,7 +403,7 @@ img{max-width:100%;display:block}
 @keyframes heroFadeIn{to{opacity:1;transform:translateY(0)}}
 
 /* SIMULADOR GLOW EFFECT */
-@keyframes simGlow{0%,100%{box-shadow:0 0 20px rgba(245,166,35,.2),0 0 60px rgba(245,166,35,.1)}50%{box-shadow:0 0 30px rgba(245,166,35,.4),0 0 80px rgba(245,166,35,.2)}}
+@keyframes simGlow{0%,100%{box-shadow:0 0 20px rgba(211,47,47,.2),0 0 60px rgba(211,47,47,.1)}50%{box-shadow:0 0 30px rgba(211,47,47,.4),0 0 80px rgba(211,47,47,.2)}}
 .sim-result.show{animation:simReveal .6s ease forwards,simGlow 2s ease-in-out .6s infinite}
 
 /* PULSE CTA */
@@ -414,8 +413,8 @@ img{max-width:100%;display:block}
 /* POWERED-BY SECTION */
 .powered-section{padding:40px 0;text-align:center;background:var(--gray-50);border-top:1px solid var(--gray-100)}
 .powered-section p{font-size:.9rem;color:var(--gray-600);line-height:1.8;margin:0}
-.powered-section a{color:var(--amber-dark);font-weight:600;transition:var(--transition);border-bottom:1px dashed var(--amber-dark)}
-.powered-section a:hover{color:var(--amber);border-color:var(--amber)}
+.powered-section a{color:var(--red-dark);font-weight:600;transition:var(--transition);border-bottom:1px dashed var(--red-dark)}
+.powered-section a:hover{color:var(--red);border-color:var(--red)}
 .powered-section .ps-label{font-size:.75rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:block}
 
 /* ADDITIONAL MOBILE FIXES */
@@ -440,7 +439,7 @@ img{max-width:100%;display:block}
 .whatsapp-float{width:54px;height:54px;bottom:20px;right:20px}
 .whatsapp-float svg{width:26px;height:26px}
 .back-top{bottom:84px;right:22px;width:38px;height:38px}
-.demo-badge{font-size:9px;padding:6px 40px;top:72px;right:-42px}
+/* (demo badge removed) */
 }
 @media(max-width:480px){
 .venda-assistida-grid{grid-template-columns:1fr}
@@ -453,9 +452,6 @@ img{max-width:100%;display:block}
 </head>
 <body>
 
-<!-- DEMO BADGE -->
-<div class="demo-badge">Demonstração</div>
-
 <!-- HEADER -->
 <header class="header" id="header">
 <div class="container">
@@ -464,13 +460,11 @@ img{max-width:100%;display:block}
 <div class="logo-text">Top <span>Imobiliária</span></div>
 </a>
 <nav class="nav" id="nav">
-<a href="#imoveis">Imóveis</a>
-<a href="#administracao">Administração</a>
-<a href="#alugar">Alugar</a>
-<a href="#simulador">Simulador</a>
-<a href="#predios">Prédios</a>
-<a href="#venda">Venda</a>
-<a href="#corretores">Corretores</a>
+<a href="#imoveis" onclick="filterProperties('sale')">Comprar</a>
+<a href="#imoveis" onclick="filterProperties('rent')">Alugar</a>
+<a href="#proprietarios">Proprietários</a>
+<a href="#servicos">Serviços</a>
+<a href="#sobre">Sobre</a>
 <a href="#contato" class="nav-cta">Contato</a>
 </nav>
 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -509,22 +503,61 @@ img{max-width:100%;display:block}
 <button onclick="toggleSearch(this)">Comprar</button>
 </div>
 <div class="search-fields">
-<input type="text" class="search-input" placeholder="Buscar imóveis em Águas Claras...">
 <select class="search-select">
 <option>Tipo</option>
 <option>Apartamento</option>
 <option>Casa</option>
 <option>Sala Comercial</option>
 <option>Loja</option>
+<option>Terreno</option>
+</select>
+<select class="search-select">
+<option>Região</option>
+<option>Águas Claras</option>
+<option>Taguatinga</option>
+<option>Vicente Pires</option>
+<option>Ceilândia</option>
+<option>Samambaia</option>
+<option>Guará</option>
+<option>Sudoeste</option>
+<option>Noroeste</option>
+<option>Asa Sul</option>
+<option>Asa Norte</option>
+<option>Lago Sul</option>
+<option>Lago Norte</option>
 </select>
 <select class="search-select">
 <option>Quartos</option>
-<option>1 Quarto</option>
-<option>2 Quartos</option>
-<option>3 Quartos</option>
-<option>4+ Quartos</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4+</option>
 </select>
-<button class="search-btn">🔍 Buscar</button>
+<select class="search-select">
+<option>Faixa de Preço</option>
+<option>Até R$1.500</option>
+<option>R$1.500 - R$2.500</option>
+<option>R$2.500 - R$3.500</option>
+<option>R$3.500 - R$5.000</option>
+<option>R$5.000+</option>
+</select>
+</div>
+<div class="search-fields" style="margin-top:10px">
+<input type="text" class="search-input" placeholder="Buscar por condomínio..." style="flex:2">
+<button class="search-btn">🔍 Buscar Imóveis</button>
+</div>
+</div>
+
+<!-- PROPRIETÁRIOS QUICK-ACTION -->
+<div class="hero-content-anim" style="max-width:680px;margin-bottom:36px">
+<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px 24px">
+<h3 style="color:var(--white);font-size:1.1rem;font-weight:700;margin-bottom:14px">🏡 É proprietário?</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="#alugar" style="padding:10px 20px;border-radius:50px;background:var(--red);color:var(--white);font-size:.85rem;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px">🔑 Colocar para Alugar</a>
+<a href="#venda" style="padding:10px 20px;border-radius:50px;background:var(--red);color:var(--white);font-size:.85rem;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px">💰 Colocar para Vender</a>
+<a href="#simulador" style="padding:10px 20px;border-radius:50px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:var(--white);font-size:.85rem;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px">📊 Avaliação Gratuita</a>
+<a href="#administracao" style="padding:10px 20px;border-radius:50px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:var(--white);font-size:.85rem;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:6px">📋 Administração</a>
+</div>
 </div>
 </div>
 
@@ -551,20 +584,75 @@ img{max-width:100%;display:block}
 </div>
 </section>
 
-<!-- PROPRIETÁRIOS BANNER -->
-<div class="prop-banner">
+<!-- TESTIMONIALS -->
+<section class="section" id="depoimentos" style="background:var(--gray-50)">
 <div class="container">
-<div class="prop-banner-text">
-<h3>🏡 TEM UM IMÓVEL EM ÁGUAS CLARAS?</h3>
-<div class="prop-banner-links">
-<a href="#proprietarios">✅ Avaliação Gratuita</a>
-<a href="#administracao">📋 Administração</a>
-<a href="#alugar">🔑 Alugar Seu Imóvel</a>
+<div class="text-center reveal">
+<div class="section-label">Depoimentos</div>
+<h2 class="section-title">O que nossos clientes dizem</h2>
+<p class="section-desc">Avaliações reais de proprietários e inquilinos que confiam na Top Imobiliária.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+<div class="reveal reveal-delay-1" style="background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);position:relative">
+<div style="color:#F59E0B;font-size:18px;margin-bottom:12px">★★★★★</div>
+<p style="font-size:.95rem;color:var(--gray-600);line-height:1.7;margin-bottom:20px;font-style:italic">"Alugo meu apartamento com a Top há 6 anos e nunca tive um dia de inadimplência. O Marcelo e sua equipe cuidam de tudo — desde a vistoria até o repasse mensal. Recomendo de olhos fechados."</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div>
+<div style="font-weight:600;color:var(--navy);font-size:.95rem">Maria S.</div>
+<div style="font-size:.8rem;color:var(--gray-300)">Proprietária</div>
+</div>
+<div style="font-size:.7rem;color:var(--gray-300);background:var(--gray-50);padding:4px 10px;border-radius:50px;display:flex;align-items:center;gap:4px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Via Google Reviews
 </div>
 </div>
-<a href="https://wa.me/5561998229223?text=Olá!%20Sou%20proprietário%20e%20gostaria%20de%20uma%20avaliação%20gratuita%20do%20meu%20imóvel." target="_blank" class="btn-avaliacao">📊 Solicitar Avaliação</a>
+</div>
+<div class="reveal reveal-delay-2" style="background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);position:relative">
+<div style="color:#F59E0B;font-size:18px;margin-bottom:12px">★★★★★</div>
+<p style="font-size:.95rem;color:var(--gray-600);line-height:1.7;margin-bottom:20px;font-style:italic">"Procurei apartamento em várias imobiliárias e a Top foi a única que me atendeu com atenção real. Me mostraram opções dentro do meu perfil, sem enrolação. Estou muito feliz no meu novo lar."</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div>
+<div style="font-weight:600;color:var(--navy);font-size:.95rem">Roberto L.</div>
+<div style="font-size:.8rem;color:var(--gray-300)">Inquilino</div>
+</div>
+<div style="font-size:.7rem;color:var(--gray-300);background:var(--gray-50);padding:4px 10px;border-radius:50px;display:flex;align-items:center;gap:4px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Via Google Reviews
 </div>
 </div>
+</div>
+<div class="reveal reveal-delay-3" style="background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);position:relative">
+<div style="color:#F59E0B;font-size:18px;margin-bottom:12px">★★★★★</div>
+<p style="font-size:.95rem;color:var(--gray-600);line-height:1.7;margin-bottom:20px;font-style:italic">"Administram meus 3 apartamentos em Águas Claras e posso dizer que é a melhor decisão que tomei. Relatórios claros, repasse pontual, e quando teve manutenção, resolveram rápido. Profissionais de verdade."</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div>
+<div style="font-weight:600;color:var(--navy);font-size:.95rem">Ana Paula C.</div>
+<div style="font-size:.8rem;color:var(--gray-300)">Proprietária</div>
+</div>
+<div style="font-size:.7rem;color:var(--gray-300);background:var(--gray-50);padding:4px 10px;border-radius:50px;display:flex;align-items:center;gap:4px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Via Google Reviews
+</div>
+</div>
+</div>
+<div class="reveal reveal-delay-4" style="background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);position:relative">
+<div style="color:#F59E0B;font-size:18px;margin-bottom:12px">★★★★★</div>
+<p style="font-size:.95rem;color:var(--gray-600);line-height:1.7;margin-bottom:20px;font-style:italic">"Vendi meu apartamento na Rua 25 Sul com a assessoria da Top. Do contrato ao cartório, acompanharam tudo. O processo foi tranquilo e o preço de venda ficou acima da minha expectativa."</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div>
+<div style="font-weight:600;color:var(--navy);font-size:.95rem">Carlos M.</div>
+<div style="font-size:.8rem;color:var(--gray-300)">Proprietário</div>
+</div>
+<div style="font-size:.7rem;color:var(--gray-300);background:var(--gray-50);padding:4px 10px;border-radius:50px;display:flex;align-items:center;gap:4px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Via Google Reviews
+</div>
+</div>
+</div>
+</div>
+<p class="reveal" style="text-align:center;margin-top:32px;font-size:.9rem;color:var(--gray-300)">📍 <a href="https://maps.google.com" target="_blank" style="color:var(--red-dark);font-weight:600">Confira mais avaliações no Google Maps</a></p>
+</div>
+</section>
 
 <!-- FEATURED PROPERTIES -->
 <section class="section section-gray" id="imoveis">
@@ -636,7 +724,7 @@ img{max-width:100%;display:block}
 
 <div class="property-card reveal reveal-delay-1">
 <div class="property-img">
-<div class="gradient-bg" style="background:linear-gradient(135deg,#0C0C1D 0%,#1B1B3A 50%,#F5A623 100%)"></div>
+<div class="gradient-bg" style="background:linear-gradient(135deg,#0C0C1D 0%,#1B1B3A 50%,#D32F2F 100%)"></div>
 <span class="property-tag tag-sale">Venda</span>
 <div class="property-price-overlay">
 <div class="property-price">R$ 850.000</div>
@@ -699,7 +787,7 @@ img{max-width:100%;display:block}
 <section class="section section-dark" id="ia">
 <div class="container">
 <div class="text-center reveal">
-<div class="section-label" style="color:var(--amber)">Tecnologia</div>
+<div class="section-label" style="color:var(--red)">Tecnologia</div>
 <h2 class="section-title" style="color:var(--white)">Atendimento Inteligente 24 Horas</h2>
 <p class="section-desc">Combinamos 34 anos de experiência no mercado imobiliário com inteligência artificial de última geração. O resultado? Atendimento impecável, dia e noite.</p>
 </div>
@@ -755,12 +843,37 @@ img{max-width:100%;display:block}
 <p>Assessoria completa na compra e venda, com avaliação de mercado precisa.</p>
 </div>
 <div class="service-card reveal reveal-delay-4">
+<span class="service-icon">🏦</span>
+<h3>Correspondente Bancário</h3>
+<p>Financiamento imobiliário facilitado. Simulação e acompanhamento de todo o processo bancário.</p>
+</div>
+<div class="service-card reveal reveal-delay-5">
+<span class="service-icon">🔍</span>
+<h3>Vistoria Profissional</h3>
+<p>Laudos de vistoria detalhados com fotos para entrada, saída e acompanhamento do imóvel.</p>
+</div>
+<div class="service-card reveal reveal-delay-1">
+<span class="service-icon">⚖️</span>
+<h3>Apoio Documental e Jurídico</h3>
+<p>Suporte jurídico completo em todas as etapas da locação e compra/venda de imóveis.</p>
+</div>
+<div class="service-card reveal reveal-delay-2">
+<span class="service-icon">📝</span>
+<h3>Elaboração de Contratos</h3>
+<p>Contratos personalizados, atualizados e com total segurança jurídica para todas as partes.</p>
+</div>
+<div class="service-card reveal reveal-delay-3">
+<span class="service-icon">📋</span>
+<h3>Despachante Imobiliário</h3>
+<p>Toda burocracia cartorária e registral resolvida com agilidade e profissionalismo.</p>
+</div>
+<div class="service-card reveal reveal-delay-4">
 <span class="service-icon">🏪</span>
 <h3>Consultoria para Franquias</h3>
 <p>Encontramos o ponto ideal para franquias e redes de lojas na região.</p>
 </div>
 <div class="service-card reveal reveal-delay-5">
-<span class="service-icon">📋</span>
+<span class="service-icon">🏗️</span>
 <h3>Administração de Condomínios</h3>
 <p>Gestão profissional e transparente para o seu condomínio.</p>
 </div>
@@ -803,7 +916,7 @@ img{max-width:100%;display:block}
 <div class="container">
 <div class="prop-grid">
 <div class="reveal">
-<div class="section-label" style="color:var(--amber)">Para Proprietários</div>
+<div class="section-label" style="color:var(--red)">Para Proprietários</div>
 <h2 class="section-title" style="color:var(--white);margin-bottom:32px">É Proprietário?<br>Anuncie Conosco</h2>
 
 <div class="prop-benefits">
@@ -1141,7 +1254,7 @@ Começar Agora
 <div class="blog-grid">
 <div class="blog-card reveal reveal-delay-1">
 <div class="blog-card-img">
-<div class="gradient-bg" style="background:linear-gradient(135deg,var(--navy) 0%,var(--amber) 100%)"></div>
+<div class="gradient-bg" style="background:linear-gradient(135deg,var(--navy) 0%,var(--red) 100%)"></div>
 </div>
 <div class="blog-card-body">
 <div class="blog-meta"><span>📖 5 min de leitura</span><span>Mercado</span></div>
@@ -1229,10 +1342,10 @@ Quero Ser Parceiro
 <section class="section section-dark" id="venda">
 <div class="container">
 <div class="text-center reveal">
-<div class="section-label" style="color:var(--amber)">Vendas</div>
+<div class="section-label" style="color:var(--red)">Vendas</div>
 <h2 class="section-title" style="color:var(--white)">Venda de Apartamentos em Águas Claras</h2>
 <p class="section-desc" style="margin-bottom:16px">Quer vender seu imóvel pelo melhor preço? Nossa equipe oferece assessoria completa — da avaliação de mercado ao acompanhamento até a escritura.</p>
-<p style="font-size:1.1rem;color:var(--amber);font-weight:600;margin-bottom:48px">Venda Assistida para Proprietários</p>
+<p style="font-size:1.1rem;color:var(--red);font-weight:600;margin-bottom:48px">Venda Assistida para Proprietários</p>
 </div>
 
 <div class="venda-features">
@@ -1293,7 +1406,7 @@ Quero Vender Meu Imóvel
 </button>
 </a>
 <a href="https://wa.me/5561998229223?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Venda%20Assistida%20da%20Top%20Imobiliária." target="_blank">
-<button class="btn-whatsapp" style="background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy)">
+<button class="btn-whatsapp" style="background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--navy)">
 ⚡ Quero Venda Assistida
 </button>
 </a>
@@ -1324,7 +1437,7 @@ Quero Vender Meu Imóvel
 <div class="ci-icon">💬</div>
 <div>
 <h4>WhatsApp</h4>
-<p><a href="https://wa.me/5561998229223" target="_blank" style="color:var(--amber-dark)">(61) 99822-9223</a></p>
+<p><a href="https://wa.me/5561998229223" target="_blank" style="color:var(--red-dark)">(61) 99822-9223</a></p>
 </div>
 </div>
 <div class="contato-item">
@@ -1397,13 +1510,13 @@ Quero Vender Meu Imóvel
 <div>
 <h4>Links Rápidos</h4>
 <ul>
-<li><a href="#imoveis">Imóveis</a></li>
+<li><a href="#imoveis">Comprar</a></li>
+<li><a href="#imoveis">Alugar</a></li>
+<li><a href="#proprietarios">Proprietários</a></li>
+<li><a href="#servicos">Serviços</a></li>
 <li><a href="#administracao">Administração</a></li>
-<li><a href="#alugar">Alugar</a></li>
 <li><a href="#simulador">Simulador</a></li>
-<li><a href="#predios">Prédios</a></li>
-<li><a href="#venda">Venda</a></li>
-<li><a href="#corretores">Corretores</a></li>
+<li><a href="#sobre">Sobre</a></li>
 <li><a href="#blog">Blog</a></li>
 <li><a href="#contato">Contato</a></li>
 </ul>
@@ -1553,6 +1666,34 @@ function calcularAluguel() {
   void result.offsetWidth; // trigger reflow for animation
   result.classList.add('show');
   result.style.display = 'block';
+}
+
+// Filter properties by type (for nav Comprar/Alugar)
+function filterProperties(type) {
+  // Scroll to properties section and highlight relevant tags
+  const section = document.getElementById('imoveis');
+  if (section) {
+    const offset = 80;
+    const y = section.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  // Visual filter: highlight matching cards
+  document.querySelectorAll('.property-card').forEach(card => {
+    const tag = card.querySelector('.property-tag');
+    if (type === 'sale' && tag && tag.classList.contains('tag-sale')) {
+      card.style.opacity = '1'; card.style.transform = 'scale(1)';
+    } else if (type === 'rent' && tag && tag.classList.contains('tag-rent')) {
+      card.style.opacity = '1'; card.style.transform = 'scale(1)';
+    } else {
+      card.style.opacity = '0.4'; card.style.transform = 'scale(0.97)';
+    }
+  });
+  // Reset after 5s
+  setTimeout(() => {
+    document.querySelectorAll('.property-card').forEach(card => {
+      card.style.opacity = '1'; card.style.transform = '';
+    });
+  }, 5000);
 }
 
 // Smooth anchor scroll offset for fixed header
