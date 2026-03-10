@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Imobiliária DF — Imóveis em Águas Claras | Desde 1992</title>
+<meta name="description" content="Top Imobiliária DF — 34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com zero inadimplência.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#1B2A4A;--navy-deep:#0F1A2E;--navy-light:#243656;
+--amber:#F5A623;--amber-light:#FFD080;--amber-dark:#D4890A;
+--white:#FFFFFF;--gray-50:#F8F9FC;--gray-100:#EEF1F6;--gray-200:#D8DDE8;--gray-300:#B0B8C9;--gray-600:#5A6478;--gray-800:#2C3345;--gray-900:#1A1F2E;
+--radius:16px;--radius-sm:10px;--radius-lg:24px;
+--shadow:0 4px 24px rgba(27,42,74,.10);--shadow-lg:0 12px 48px rgba(27,42,74,.15);
+--transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;color:var(--gray-800);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:var(--transition)}
+.header.scrolled{background:rgba(15,26,46,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:10px 0;box-shadow:0 2px 32px rgba(0,0,0,.2)}
+.header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--amber),var(--amber-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:18px}
+.logo-text{font-size:20px;font-weight:700;color:var(--white)}
+.logo-text span{color:var(--amber)}
+.nav{display:flex;align-items:center;gap:32px}
+.nav a{color:rgba(255,255,255,.8);font-size:14px;font-weight:500;transition:var(--transition);position:relative}
+.nav a:hover{color:var(--amber)}
+.nav-cta{background:var(--amber)!important;color:var(--navy)!important;padding:10px 24px;border-radius:50px;font-weight:600!important;transition:var(--transition)!important}
+.nav-cta:hover{background:var(--amber-light)!important;transform:translateY(-2px);box-shadow:0 4px 16px rgba(245,166,35,.4)}
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.mobile-toggle span{display:block;width:24px;height:2px;background:var(--white);margin:6px 0;border-radius:2px;transition:var(--transition)}
+@media(max-width:768px){
+.nav{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,26,46,.98);backdrop-filter:blur(20px);flex-direction:column;padding:24px;gap:20px;border-radius:0 0 var(--radius) var(--radius)}
+.nav.open{display:flex}
+.mobile-toggle{display:block}
+}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,var(--navy-deep) 0%,var(--navy) 40%,var(--navy-light) 100%);overflow:hidden;padding:120px 0 80px}
+.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(245,166,35,.07) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--gray-50),transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:48px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);border-radius:50px;padding:8px 20px;font-size:13px;color:var(--amber);font-weight:500;margin-bottom:20px;width:fit-content}
+.hero-badge::before{content:'';width:8px;height:8px;background:var(--amber);border-radius:50%;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,var(--amber),var(--amber-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.65);line-height:1.6;max-width:560px;margin-bottom:36px}
+
+/* SEARCH BAR */
+.search-box{background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:24px;margin-bottom:36px;max-width:680px}
+.search-toggle{display:flex;gap:0;margin-bottom:16px;background:rgba(255,255,255,.06);border-radius:50px;overflow:hidden;width:fit-content}
+.search-toggle button{padding:10px 28px;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:var(--transition);border-radius:50px}
+.search-toggle button.active{background:var(--amber);color:var(--navy)}
+.search-fields{display:flex;gap:10px;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:14px 18px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--white);font-family:inherit;font-size:14px;outline:none;transition:var(--transition)}
+.search-input::placeholder{color:rgba(255,255,255,.35)}
+.search-input:focus{border-color:var(--amber);background:rgba(255,255,255,.1)}
+.search-select{padding:14px 18px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-family:inherit;font-size:14px;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;min-width:130px}
+.search-btn{padding:14px 32px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:var(--transition);white-space:nowrap}
+.search-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(245,166,35,.4)}
+
+/* TRUST BADGES */
+.trust-badges{display:flex;flex-wrap:wrap;gap:16px}
+.trust-badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:12px 20px;transition:var(--transition)}
+.trust-badge:hover{background:rgba(255,255,255,.1);border-color:rgba(245,166,35,.3)}
+.trust-badge .icon{font-size:24px}
+.trust-badge .info{display:flex;flex-direction:column}
+.trust-badge .num{font-size:18px;font-weight:700;color:var(--white);line-height:1.2}
+.trust-badge .label{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+
+/* FLOATING SHAPES */
+.float-shape{position:absolute;border-radius:50%;opacity:.04;pointer-events:none}
+.float-shape.s1{width:400px;height:400px;background:var(--amber);top:10%;right:-5%;animation:float 20s ease-in-out infinite}
+.float-shape.s2{width:250px;height:250px;background:var(--amber);bottom:20%;left:-3%;animation:float 25s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(5deg)}}
+
+/* SECTION COMMON */
+.section{padding:100px 0}
+.section-dark{background:var(--navy);color:var(--white)}
+.section-gray{background:var(--gray-50)}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.section-label::before{content:'';width:32px;height:2px;background:var(--amber);border-radius:2px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:16px}
+.section-desc{font-size:1.05rem;color:var(--gray-600);line-height:1.7;max-width:600px;margin-bottom:48px}
+.section-dark .section-desc{color:rgba(255,255,255,.6)}
+.text-center{text-align:center}
+.text-center .section-desc{margin-left:auto;margin-right:auto}
+
+/* PROPERTY CARDS */
+.properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.property-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);position:relative}
+.property-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.property-img{height:220px;position:relative;overflow:hidden}
+.property-img .gradient-bg{width:100%;height:100%;transition:transform .6s ease}
+.property-card:hover .gradient-bg{transform:scale(1.08)}
+.property-tag{position:absolute;top:16px;left:16px;padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;z-index:2}
+.tag-rent{background:rgba(34,197,94,.9);color:#fff}
+.tag-sale{background:rgba(59,130,246,.9);color:#fff}
+.property-price-overlay{position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);z-index:2}
+.property-price{font-size:22px;font-weight:700;color:var(--white)}
+.property-price small{font-size:13px;font-weight:400;opacity:.8}
+.property-body{padding:20px}
+.property-address{font-size:14px;color:var(--gray-600);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.property-features{display:flex;gap:16px;margin-bottom:16px}
+.property-feat{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-600)}
+.property-feat strong{color:var(--gray-800);font-weight:600}
+.btn-details{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:50px;border:1.5px solid var(--gray-200);font-family:inherit;font-size:13px;font-weight:600;color:var(--navy);background:transparent;cursor:pointer;transition:var(--transition)}
+.btn-details:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+/* AI FEATURES */
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.ai-card{background:rgba(255,255,255,.04);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:36px 28px;transition:var(--transition);position:relative;overflow:hidden}
+.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-light));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
+.ai-card:hover::before{transform:scaleX(1)}
+.ai-card:hover{background:rgba(255,255,255,.08);border-color:rgba(245,166,35,.2);transform:translateY(-4px)}
+.ai-icon{width:56px;height:56px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.05));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.ai-card h3{font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:10px}
+.ai-card p{font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.service-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 24px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease}
+.service-card:hover::after{transform:scaleX(1)}
+.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.service-icon{font-size:40px;margin-bottom:16px;display:block}
+.service-card h3{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+.service-card p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
+
+/* STATS */
+.stats-row{display:flex;flex-wrap:wrap;justify-content:center;gap:48px;margin-top:48px}
+.stat-item{text-align:center}
+.stat-num{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--amber);line-height:1}
+.stat-label{font-size:.85rem;color:var(--gray-600);margin-top:8px;font-weight:500}
+.about-story{max-width:720px;margin:0 auto 48px;text-align:center;font-size:1.1rem;line-height:1.8;color:var(--gray-600)}
+
+/* PROPRIETARIOS */
+.prop-section{background:linear-gradient(135deg,var(--navy-deep),var(--navy));position:relative;overflow:hidden}
+.prop-section::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(245,166,35,.06),transparent 70%);pointer-events:none}
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:768px){.prop-grid{grid-template-columns:1fr;gap:32px}}
+.prop-benefits{display:flex;flex-direction:column;gap:20px}
+.prop-benefit{display:flex;align-items:flex-start;gap:16px}
+.prop-check{width:32px;height:32px;min-width:32px;background:linear-gradient(135deg,rgba(245,166,35,.2),rgba(245,166,35,.08));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--amber)}
+.prop-benefit h4{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:4px}
+.prop-benefit p{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.5}
+.prop-cta-box{background:rgba(255,255,255,.04);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:48px;text-align:center}
+.prop-cta-box h3{font-size:1.6rem;font-weight:700;color:var(--white);margin-bottom:12px}
+.prop-cta-box p{font-size:.95rem;color:rgba(255,255,255,.55);margin-bottom:28px;line-height:1.6}
+.btn-whatsapp{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:50px;background:linear-gradient(135deg,#25D366,#128C7E);color:var(--white);font-family:inherit;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:var(--transition);box-shadow:0 4px 20px rgba(37,211,102,.3)}
+.btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(37,211,102,.4)}
+.btn-whatsapp svg{width:22px;height:22px;fill:currentColor}
+
+/* FOOTER */
+.footer{background:var(--gray-900);color:rgba(255,255,255,.6);padding:60px 0 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:24px}}
+.footer-brand h3{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:12px}
+.footer-brand h3 span{color:var(--amber)}
+.footer-brand p{font-size:.9rem;line-height:1.6;max-width:360px}
+.footer h4{font-size:.85rem;font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer ul li{font-size:.9rem}
+.footer ul a:hover{color:var(--amber)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem}
+.footer-powered{opacity:.5}
+.footer-powered a{color:var(--amber);font-weight:500}
+.footer-powered a:hover{opacity:.8}
+
+/* WHATSAPP FLOAT */
+.whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:999;width:60px;height:60px;background:linear-gradient(135deg,#25D366,#128C7E);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.4);transition:var(--transition);cursor:pointer;animation:wabounce 3s ease-in-out infinite}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+.whatsapp-float svg{width:30px;height:30px;fill:#fff}
+.whatsapp-tooltip{position:absolute;right:72px;top:50%;transform:translateY(-50%);background:var(--white);color:var(--gray-800);padding:10px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;white-space:nowrap;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:var(--transition)}
+.whatsapp-float:hover .whatsapp-tooltip{opacity:1}
+@keyframes wabounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
+
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:100px;right:30px;z-index:998;width:42px;height:42px;background:var(--navy);color:var(--white);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transform:translateY(20px);transition:var(--transition);box-shadow:var(--shadow)}
+.back-top.show{opacity:1;transform:translateY(0)}
+.back-top:hover{background:var(--amber);color:var(--navy)}
+
+@media(max-width:768px){
+.trust-badges{gap:10px}
+.trust-badge{padding:10px 14px;flex:1;min-width:140px}
+.properties-grid{grid-template-columns:1fr}
+.search-fields{flex-direction:column}
+.search-select,.search-input{min-width:100%}
+.stats-row{gap:24px}
+.stat-item{min-width:120px}
+.footer-bottom{flex-direction:column;text-align:center}
+}
+
+@media(max-width:480px){
+.section{padding:64px 0}
+.hero{padding:100px 0 60px}
+.trust-badge .num{font-size:15px}
+.trust-badge .label{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+<div class="container">
+<a href="#" class="logo">
+<div class="logo-icon">T</div>
+<div class="logo-text">Top <span>Imobiliária</span></div>
+</a>
+<nav class="nav" id="nav">
+<a href="#imoveis">Imóveis</a>
+<a href="#servicos">Serviços</a>
+<a href="#sobre">Sobre</a>
+<a href="#proprietarios">Proprietários</a>
+<a href="https://wa.me/5561998229223?text=Olá!%20Vim%20pelo%20site%20da%20Top%20Imobiliária.%20Gostaria%20de%20mais%20informações." class="nav-cta" target="_blank">Fale Conosco</a>
+</nav>
+<button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<div class="float-shape s1"></div>
+<div class="float-shape s2"></div>
+<div class="container">
+<div class="hero-grid">
+<div>
+<div class="hero-badge">🤖 Agora com Inteligência Artificial</div>
+<h1>Seu imóvel em <span>Águas Claras</span> está aqui.</h1>
+<p class="hero-sub">Há mais de 34 anos ajudando famílias e empresas a encontrar o lugar perfeito. Locação, venda e consultoria com taxa zero de inadimplência.</p>
+
+<div class="search-box">
+<div class="search-toggle">
+<button class="active" onclick="toggleSearch(this)">Alugar</button>
+<button onclick="toggleSearch(this)">Comprar</button>
+</div>
+<div class="search-fields">
+<input type="text" class="search-input" placeholder="Buscar imóveis em Águas Claras...">
+<select class="search-select">
+<option>Tipo</option>
+<option>Apartamento</option>
+<option>Casa</option>
+<option>Sala Comercial</option>
+<option>Loja</option>
+</select>
+<select class="search-select">
+<option>Quartos</option>
+<option>1 Quarto</option>
+<option>2 Quartos</option>
+<option>3 Quartos</option>
+<option>4+ Quartos</option>
+</select>
+<button class="search-btn">🔍 Buscar</button>
+</div>
+</div>
+
+<div class="trust-badges">
+<div class="trust-badge">
+<div class="icon">🏆</div>
+<div class="info"><span class="num">34+</span><span class="label">Anos</span></div>
+</div>
+<div class="trust-badge">
+<div class="icon">🛡️</div>
+<div class="info"><span class="num">Zero</span><span class="label">Inadimplência</span></div>
+</div>
+<div class="trust-badge">
+<div class="icon">🤖</div>
+<div class="info"><span class="num">IA</span><span class="label">24/7</span></div>
+</div>
+<div class="trust-badge">
+<div class="icon">🏠</div>
+<div class="info"><span class="num">500+</span><span class="label">Imóveis</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FEATURED PROPERTIES -->
+<section class="section section-gray" id="imoveis">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Destaques</div>
+<h2 class="section-title">Imóveis em Destaque</h2>
+<p class="section-desc">Seleção especial dos melhores imóveis disponíveis em Águas Claras, curados pela nossa equipe.</p>
+</div>
+
+<div class="properties-grid">
+
+<div class="property-card reveal reveal-delay-1">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#1B2A4A 0%,#3B5998 50%,#6B8CC7 100%)"></div>
+<span class="property-tag tag-rent">Aluguel</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 3.200<small>/mês</small></div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Rua 25 Sul, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>3</strong> quartos</div>
+<div class="property-feat">🚿 <strong>2</strong> banheiros</div>
+<div class="property-feat">📐 <strong>85</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+<div class="property-card reveal reveal-delay-2">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#2C3E50 0%,#4CA1AF 50%,#7EC8E3 100%)"></div>
+<span class="property-tag tag-sale">Venda</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 650.000</div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Av. Araucárias, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>3</strong> quartos</div>
+<div class="property-feat">🚿 <strong>2</strong> banheiros</div>
+<div class="property-feat">📐 <strong>95</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+<div class="property-card reveal reveal-delay-3">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#1A1A2E 0%,#16213E 50%,#0F3460 100%)"></div>
+<span class="property-tag tag-rent">Aluguel</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 2.800<small>/mês</small></div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Rua 12 Norte, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>2</strong> quartos</div>
+<div class="property-feat">🚿 <strong>1</strong> banheiro</div>
+<div class="property-feat">📐 <strong>62</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+<div class="property-card reveal reveal-delay-1">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#0C0C1D 0%,#1B1B3A 50%,#F5A623 100%)"></div>
+<span class="property-tag tag-sale">Venda</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 850.000</div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Rua 37 Sul, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>4</strong> quartos</div>
+<div class="property-feat">🚿 <strong>3</strong> banheiros</div>
+<div class="property-feat">📐 <strong>120</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+<div class="property-card reveal reveal-delay-2">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#232526 0%,#414345 50%,#8E9EAB 100%)"></div>
+<span class="property-tag tag-rent">Aluguel</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 4.500<small>/mês</small></div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Rua das Pitangueiras, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>4</strong> quartos</div>
+<div class="property-feat">🚿 <strong>2</strong> banheiros</div>
+<div class="property-feat">📐 <strong>110</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+<div class="property-card reveal reveal-delay-3">
+<div class="property-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#1B2A4A 0%,#2E4057 50%,#048A81 100%)"></div>
+<span class="property-tag tag-sale">Venda</span>
+<div class="property-price-overlay">
+<div class="property-price">R$ 480.000</div>
+</div>
+</div>
+<div class="property-body">
+<div class="property-address">📍 Av. Castanheiras, Águas Claras</div>
+<div class="property-features">
+<div class="property-feat">🛏️ <strong>2</strong> quartos</div>
+<div class="property-feat">🚿 <strong>1</strong> banheiro</div>
+<div class="property-feat">📐 <strong>68</strong>m²</div>
+</div>
+<button class="btn-details">Ver Detalhes →</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- AI FEATURES -->
+<section class="section section-dark" id="ia">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label" style="color:var(--amber)">Tecnologia</div>
+<h2 class="section-title" style="color:var(--white)">Atendimento Inteligente 24 Horas</h2>
+<p class="section-desc">Combinamos 34 anos de experiência no mercado imobiliário com inteligência artificial de última geração. O resultado? Atendimento impecável, dia e noite.</p>
+</div>
+
+<div class="ai-grid">
+<div class="ai-card reveal reveal-delay-1">
+<div class="ai-icon">🤖</div>
+<h3>Robô de Atendimento 24/7</h3>
+<p>Responde dúvidas, envia opções de imóveis e qualifica interessados automaticamente — mesmo de madrugada.</p>
+</div>
+<div class="ai-card reveal reveal-delay-2">
+<div class="ai-icon">📅</div>
+<h3>Agendamento Automático de Visitas</h3>
+<p>O cliente escolhe o melhor horário e recebe confirmação instantânea. Sem ligações, sem espera.</p>
+</div>
+<div class="ai-card reveal reveal-delay-3">
+<div class="ai-icon">🔔</div>
+<h3>Alertas de Imóveis Personalizados</h3>
+<p>Cada cliente recebe notificações inteligentes quando um imóvel do seu perfil entra na carteira.</p>
+</div>
+<div class="ai-card reveal reveal-delay-4">
+<div class="ai-icon">🎯</div>
+<h3>Captação Inteligente de Proprietários</h3>
+<p>Identifica proprietários interessados em anunciar e inicia o contato de forma consultiva e personalizada.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="servicos">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Soluções</div>
+<h2 class="section-title">Nossos Serviços</h2>
+<p class="section-desc">Atendemos todas as necessidades imobiliárias em Águas Claras e região, com a confiança de quem está no mercado desde 1992.</p>
+</div>
+
+<div class="services-grid">
+<div class="service-card reveal reveal-delay-1">
+<span class="service-icon">🏠</span>
+<h3>Locação Residencial</h3>
+<p>Apartamentos e casas para morar com segurança e agilidade na locação.</p>
+</div>
+<div class="service-card reveal reveal-delay-2">
+<span class="service-icon">🏢</span>
+<h3>Locação Comercial</h3>
+<p>Salas, lojas e espaços comerciais nos melhores pontos de Águas Claras.</p>
+</div>
+<div class="service-card reveal reveal-delay-3">
+<span class="service-icon">🔑</span>
+<h3>Venda de Imóveis</h3>
+<p>Assessoria completa na compra e venda, com avaliação de mercado precisa.</p>
+</div>
+<div class="service-card reveal reveal-delay-4">
+<span class="service-icon">🏪</span>
+<h3>Consultoria para Franquias</h3>
+<p>Encontramos o ponto ideal para franquias e redes de lojas na região.</p>
+</div>
+<div class="service-card reveal reveal-delay-5">
+<span class="service-icon">📋</span>
+<h3>Administração de Condomínios</h3>
+<p>Gestão profissional e transparente para o seu condomínio.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ABOUT / TRUST -->
+<section class="section section-gray" id="sobre">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Confiança</div>
+<h2 class="section-title">Por que a Top Imobiliária?</h2>
+</div>
+<p class="about-story reveal">Desde 1992, ajudamos famílias e empresas a encontrar o lugar perfeito em Águas Claras. São mais de três décadas de experiência, milhares de contratos e uma reputação construída com seriedade, transparência e resultados — incluindo um índice de inadimplência que é referência no mercado.</p>
+
+<div class="stats-row">
+<div class="stat-item reveal reveal-delay-1">
+<div class="stat-num" data-target="34">0</div>
+<div class="stat-label">Anos de Mercado</div>
+</div>
+<div class="stat-item reveal reveal-delay-2">
+<div class="stat-num" data-target="0" data-suffix="%">0%</div>
+<div class="stat-label">Inadimplência</div>
+</div>
+<div class="stat-item reveal reveal-delay-3">
+<div class="stat-num" data-target="500" data-suffix="+">0</div>
+<div class="stat-label">Contratos Ativos</div>
+</div>
+<div class="stat-item reveal reveal-delay-4">
+<div class="stat-num" data-target="24" data-suffix="/7">0</div>
+<div class="stat-label">IA Disponível</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PROPRIETARIOS -->
+<section class="section prop-section" id="proprietarios">
+<div class="container">
+<div class="prop-grid">
+<div class="reveal">
+<div class="section-label" style="color:var(--amber)">Para Proprietários</div>
+<h2 class="section-title" style="color:var(--white);margin-bottom:32px">É Proprietário?<br>Anuncie Conosco</h2>
+
+<div class="prop-benefits">
+<div class="prop-benefit">
+<div class="prop-check">✓</div>
+<div>
+<h4>Avaliação Gratuita</h4>
+<p>Análise de mercado profissional para definir o melhor valor para o seu imóvel.</p>
+</div>
+</div>
+<div class="prop-benefit">
+<div class="prop-check">✓</div>
+<div>
+<h4>Fotos Profissionais</h4>
+<p>Seu imóvel apresentado com qualidade de revista para atrair os melhores inquilinos.</p>
+</div>
+</div>
+<div class="prop-benefit">
+<div class="prop-check">✓</div>
+<div>
+<h4>Divulgação Premium</h4>
+<p>Presença nos maiores portais + redes sociais + IA que trabalha 24 horas para você.</p>
+</div>
+</div>
+<div class="prop-benefit">
+<div class="prop-check">✓</div>
+<div>
+<h4>Inquilinos Qualificados</h4>
+<p>Análise de crédito rigorosa e processo seletivo que garante tranquilidade.</p>
+</div>
+</div>
+<div class="prop-benefit">
+<div class="prop-check">✓</div>
+<div>
+<h4>Zero Inadimplência</h4>
+<p>Nosso índice fala por si. Seu aluguel garantido, todo mês, sem dor de cabeça.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="prop-cta-box reveal">
+<div style="font-size:56px;margin-bottom:20px">🏡</div>
+<h3>Seu imóvel merece o melhor</h3>
+<p>Fale com nossa equipe e descubra quanto o seu imóvel pode render. Atendimento rápido pelo WhatsApp.</p>
+<a href="https://wa.me/5561998229223?text=Olá!%20Sou%20proprietário%20e%20gostaria%20de%20anunciar%20meu%20imóvel%20com%20a%20Top%20Imobiliária." target="_blank">
+<button class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Anunciar Meu Imóvel
+</button>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<h3>Top <span>Imobiliária</span> DF</h3>
+<p>Há mais de 34 anos conectando pessoas ao imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria com excelência e confiança.</p>
+</div>
+<div>
+<h4>Links Rápidos</h4>
+<ul>
+<li><a href="#imoveis">Imóveis</a></li>
+<li><a href="#servicos">Serviços</a></li>
+<li><a href="#sobre">Sobre Nós</a></li>
+<li><a href="#proprietarios">Proprietários</a></li>
+</ul>
+</div>
+<div>
+<h4>Contato</h4>
+<ul>
+<li>📍 Águas Claras, Brasília — DF</li>
+<li>📞 (61) 99822-9223</li>
+<li>✉️ contato@topimobiliariadf.com.br</li>
+<li>⏰ Seg–Sex: 8h–18h | Sáb: 9h–13h</li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<div>© 2025 Top Imobiliária DF. Todos os direitos reservados. CRECI-DF</div>
+<div class="footer-powered">Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a></div>
+</div>
+</div>
+</footer>
+
+<!-- WHATSAPP FLOATING -->
+<a href="https://wa.me/5561998229223?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20imóveis%20em%20Águas%20Claras." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+<div class="whatsapp-tooltip">Fale conosco pelo WhatsApp!</div>
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Header scroll effect
+const header = document.getElementById('header');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+  const backTop = document.getElementById('backTop');
+  backTop.classList.toggle('show', window.scrollY > 600);
+});
+
+// Mobile menu
+document.getElementById('mobileToggle').addEventListener('click', () => {
+  document.getElementById('nav').classList.toggle('open');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
+});
+
+// Search toggle
+function toggleSearch(btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// Animated counters
+const statNums = document.querySelectorAll('.stat-num[data-target]');
+let countersAnimated = false;
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !countersAnimated) {
+      countersAnimated = true;
+      statNums.forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const duration = 2000;
+        const start = performance.now();
+        
+        if (target === 0) {
+          el.textContent = '0' + suffix;
+          return;
+        }
+        
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          el.textContent = current + (progress >= 1 ? suffix : '');
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+statNums.forEach(el => counterObserver.observe(el));
+
+// Smooth anchor scroll offset for fixed header
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const y = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
