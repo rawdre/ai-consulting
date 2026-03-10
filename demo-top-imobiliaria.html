@@ -316,6 +316,58 @@ img{max-width:100%;display:block}
 .trust-badge .num{font-size:15px}
 .trust-badge .label{font-size:10px}
 }
+
+/* DUAL-PATH HERO CARDS */
+.dual-path{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px;max-width:680px}
+@media(max-width:600px){.dual-path{grid-template-columns:1fr;gap:16px}}
+.dual-path-card{background:rgba(255,255,255,.06);border:2px solid rgba(245,166,35,.25);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block}
+.dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,.08),transparent);opacity:0;transition:var(--transition)}
+.dual-path-card:hover{border-color:var(--amber);transform:translateY(-6px);box-shadow:0 12px 40px rgba(245,166,35,.25)}
+.dual-path-card:hover::before{opacity:1}
+.dual-path-card .dp-emoji{font-size:48px;display:block;margin-bottom:16px;position:relative;z-index:1}
+.dual-path-card .dp-title{font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
+.dual-path-card .dp-sub{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.5;position:relative;z-index:1}
+
+/* PROPRIETÁRIOS BANNER */
+.prop-banner{background:linear-gradient(135deg,var(--amber),var(--amber-dark));padding:28px 0;position:relative;overflow:hidden}
+.prop-banner::before{content:'';position:absolute;top:-50%;right:-10%;width:40%;height:200%;background:radial-gradient(ellipse,rgba(255,255,255,.15),transparent 70%);pointer-events:none}
+.prop-banner .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.prop-banner-text{position:relative;z-index:1}
+.prop-banner-text h3{font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+.prop-banner-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.prop-banner-links a{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:50px;background:rgba(27,42,74,.12);color:var(--navy);font-size:.85rem;font-weight:600;transition:var(--transition);border:1.5px solid rgba(27,42,74,.2)}
+.prop-banner-links a:hover{background:var(--navy);color:var(--white)}
+.btn-avaliacao{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:50px;background:var(--navy);color:var(--white)!important;font-weight:700;font-size:.95rem;transition:var(--transition);white-space:nowrap;position:relative;z-index:1;border:none;text-decoration:none}
+.btn-avaliacao:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,42,74,.3)}
+@media(max-width:768px){
+.prop-banner .container{flex-direction:column;text-align:center}
+.prop-banner-links{justify-content:center}
+}
+
+/* CORRETORES SECTION */
+.corretores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;margin-bottom:40px}
+@media(max-width:768px){.corretores-grid{grid-template-columns:1fr}}
+.corretor-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:var(--transition);position:relative;overflow:hidden}
+.corretor-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease}
+.corretor-card:hover::after{transform:scaleX(1)}
+.corretor-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.corretor-card .cc-icon{font-size:44px;margin-bottom:16px;display:block}
+.corretor-card h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+.corretor-card p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
+
+/* VENDA ASSISTIDA CARDS */
+.venda-assistida-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:32px;margin-bottom:40px}
+@media(max-width:900px){.venda-assistida-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.venda-assistida-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.venda-assistida-grid{grid-template-columns:1fr}}
+.va-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:28px 18px;text-align:center;transition:var(--transition)}
+.va-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px);border-color:rgba(245,166,35,.3)}
+.va-card .va-icon{font-size:36px;margin-bottom:12px;display:block}
+.va-card h4{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:6px;line-height:1.3}
+.va-card p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.4}
+.venda-highlight{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2);border-radius:var(--radius);padding:24px 32px;text-align:center;margin-bottom:36px}
+.venda-highlight p{font-size:1.05rem;color:rgba(255,255,255,.75);line-height:1.6;font-weight:500}
+.venda-highlight strong{color:var(--amber)}
 </style>
 </head>
 <body>
@@ -334,6 +386,7 @@ img{max-width:100%;display:block}
 <a href="#simulador">Simulador</a>
 <a href="#predios">Prédios</a>
 <a href="#venda">Venda</a>
+<a href="#corretores">Corretores</a>
 <a href="#contato" class="nav-cta">Contato</a>
 </nav>
 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -352,6 +405,19 @@ img{max-width:100%;display:block}
 <div class="hero-badge">🤖 Agora com Inteligência Artificial</div>
 <h1>Seu imóvel em <span>Águas Claras</span> está aqui.</h1>
 <p class="hero-sub">Há mais de 34 anos ajudando famílias e empresas a encontrar o lugar perfeito. Locação, venda e consultoria com taxa zero de inadimplência.</p>
+
+<div class="dual-path">
+<a href="#imoveis" class="dual-path-card">
+<span class="dp-emoji">🔍</span>
+<div class="dp-title">PROCURANDO IMÓVEL?</div>
+<div class="dp-sub">Encontre apartamentos para alugar ou comprar em Águas Claras</div>
+</a>
+<a href="#proprietarios" class="dual-path-card">
+<span class="dp-emoji">🏠</span>
+<div class="dp-title">TENHO UM IMÓVEL</div>
+<div class="dp-sub">Avaliação gratuita, administração completa e zero inadimplência</div>
+</a>
+</div>
 
 <div class="search-box">
 <div class="search-toggle">
@@ -400,6 +466,21 @@ img{max-width:100%;display:block}
 </div>
 </div>
 </section>
+
+<!-- PROPRIETÁRIOS BANNER -->
+<div class="prop-banner">
+<div class="container">
+<div class="prop-banner-text">
+<h3>🏡 TEM UM IMÓVEL EM ÁGUAS CLARAS?</h3>
+<div class="prop-banner-links">
+<a href="#proprietarios">✅ Avaliação Gratuita</a>
+<a href="#administracao">📋 Administração</a>
+<a href="#alugar">🔑 Alugar Seu Imóvel</a>
+</div>
+</div>
+<a href="https://wa.me/5561998229223?text=Olá!%20Sou%20proprietário%20e%20gostaria%20de%20uma%20avaliação%20gratuita%20do%20meu%20imóvel." target="_blank" class="btn-avaliacao">📊 Solicitar Avaliação</a>
+</div>
+</div>
 
 <!-- FEATURED PROPERTIES -->
 <section class="section section-gray" id="imoveis">
@@ -1022,13 +1103,52 @@ Começar Agora
 </div>
 </section>
 
+<!-- CORRETORES PARCEIROS -->
+<section class="section section-gray" id="corretores">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Parcerias</div>
+<h2 class="section-title">Corretores Parceiros</h2>
+<p class="section-desc">Parcerias imobiliárias com a Top. Corretores podem enviar imóveis para análise — todos passam pela aprovação da Top Imobiliária, garantindo qualidade e segurança para todos.</p>
+</div>
+
+<div class="corretores-grid">
+<div class="corretor-card reveal reveal-delay-1">
+<span class="cc-icon">📩</span>
+<h3>Envie Imóveis para Análise</h3>
+<p>Corretores parceiros podem indicar imóveis para locação ou venda. Nossa equipe avalia e aprova cada imóvel antes de entrar na carteira.</p>
+</div>
+<div class="corretor-card reveal reveal-delay-2">
+<span class="cc-icon">🤝</span>
+<h3>Parceria de Venda</h3>
+<p>Acesso à nossa carteira de clientes qualificados. Aumente suas vendas com o suporte e a credibilidade de 34+ anos de mercado.</p>
+</div>
+<div class="corretor-card reveal reveal-delay-3">
+<span class="cc-icon">📢</span>
+<h3>Suporte e Divulgação</h3>
+<p>Suporte jurídico completo, divulgação conjunta nos principais portais e redes sociais. Você vende mais, com mais segurança.</p>
+</div>
+</div>
+
+<div class="text-center reveal">
+<a href="https://wa.me/5561998229223?text=Olá!%20Sou%20corretor%20e%20gostaria%20de%20ser%20parceiro%20da%20Top%20Imobiliária." target="_blank">
+<button class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Ser Parceiro
+</button>
+</a>
+</div>
+</div>
+</section>
+
 <!-- VENDA DE IMÓVEIS -->
 <section class="section section-dark" id="venda">
 <div class="container">
 <div class="text-center reveal">
 <div class="section-label" style="color:var(--amber)">Vendas</div>
 <h2 class="section-title" style="color:var(--white)">Venda de Apartamentos em Águas Claras</h2>
-<p class="section-desc">Quer vender seu imóvel pelo melhor preço? Nossa equipe oferece assessoria completa — da avaliação de mercado ao acompanhamento até a escritura.</p>
+<p class="section-desc" style="margin-bottom:16px">Quer vender seu imóvel pelo melhor preço? Nossa equipe oferece assessoria completa — da avaliação de mercado ao acompanhamento até a escritura.</p>
+<p style="font-size:1.1rem;color:var(--amber);font-weight:600;margin-bottom:48px">Venda Assistida para Proprietários</p>
 </div>
 
 <div class="venda-features">
@@ -1049,11 +1169,48 @@ Começar Agora
 </div>
 </div>
 
-<div class="text-center reveal">
+<div class="venda-highlight reveal">
+<p>💡 <strong>Mesmo que você queira vender por conta própria</strong>, oferecemos suporte profissional em cada etapa. Conte com a experiência de quem conhece o mercado de Águas Claras há mais de 34 anos.</p>
+</div>
+
+<div class="venda-assistida-grid">
+<div class="va-card reveal reveal-delay-1">
+<span class="va-icon">📄</span>
+<h4>Análise Documental Completa</h4>
+<p>Verificação de toda documentação do imóvel e dos envolvidos</p>
+</div>
+<div class="va-card reveal reveal-delay-2">
+<span class="va-icon">📝</span>
+<h4>Elaboração de Contrato</h4>
+<p>Contratos seguros e personalizados para sua transação</p>
+</div>
+<div class="va-card reveal reveal-delay-3">
+<span class="va-icon">🏛️</span>
+<h4>Despachante Imobiliário</h4>
+<p>Agilizamos toda burocracia cartorária e registral</p>
+</div>
+<div class="va-card reveal reveal-delay-4">
+<span class="va-icon">⚖️</span>
+<h4>Apoio Jurídico Especializado</h4>
+<p>Assessoria legal completa em todas as etapas da venda</p>
+</div>
+<div class="va-card reveal reveal-delay-5">
+<span class="va-icon">🏦</span>
+<h4>Apoio em Financiamento</h4>
+<p>Suporte no processo de financiamento bancário do comprador</p>
+</div>
+</div>
+
+<div class="text-center reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
 <a href="https://wa.me/5561998229223?text=Olá!%20Gostaria%20de%20vender%20meu%20imóvel%20em%20Águas%20Claras." target="_blank">
 <button class="btn-whatsapp">
 <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 Quero Vender Meu Imóvel
+</button>
+</a>
+<a href="https://wa.me/5561998229223?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Venda%20Assistida%20da%20Top%20Imobiliária." target="_blank">
+<button class="btn-whatsapp" style="background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy)">
+⚡ Quero Venda Assistida
 </button>
 </a>
 </div>
@@ -1153,6 +1310,7 @@ Quero Vender Meu Imóvel
 <li><a href="#simulador">Simulador</a></li>
 <li><a href="#predios">Prédios</a></li>
 <li><a href="#venda">Venda</a></li>
+<li><a href="#corretores">Corretores</a></li>
 <li><a href="#blog">Blog</a></li>
 <li><a href="#contato">Contato</a></li>
 </ul>
