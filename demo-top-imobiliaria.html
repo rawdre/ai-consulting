@@ -3,8 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Top Imobiliária DF — Imóveis em Águas Claras | Desde 1992</title>
+<title>Top Imobiliária DF — Imóveis em Águas Claras, Brasília | Desde 1992</title>
 <meta name="description" content="Top Imobiliária DF — 34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com zero inadimplência.">
+<meta name="keywords" content="imobiliária águas claras, aluguel águas claras, apartamento águas claras, imóveis brasília, locação DF, venda de imóveis águas claras">
+<meta name="author" content="Top Imobiliária DF">
+<link rel="canonical" href="https://www.topimobiliariadf.com.br/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Top Imobiliária DF — Imóveis em Águas Claras | Desde 1992">
+<meta property="og:description" content="34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com zero inadimplência.">
+<meta property="og:url" content="https://www.topimobiliariadf.com.br/">
+<meta property="og:site_name" content="Top Imobiliária DF">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://www.topimobiliariadf.com.br/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Top Imobiliária DF — Imóveis em Águas Claras">
+<meta name="twitter:description" content="34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria.">
+<meta name="twitter:image" content="https://www.topimobiliariadf.com.br/og-image.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
@@ -368,9 +389,72 @@ img{max-width:100%;display:block}
 .venda-highlight{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2);border-radius:var(--radius);padding:24px 32px;text-align:center;margin-bottom:36px}
 .venda-highlight p{font-size:1.05rem;color:rgba(255,255,255,.75);line-height:1.6;font-weight:500}
 .venda-highlight strong{color:var(--amber)}
+
+/* DEMO BADGE */
+.demo-badge{position:fixed;top:80px;right:-38px;z-index:1001;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 48px;transform:rotate(45deg);box-shadow:0 2px 12px rgba(231,76,60,.4);pointer-events:none;opacity:.85}
+
+/* HERO LOAD ANIMATION */
+.hero-content-anim{opacity:0;transform:translateY(30px);animation:heroFadeIn .8s ease forwards}
+.hero-content-anim:nth-child(1){animation-delay:.2s}
+.hero-content-anim:nth-child(2){animation-delay:.4s}
+.hero-content-anim:nth-child(3){animation-delay:.6s}
+.hero-content-anim:nth-child(4){animation-delay:.8s}
+.hero-content-anim:nth-child(5){animation-delay:1s}
+.hero-content-anim:nth-child(6){animation-delay:1.2s}
+@keyframes heroFadeIn{to{opacity:1;transform:translateY(0)}}
+
+/* SIMULADOR GLOW EFFECT */
+@keyframes simGlow{0%,100%{box-shadow:0 0 20px rgba(245,166,35,.2),0 0 60px rgba(245,166,35,.1)}50%{box-shadow:0 0 30px rgba(245,166,35,.4),0 0 80px rgba(245,166,35,.2)}}
+.sim-result.show{animation:simReveal .6s ease forwards,simGlow 2s ease-in-out .6s infinite}
+
+/* PULSE CTA */
+@keyframes pulseGlow{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.3)}50%{box-shadow:0 4px 30px rgba(37,211,102,.6),0 0 50px rgba(37,211,102,.2)}}
+.sim-result .btn-whatsapp{animation:pulseGlow 2s ease-in-out 1s infinite}
+
+/* POWERED-BY SECTION */
+.powered-section{padding:40px 0;text-align:center;background:var(--gray-50);border-top:1px solid var(--gray-100)}
+.powered-section p{font-size:.9rem;color:var(--gray-600);line-height:1.8;margin:0}
+.powered-section a{color:var(--amber-dark);font-weight:600;transition:var(--transition);border-bottom:1px dashed var(--amber-dark)}
+.powered-section a:hover{color:var(--amber);border-color:var(--amber)}
+.powered-section .ps-label{font-size:.75rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:block}
+
+/* ADDITIONAL MOBILE FIXES */
+@media(max-width:768px){
+.simulador-form{padding:28px 20px}
+.sim-grid{grid-template-columns:1fr}
+.contato-form{padding:24px 20px}
+.prop-cta-box{padding:32px 20px}
+.corretores-grid{grid-template-columns:1fr}
+.predios-grid{grid-template-columns:1fr}
+.blog-grid{grid-template-columns:1fr}
+.ai-grid{grid-template-columns:1fr}
+.services-grid{grid-template-columns:1fr}
+.admin-grid{grid-template-columns:1fr}
+.venda-assistida-grid{grid-template-columns:1fr 1fr}
+.hero h1{font-size:clamp(1.8rem,6vw,2.4rem)}
+.hero-sub{font-size:1rem}
+.dual-path{grid-template-columns:1fr;gap:12px}
+.dual-path-card{padding:24px 20px}
+.dual-path-card .dp-emoji{font-size:36px}
+.search-box{padding:16px}
+.whatsapp-float{width:54px;height:54px;bottom:20px;right:20px}
+.whatsapp-float svg{width:26px;height:26px}
+.back-top{bottom:84px;right:22px;width:38px;height:38px}
+.demo-badge{font-size:9px;padding:6px 40px;top:72px;right:-42px}
+}
+@media(max-width:480px){
+.venda-assistida-grid{grid-template-columns:1fr}
+.trust-badges{flex-direction:column;gap:8px}
+.trust-badge{min-width:auto}
+.stat-item{min-width:auto}
+.stats-row{gap:16px}
+}
 </style>
 </head>
 <body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">Demonstração</div>
 
 <!-- HEADER -->
 <header class="header" id="header">
@@ -402,11 +486,11 @@ img{max-width:100%;display:block}
 <div class="container">
 <div class="hero-grid">
 <div>
-<div class="hero-badge">🤖 Agora com Inteligência Artificial</div>
-<h1>Seu imóvel em <span>Águas Claras</span> está aqui.</h1>
-<p class="hero-sub">Há mais de 34 anos ajudando famílias e empresas a encontrar o lugar perfeito. Locação, venda e consultoria com taxa zero de inadimplência.</p>
+<div class="hero-badge hero-content-anim">🤖 Agora com Inteligência Artificial</div>
+<h1 class="hero-content-anim">Seu imóvel em <span>Águas Claras</span> está aqui.</h1>
+<p class="hero-sub hero-content-anim">Há mais de 34 anos ajudando famílias e empresas a encontrar o lugar perfeito. Locação, venda e consultoria com taxa zero de inadimplência.</p>
 
-<div class="dual-path">
+<div class="dual-path hero-content-anim">
 <a href="#imoveis" class="dual-path-card">
 <span class="dp-emoji">🔍</span>
 <div class="dp-title">PROCURANDO IMÓVEL?</div>
@@ -419,7 +503,7 @@ img{max-width:100%;display:block}
 </a>
 </div>
 
-<div class="search-box">
+<div class="search-box hero-content-anim">
 <div class="search-toggle">
 <button class="active" onclick="toggleSearch(this)">Alugar</button>
 <button onclick="toggleSearch(this)">Comprar</button>
@@ -444,7 +528,7 @@ img{max-width:100%;display:block}
 </div>
 </div>
 
-<div class="trust-badges">
+<div class="trust-badges hero-content-anim">
 <div class="trust-badge">
 <div class="icon">🏆</div>
 <div class="info"><span class="num">34+</span><span class="label">Anos</span></div>
@@ -1293,6 +1377,15 @@ Quero Vender Meu Imóvel
 </div>
 </section>
 
+<!-- POWERED BY SECTION -->
+<section class="powered-section">
+<div class="container">
+<span class="ps-label">Desenvolvimento</span>
+<p>Este site foi desenvolvido por <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a></p>
+<p>Quer um site como este para sua empresa? <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Fale conosco →</a></p>
+</div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
 <div class="container">
@@ -1327,7 +1420,7 @@ Quero Vender Meu Imóvel
 </div>
 </div>
 <div class="footer-bottom">
-<div>© 2025 Top Imobiliária DF. Todos os direitos reservados. CRECI-DF</div>
+<div>© 2026 Top Imobiliária DF. Todos os direitos reservados. CRECI-DF</div>
 <div class="footer-powered">Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a></div>
 </div>
 </div>
@@ -1353,13 +1446,18 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile menu
-document.getElementById('mobileToggle').addEventListener('click', () => {
+const mobileToggle = document.getElementById('mobileToggle');
+mobileToggle.addEventListener('click', () => {
   document.getElementById('nav').classList.toggle('open');
+  mobileToggle.classList.toggle('active');
 });
 
 // Close mobile menu on link click
 document.querySelectorAll('.nav a').forEach(a => {
-  a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
+  a.addEventListener('click', () => {
+    document.getElementById('nav').classList.remove('open');
+    mobileToggle.classList.remove('active');
+  });
 });
 
 // Search toggle
@@ -1448,7 +1546,7 @@ function calcularAluguel() {
   minVal = Math.round(minVal / 100) * 100;
   maxVal = Math.round(maxVal / 100) * 100;
 
-  const fmt = (v) => v.toLocaleString('pt-BR');
+  const fmt = (v) => v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
   document.getElementById('simValor').textContent = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)} /mês`;
   const result = document.getElementById('simResult');
   result.classList.remove('show');
@@ -1456,11 +1554,6 @@ function calcularAluguel() {
   result.classList.add('show');
   result.style.display = 'block';
 }
-
-// Mobile toggle animation
-document.getElementById('mobileToggle').addEventListener('click', function() {
-  this.classList.toggle('active');
-});
 
 // Smooth anchor scroll offset for fixed header
 document.querySelectorAll('a[href^="#"]').forEach(a => {
