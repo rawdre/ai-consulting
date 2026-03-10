@@ -200,6 +200,105 @@ img{max-width:100%;display:block}
 .back-top.show{opacity:1;transform:translateY(0)}
 .back-top:hover{background:var(--amber);color:var(--navy)}
 
+/* SIMULADOR */
+.simulador-section{background:linear-gradient(160deg,var(--gray-50) 0%,#E8ECF4 100%);position:relative;overflow:hidden}
+.simulador-section::before{content:'';position:absolute;top:-30%;right:-15%;width:50%;height:160%;background:radial-gradient(ellipse,rgba(245,166,35,.08),transparent 70%);pointer-events:none}
+.simulador-form{background:var(--white);border-radius:var(--radius-lg);padding:48px;box-shadow:var(--shadow-lg);max-width:800px;margin:0 auto;position:relative;z-index:2}
+.simulador-form h3{font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.simulador-form .sub{font-size:.95rem;color:var(--gray-600);margin-bottom:32px}
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+@media(max-width:600px){.sim-grid{grid-template-columns:1fr}}
+.sim-field label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.sim-field select,.sim-field input{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);font-family:inherit;font-size:.95rem;color:var(--gray-800);background:var(--white);outline:none;transition:var(--transition)}
+.sim-field select:focus,.sim-field input:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.12)}
+.sim-toggle{display:flex;gap:10px}
+.sim-toggle button{flex:1;padding:12px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.9rem;font-weight:600;color:var(--gray-600);cursor:pointer;transition:var(--transition)}
+.sim-toggle button.active{border-color:var(--amber);background:rgba(245,166,35,.08);color:var(--amber-dark)}
+.btn-calcular{width:100%;padding:16px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:8px}
+.btn-calcular:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(245,166,35,.4)}
+.sim-result{margin-top:32px;padding:32px;background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:var(--radius);text-align:center;display:none;animation:simReveal .6s ease forwards}
+@keyframes simReveal{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.sim-result.show{display:block}
+.sim-result .est-label{font-size:.85rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.sim-result .est-value{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--amber);margin-bottom:16px}
+.sim-result .est-cta{font-size:.95rem;color:rgba(255,255,255,.7);margin-bottom:20px}
+
+/* ADMIN SECTION */
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.admin-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);padding:32px 24px;transition:var(--transition);position:relative;overflow:hidden}
+.admin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--navy));transform:scaleX(0);transition:transform .4s ease;transform-origin:left}
+.admin-card:hover::before{transform:scaleX(1)}
+.admin-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.admin-card .card-icon{font-size:36px;margin-bottom:16px;display:block}
+.admin-card h3{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+.admin-card p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
+
+/* COMO FUNCIONA - TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto;position:relative}
+.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--amber),var(--navy));border-radius:3px}
+@media(max-width:600px){.timeline::before{left:20px}}
+.timeline-step{display:flex;gap:24px;align-items:flex-start;padding:24px 0;position:relative}
+.timeline-num{width:56px;height:56px;min-width:56px;background:linear-gradient(135deg,var(--amber),var(--amber-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--navy);position:relative;z-index:2;box-shadow:0 4px 16px rgba(245,166,35,.3)}
+.timeline-content h4{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+.timeline-content p{font-size:.9rem;color:var(--gray-600);line-height:1.6}
+
+/* PRÉDIOS */
+.predios-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.predio-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);overflow:hidden;transition:var(--transition)}
+.predio-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.predio-header{padding:24px 24px 16px;position:relative}
+.predio-header .predio-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+.predio-card h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+.predio-card .predio-desc{font-size:.82rem;color:var(--gray-600);line-height:1.5;margin-bottom:16px}
+.predio-card .btn-ver{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:50px;border:1.5px solid var(--amber);font-size:.82rem;font-weight:600;color:var(--amber-dark);background:transparent;cursor:pointer;transition:var(--transition);margin:0 24px 24px}
+.predio-card .btn-ver:hover{background:var(--amber);color:var(--navy)}
+
+/* BLOG CARDS */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.blog-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius);overflow:hidden;transition:var(--transition)}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.blog-card-img{height:140px;position:relative}
+.blog-card-img .gradient-bg{width:100%;height:100%;transition:transform .6s ease}
+.blog-card:hover .gradient-bg{transform:scale(1.08)}
+.blog-card-body{padding:20px}
+.blog-card .blog-meta{font-size:.75rem;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;gap:12px}
+.blog-card h3{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.blog-card .excerpt{font-size:.82rem;color:var(--gray-600);line-height:1.5;margin-bottom:12px}
+.blog-card .read-more{font-size:.82rem;font-weight:600;color:var(--amber-dark);display:inline-flex;align-items:center;gap:4px}
+.blog-card .read-more:hover{color:var(--amber)}
+
+/* VENDA */
+.venda-features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;margin-bottom:40px}
+@media(max-width:768px){.venda-features{grid-template-columns:1fr}}
+.venda-feat{text-align:center;padding:32px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);transition:var(--transition)}
+.venda-feat:hover{background:rgba(255,255,255,.1);transform:translateY(-4px)}
+.venda-feat .feat-icon{font-size:40px;margin-bottom:12px;display:block}
+.venda-feat h4{font-size:1rem;font-weight:600;color:var(--white);margin-bottom:6px}
+.venda-feat p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* CONTATO */
+.contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media(max-width:768px){.contato-grid{grid-template-columns:1fr;gap:32px}}
+.contato-info{display:flex;flex-direction:column;gap:24px}
+.contato-item{display:flex;align-items:flex-start;gap:16px}
+.contato-item .ci-icon{width:48px;height:48px;min-width:48px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.contato-item h4{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:2px}
+.contato-item p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
+.mapa-placeholder{margin-top:24px;height:180px;background:var(--gray-100);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:3rem;border:2px dashed var(--gray-200)}
+.contato-form{background:var(--white);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow)}
+.contato-form .form-group{margin-bottom:16px}
+.contato-form label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.contato-form input,.contato-form select,.contato-form textarea{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);font-family:inherit;font-size:.9rem;color:var(--gray-800);background:var(--white);outline:none;transition:var(--transition)}
+.contato-form input:focus,.contato-form select:focus,.contato-form textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,166,35,.12)}
+.contato-form textarea{resize:vertical;min-height:100px}
+.btn-enviar{width:100%;padding:14px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--amber),var(--amber-dark));color:var(--navy);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--transition)}
+.btn-enviar:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(245,166,35,.4)}
+
+/* HAMBURGER ANIMATION */
+.mobile-toggle.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.mobile-toggle.active span:nth-child(2){opacity:0}
+.mobile-toggle.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
 @media(max-width:768px){
 .trust-badges{gap:10px}
 .trust-badge{padding:10px 14px;flex:1;min-width:140px}
@@ -230,10 +329,12 @@ img{max-width:100%;display:block}
 </a>
 <nav class="nav" id="nav">
 <a href="#imoveis">Imóveis</a>
-<a href="#servicos">Serviços</a>
-<a href="#sobre">Sobre</a>
-<a href="#proprietarios">Proprietários</a>
-<a href="https://wa.me/5561998229223?text=Olá!%20Vim%20pelo%20site%20da%20Top%20Imobiliária.%20Gostaria%20de%20mais%20informações." class="nav-cta" target="_blank">Fale Conosco</a>
+<a href="#administracao">Administração</a>
+<a href="#alugar">Alugar</a>
+<a href="#simulador">Simulador</a>
+<a href="#predios">Prédios</a>
+<a href="#venda">Venda</a>
+<a href="#contato" class="nav-cta">Contato</a>
 </nav>
 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
 <span></span><span></span><span></span>
@@ -594,6 +695,447 @@ Quero Anunciar Meu Imóvel
 </div>
 </section>
 
+<!-- SIMULADOR DE ALUGUEL -->
+<section class="section simulador-section" id="simulador">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Avaliação de Aluguel</div>
+<h2 class="section-title">Descubra Quanto Vale o Aluguel do Seu Apartamento</h2>
+<p class="section-desc">Use nosso simulador gratuito para ter uma estimativa de quanto seu imóvel pode render em Águas Claras e região. É rápido e sem compromisso.</p>
+</div>
+
+<div class="simulador-form reveal">
+<h3>📊 Simulador de Aluguel</h3>
+<p class="sub">Preencha os dados abaixo para uma avaliação de aluguel estimada</p>
+
+<div class="sim-grid">
+<div class="sim-field">
+<label>Tipo do Imóvel</label>
+<select id="simTipo">
+<option value="apartamento">Apartamento</option>
+<option value="casa">Casa</option>
+<option value="comercial">Sala Comercial</option>
+</select>
+</div>
+<div class="sim-field">
+<label>Bairro</label>
+<select id="simBairro">
+<option value="ac-norte">Águas Claras Norte</option>
+<option value="ac-sul">Águas Claras Sul</option>
+<option value="taguatinga">Taguatinga</option>
+<option value="vicente-pires">Vicente Pires</option>
+</select>
+</div>
+<div class="sim-field">
+<label>Quartos</label>
+<select id="simQuartos">
+<option value="1">1 Quarto</option>
+<option value="2" selected>2 Quartos</option>
+<option value="3">3 Quartos</option>
+<option value="4">4+ Quartos</option>
+</select>
+</div>
+<div class="sim-field">
+<label>Área (m²)</label>
+<input type="number" id="simArea" placeholder="Ex: 70" min="20" max="500" value="70">
+</div>
+<div class="sim-field">
+<label>Mobiliado</label>
+<div class="sim-toggle" id="simMobiliado">
+<button class="active" data-val="nao" onclick="simToggle(this)">Não</button>
+<button data-val="sim" onclick="simToggle(this)">Sim</button>
+</div>
+</div>
+<div class="sim-field">
+<label>Vagas de Garagem</label>
+<select id="simGaragem">
+<option value="1">1 Vaga</option>
+<option value="2" selected>2 Vagas</option>
+<option value="3">3 Vagas</option>
+</select>
+</div>
+</div>
+
+<button class="btn-calcular" onclick="calcularAluguel()">🔍 Calcular Estimativa</button>
+
+<div class="sim-result" id="simResult">
+<div class="est-label">Estimativa de Aluguel Mensal</div>
+<div class="est-value" id="simValor">R$ 0 — R$ 0 /mês</div>
+<p class="est-cta">Quer uma avaliação profissional gratuita e personalizada?</p>
+<a href="https://wa.me/5561998229223?text=Olá!%20Usei%20o%20simulador%20e%20gostaria%20de%20uma%20avaliação%20gratuita%20de%20aluguel%20do%20meu%20imóvel." target="_blank">
+<button class="btn-whatsapp" style="font-size:.9rem;padding:14px 28px">
+<svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Avaliação Gratuita
+</button>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ADMINISTRAÇÃO DE IMÓVEIS -->
+<section class="section section-gray" id="administracao">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Gestão de Locação de Imóveis</div>
+<h2 class="section-title">Administração de Imóveis em Águas Claras DF</h2>
+<p class="section-desc">Gestão completa para proprietários que querem tranquilidade. Somos especialistas em administração de imóveis com mais de 34 anos de experiência na região.</p>
+</div>
+
+<div class="admin-grid">
+<div class="admin-card reveal reveal-delay-1">
+<span class="card-icon">📋</span>
+<h3>Gestão Completa de Locação</h3>
+<p>Cobrança, repasses pontuais e controle total do seu imóvel. Você recebe seu aluguel sem se preocupar com nada.</p>
+</div>
+<div class="admin-card reveal reveal-delay-2">
+<span class="card-icon">🔍</span>
+<h3>Análise Rigorosa de Inquilinos</h3>
+<p>Cadastro completo, histórico de crédito e garantias locatícias. Selecionamos os melhores inquilinos para seu imóvel.</p>
+</div>
+<div class="admin-card reveal reveal-delay-3">
+<span class="card-icon">⚖️</span>
+<h3>Segurança Jurídica Total</h3>
+<p>Contratos atualizados, vistorias detalhadas e conformidade com LGPD. Sua proteção legal garantida.</p>
+</div>
+<div class="admin-card reveal reveal-delay-4">
+<span class="card-icon">📊</span>
+<h3>Acompanhamento Mensal</h3>
+<p>Relatórios claros, extratos detalhados e prestação de contas transparente. Você acompanha tudo online.</p>
+</div>
+<div class="admin-card reveal reveal-delay-5">
+<span class="card-icon">🔧</span>
+<h3>Manutenção e Vistorias</h3>
+<p>Vistorias de entrada, saída e periódicas. Cuidamos da manutenção para preservar o valor do seu patrimônio.</p>
+</div>
+</div>
+
+<div class="text-center reveal" style="margin-top:48px">
+<a href="https://wa.me/5561998229223?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20administração%20de%20imóveis." target="_blank">
+<button class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Administrar Meu Imóvel
+</button>
+</a>
+</div>
+</div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="alugar">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Passo a Passo</div>
+<h2 class="section-title">Quer Alugar Seu Apartamento em Águas Claras?</h2>
+<p class="section-desc">Colocar apartamento para alugar nunca foi tão fácil. Conheça o processo da imobiliária em Águas Claras DF que mais entende do mercado local.</p>
+</div>
+
+<div class="timeline">
+<div class="timeline-step reveal reveal-delay-1">
+<div class="timeline-num">1</div>
+<div class="timeline-content">
+<h4>Avaliação Gratuita do Imóvel</h4>
+<p>Nossa equipe faz uma avaliação gratuita de aluguel completa, analisando o mercado e definindo o melhor valor para maximizar seu retorno.</p>
+</div>
+</div>
+<div class="timeline-step reveal reveal-delay-2">
+<div class="timeline-num">2</div>
+<div class="timeline-content">
+<h4>Fotos Profissionais e Anúncio Premium</h4>
+<p>Produzimos fotos de alta qualidade e criamos um anúncio atrativo que destaca os diferenciais do seu imóvel.</p>
+</div>
+</div>
+<div class="timeline-step reveal reveal-delay-3">
+<div class="timeline-num">3</div>
+<div class="timeline-content">
+<h4>Divulgação nos Principais Portais</h4>
+<p>Seu imóvel aparece no DF Imóveis, ZAP, OLX, nosso site próprio e redes sociais — máxima visibilidade para atrair inquilinos.</p>
+</div>
+</div>
+<div class="timeline-step reveal reveal-delay-4">
+<div class="timeline-num">4</div>
+<div class="timeline-content">
+<h4>Seleção Rigorosa de Inquilinos</h4>
+<p>Análise de crédito, histórico de locação e verificação de referências. Só os melhores candidatos para seu imóvel.</p>
+</div>
+</div>
+<div class="timeline-step reveal reveal-delay-5">
+<div class="timeline-num">5</div>
+<div class="timeline-content">
+<h4>Contrato com Garantia de Segurança</h4>
+<p>Contrato robusto, com garantias locatícias e seguro fiança. Proteção total para você e seu patrimônio.</p>
+</div>
+</div>
+<div class="timeline-step reveal">
+<div class="timeline-num">6</div>
+<div class="timeline-content">
+<h4>Gestão Completa e Repasses Mensais</h4>
+<p>Administramos tudo: cobrança, manutenção, relacionamento com inquilino e repasse mensal pontual na sua conta.</p>
+</div>
+</div>
+</div>
+
+<div class="text-center reveal" style="margin-top:48px">
+<a href="https://wa.me/5561998229223?text=Olá!%20Quero%20colocar%20meu%20apartamento%20para%20alugar%20em%20Águas%20Claras." target="_blank">
+<button class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Começar Agora
+</button>
+</a>
+</div>
+</div>
+</section>
+
+<!-- PRÉDIOS EM ÁGUAS CLARAS -->
+<section class="section section-gray" id="predios">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Condomínios</div>
+<h2 class="section-title">Conheça os Principais Prédios de Águas Claras</h2>
+<p class="section-desc">Especialistas nos condomínios da região. Cada prédio tem suas particularidades — e nós conhecemos todas.</p>
+</div>
+
+<div class="predios-grid">
+<div class="predio-card reveal reveal-delay-1">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>DF Plaza</h3>
+<p class="predio-desc">Residencial moderno, 25 andares. Localização privilegiada na Rua das Pitangueiras, Águas Claras Sul.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-2">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Real Splendor</h3>
+<p class="predio-desc">Condomínio completo com área de lazer, 20 andares. Av. Araucárias, Águas Claras Norte.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-3">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Via Azaleas</h3>
+<p class="predio-desc">Residencial com excelente acabamento, 18 andares. Rua 25 Sul, Águas Claras.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-4">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Residencial Easy</h3>
+<p class="predio-desc">Perfeito para jovens e casais, 15 andares. Localização central em Águas Claras Norte.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-1">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Life Resort</h3>
+<p class="predio-desc">Resort urbano com piscinas e quadras, 22 andares. Rua 12 Norte, Águas Claras.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-2">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Reserva Taguatinga</h3>
+<p class="predio-desc">Condomínio amplo com áreas verdes, 16 andares. Região central de Taguatinga.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-3">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Parque Amazônia</h3>
+<p class="predio-desc">Residencial familiar completo, 20 andares. Próximo ao metrô de Águas Claras.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+<div class="predio-card reveal reveal-delay-4">
+<div class="predio-header">
+<div class="predio-icon">🏢</div>
+<h3>Vitrium</h3>
+<p class="predio-desc">Design moderno e sofisticado, 24 andares. Av. Castanheiras, Águas Claras Sul.</p>
+</div>
+<button class="btn-ver">Ver Imóveis →</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- BLOG / CONTEÚDO -->
+<section class="section" id="blog">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Blog</div>
+<h2 class="section-title">Conteúdo para Proprietários</h2>
+<p class="section-desc">Dicas e informações para quem quer alugar com segurança. Conteúdo atualizado sobre o mercado imobiliário de Águas Claras.</p>
+</div>
+
+<div class="blog-grid">
+<div class="blog-card reveal reveal-delay-1">
+<div class="blog-card-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,var(--navy) 0%,var(--amber) 100%)"></div>
+</div>
+<div class="blog-card-body">
+<div class="blog-meta"><span>📖 5 min de leitura</span><span>Mercado</span></div>
+<h3>Quanto Cobrar de Aluguel em Águas Claras em 2026?</h3>
+<p class="excerpt">Análise completa dos valores praticados por bairro, tipo de imóvel e metragem. Dados atualizados do mercado local.</p>
+<a href="#" class="read-more">Ler Mais →</a>
+</div>
+</div>
+<div class="blog-card reveal reveal-delay-2">
+<div class="blog-card-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#2C3E50 0%,#3498DB 100%)"></div>
+</div>
+<div class="blog-card-body">
+<div class="blog-meta"><span>📖 4 min de leitura</span><span>Dicas</span></div>
+<h3>Como Escolher o Inquilino Ideal para Seu Imóvel</h3>
+<p class="excerpt">Critérios essenciais, análise de crédito e red flags. Guia prático para proprietários que querem segurança.</p>
+<a href="#" class="read-more">Ler Mais →</a>
+</div>
+</div>
+<div class="blog-card reveal reveal-delay-3">
+<div class="blog-card-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,#1A1A2E 0%,#16213E 100%)"></div>
+</div>
+<div class="blog-card-body">
+<div class="blog-meta"><span>📖 3 min de leitura</span><span>Documentação</span></div>
+<h3>Documentos Necessários para Locação de Imóveis</h3>
+<p class="excerpt">Checklist completo de documentos para proprietário e inquilino. Evite problemas na hora de fechar contrato.</p>
+<a href="#" class="read-more">Ler Mais →</a>
+</div>
+</div>
+<div class="blog-card reveal reveal-delay-4">
+<div class="blog-card-img">
+<div class="gradient-bg" style="background:linear-gradient(135deg,var(--navy-deep) 0%,#048A81 100%)"></div>
+</div>
+<div class="blog-card-body">
+<div class="blog-meta"><span>📖 6 min de leitura</span><span>Opinião</span></div>
+<h3>Vantagens de Usar uma Imobiliária para Alugar Seu Apartamento</h3>
+<p class="excerpt">Por que contar com especialistas em administração de imóveis faz diferença na rentabilidade e segurança do seu patrimônio.</p>
+<a href="#" class="read-more">Ler Mais →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VENDA DE IMÓVEIS -->
+<section class="section section-dark" id="venda">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label" style="color:var(--amber)">Vendas</div>
+<h2 class="section-title" style="color:var(--white)">Venda de Apartamentos em Águas Claras</h2>
+<p class="section-desc">Quer vender seu imóvel pelo melhor preço? Nossa equipe oferece assessoria completa — da avaliação de mercado ao acompanhamento até a escritura.</p>
+</div>
+
+<div class="venda-features">
+<div class="venda-feat reveal reveal-delay-1">
+<span class="feat-icon">📊</span>
+<h4>Avaliação de Mercado</h4>
+<p>Análise comparativa precisa com dados reais do mercado de Águas Claras para definir o melhor preço de venda.</p>
+</div>
+<div class="venda-feat reveal reveal-delay-2">
+<span class="feat-icon">📢</span>
+<h4>Divulgação Estratégica</h4>
+<p>Seu imóvel nos maiores portais, redes sociais e nossa carteira de compradores qualificados. Máxima exposição.</p>
+</div>
+<div class="venda-feat reveal reveal-delay-3">
+<span class="feat-icon">🤝</span>
+<h4>Acompanhamento até a Escritura</h4>
+<p>Estamos com você em cada etapa: negociação, documentação, financiamento e registro em cartório.</p>
+</div>
+</div>
+
+<div class="text-center reveal">
+<a href="https://wa.me/5561998229223?text=Olá!%20Gostaria%20de%20vender%20meu%20imóvel%20em%20Águas%20Claras." target="_blank">
+<button class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Vender Meu Imóvel
+</button>
+</a>
+</div>
+</div>
+</section>
+
+<!-- CONTATO -->
+<section class="section section-gray" id="contato">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Fale Conosco</div>
+<h2 class="section-title">Entre em Contato</h2>
+<p class="section-desc">Estamos prontos para ajudar. Seja para alugar, administrar ou vender — fale com a imobiliária em Águas Claras DF que mais entende do mercado.</p>
+</div>
+
+<div class="contato-grid">
+<div class="reveal">
+<div class="contato-info">
+<div class="contato-item">
+<div class="ci-icon">📞</div>
+<div>
+<h4>Telefone</h4>
+<p>(61) 99822-9223</p>
+</div>
+</div>
+<div class="contato-item">
+<div class="ci-icon">💬</div>
+<div>
+<h4>WhatsApp</h4>
+<p><a href="https://wa.me/5561998229223" target="_blank" style="color:var(--amber-dark)">(61) 99822-9223</a></p>
+</div>
+</div>
+<div class="contato-item">
+<div class="ci-icon">✉️</div>
+<div>
+<h4>Email</h4>
+<p>contato@topimobiliariadf.com.br</p>
+</div>
+</div>
+<div class="contato-item">
+<div class="ci-icon">📍</div>
+<div>
+<h4>Endereço</h4>
+<p>Águas Claras, Brasília — DF</p>
+</div>
+</div>
+</div>
+<div class="mapa-placeholder">🗺️</div>
+</div>
+
+<div class="contato-form reveal">
+<div class="form-group">
+<label>Nome</label>
+<input type="text" placeholder="Seu nome completo">
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="seu@email.com">
+</div>
+<div class="form-group">
+<label>Telefone / WhatsApp</label>
+<input type="tel" placeholder="(61) 99999-9999">
+</div>
+<div class="form-group">
+<label>Assunto</label>
+<select>
+<option>Quero Alugar um Imóvel</option>
+<option>Quero Administrar Meu Imóvel</option>
+<option>Quero Vender Meu Imóvel</option>
+<option>Outro Assunto</option>
+</select>
+</div>
+<div class="form-group">
+<label>Mensagem</label>
+<textarea placeholder="Como podemos ajudar?"></textarea>
+</div>
+<button class="btn-enviar">Enviar Mensagem</button>
+</div>
+</div>
+</div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
 <div class="container">
@@ -606,9 +1148,13 @@ Quero Anunciar Meu Imóvel
 <h4>Links Rápidos</h4>
 <ul>
 <li><a href="#imoveis">Imóveis</a></li>
-<li><a href="#servicos">Serviços</a></li>
-<li><a href="#sobre">Sobre Nós</a></li>
-<li><a href="#proprietarios">Proprietários</a></li>
+<li><a href="#administracao">Administração</a></li>
+<li><a href="#alugar">Alugar</a></li>
+<li><a href="#simulador">Simulador</a></li>
+<li><a href="#predios">Prédios</a></li>
+<li><a href="#venda">Venda</a></li>
+<li><a href="#blog">Blog</a></li>
+<li><a href="#contato">Contato</a></li>
 </ul>
 </div>
 <div>
@@ -618,6 +1164,7 @@ Quero Anunciar Meu Imóvel
 <li>📞 (61) 99822-9223</li>
 <li>✉️ contato@topimobiliariadf.com.br</li>
 <li>⏰ Seg–Sex: 8h–18h | Sáb: 9h–13h</li>
+<li style="margin-top:8px">🔍 Monitoramento com Google Analytics e Search Console</li>
 </ul>
 </div>
 </div>
@@ -706,6 +1253,56 @@ const counterObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 statNums.forEach(el => counterObserver.observe(el));
+
+// Simulador toggle
+function simToggle(btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Simulador calculation
+function calcularAluguel() {
+  const bairro = document.getElementById('simBairro').value;
+  const area = parseFloat(document.getElementById('simArea').value) || 70;
+  const mobiliado = document.querySelector('#simMobiliado button.active').dataset.val === 'sim';
+  const garagem = parseInt(document.getElementById('simGaragem').value) || 1;
+
+  let minPm2, maxPm2;
+  if (bairro === 'ac-norte' || bairro === 'ac-sul') {
+    minPm2 = 25; maxPm2 = 35;
+  } else if (bairro === 'taguatinga') {
+    minPm2 = 20; maxPm2 = 28;
+  } else {
+    minPm2 = 18; maxPm2 = 25;
+  }
+
+  let minVal = area * minPm2;
+  let maxVal = area * maxPm2;
+
+  if (mobiliado) {
+    minVal *= 1.3;
+    maxVal *= 1.3;
+  }
+
+  minVal += garagem * 200;
+  maxVal += garagem * 400;
+
+  minVal = Math.round(minVal / 100) * 100;
+  maxVal = Math.round(maxVal / 100) * 100;
+
+  const fmt = (v) => v.toLocaleString('pt-BR');
+  document.getElementById('simValor').textContent = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)} /mês`;
+  const result = document.getElementById('simResult');
+  result.classList.remove('show');
+  void result.offsetWidth; // trigger reflow for animation
+  result.classList.add('show');
+  result.style.display = 'block';
+}
+
+// Mobile toggle animation
+document.getElementById('mobileToggle').addEventListener('click', function() {
+  this.classList.toggle('active');
+});
 
 // Smooth anchor scroll offset for fixed header
 document.querySelectorAll('a[href^="#"]').forEach(a => {
