@@ -3,78 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pet Shop Agrobil — Banho, Tosa e Muito Amor 🐾</title>
-<meta name="description" content="Pet Shop Agrobil em Grande Colorado, Sobradinho II. Banho, tosa, produtos e acessórios para seu pet. Agende pelo WhatsApp!">
+<title>Agrobil Agropecuária — Rações, Banho & Tosa, Acessórios 🐾</title>
+<meta name="description" content="Agrobil Agropecuária em Grande Colorado, Sobradinho II. Rações, medicamentos, banho & tosa, acessórios e jardinagem. Agende pelo WhatsApp!">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --green:#2d8a4e;--green-light:#3aad63;--green-dark:#1e6b38;
-  --orange:#f5a623;--orange-light:#ffc857;--orange-dark:#e0911a;
-  --white:#ffffff;--off-white:#fafaf7;--gray-light:#f0efe9;--gray:#e0dfd9;
-  --text:#2a2a2a;--text-light:#5a5a5a;--text-muted:#888;
+  --primary:#FF6600;--primary-light:#ff8533;--primary-dark:#e55a00;
+  --secondary:#1a1a1a;--secondary-light:#333;
+  --accent:#FFD700;--accent-light:#ffe44d;
+  --white:#ffffff;--off-white:#fafafa;--gray-light:#f5f5f5;--gray:#e0e0e0;
+  --text:#1a1a1a;--text-light:#555;--text-muted:#888;
   --shadow:0 4px 20px rgba(0,0,0,.08);--shadow-lg:0 8px 40px rgba(0,0,0,.12);
   --radius:16px;--radius-sm:10px;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--white);line-height:1.6;overflow-x:hidden}
-a{color:var(--green);text-decoration:none;transition:.3s}
+a{color:var(--primary);text-decoration:none;transition:.3s}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 img{max-width:100%}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 0;transition:.3s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 0;transition:.3s}
 nav .container{display:flex;align-items:center;justify-content:space-between}
-.nav-brand{font-weight:700;font-size:1.2rem;color:var(--green);display:flex;align-items:center;gap:8px}
-.nav-brand span{font-size:1.4rem}
+.nav-brand{font-weight:700;font-size:1.2rem;color:var(--primary);display:flex;align-items:center;gap:8px}
+.nav-brand .brand-sub{font-size:.7rem;color:var(--text-muted);font-weight:500;margin-left:4px}
 .nav-links{display:flex;gap:20px;align-items:center}
 .nav-links a{color:var(--text-light);font-size:.85rem;font-weight:500;transition:.3s}
-.nav-links a:hover{color:var(--green)}
-.nav-cta{background:var(--green);color:white!important;padding:8px 20px;border-radius:50px;font-weight:600;font-size:.85rem;box-shadow:0 2px 12px rgba(45,138,78,.3)}
-.nav-cta:hover{background:var(--green-light);transform:translateY(-1px)}
+.nav-links a:hover{color:var(--primary)}
+.nav-cta{background:var(--primary);color:white!important;padding:8px 20px;border-radius:50px;font-weight:600;font-size:.85rem;box-shadow:0 2px 12px rgba(255,102,0,.3)}
+.nav-cta:hover{background:var(--primary-light);transform:translateY(-1px)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{display:block;width:22px;height:2px;background:var(--text);margin:5px 0;border-radius:2px;transition:.3s}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#e8f5e9 0%,#fff8e1 50%,#fff3e0 100%);position:relative;padding:100px 0 60px;overflow:hidden}
+.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#fff5eb 0%,#fff8e1 50%,#fffbe6 100%);position:relative;padding:100px 0 60px;overflow:hidden}
 .hero::before{content:'🐾';position:absolute;font-size:300px;opacity:.04;top:-40px;right:-60px;transform:rotate(-15deg)}
 .hero::after{content:'🐾';position:absolute;font-size:200px;opacity:.04;bottom:-20px;left:-40px;transform:rotate(25deg)}
 .hero-content{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(45,138,78,.1);border:1px solid rgba(45,138,78,.2);color:var(--green);padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase}
-.hero h1{font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;line-height:1.15;margin-bottom:16px;color:var(--text)}
-.hero h1 .accent{color:var(--green)}
-.hero h1 .accent-orange{color:var(--orange)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,102,0,.1);border:1px solid rgba(255,102,0,.2);color:var(--primary);padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase}
+.hero h1{font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;line-height:1.15;margin-bottom:8px;color:var(--text)}
+.hero h1 .accent{color:var(--primary)}
+.hero h1 .accent-gold{color:var(--accent)}
+.hero .hero-subtitle{font-size:1rem;color:var(--text-muted);font-weight:500;margin-bottom:16px;letter-spacing:1px}
 .hero p{font-size:1.1rem;color:var(--text-light);max-width:550px;margin:0 auto 30px;line-height:1.7}
 .hero-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:50px;font-weight:600;font-size:1rem;transition:.3s;cursor:pointer;border:none}
-.btn-primary{background:linear-gradient(135deg,var(--green),var(--green-light));color:white;box-shadow:0 4px 20px rgba(45,138,78,.35)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(45,138,78,.45);color:white}
-.btn-secondary{background:white;color:var(--green);border:2px solid var(--green);box-shadow:var(--shadow)}
-.btn-secondary:hover{background:var(--green);color:white;transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;box-shadow:0 4px 20px rgba(255,102,0,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,102,0,.45);color:white}
+.btn-secondary{background:white;color:var(--primary);border:2px solid var(--primary);box-shadow:var(--shadow)}
+.btn-secondary:hover{background:var(--primary);color:white;transform:translateY(-2px)}
 .hero-stats{display:flex;justify-content:center;gap:40px;margin-top:40px;flex-wrap:wrap}
 .hero-stat{text-align:center}
-.hero-stat .num{font-size:1.8rem;font-weight:800;color:var(--green)}
+.hero-stat .num{font-size:1.8rem;font-weight:800;color:var(--primary)}
 .hero-stat .label{font-size:.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
 .paw-divider{text-align:center;padding:10px 0;font-size:1.5rem;opacity:.3;letter-spacing:12px}
 
 /* SECTIONS */
 .section{padding:70px 0}
-.section-alt{background:var(--off-white)}
-.section-green{background:linear-gradient(135deg,var(--green-dark),var(--green));color:white}
+.section-alt{background:var(--gray-light)}
+.section-dark{background:var(--secondary);color:white}
 .section-title{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;text-align:center;margin-bottom:8px}
 .section-sub{text-align:center;color:var(--text-light);margin-bottom:40px;font-size:.95rem;max-width:550px;margin-left:auto;margin-right:auto}
-.section-green .section-sub{color:rgba(255,255,255,.8)}
+.section-dark .section-sub{color:rgba(255,255,255,.7)}
 
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .service-card{background:white;border-radius:var(--radius);padding:30px 24px;text-align:center;box-shadow:var(--shadow);transition:.3s;border:1px solid transparent;position:relative;overflow:hidden}
-.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--green)}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary)}
 .service-card::after{content:'🐾';position:absolute;top:10px;right:10px;font-size:1.2rem;opacity:.1}
 .service-icon{font-size:2.8rem;margin-bottom:14px;display:block}
 .service-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--text)}
 .service-card p{font-size:.88rem;color:var(--text-light);margin-bottom:14px;line-height:1.6}
-.service-price{display:inline-block;background:linear-gradient(135deg,rgba(45,138,78,.1),rgba(245,166,35,.1));color:var(--green);font-weight:700;font-size:.9rem;padding:6px 16px;border-radius:50px}
-.service-popular{position:absolute;top:0;left:0;right:0;background:linear-gradient(135deg,var(--orange),var(--orange-light));color:white;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px;text-align:center}
+.service-price{display:inline-block;background:linear-gradient(135deg,rgba(255,102,0,.1),rgba(255,215,0,.15));color:var(--primary);font-weight:700;font-size:.9rem;padding:6px 16px;border-radius:50px}
+.service-popular{position:absolute;top:0;left:0;right:0;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px;text-align:center}
 
 /* BOOKING */
 .booking-wrapper{max-width:600px;margin:0 auto;background:white;border-radius:var(--radius);padding:36px 30px;box-shadow:var(--shadow-lg);border:2px solid var(--gray)}
@@ -82,29 +84,36 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:6px}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:2px solid var(--gray);border-radius:var(--radius-sm);font-family:inherit;font-size:.9rem;transition:.3s;background:var(--off-white)}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(45,138,78,.12);background:white}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(255,102,0,.12);background:white}
 .form-group select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
 .btn-submit{width:100%;padding:16px;font-size:1.05rem;margin-top:6px}
 
-/* REVIEWS */
-.rating-hero{text-align:center;margin-bottom:36px}
-.rating-stars{font-size:2.5rem;letter-spacing:4px;margin-bottom:8px}
-.rating-number{font-size:3rem;font-weight:800;color:white}
-.rating-count{font-size:.9rem;color:rgba(255,255,255,.7)}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:900px;margin:0 auto}
-.review-card{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:24px;position:relative}
-.review-card::before{content:'"';position:absolute;top:10px;right:18px;font-size:3rem;opacity:.15;font-family:Georgia,serif;color:white}
-.review-stars{color:var(--orange);font-size:.9rem;margin-bottom:10px;letter-spacing:2px}
-.review-text{font-size:.9rem;line-height:1.7;margin-bottom:14px;color:rgba(255,255,255,.9);font-style:italic}
-.review-author{display:flex;align-items:center;gap:10px}
-.review-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1rem}
-.review-name{font-weight:600;font-size:.85rem}
-.review-date{font-size:.75rem;color:rgba(255,255,255,.5)}
+/* GOOGLE REVIEWS */
+.reviews-section{padding:70px 0;background:var(--gray-light)}
+.reviews-header{text-align:center;margin-bottom:40px}
+.reviews-header .google-logo{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px}
+.reviews-header .google-g{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reviews-header .google-text{font-size:1.1rem;color:var(--text-muted);font-weight:500}
+.reviews-header .rating-big{font-size:3.5rem;font-weight:800;color:var(--text);line-height:1}
+.reviews-header .rating-stars-big{font-size:1.8rem;letter-spacing:2px;margin:6px 0 4px}
+.reviews-header .rating-count{font-size:.9rem;color:var(--text-muted)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.google-review-card{background:white;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);transition:.3s;border:1px solid rgba(0,0,0,.06);position:relative}
+.google-review-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.review-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.review-card-author{display:flex;align-items:center;gap:12px}
+.review-card-avatar{width:40px;height:40px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
+.review-card-name{font-weight:600;font-size:.9rem;color:var(--text)}
+.review-card-date{font-size:.75rem;color:var(--text-muted)}
+.review-card-google{width:20px;height:20px;flex-shrink:0}
+.review-card-google svg{width:20px;height:20px}
+.review-card-stars{color:var(--accent);font-size:.85rem;letter-spacing:1px;margin-bottom:10px}
+.review-card-text{font-size:.88rem;color:var(--text-light);line-height:1.7}
 
 /* GALLERY */
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
 .gallery-item{background:white;border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow);transition:.3s;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed var(--gray)}
-.gallery-item:hover{transform:scale(1.03);border-color:var(--green);box-shadow:var(--shadow-lg)}
+.gallery-item:hover{transform:scale(1.03);border-color:var(--primary);box-shadow:var(--shadow-lg)}
 .gallery-emoji{font-size:3rem;margin-bottom:10px}
 .gallery-label{font-size:.78rem;color:var(--text-muted);font-weight:500}
 
@@ -112,16 +121,17 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
 .location-info{display:flex;flex-direction:column;gap:18px}
 .location-item{display:flex;align-items:flex-start;gap:14px}
-.location-icon{font-size:1.4rem;flex-shrink:0;width:44px;height:44px;background:linear-gradient(135deg,rgba(45,138,78,.1),rgba(245,166,35,.1));border-radius:12px;display:flex;align-items:center;justify-content:center}
+.location-icon{font-size:1.4rem;flex-shrink:0;width:44px;height:44px;background:linear-gradient(135deg,rgba(255,102,0,.1),rgba(255,215,0,.15));border-radius:12px;display:flex;align-items:center;justify-content:center}
 .location-item h4{font-size:.9rem;font-weight:600;margin-bottom:2px}
 .location-item p{font-size:.85rem;color:var(--text-light)}
 .location-map{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid white}
 .location-map iframe{width:100%;height:350px;border:none}
 
 /* FOOTER */
-footer{background:var(--text);color:rgba(255,255,255,.6);padding:30px 0;text-align:center;font-size:.82rem}
-footer a{color:var(--orange-light)}
+footer{background:var(--secondary);color:rgba(255,255,255,.6);padding:30px 0;text-align:center;font-size:.82rem}
+footer a{color:var(--accent)}
 footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
+footer .brand-tagline{color:rgba(255,255,255,.4);font-size:.75rem;font-weight:400}
 
 /* WHATSAPP FLOAT */
 .whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:9999;background:linear-gradient(135deg,#25d366,#128c7e);width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:.3s;animation:waBounce 2s ease-in-out infinite}
@@ -139,12 +149,16 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
   .location-grid{grid-template-columns:1fr}
   .location-map iframe{height:250px}
   .services-grid{grid-template-columns:1fr}
-  .reviews-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr;gap:16px;max-width:500px}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:769px) and (max-width:1024px){
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
   .hero{padding:80px 0 40px}
   .section{padding:50px 0}
+  .reviews-section{padding:50px 0}
   .booking-wrapper{padding:24px 18px}
   .hero-buttons{flex-direction:column;align-items:center}
 }
@@ -159,7 +173,7 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
 <!-- NAV -->
 <nav>
   <div class="container">
-    <a href="#" class="nav-brand"><span>🐾</span> Pet Shop Agrobil</a>
+    <a href="#" class="nav-brand">🐔 Agrobil <span class="brand-sub">Agropecuária</span></a>
     <div class="nav-links">
       <a href="#servicos">Serviços</a>
       <a href="#agendamento">Agendar</a>
@@ -178,16 +192,17 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
   <div class="container">
     <div class="hero-content fade-in">
       <div class="hero-badge">🐾 Grande Colorado · Sobradinho II</div>
-      <h1>Seu Pet Merece o <span class="accent">Melhor</span> Cuidado <span class="accent-orange">🐾</span></h1>
+      <h1><span class="accent">Agrobil</span> — Seu Pet Merece o Melhor <span class="accent-gold">🐾</span></h1>
+      <div class="hero-subtitle">rações · medicamentos · acessórios · jardinagem</div>
       <p>Banho, tosa e carinho de verdade. No coração do Condomínio Solar de Atenas, cuidamos do seu melhor amigo como se fosse nosso.</p>
       <div class="hero-buttons">
         <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20para%20meu%20pet%20%F0%9F%90%BE" class="btn btn-primary" target="_blank">📱 Agendar pelo WhatsApp</a>
         <a href="#servicos" class="btn btn-secondary">Nossos Serviços</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="num">⭐ 5.0</div><div class="label">Google</div></div>
+        <div class="hero-stat"><div class="num">5.0 ⭐</div><div class="label">no Google</div></div>
         <div class="hero-stat"><div class="num">25+</div><div class="label">Avaliações</div></div>
-        <div class="hero-stat"><div class="num">🐾</div><div class="label">Milhares de Pets</div></div>
+        <div class="hero-stat"><div class="num">📍</div><div class="label">Grande Colorado</div></div>
       </div>
     </div>
   </div>
@@ -222,8 +237,8 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
       </div>
       <div class="service-card">
         <span class="service-icon">🛍️</span>
-        <h3>Produtos & Acessórios</h3>
-        <p>Rações premium, brinquedos, coleiras, caminhas e tudo que seu pet precisa. Venha conhecer!</p>
+        <h3>Rações, Acessórios & Jardinagem</h3>
+        <p>Rações premium, medicamentos, brinquedos, coleiras e tudo para jardinagem. Agropecuária completa!</p>
         <span class="service-price">Visite a Loja</span>
       </div>
     </div>
@@ -311,47 +326,110 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
   </div>
 </section>
 
-<!-- AVALIAÇÕES -->
-<section class="section section-green" id="avaliacoes">
+<!-- AVALIAÇÕES GOOGLE -->
+<section class="reviews-section" id="avaliacoes">
   <div class="container">
-    <div class="rating-hero">
-      <div class="rating-stars">⭐⭐⭐⭐⭐</div>
-      <div class="rating-number">5.0</div>
-      <div class="rating-count">Nota máxima no Google • 25+ avaliações</div>
+    <div class="reviews-header">
+      <div class="google-logo">
+        <span class="google-g">G</span>
+        <span class="google-text">Avaliações do Google</span>
+      </div>
+      <div class="rating-big">5.0</div>
+      <div class="rating-stars-big">⭐⭐⭐⭐⭐</div>
+      <div class="rating-count">Baseado em 25+ avaliações</div>
     </div>
     <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">Melhor pet shop da região! Minha Luna sempre volta cheirosa e feliz. A equipe é super carinhosa e atenciosa. Recomendo demais!</p>
-        <div class="review-author">
-          <div class="review-avatar">👩</div>
-          <div><div class="review-name">Mariana S.</div><div class="review-date">2 semanas atrás</div></div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar">M</div>
+            <div>
+              <div class="review-card-name">Maria Souza</div>
+              <div class="review-card-date">2 meses atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Melhor pet shop da região! Levei minha Luna pra tosa e ela voltou linda. Atendimento super carinhoso, nota 10!"</p>
       </div>
-      <div class="review-card">
-        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">Atendimento excelente! Meu Thor é muito agitado, mas eles têm muita paciência. A tosa ficou perfeita. Preço justo e honesto.</p>
-        <div class="review-author">
-          <div class="review-avatar">👨</div>
-          <div><div class="review-name">Carlos R.</div><div class="review-date">1 mês atrás</div></div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar" style="background:var(--secondary)">C</div>
+            <div>
+              <div class="review-card-name">Carlos Eduardo</div>
+              <div class="review-card-date">3 meses atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Sempre compro as rações aqui. Preço justo e produtos de qualidade. O pessoal conhece os bichinhos pelo nome!"</p>
       </div>
-      <div class="review-card">
-        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">Levo meus 3 gatos lá e todos são tratados com muito carinho. Produtos de qualidade e o ambiente é limpo e organizado. Nota 10!</p>
-        <div class="review-author">
-          <div class="review-avatar">👩</div>
-          <div><div class="review-name">Fernanda L.</div><div class="review-date">3 semanas atrás</div></div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar" style="background:#e55a00">A</div>
+            <div>
+              <div class="review-card-name">Ana Paula R.</div>
+              <div class="review-card-date">1 mês atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Meu Thor (Schnauzer) fica lindo depois do banho e tosa! Profissionais muito cuidadosos e pacientes. Recomendo demais."</p>
       </div>
-      <div class="review-card">
-        <div class="review-stars">⭐⭐⭐⭐⭐</div>
-        <p class="review-text">Pet shop de confiança! Já sou cliente há mais de um ano. O banho e tosa do meu Bob sempre fica impecável. Equipe 100%!</p>
-        <div class="review-author">
-          <div class="review-avatar">👨</div>
-          <div><div class="review-name">Ricardo M.</div><div class="review-date">1 semana atrás</div></div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar" style="background:#333">R</div>
+            <div>
+              <div class="review-card-name">Roberto Lima</div>
+              <div class="review-card-date">4 meses atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Atendimento excelente! Além de pet shop, tem tudo pra jardinagem também. Loja completa aqui no Grande Colorado."</p>
       </div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar" style="background:#FFD700;color:#1a1a1a">J</div>
+            <div>
+              <div class="review-card-name">Juliana Mendes</div>
+              <div class="review-card-date">2 semanas atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Trouxe minha gatinha pro banho pela primeira vez e amei o resultado. Ela voltou cheirosa e bem cuidada. Preço super acessível!"</p>
+      </div>
+
+      <div class="google-review-card">
+        <div class="review-card-header">
+          <div class="review-card-author">
+            <div class="review-card-avatar" style="background:#1a1a1a">P</div>
+            <div>
+              <div class="review-card-name">Pedro Henrique</div>
+              <div class="review-card-date">5 meses atrás</div>
+            </div>
+          </div>
+          <svg class="review-card-google" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        </div>
+        <div class="review-card-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-card-text">"Equipe maravilhosa! Meu cachorro é muito nervoso e eles trataram ele com muita paciência e carinho. Virei cliente fiel."</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -420,9 +498,9 @@ footer .brand{color:white;font-weight:700;font-size:1rem;margin-bottom:6px}
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <div class="brand">🐾 Pet Shop Agrobil</div>
+    <div class="brand">🐔 Agrobil <span class="brand-tagline">Agropecuária</span></div>
     <p>SH Grande Colorado, Condomínio Solar de Atenas — Sobradinho II, Brasília - DF</p>
-    <p style="margin-top:8px">© 2025 Pet Shop Agrobil. Todos os direitos reservados.</p>
+    <p style="margin-top:8px">© 2025 Agrobil Agropecuária. Todos os direitos reservados.</p>
     <p style="margin-top:4px;font-size:.75rem">Site desenvolvido por <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a></p>
   </div>
 </footer>
