@@ -7,6 +7,8 @@
 <meta name="description" content="Top Imobiliária DF — 34+ anos encontrando o imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria comercial com zero inadimplência.">
 <meta name="keywords" content="imobiliária águas claras, aluguel águas claras, apartamento águas claras, imóveis brasília, locação DF, venda de imóveis águas claras">
 <meta name="author" content="Top Imobiliária DF">
+<link rel="icon" type="image/jpeg" href="assets/top-imobiliaria/icon-square.jpg">
+<link rel="apple-touch-icon" href="assets/top-imobiliaria/icon-square.jpg">
 <link rel="canonical" href="https://www.topimobiliariadf.com.br/">
 
 <!-- Open Graph -->
@@ -51,6 +53,7 @@ img{max-width:100%;display:block}
 .header .container{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:18px}
+.logo-img{height:40px;border-radius:6px;object-fit:contain}
 .logo-text{font-size:20px;font-weight:700;color:var(--white)}
 .logo-text span{color:var(--red)}
 .nav{display:flex;align-items:center;gap:32px}
@@ -68,6 +71,7 @@ img{max-width:100%;display:block}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,var(--navy-deep) 0%,var(--navy) 40%,var(--navy-light) 100%);overflow:hidden;padding:120px 0 80px}
+.hero-logo-watermark{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:500px;opacity:.04;pointer-events:none;z-index:1}
 .hero::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(211,47,47,.07) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--gray-50),transparent);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1fr;gap:48px;position:relative;z-index:2}
@@ -467,7 +471,7 @@ img{max-width:100%;display:block}
 <header class="header" id="header">
 <div class="container">
 <a href="#" class="logo">
-<div class="logo-icon">T</div>
+<img src="assets/top-imobiliaria/logo-red-on-white.jpg" alt="Top Imobiliária" class="logo-img" style="height:40px;border-radius:6px;filter:brightness(0) invert(1)">
 <div class="logo-text">Top <span>Imobiliária</span></div>
 </a>
 <nav class="nav" id="nav">
@@ -488,6 +492,7 @@ img{max-width:100%;display:block}
 
 <!-- HERO -->
 <section class="hero">
+<img src="assets/top-imobiliaria/banner-large.jpg" alt="" class="hero-logo-watermark">
 <div class="float-shape s1"></div>
 <div class="float-shape s2"></div>
 <div class="container">
@@ -927,6 +932,9 @@ Via Google Reviews
 <div class="section-label">Confiança</div>
 <h2 class="section-title">Por que a Top Imobiliária?</h2>
 </div>
+<div class="reveal" style="text-align:center;margin-bottom:32px">
+<img src="assets/top-imobiliaria/contact-banner.jpg" alt="Top Imobiliária — Ligue (61) 3042-4344" style="max-width:500px;width:100%;border-radius:var(--radius);box-shadow:var(--shadow)">
+</div>
 <p class="about-story reveal">Desde 1992, ajudamos famílias e empresas a encontrar o lugar perfeito em Águas Claras. São mais de três décadas de experiência, milhares de contratos e uma reputação construída com seriedade, transparência e resultados — incluindo um índice de inadimplência que é referência no mercado.</p>
 
 <div class="stats-row">
@@ -998,7 +1006,7 @@ Via Google Reviews
 </div>
 
 <div class="prop-cta-box reveal">
-<div style="font-size:56px;margin-bottom:20px">🏡</div>
+<img src="assets/top-imobiliaria/logo-red-on-white.jpg" alt="Top Imobiliária" style="height:50px;margin:0 auto 20px;border-radius:8px">
 <h3>Seu imóvel merece o melhor</h3>
 <p>Fale com nossa equipe e descubra quanto o seu imóvel pode render. Atendimento rápido pelo WhatsApp.</p>
 <a href="https://wa.me/5561998229223?text=Olá!%20Sou%20proprietário%20e%20gostaria%20de%20anunciar%20meu%20imóvel%20com%20a%20Top%20Imobiliária." target="_blank">
@@ -1557,8 +1565,15 @@ Quero Vender Meu Imóvel
 <div class="contato-item">
 <div class="ci-icon">📞</div>
 <div>
-<h4>Telefone</h4>
-<p>(61) 99822-9223</p>
+<h4>Telefone Fixo</h4>
+<p>(61) 3042-4344</p>
+</div>
+</div>
+<div class="contato-item">
+<div class="ci-icon">📱</div>
+<div>
+<h4>Celular</h4>
+<p>(61) 8281-3233</p>
 </div>
 </div>
 <div class="contato-item">
@@ -1583,7 +1598,10 @@ Quero Vender Meu Imóvel
 </div>
 </div>
 </div>
-<div class="mapa-placeholder">🗺️</div>
+<div class="mapa-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:var(--radius);padding:40px;min-height:200px">
+<img src="assets/top-imobiliaria/icon-square.jpg" alt="Top Imobiliária" style="width:80px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.3)">
+<p style="color:rgba(255,255,255,.6);font-size:.85rem;text-align:center">📍 Águas Claras, Brasília — DF<br>(61) 3042-4344 • (61) 8281-3233</p>
+</div>
 </div>
 
 <div class="contato-form reveal">
@@ -1632,6 +1650,7 @@ Quero Vender Meu Imóvel
 <div class="container">
 <div class="footer-grid">
 <div class="footer-brand">
+<img src="assets/top-imobiliaria/logo-white-on-red.jpg" alt="Top Imobiliária" style="height:48px;border-radius:8px;margin-bottom:16px">
 <h3>Top <span>Imobiliária</span> DF</h3>
 <p>Há mais de 34 anos conectando pessoas ao imóvel perfeito em Águas Claras, Brasília. Locação, venda e consultoria com excelência e confiança.</p>
 </div>
@@ -1653,7 +1672,9 @@ Quero Vender Meu Imóvel
 <h4>Contato</h4>
 <ul>
 <li>📍 Águas Claras, Brasília — DF</li>
-<li>📞 (61) 99822-9223</li>
+<li>📞 (61) 3042-4344</li>
+<li>📱 (61) 8281-3233</li>
+<li>💬 WhatsApp: (61) 99822-9223</li>
 <li>✉️ contato@topimobiliariadf.com.br</li>
 <li>⏰ Seg–Sex: 8h–18h | Sáb: 9h–13h</li>
 <li style="margin-top:8px">🔍 Monitoramento com Google Analytics e Search Console</li>
