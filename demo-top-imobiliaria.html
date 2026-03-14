@@ -637,8 +637,8 @@ img{max-width:100%;display:block}
 </select>
 </div>
 <div class="search-fields" style="margin-top:10px">
-<input type="text" class="search-input" placeholder="Buscar por condomínio..." style="flex:2">
-<button class="search-btn">🔍 Buscar Imóveis</button>
+<input type="text" class="search-input" id="searchKeyword" placeholder="Buscar por condomínio, prédio, quadra, rua, bairro..." style="flex:2" onkeypress="if(event.key==='Enter')buscarImoveis()">
+<button class="search-btn" onclick="buscarImoveis()">🔍 Buscar Imóveis</button>
 </div>
 </div>
 
@@ -2000,6 +2000,84 @@ Quero Vender Meu Imóvel
 
 <script>
 // Contact form → WhatsApp
+// Property keyword search
+function buscarImoveis() {
+  const keyword = document.getElementById('searchKeyword').value.trim().toLowerCase();
+  const tipo = document.querySelectorAll('.search-select')[0]?.value || '';
+  const regiao = document.querySelectorAll('.search-select')[1]?.value || '';
+  
+  if (!keyword && tipo === 'Tipo' && regiao === 'Região') {
+    // Scroll to properties section
+    document.getElementById('imoveis')?.scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  
+  // Filter property cards
+  const cards = document.querySelectorAll('.property-card');
+  let found = 0;
+  
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    const matchKeyword = !keyword || text.includes(keyword);
+    const matchTipo = tipo === 'Tipo' || text.includes(tipo.toLowerCase());
+    const matchRegiao = regiao === 'Região' || text.includes(regiao.toLowerCase());
+    
+    if (matchKeyword && matchTipo && matchRegiao) {
+      card.style.display = '';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+      card.classList.add('visible');
+      found++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // Scroll to properties
+  document.getElementById('imoveis')?.scrollIntoView({behavior:'smooth'});
+  
+  // Show results feedback
+  let feedback = document.getElementById('searchFeedback');
+  if (!feedback) {
+    feedback = document.createElement('div');
+    feedback.id = 'searchFeedback';
+    feedback.style.cssText = 'text-align:center;padding:20px;font-size:1rem;color:var(--gray-600);';
+    const grid = document.querySelector('.property-grid');
+    if (grid) grid.parentNode.insertBefore(feedback, grid);
+  }
+  
+  if (found === 0) {
+    const searchTerms = [keyword, tipo !== 'Tipo' ? tipo : '', regiao !== 'Região' ? regiao : ''].filter(Boolean).join(', ');
+    feedback.innerHTML = `
+      <div style="padding:40px;background:var(--gray-50);border-radius:var(--radius);margin-bottom:24px">
+        <p style="font-size:1.2rem;font-weight:600;color:var(--navy);margin-bottom:12px">🔍 Nenhum imóvel encontrado para "${searchTerms}"</p>
+        <p style="margin-bottom:20px;color:var(--gray-600)">Mas não se preocupe! Temos muitos imóveis disponíveis. Fale com nossa equipe:</p>
+        <a href="https://wa.me/556130424344?text=${encodeURIComponent('Olá! Estou buscando um imóvel: ' + searchTerms)}" 
+           target="_blank" style="display:inline-block;padding:14px 32px;background:var(--red);color:#fff;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none">
+          💬 Buscar via WhatsApp
+        </a>
+      </div>`;
+    // Show all cards again after feedback
+    cards.forEach(card => { card.style.display = ''; card.style.opacity='1'; card.style.transform='translateY(0)'; card.classList.add('visible'); });
+  } else {
+    feedback.innerHTML = `<p style="margin-bottom:16px;color:var(--navy);font-weight:500">🏠 ${found} imóve${found === 1 ? 'l' : 'is'} encontrado${found === 1 ? '' : 's'}${keyword ? ' para "' + keyword + '"' : ''} 
+      <button onclick="limparBusca()" style="margin-left:12px;padding:6px 16px;border:1.5px solid var(--gray-200);background:var(--white);border-radius:50px;cursor:pointer;font-size:.85rem;font-family:inherit;color:var(--gray-600)">✕ Limpar filtro</button></p>`;
+  }
+}
+
+function limparBusca() {
+  document.getElementById('searchKeyword').value = '';
+  document.querySelectorAll('.search-select').forEach(s => s.selectedIndex = 0);
+  document.querySelectorAll('.property-card').forEach(card => {
+    card.style.display = '';
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+    card.classList.add('visible');
+  });
+  const feedback = document.getElementById('searchFeedback');
+  if (feedback) feedback.innerHTML = '';
+}
+
 function enviarContato() {
   const form = document.querySelector('.contato-form');
   const nome = form.querySelector('input[type="text"]').value.trim();
