@@ -2503,6 +2503,9 @@ function showSimulator(type) {
   // Ensure visibility (reveal animation may hide them)
   if (type === 'aluguel') { simA.classList.add('visible'); simA.style.opacity = '1'; simA.style.transform = 'translateY(0)'; }
   else { simV.classList.add('visible'); simV.style.opacity = '1'; simV.style.transform = 'translateY(0)'; }
+  // Scroll to visible simulator
+  const activeForm = type === 'aluguel' ? simA : simV;
+  activeForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Sale value calculator
