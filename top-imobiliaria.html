@@ -2478,34 +2478,38 @@ function calcularAluguel() {
 
 // Show/hide simulators
 function showSimulator(type) {
-  // Update button states
-  document.getElementById('btnAluguel').className = type === 'aluguel' ? 'sim-type-btn active' : 'sim-type-btn';
-  document.getElementById('btnVenda').className = type === 'venda' ? 'sim-type-btn active' : 'sim-type-btn';
-  
-  // Update button styles
-  if (type === 'aluguel') {
-    document.getElementById('btnAluguel').style.background = 'var(--red)';
-    document.getElementById('btnAluguel').style.color = 'var(--navy)';
-    document.getElementById('btnVenda').style.background = 'transparent';
-    document.getElementById('btnVenda').style.color = 'var(--gray-600)';
-  } else {
-    document.getElementById('btnVenda').style.background = 'var(--red)';
-    document.getElementById('btnVenda').style.color = 'var(--navy)';
-    document.getElementById('btnAluguel').style.background = 'transparent';
-    document.getElementById('btnAluguel').style.color = 'var(--gray-600)';
-  }
-  
-  // Show/hide simulators
-  const simA = document.getElementById('simAluguel');
-  const simV = document.getElementById('simVenda');
-  simA.style.display = type === 'aluguel' ? 'block' : 'none';
-  simV.style.display = type === 'venda' ? 'block' : 'none';
-  // Ensure visibility (reveal animation may hide them)
-  if (type === 'aluguel') { simA.classList.add('visible'); simA.style.opacity = '1'; simA.style.transform = 'translateY(0)'; }
-  else { simV.classList.add('visible'); simV.style.opacity = '1'; simV.style.transform = 'translateY(0)'; }
-  // Scroll to visible simulator
-  const activeForm = type === 'aluguel' ? simA : simV;
-  activeForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  try {
+    var btnA = document.getElementById('btnAluguel');
+    var btnV = document.getElementById('btnVenda');
+    var simA = document.getElementById('simAluguel');
+    var simV = document.getElementById('simVenda');
+    
+    if (!btnA || !btnV || !simA || !simV) { console.error('Simulator elements not found'); return; }
+    
+    // Update button states
+    btnA.className = type === 'aluguel' ? 'sim-type-btn active' : 'sim-type-btn';
+    btnV.className = type === 'venda' ? 'sim-type-btn active' : 'sim-type-btn';
+    btnA.style.cssText = type === 'aluguel' 
+      ? 'padding:12px 32px;border:none;background:var(--red);color:var(--navy);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px' 
+      : 'padding:12px 32px;border:none;background:transparent;color:var(--gray-600);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px';
+    btnV.style.cssText = type === 'venda' 
+      ? 'padding:12px 32px;border:none;background:var(--red);color:var(--navy);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px' 
+      : 'padding:12px 32px;border:none;background:transparent;color:var(--gray-600);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px';
+    
+    // Nuclear toggle - override everything with cssText
+    simA.style.cssText = type === 'aluguel' ? 'display:block !important;opacity:1 !important;transform:none !important;visibility:visible !important' : 'display:none !important';
+    simV.style.cssText = type === 'venda' ? 'display:block !important;opacity:1 !important;transform:none !important;visibility:visible !important' : 'display:none !important';
+    
+    // Remove reveal class if still present
+    simA.classList.remove('reveal');
+    simV.classList.remove('reveal');
+    simA.classList.add('visible');
+    simV.classList.add('visible');
+    
+    // Scroll to visible form
+    var activeForm = type === 'aluguel' ? simA : simV;
+    setTimeout(function() { activeForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+  } catch(e) { console.error('showSimulator error:', e); }
 }
 
 // Sale value calculator
