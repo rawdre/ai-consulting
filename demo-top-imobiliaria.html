@@ -2174,8 +2174,13 @@ function showSimulator(type) {
   }
   
   // Show/hide simulators
-  document.getElementById('simAluguel').style.display = type === 'aluguel' ? 'block' : 'none';
-  document.getElementById('simVenda').style.display = type === 'venda' ? 'block' : 'none';
+  const simA = document.getElementById('simAluguel');
+  const simV = document.getElementById('simVenda');
+  simA.style.display = type === 'aluguel' ? 'block' : 'none';
+  simV.style.display = type === 'venda' ? 'block' : 'none';
+  // Ensure visibility (reveal animation may hide them)
+  if (type === 'aluguel') { simA.classList.add('visible'); simA.style.opacity = '1'; simA.style.transform = 'translateY(0)'; }
+  else { simV.classList.add('visible'); simV.style.opacity = '1'; simV.style.transform = 'translateY(0)'; }
 }
 
 // Sale value calculator
