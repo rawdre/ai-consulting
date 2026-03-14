@@ -70,7 +70,7 @@ img{max-width:100%;display:block}
 }
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,var(--navy-deep) 0%,var(--navy) 40%,var(--navy-light) 100%);overflow:hidden;padding:120px 0 80px}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,rgba(15,26,46,.88) 0%,rgba(27,42,74,.85) 40%,rgba(36,54,86,.82) 100%),url('https://images.unsplash.com/photo-1625601544790-1fa751e01545?w=1920&q=80') center/cover no-repeat;overflow:hidden;padding:120px 0 80px}
 .hero-logo-watermark{position:absolute;top:50%;right:-5%;transform:translateY(-50%);width:500px;opacity:.04;pointer-events:none;z-index:1}
 .hero::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(211,47,47,.07) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--gray-50),transparent);pointer-events:none}
@@ -565,11 +565,32 @@ img{max-width:100%;display:block}
 <div class="search-fields">
 <select class="search-select">
 <option>Tipo</option>
+<optgroup label="Residencial">
 <option>Apartamento</option>
+<option>Kitnet</option>
+<option>Loft</option>
+<option>Cobertura</option>
+<option>Apartamento Duplex</option>
+<option>Apartamento Triplex</option>
 <option>Casa</option>
+<option>Casa em Condomínio</option>
+</optgroup>
+<optgroup label="Comercial">
 <option>Sala Comercial</option>
 <option>Loja</option>
+<option>Ponto Comercial</option>
+<option>Galpão</option>
+<option>Prédio Comercial</option>
+</optgroup>
+<optgroup label="Terrenos">
 <option>Terreno</option>
+<option>Lote</option>
+<option>Loteamento</option>
+</optgroup>
+<optgroup label="Outros">
+<option>Garagem</option>
+<option>Hotel / Flat</option>
+</optgroup>
 </select>
 <select class="search-select">
 <option>Região</option>
@@ -1205,9 +1226,32 @@ Saiba Mais Sobre Garantias Locatícias
 <div class="sim-field">
 <label>Tipo do Imóvel</label>
 <select id="simTipo">
+<optgroup label="Residencial">
 <option value="apartamento">Apartamento</option>
+<option value="kitnet">Kitnet</option>
+<option value="loft">Loft</option>
+<option value="cobertura">Cobertura</option>
+<option value="duplex">Apartamento Duplex</option>
+<option value="triplex">Apartamento Triplex</option>
 <option value="casa">Casa</option>
-<option value="comercial">Sala Comercial</option>
+<option value="casa-condominio">Casa em Condomínio</option>
+</optgroup>
+<optgroup label="Comercial">
+<option value="sala-comercial">Sala Comercial</option>
+<option value="loja">Loja</option>
+<option value="ponto-comercial">Ponto Comercial</option>
+<option value="galpao">Galpão</option>
+<option value="predio-comercial">Prédio Comercial</option>
+</optgroup>
+<optgroup label="Terrenos">
+<option value="terreno">Terreno</option>
+<option value="lote">Lote</option>
+<option value="loteamento">Loteamento</option>
+</optgroup>
+<optgroup label="Outros">
+<option value="garagem">Garagem</option>
+<option value="hotel-flat">Hotel / Flat</option>
+</optgroup>
 </select>
 </div>
 <div class="sim-field">
@@ -1283,9 +1327,32 @@ Quero Avaliação Gratuita
 <div class="sim-field">
 <label>Tipo do Imóvel</label>
 <select id="simTipoVenda">
+<optgroup label="Residencial">
 <option value="apartamento">Apartamento</option>
+<option value="kitnet">Kitnet</option>
+<option value="loft">Loft</option>
+<option value="cobertura">Cobertura</option>
+<option value="duplex">Apartamento Duplex</option>
+<option value="triplex">Apartamento Triplex</option>
 <option value="casa">Casa</option>
-<option value="comercial">Sala Comercial</option>
+<option value="casa-condominio">Casa em Condomínio</option>
+</optgroup>
+<optgroup label="Comercial">
+<option value="sala-comercial">Sala Comercial</option>
+<option value="loja">Loja</option>
+<option value="ponto-comercial">Ponto Comercial</option>
+<option value="galpao">Galpão</option>
+<option value="predio-comercial">Prédio Comercial</option>
+</optgroup>
+<optgroup label="Terrenos">
+<option value="terreno">Terreno</option>
+<option value="lote">Lote</option>
+<option value="loteamento">Loteamento</option>
+</optgroup>
+<optgroup label="Outros">
+<option value="garagem">Garagem</option>
+<option value="hotel-flat">Hotel / Flat</option>
+</optgroup>
 </select>
 </div>
 <div class="sim-field">
