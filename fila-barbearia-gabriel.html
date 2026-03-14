@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Gabriel - Fila Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0D0D0D">
+    <meta name="description" content="Sistema de fila digital da Barbearia Gabriel - Acompanhe sua posição na fila em tempo real">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #0D0D0D;
+            --copper: #C67B3C;
+            --cream: #F5EDE0;
+            --white: #FFFFFF;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--charcoal) 0%, #1a1a1a 100%);
+            color: var(--cream);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--copper);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--cream);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .barber-pole {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, 
+                var(--copper) 25%, 
+                var(--cream) 25%, 
+                var(--cream) 50%, 
+                var(--copper) 50%, 
+                var(--copper) 75%, 
+                var(--cream) 75%);
+            background-size: 8px 8px;
+            border-radius: 50%;
+            animation: pole-rotate 3s linear infinite;
+            border: 3px solid var(--cream);
+            box-shadow: var(--shadow-md);
+        }
+
+        @keyframes pole-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toggle-btn {
+            background: var(--copper);
+            color: var(--cream);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .toggle-btn:hover {
+            background: #d4935a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-1 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+        .card {
+            background: rgba(245, 237, 224, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(198, 123, 60, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-color: var(--copper);
+        }
+
+        .barber-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .barber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--copper), transparent);
+            animation: loading 2s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .barber-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .barber-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: var(--cream);
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-disponivel {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .status-cortando {
+            background: var(--warning);
+            color: var(--charcoal);
+        }
+
+        .status-intervalo {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .queue-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border-left: 4px solid var(--copper);
+        }
+
+        .queue-stat {
+            text-align: center;
+        }
+
+        .queue-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--copper);
+            font-family: 'Bebas Neue', cursive;
+        }
+
+        .queue-label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            background: var(--copper);
+            color: var(--cream);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:hover {
+            background: #d4935a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:disabled {
+            background: var(--gray-600);
+            color: var(--gray-400);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
+        }
+
+        .client-position {
+            background: rgba(198, 123, 60, 0.1);
+            border: 2px solid var(--copper);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .position-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--copper);
+            font-family: 'Bebas Neue', cursive;
+            margin-bottom: 0.5rem;
+        }
+
+        .position-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .estimated-time {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--copper);
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-controls {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-barber-card {
+            background: rgba(245, 237, 224, 0.08);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(198, 123, 60, 0.3);
+        }
+
+        .admin-barber-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .admin-status-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .status-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .status-btn.active {
+            box-shadow: 0 0 0 2px var(--cream);
+        }
+
+        .queue-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .queue-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(198, 123, 60, 0.2);
+        }
+
+        .queue-item:last-child {
+            border-bottom: none;
+        }
+
+        .queue-item.current {
+            background: rgba(198, 123, 60, 0.2);
+            border-radius: 4px;
+        }
+
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .password-modal.active {
+            display: flex;
+        }
+
+        .password-form {
+            background: var(--charcoal);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--copper);
+            box-shadow: var(--shadow-xl);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-form h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-600);
+            border-radius: 8px;
+            background: rgba(245, 237, 224, 0.1);
+            color: var(--cream);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Barlow', sans-serif;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--copper);
+        }
+
+        .qr-section {
+            background: rgba(245, 237, 224, 0.05);
+            border: 2px solid var(--copper);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .qr-code {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem auto;
+            display: inline-block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(245, 237, 224, 0.08);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid var(--copper);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--copper);
+            font-family: 'Bebas Neue', cursive;
+        }
+
+        .stat-label {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.warning {
+            background: var(--warning);
+            color: var(--charcoal);
+        }
+
+        .notification.error {
+            background: var(--danger);
+        }
+
+        .whatsapp-section {
+            background: rgba(37, 211, 102, 0.1);
+            border: 2px solid #25D366;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #25D366;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-content {
+                text-align: center;
+                flex-direction: column;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-status-controls {
+                flex-direction: column;
+            }
+            
+            .queue-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(198, 123, 60, 0.3);
+            border-left: 4px solid var(--copper);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="barber-pole"></div>
+                <h1>Barbearia Gabriel — Fila Digital</h1>
+            </div>
+            <div class="mode-toggle">
+                <button class="toggle-btn" onclick="toggleMode()" id="modeToggle">
+                    Modo Barbeiro
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Client View -->
+    <div id="clientView" class="container">
+        <!-- Current Position (if in queue) -->
+        <div id="clientPosition" class="client-position hidden">
+            <div class="position-number" id="positionNumber">1</div>
+            <div class="position-text">Sua posição na fila</div>
+            <div class="estimated-time" id="estimatedTime">Tempo estimado: 30 min</div>
+            <div style="margin-top: 1.5rem;">
+                <button class="btn btn-danger" onclick="leaveQueue()">Sair da Fila</button>
+            </div>
+        </div>
+
+        <!-- WhatsApp Notification Section -->
+        <div id="whatsappSection" class="whatsapp-section hidden">
+            <h3 style="color: #25D366; margin-bottom: 1rem;">📱 Notificação WhatsApp</h3>
+            <p style="margin-bottom: 1rem;">Receba um aviso quando faltar 1 pessoa na sua frente:</p>
+            <input type="tel" class="whatsapp-input" placeholder="(11) 99999-9999" id="whatsappNumber">
+            <button class="btn" style="background: #25D366;" onclick="enableWhatsappNotification()">
+                Ativar Notificações
+            </button>
+        </div>
+
+        <!-- Barbers Grid -->
+        <div class="grid grid-3" id="barbersGrid">
+            <!-- Barbers will be populated by JavaScript -->
+        </div>
+
+        <!-- Best Time to Come -->
+        <div class="card" style="margin-top: 2rem;">
+            <h3 style="color: var(--copper); margin-bottom: 1rem; font-family: 'Bebas Neue', cursive;">
+                ⏰ Melhor Horário para Vir
+            </h3>
+            <p style="color: var(--gray-300);">
+                Baseado nos últimos 7 dias, o melhor horário para menor espera é:
+                <strong style="color: var(--copper);">Terça-feira, 14:00-16:00</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin View -->
+    <div id="adminView" class="admin-panel container">
+        <!-- QR Code Section -->
+        <div class="qr-section">
+            <h3 style="color: var(--copper); margin-bottom: 1rem; font-family: 'Bebas Neue', cursive;">
+                QR Code para Clientes
+            </h3>
+            <div class="qr-code" id="qrCodeContainer">
+                <!-- QR Code will be generated here -->
+            </div>
+            <p>Clientes escanizam este QR para entrar na fila</p>
+            <button class="btn" onclick="printQR()" style="margin-top: 1rem;">
+                🖨️ Imprimir QR Code
+            </button>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalClients">0</div>
+                <div class="stat-label">Total na Fila</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="averageWait">30</div>
+                <div class="stat-label">Tempo Médio (min)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="dailyClients">0</div>
+                <div class="stat-label">Clientes Hoje</div>
+            </div>
+        </div>
+
+        <!-- Admin Controls -->
+        <div class="admin-controls">
+            <div class="card">
+                <h3 style="color: var(--copper); margin-bottom: 1rem; font-family: 'Bebas Neue', cursive;">
+                    ⚙️ Controles Gerais
+                </h3>
+                <div class="grid grid-2">
+                    <button class="btn" onclick="resetAllQueues()">🔄 Resetar Todas as Filas</button>
+                    <button class="btn" onclick="addBarber()">➕ Adicionar Barbeiro</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barbers Admin Grid -->
+        <div class="grid grid-1" id="adminBarbersGrid">
+            <!-- Admin barber controls will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-form">
+            <h2>Acesso Barbeiro</h2>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Digite a senha">
+            <button class="btn" onclick="checkPassword()">Entrar</button>
+            <button class="btn" onclick="closePasswordModal()" style="background: var(--gray-600); margin-top: 0.5rem;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <script>
+        // Application State
+        let currentView = 'client';
+        let isAdmin = false;
+        let clientInQueue = null;
+        let notificationSound = null;
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadData();
+            updateDisplay();
+            
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('view') === 'admin') {
+                showPasswordModal();
+            }
+            
+            // Auto-refresh every 10 seconds
+            setInterval(updateDisplay, 10000);
+            
+            // Initialize notification sound
+            createNotificationSound();
+        });
+
+        // Default data structure
+        function getDefaultData() {
+            return {
+                barbers: [
+                    {
+                        id: 1,
+                        name: 'Gabriel',
+                        status: 'disponivel',
+                        queue: [],
+                        avgCutTime: 30
+                    },
+                    {
+                        id: 2,
+                        name: 'Barbeiro 2',
+                        status: 'disponivel',
+                        queue: [],
+                        avgCutTime: 30
+                    },
+                    {
+                        id: 3,
+                        name: 'Barbeiro 3',
+                        status: 'disponivel',
+                        queue: [],
+                        avgCutTime: 30
+                    }
+                ],
+                settings: {
+                    avgCutTime: 30,
+                    whatsappEnabled: false
+                },
+                stats: {
+                    dailyClients: 0,
+                    totalServed: 0,
+                    lastReset: new Date().toDateString()
+                }
+            };
+        }
+
+        function initializeApp() {
+            // Check if data exists, if not create default
+            if (!localStorage.getItem('barbearia-data')) {
+                localStorage.setItem('barbearia-data', JSON.stringify(getDefaultData()));
+            }
+            
+            // Check if stats need to be reset (new day)
+            const data = getData();
+            const today = new Date().toDateString();
+            if (data.stats.lastReset !== today) {
+                data.stats.dailyClients = 0;
+                data.stats.lastReset = today;
+                saveData(data);
+            }
+        }
+
+        function getData() {
+            return JSON.parse(localStorage.getItem('barbearia-data') || '{}');
+        }
+
+        function saveData(data) {
+            localStorage.setItem('barbearia-data', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const data = getData();
+            clientInQueue = JSON.parse(localStorage.getItem('client-queue-info') || 'null');
+        }
+
+        function updateDisplay() {
+            if (currentView === 'client') {
+                updateClientView();
+            } else {
+                updateAdminView();
+            }
+        }
+
+        function updateClientView() {
+            const data = getData();
+            const barbersGrid = document.getElementById('barbersGrid');
+            
+            barbersGrid.innerHTML = '';
+            
+            data.barbers.forEach(barber => {
+                const card = createBarberCard(barber);
+                barbersGrid.appendChild(card);
+            });
+            
+            updateClientPosition();
+        }
+
+        function createBarberCard(barber) {
+            const card = document.createElement('div');
+            card.className = 'card barber-card';
+            
+            const statusClass = `status-${barber.status}`;
+            const statusText = {
+                'disponivel': 'Disponível',
+                'cortando': 'Cortando',
+                'intervalo': 'Intervalo'
+            }[barber.status];
+            
+            const queueLength = barber.queue.length;
+            const estimatedWait = queueLength * barber.avgCutTime;
+            
+            const isDisabled = barber.status === 'intervalo' || (clientInQueue && clientInQueue.barberId !== barber.id);
+            
+            card.innerHTML = `
+                <div class="barber-header">
+                    <div class="barber-name">${barber.name}</div>
+                    <div class="status-badge ${statusClass}">${statusText}</div>
+                </div>
+                <div class="queue-info">
+                    <div class="queue-stat">
+                        <div class="queue-number">${queueLength}</div>
+                        <div class="queue-label">Na Fila</div>
+                    </div>
+                    <div class="queue-stat">
+                        <div class="queue-number">${estimatedWait}</div>
+                        <div class="queue-label">Min. Espera</div>
+                    </div>
+                </div>
+                <button class="btn ${isDisabled ? '' : ''}" 
+                        onclick="joinQueue(${barber.id})" 
+                        ${isDisabled ? 'disabled' : ''}>
+                    ${clientInQueue && clientInQueue.barberId === barber.id ? 'Na Fila' : 'Entrar na Fila'}
+                </button>
+            `;
+            
+            return card;
+        }
+
+        function updateClientPosition() {
+            const positionElement = document.getElementById('clientPosition');
+            const whatsappSection = document.getElementById('whatsappSection');
+            
+            if (clientInQueue) {
+                const data = getData();
+                const barber = data.barbers.find(b => b.id === clientInQueue.barberId);
+                
+                if (barber) {
+                    const position = barber.queue.findIndex(client => client.id === clientInQueue.clientId) + 1;
+                    
+                    if (position > 0) {
+                        document.getElementById('positionNumber').textContent = position;
+                        document.getElementById('estimatedTime').textContent = 
+                            `Tempo estimado: ${position * barber.avgCutTime} min`;
+                        
+                        positionElement.classList.remove('hidden');
+                        whatsappSection.classList.remove('hidden');
+                        
+                        // Check if it's client's turn
+                        if (position === 1 && barber.status === 'cortando') {
+                            playNotificationSound();
+                            showNotification('É sua vez! Dirija-se ao barbeiro.', 'success');
+                        }
+                        
+                        return;
+                    }
+                }
+                
+                // Client not found in queue anymore
+                clientInQueue = null;
+                localStorage.removeItem('client-queue-info');
+            }
+            
+            positionElement.classList.add('hidden');
+            whatsappSection.classList.add('hidden');
+        }
+
+        function joinQueue(barberId) {
+            if (clientInQueue) {
+                showNotification('Você já está na fila!', 'warning');
+                return;
+            }
+            
+            const data = getData();
+            const barber = data.barbers.find(b => b.id === barberId);
+            
+            if (!barber || barber.status === 'intervalo') {
+                showNotification('Barbeiro não disponível!', 'error');
+                return;
+            }
+            
+            const clientId = Date.now();
+            const client = {
+                id: clientId,
+                name: `Cliente ${clientId}`,
+                joinTime: new Date()
+            };
+            
+            barber.queue.push(client);
+            data.stats.dailyClients++;
+            
+            clientInQueue = {
+                clientId: clientId,
+                barberId: barberId
+            };
+            
+            saveData(data);
+            localStorage.setItem('client-queue-info', JSON.stringify(clientInQueue));
+            
+            showNotification('Você entrou na fila com sucesso!', 'success');
+            updateDisplay();
+        }
+
+        function leaveQueue() {
+            if (!clientInQueue) return;
+            
+            const data = getData();
+            const barber = data.barbers.find(b => b.id === clientInQueue.barberId);
+            
+            if (barber) {
+                barber.queue = barber.queue.filter(client => client.id !== clientInQueue.clientId);
+                saveData(data);
+            }
+            
+            clientInQueue = null;
+            localStorage.removeItem('client-queue-info');
+            
+            showNotification('Você saiu da fila.', 'success');
+            updateDisplay();
+        }
+
+        function enableWhatsappNotification() {
+            const number = document.getElementById('whatsappNumber').value;
+            if (!number.trim()) {
+                showNotification('Digite um número válido!', 'error');
+                return;
+            }
+            
+            // In a real implementation, this would send the WhatsApp number to a backend
+            showNotification('Notificações ativadas! Você receberá um aviso.', 'success');
+        }
+
+        // Admin Functions
+        function toggleMode() {
+            if (currentView === 'client') {
+                showPasswordModal();
+            } else {
+                currentView = 'client';
+                isAdmin = false;
+                updateModeDisplay();
+                updateDisplay();
+            }
+        }
+
+        function showPasswordModal() {
+            document.getElementById('passwordModal').classList.add('active');
+            document.getElementById('passwordInput').focus();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === 'gabriel2026') {
+                currentView = 'admin';
+                isAdmin = true;
+                closePasswordModal();
+                updateModeDisplay();
+                updateDisplay();
+                generateQRCode();
+            } else {
+                showNotification('Senha incorreta!', 'error');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function updateModeDisplay() {
+            const clientView = document.getElementById('clientView');
+            const adminView = document.getElementById('adminView');
+            const toggleBtn = document.getElementById('modeToggle');
+            
+            if (currentView === 'admin') {
+                clientView.style.display = 'none';
+                adminView.classList.add('active');
+                toggleBtn.textContent = 'Modo Cliente';
+            } else {
+                clientView.style.display = 'block';
+                adminView.classList.remove('active');
+                toggleBtn.textContent = 'Modo Barbeiro';
+            }
+        }
+
+        function updateAdminView() {
+            const data = getData();
+            updateAdminStats(data);
+            updateAdminBarbers(data);
+        }
+
+        function updateAdminStats(data) {
+            const totalClients = data.barbers.reduce((sum, barber) => sum + barber.queue.length, 0);
+            const avgWait = data.barbers.reduce((sum, barber) => sum + barber.avgCutTime, 0) / data.barbers.length;
+            
+            document.getElementById('totalClients').textContent = totalClients;
+            document.getElementById('averageWait').textContent = Math.round(avgWait);
+            document.getElementById('dailyClients').textContent = data.stats.dailyClients;
+        }
+
+        function updateAdminBarbers(data) {
+            const adminGrid = document.getElementById('adminBarbersGrid');
+            adminGrid.innerHTML = '';
+            
+            data.barbers.forEach(barber => {
+                const card = createAdminBarberCard(barber);
+                adminGrid.appendChild(card);
+            });
+        }
+
+        function createAdminBarberCard(barber) {
+            const card = document.createElement('div');
+            card.className = 'card admin-barber-card';
+            
+            const statusOptions = ['disponivel', 'cortando', 'intervalo'];
+            const statusLabels = {
+                'disponivel': 'Disponível',
+                'cortando': 'Cortando',
+                'intervalo': 'Intervalo'
+            };
+            
+            let queueHtml = '';
+            if (barber.queue.length > 0) {
+                queueHtml = `
+                    <div class="queue-list">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--copper);">Fila (${barber.queue.length})</h4>
+                        ${barber.queue.map((client, index) => `
+                            <div class="queue-item ${index === 0 ? 'current' : ''}">
+                                <span>Cliente ${index + 1}</span>
+                                <button class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;" 
+                                        onclick="removeFromQueue(${barber.id}, ${client.id})">
+                                    Remover
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            card.innerHTML = `
+                <div class="admin-barber-header">
+                    <h3 style="color: var(--cream);">${barber.name}</h3>
+                    <button class="btn btn-danger" onclick="removeBarber(${barber.id})" 
+                            style="padding: 0.5rem; font-size: 0.8rem;">
+                        Remover
+                    </button>
+                </div>
+                
+                <div class="admin-status-controls">
+                    ${statusOptions.map(status => `
+                        <button class="status-btn status-${status} ${barber.status === status ? 'active' : ''}" 
+                                onclick="changeBarberStatus(${barber.id}, '${status}')">
+                            ${statusLabels[status]}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div style="margin: 1rem 0;">
+                    <button class="btn btn-success" onclick="advanceQueue(${barber.id})" 
+                            ${barber.queue.length === 0 ? 'disabled' : ''}>
+                        ✅ Próximo Cliente
+                    </button>
+                </div>
+                
+                ${queueHtml}
+            `;
+            
+            return card;
+        }
+
+        function changeBarberStatus(barberId, status) {
+            const data = getData();
+            const barber = data.barbers.find(b => b.id === barberId);
+            
+            if (barber) {
+                barber.status = status;
+                saveData(data);
+                updateDisplay();
+                showNotification(`Status do ${barber.name} alterado para ${status}`, 'success');
+            }
+        }
+
+        function advanceQueue(barberId) {
+            const data = getData();
+            const barber = data.barbers.find(b => b.id === barberId);
+            
+            if (barber && barber.queue.length > 0) {
+                barber.queue.shift();
+                data.stats.totalServed++;
+                saveData(data);
+                updateDisplay();
+                showNotification('Cliente atendido!', 'success');
+            }
+        }
+
+        function removeFromQueue(barberId, clientId) {
+            const data = getData();
+            const barber = data.barbers.find(b => b.id === barberId);
+            
+            if (barber) {
+                barber.queue = barber.queue.filter(client => client.id !== clientId);
+                saveData(data);
+                updateDisplay();
+                showNotification('Cliente removido da fila', 'success');
+            }
+        }
+
+        function addBarber() {
+            const name = prompt('Nome do novo barbeiro:');
+            if (!name) return;
+            
+            const data = getData();
+            const newId = Math.max(...data.barbers.map(b => b.id)) + 1;
+            
+            data.barbers.push({
+                id: newId,
+                name: name,
+                status: 'disponivel',
+                queue: [],
+                avgCutTime: 30
+            });
+            
+            saveData(data);
+            updateDisplay();
+            showNotification(`Barbeiro ${name} adicionado!`, 'success');
+        }
+
+        function removeBarber(barberId) {
+            if (!confirm('Tem certeza que deseja remover este barbeiro?')) return;
+            
+            const data = getData();
+            data.barbers = data.barbers.filter(b => b.id !== barberId);
+            
+            saveData(data);
+            updateDisplay();
+            showNotification('Barbeiro removido!', 'success');
+        }
+
+        function resetAllQueues() {
+            if (!confirm('Tem certeza que deseja resetar todas as filas?')) return;
+            
+            const data = getData();
+            data.barbers.forEach(barber => {
+                barber.queue = [];
+                barber.status = 'disponivel';
+            });
+            
+            saveData(data);
+            updateDisplay();
+            showNotification('Todas as filas foram resetadas!', 'success');
+        }
+
+        function generateQRCode() {
+            const url = window.location.origin + window.location.pathname + '?view=client';
+            const qrContainer = document.getElementById('qrCodeContainer');
+            
+            qrContainer.innerHTML = '';
+            
+            QRCode.toCanvas(qrContainer, url, {
+                width: 200,
+                height: 200,
+                colorDark: '#0D0D0D',
+                colorLight: '#FFFFFF',
+                errorCorrectionLevel: 'M'
+            }, function (error) {
+                if (error) console.error(error);
+            });
+        }
+
+        function printQR() {
+            window.print();
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function createNotificationSound() {
+            // Create a simple beep sound using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            notificationSound = () => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            };
+        }
+
+        function playNotificationSound() {
+            try {
+                if (notificationSound) {
+                    notificationSound();
+                }
+            } catch (error) {
+                console.log('Could not play notification sound:', error);
+            }
+        }
+
+        // Password input enter key handling
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('passwordModal').classList.contains('active')) {
+                checkPassword();
+            }
+        });
+
+        // Prevent back button from breaking the app
+        window.addEventListener('popstate', function(e) {
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
