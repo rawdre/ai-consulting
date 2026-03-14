@@ -1938,7 +1938,7 @@ Quero Vender Meu Imóvel
 <label>Mensagem</label>
 <textarea placeholder="Como podemos ajudar?"></textarea>
 </div>
-<button class="btn-enviar">Enviar Mensagem</button>
+<button class="btn-enviar" onclick="enviarContato()">Enviar Mensagem</button>
 </div>
 </div>
 </div>
@@ -2006,6 +2006,36 @@ Quero Vender Meu Imóvel
 <button class="back-top" id="backTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+// Contact form → WhatsApp
+function enviarContato() {
+  const form = document.querySelector('.contato-form');
+  const nome = form.querySelector('input[type="text"]').value.trim();
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const telefone = form.querySelector('input[type="tel"]').value.trim();
+  const assunto = form.querySelector('select').value;
+  const mensagem = form.querySelector('textarea').value.trim();
+  
+  if (!nome) { alert('Por favor, preencha seu nome.'); return; }
+  if (!telefone) { alert('Por favor, preencha seu telefone.'); return; }
+  
+  const texto = `Olá! Meu nome é ${nome}.%0A` +
+    `📧 Email: ${email}%0A` +
+    `📱 Telefone: ${telefone}%0A` +
+    `📋 Assunto: ${assunto}%0A` +
+    `💬 Mensagem: ${mensagem}`;
+  
+  window.open(`https://wa.me/556130424344?text=${encodeURIComponent(texto.replace(/%0A/g, '\n'))}`, '_blank');
+  
+  // Visual feedback
+  const btn = form.querySelector('.btn-enviar');
+  btn.textContent = '✅ Redirecionando para WhatsApp...';
+  btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+  setTimeout(() => {
+    btn.textContent = 'Enviar Mensagem';
+    btn.style.background = '';
+  }, 3000);
+}
+
 // Header scroll effect
 const header = document.getElementById('header');
 let lastScroll = 0;
