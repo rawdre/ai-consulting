@@ -736,7 +736,10 @@ footer a {
   }
 
   .about-grid,
-  .location-grid { grid-template-columns: 1fr; }
+  .location-grid,
+  .curso-grid { grid-template-columns: 1fr !important; }
+  
+  .curso-grid { gap: 40px !important; }
 
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .gallery-item.tall { grid-row: auto; aspect-ratio: 4/3; }
@@ -763,8 +766,10 @@ footer a {
 <nav>
   <a href="#" class="nav-logo">BARBEARIA DO <span>IMPÉRIO</span></a>
   <ul class="nav-links">
+    <li><a href="#cursos">Cursos</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#loja">Loja</a></li>
     <li><a href="#galeria">Galeria</a></li>
     <li><a href="#horarios">Horários</a></li>
     <li><a href="https://wa.me/5561992281225?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." class="nav-cta" target="_blank">Agendar</a></li>
@@ -777,8 +782,10 @@ footer a {
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#cursos" onclick="toggleMenu()">Cursos</a>
   <a href="#sobre" onclick="toggleMenu()">Sobre</a>
   <a href="#servicos" onclick="toggleMenu()">Serviços</a>
+  <a href="#loja" onclick="toggleMenu()">Loja</a>
   <a href="#galeria" onclick="toggleMenu()">Galeria</a>
   <a href="#horarios" onclick="toggleMenu()">Horários</a>
   <a href="https://wa.me/5561992281225?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." target="_blank">Agendar</a>
@@ -799,7 +806,75 @@ footer a {
         Agendar pelo WhatsApp
       </a>
       <a href="#servicos" class="btn-secondary">Ver Serviços</a>
-      <a href="#servicos" class="btn-secondary">Ver Nossos Cursos</a>
+      <a href="fila-barbearia-imperio.html" class="btn-secondary" style="border-color:#22C55E;color:#22C55E;">📋 Entrar na Fila Digital</a>
+    </div>
+  </div>
+</section>
+
+<!-- CURSOS - HERO SECTION (Main selling point) -->
+<section id="cursos" style="background: linear-gradient(135deg, #0D0D0D 0%, #1a1008 100%); padding: 100px 24px; position: relative; overflow: hidden;">
+  <div style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(212,168,75,0.15) 0%, transparent 60%);"></div>
+  <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;" class="curso-grid">
+      <div class="reveal">
+        <div style="display: inline-block; background: #D4A84B; color: #0D0D0D; padding: 8px 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px;">🎓 MATRÍCULAS ABERTAS</div>
+        <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 3px; color: #F5EDE0; line-height: 1; margin-bottom: 16px;">CURSO DE<br><span style="color: #D4A84B;">BARBEIRO PROFISSIONAL</span></h2>
+        <p style="color: #BFB5A5; font-size: 1.1rem; line-height: 1.8; margin-bottom: 24px;">Do <strong style="color: #F5EDE0;">básico ao avançado</strong> em apenas <strong style="color: #D4A84B;">3 meses</strong>. Nosso aluno sai cortando de verdade — preparado para atuar em barbearias, casas de recuperação, UPAs e cidades diversas.</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+          <div style="background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #D4A84B;">3</div>
+            <div style="font-size: 0.8rem; color: #BFB5A5; text-transform: uppercase; letter-spacing: 1px;">Meses de Curso</div>
+          </div>
+          <div style="background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #D4A84B;">R$2.500</div>
+            <div style="font-size: 0.8rem; color: #BFB5A5; text-transform: uppercase; letter-spacing: 1px;">Investimento Total</div>
+          </div>
+          <div style="background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #D4A84B;">5x</div>
+            <div style="font-size: 0.8rem; color: #BFB5A5; text-transform: uppercase; letter-spacing: 1px;">Sem Juros</div>
+          </div>
+          <div style="background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); padding: 20px; border-radius: 8px; text-align: center;">
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #22C55E;">✅</div>
+            <div style="font-size: 0.8rem; color: #BFB5A5; text-transform: uppercase; letter-spacing: 1px;">Com Certificação</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="color: #D4A84B;">✓</span>
+            <span style="color: #BFB5A5;">Início imediato — vagas limitadas</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="color: #D4A84B;">✓</span>
+            <span style="color: #BFB5A5;">Certificação após conclusão de todas as aulas</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="color: #D4A84B;">✓</span>
+            <span style="color: #BFB5A5;">Prática real em ambiente profissional</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="color: #D4A84B;">✓</span>
+            <span style="color: #BFB5A5;">Do iniciante ao profissional cortando</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="color: #D4A84B;">✓</span>
+            <span style="color: #BFB5A5;">Apoio VR e ICMA</span>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5561981763305?text=Olá!%20Tenho%20interesse%20no%20curso%20de%20barbeiro!" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: #D4A84B; color: #0D0D0D; padding: 18px 40px; font-family: 'Barlow', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s;">
+          🎓 QUERO ME MATRICULAR
+        </a>
+        <p style="color: #6B7280; font-size: 0.8rem; margin-top: 12px;">📱 Cursos: (61) 98176-3305</p>
+      </div>
+      <div class="reveal" style="text-align: center;">
+        <img src="assets/barbearia-imperio/photo3.jpg" alt="Barbearia do Império — Curso de Barbeiro" style="width: 100%; max-width: 500px; border-radius: 8px; border: 3px solid rgba(212,168,75,0.3);" loading="lazy">
+        <div style="background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); padding: 20px; border-radius: 8px; margin-top: 16px;">
+          <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #D4A84B; letter-spacing: 2px;">⚡ APENAS 5 VAGAS DISPONÍVEIS</div>
+          <p style="color: #BFB5A5; font-size: 0.85rem; margin-top: 8px;">Turma com início imediato. Garanta sua vaga!</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1040,6 +1115,47 @@ footer a {
   </div>
   <div style="text-align:center;margin-top:40px;" class="reveal">
     <a href="https://www.google.com/maps/place/Barbearia+do+Imperio" target="_blank" class="btn-secondary" style="display:inline-flex;">Ver Todas as 40 avaliações no Google →</a>
+  </div>
+</section>
+
+<!-- LOJINHA / IMPERIAL STORE -->
+<section id="loja" style="background: var(--bg-section); padding: 100px 24px;">
+  <div class="section-header reveal">
+    <div class="section-tag">Imperial Store</div>
+    <h2 class="section-title">NOSSA LOJINHA</h2>
+    <div class="section-line"></div>
+  </div>
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <p style="text-align: center; color: var(--cream-muted); max-width: 600px; margin: -40px auto 48px; font-size: 1.05rem; line-height: 1.7;">
+      Produtos profissionais para cuidados pessoais. Tudo que você precisa para manter o visual em dia entre as visitas.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+      <div class="service-card reveal" style="text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">💇</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--cream); margin-bottom: 8px;">MÁQUINAS & CLIPPERS</h4>
+        <p style="color: var(--cream-muted); font-size: 0.9rem; line-height: 1.6;">Wahl, Kemei e mais. Equipamentos profissionais para barbeiros e uso pessoal.</p>
+      </div>
+      <div class="service-card reveal" style="text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🧴</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--cream); margin-bottom: 8px;">POMADAS & CERAS</h4>
+        <p style="color: var(--cream-muted); font-size: 0.9rem; line-height: 1.6;">Pomadas modeladoras, ceras e produtos de finalização para todos os estilos.</p>
+      </div>
+      <div class="service-card reveal" style="text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🧔</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--cream); margin-bottom: 8px;">ÓLEOS & BARBA</h4>
+        <p style="color: var(--cream-muted); font-size: 0.9rem; line-height: 1.6;">Óleos para barba, balms, shampoos especializados e kits completos de cuidado.</p>
+      </div>
+      <div class="service-card reveal" style="text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">✨</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--cream); margin-bottom: 8px;">MINOXIDIL & TRATAMENTOS</h4>
+        <p style="color: var(--cream-muted); font-size: 0.9rem; line-height: 1.6;">Tratamentos capilares, Minoxidil, shampoos Fox e produtos de crescimento.</p>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px;" class="reveal">
+      <a href="https://wa.me/5561992281225?text=Olá!%20Quero%20saber%20sobre%20os%20produtos%20da%20loja!" target="_blank" class="btn-primary" style="display: inline-flex;">
+        🛒 Ver Produtos pelo WhatsApp
+      </a>
+    </div>
   </div>
 </section>
 
