@@ -106,7 +106,7 @@ img{max-width:100%;display:block}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(211,47,47,.12);border:1px solid rgba(211,47,47,.25);border-radius:50px;padding:8px 20px;font-size:13px;color:var(--red);font-weight:500;margin-bottom:20px;width:fit-content}
 .hero-badge::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse-dot 2s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px}
+.hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:16px;text-align:center}
 .hero h1 span{background:linear-gradient(135deg,var(--red),var(--red-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.65);line-height:1.6;max-width:560px;margin-bottom:36px}
 
@@ -624,10 +624,10 @@ img{max-width:100%;display:block}
 <div class="decorative-dots"></div>
 <div class="container">
 <div class="hero-grid">
-<div>
-<div class="hero-badge hero-content-anim">🏆 Especialistas em Imóveis desde 1992</div>
-<h1 class="hero-content-anim">Top Imobiliária<br><span>Especialistas em Imóveis em Águas Claras – DF</span></h1>
-<p class="hero-sub hero-content-anim">Seu imóvel nas mãos de quem entende. Há mais de 34 anos conectando proprietários e inquilinos com excelência, segurança e aluguel protegido com garantia locatícia.</p>
+<div style="text-align:center;">
+<div class="hero-badge hero-content-anim" style="margin:0 auto 20px;">🏆 Especialistas em Imóveis desde 1992</div>
+<h1 class="hero-content-anim">Top Imobiliária<br><span>Especialistas em Imóveis<br>em Águas Claras – DF</span></h1>
+<p class="hero-sub hero-content-anim" style="margin:0 auto 36px;text-align:center;">Seu imóvel nas mãos de quem entende. Há mais de 34 anos conectando proprietários e inquilinos com excelência, segurança e aluguel protegido com garantia locatícia.</p>
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:36px;max-width:780px" class="hero-content-anim">
 <a href="#imoveis" class="dual-path-card" onclick="filterProperties('sale')">
