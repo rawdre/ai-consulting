@@ -1,0 +1,30 @@
+# Robots.txt for Raw AI Business Solutions
+# rawdre.github.io/ai-consulting
+
+User-agent: *
+Allow: /
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block common bad bots (optional - GitHub Pages is robust)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://rawdre.github.io/ai-consulting/sitemap.xml
+
+# GitHub Pages specific notes:
+# - This file should be placed in the root of the repository
+# - GitHub Pages serves this automatically from the root directory
+# - No crawl-delay needed as GitHub Pages has good performance
