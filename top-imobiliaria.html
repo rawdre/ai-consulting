@@ -425,7 +425,7 @@ img{max-width:100%;display:block}
 .dual-path{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px;max-width:680px}
 @media(max-width:600px){.dual-path{grid-template-columns:1fr;gap:16px}}
 @media(max-width:768px){[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}}
-.dual-path-card{background:rgba(255,255,255,.06);border:2px solid rgba(211,47,47,.25);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block}
+.dual-path-card{background:rgba(15,26,46,.85);border:2px solid rgba(211,47,47,.35);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block;backdrop-filter:blur(10px)}
 .dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(211,47,47,.08),transparent);opacity:0;transition:var(--transition)}
 .dual-path-card:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 12px 40px rgba(211,47,47,.25)}
 .dual-path-card:hover::before{opacity:1}
