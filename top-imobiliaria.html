@@ -1290,6 +1290,7 @@ Quero Avaliação Gratuita
 </button>
 </a>
 </div>
+</div>
 
 <!-- SIMULADOR DE VENDA -->
 <div class="simulador-form" id="simVenda" style="display:none;opacity:1;transform:none">
@@ -1386,7 +1387,6 @@ Quero Avaliação Gratuita para Venda
 </div>
 </div>
 
-</div>
 </div>
 </section>
 
@@ -2486,23 +2486,50 @@ function showSimulator(type) {
     var simA = document.getElementById('simAluguel');
     var simV = document.getElementById('simVenda');
     
-    if (!btnA || !btnV || !simA || !simV) { console.error('Simulator elements not found'); return; }
+    if (!btnA || !btnV || !simA || !simV) { console.error('Simulator elements not found:', {btnA:!!btnA, btnV:!!btnV, simA:!!simA, simV:!!simV}); return; }
     
     // Update button states
-    btnA.className = type === 'aluguel' ? 'sim-type-btn active' : 'sim-type-btn';
-    btnV.className = type === 'venda' ? 'sim-type-btn active' : 'sim-type-btn';
-    btnA.style.cssText = type === 'aluguel' 
-      ? 'padding:12px 32px;border:none;background:var(--red);color:var(--navy);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px' 
-      : 'padding:12px 32px;border:none;background:transparent;color:var(--gray-600);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px';
-    btnV.style.cssText = type === 'venda' 
-      ? 'padding:12px 32px;border:none;background:var(--red);color:var(--navy);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px' 
-      : 'padding:12px 32px;border:none;background:transparent;color:var(--gray-600);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:50px';
+    if (type === 'aluguel') {
+      btnA.style.background = 'var(--red)';
+      btnA.style.color = 'var(--navy)';
+      btnV.style.background = 'transparent';
+      btnV.style.color = 'var(--gray-600)';
+    } else {
+      btnV.style.background = 'var(--red)';
+      btnV.style.color = 'var(--navy)';
+      btnA.style.background = 'transparent';
+      btnA.style.color = 'var(--gray-600)';
+    }
     
-    // Nuclear toggle - override everything with cssText
-    simA.style.cssText = type === 'aluguel' ? 'display:block !important;opacity:1 !important;transform:none !important;visibility:visible !important' : 'display:none !important';
-    simV.style.cssText = type === 'venda' ? 'display:block !important;opacity:1 !important;transform:none !important;visibility:visible !important' : 'display:none !important';
+    // Toggle forms - direct DOM manipulation
+    if (type === 'aluguel') {
+      simA.style.display = 'block';
+      simA.style.opacity = '1';
+      simA.style.visibility = 'visible';
+      simA.style.transform = 'none';
+      simA.style.height = 'auto';
+      simA.style.overflow = 'visible';
+      simV.style.display = 'none';
+    } else {
+      simV.style.display = 'block';
+      simV.style.opacity = '1';
+      simV.style.visibility = 'visible';
+      simV.style.transform = 'none';
+      simV.style.height = 'auto';
+      simV.style.overflow = 'visible';
+      simA.style.display = 'none';
+    }
     
-    // Remove reveal class if still present
+    // Also force via setAttribute for stubborn browsers
+    if (type === 'venda') {
+      simV.setAttribute('style', 'display:block;opacity:1;visibility:visible;transform:none;height:auto;overflow:visible');
+      simA.setAttribute('style', 'display:none');
+    } else {
+      simA.setAttribute('style', 'display:block;opacity:1;visibility:visible;transform:none;height:auto;overflow:visible');
+      simV.setAttribute('style', 'display:none');
+    }
+    
+    // Remove reveal class if still present (it sets opacity:0)
     simA.classList.remove('reveal');
     simV.classList.remove('reveal');
     simA.classList.add('visible');
@@ -2510,7 +2537,7 @@ function showSimulator(type) {
     
     // Scroll to visible form
     var activeForm = type === 'aluguel' ? simA : simV;
-    setTimeout(function() { activeForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+    setTimeout(function() { activeForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
   } catch(e) { console.error('showSimulator error:', e); }
 }
 
