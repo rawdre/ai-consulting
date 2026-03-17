@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consórcio Imobiliário — Top Imobiliária | Águas Claras, DF</title>
+<meta name="description" content="Compare consórcio vs financiamento imobiliário. Simuladores gratuitos lado a lado. Sem juros, sem entrada obrigatória. Top Imobiliária — desde 1992.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#1B2A4A;--navy-deep:#0F1A2E;--navy-light:#243656;
+--red:#D32F2F;--red-light:#EF5350;--red-dark:#B71C1C;
+--green:#2E7D32;--green-light:#43A047;
+--blue:#1565C0;--blue-light:#1E88E5;
+--white:#FFFFFF;--gray-50:#F8F9FC;--gray-100:#EEF1F6;--gray-200:#D8DDE8;--gray-300:#B0B8C9;--gray-600:#5A6478;--gray-800:#2C3345;
+--radius:16px;--radius-sm:10px;--radius-lg:24px;
+--shadow:0 4px 24px rgba(27,42,74,.10);--shadow-lg:0 12px 48px rgba(27,42,74,.15);
+--transition:all .35s cubic-bezier(.4,0,.2,1)
+}
+body{font-family:'Inter',sans-serif;color:var(--gray-800);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;background:rgba(15,26,46,.95);backdrop-filter:blur(20px)}
+.header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-text{font-size:20px;font-weight:700;color:var(--white)}
+.logo-text span{color:var(--red)}
+.nav{display:flex;align-items:center;gap:28px}
+.nav a{color:rgba(255,255,255,.8);font-size:14px;font-weight:500;text-decoration:none;transition:var(--transition)}
+.nav a:hover{color:var(--red)}
+.nav-cta{background:linear-gradient(135deg,var(--red),var(--red-dark))!important;color:var(--white)!important;padding:10px 24px;border-radius:50px;font-weight:600!important;box-shadow:0 4px 20px rgba(211,47,47,.3)}
+@media(max-width:768px){.nav{display:none}}
+
+/* HERO */
+.hero{min-height:60vh;display:flex;align-items:center;background:linear-gradient(165deg,rgba(15,26,46,.92),rgba(27,42,74,.88)),url('assets/top-imobiliaria/hero-aguas-claras.jpg') center/cover;padding:140px 0 80px;text-align:center}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:16px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--green-light),#66BB6A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(1rem,2vw,1.15rem);color:rgba(255,255,255,.7);max-width:680px;margin:0 auto 32px;line-height:1.7}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,.15);border:1px solid rgba(46,125,50,.3);border-radius:50px;padding:8px 20px;font-size:13px;color:var(--green-light);font-weight:500;margin-bottom:20px}
+
+/* SECTIONS */
+.section{padding:80px 0}
+.section-gray{background:var(--gray-50)}
+.section-dark{background:var(--navy-deep);color:var(--white)}
+.section-label{display:inline-block;background:rgba(211,47,47,.08);color:var(--red);font-size:13px;font-weight:600;padding:6px 16px;border-radius:50px;margin-bottom:12px;letter-spacing:.5px;text-transform:uppercase}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;margin-bottom:16px;line-height:1.2}
+.section-desc{font-size:1rem;color:var(--gray-600);max-width:640px;margin:0 auto 48px;line-height:1.7}
+.text-center{text-align:center}
+
+/* WHAT IS CONSORCIO */
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.info-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:var(--transition)}
+.info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--green)}
+.info-card .icon{font-size:48px;margin-bottom:16px;display:block}
+.info-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--navy)}
+.info-card p{font-size:.9rem;color:var(--gray-600);line-height:1.6}
+@media(max-width:768px){.info-grid{grid-template-columns:1fr;gap:16px}}
+
+/* SIMULATORS */
+.sim-container{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+@media(max-width:900px){.sim-container{grid-template-columns:1fr;gap:24px}}
+.sim-box{border-radius:var(--radius-lg);padding:36px;position:relative;overflow:hidden}
+.sim-box.financiamento{background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border:2px solid var(--blue)}
+.sim-box.consorcio{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:2px solid var(--green)}
+.sim-box h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.sim-box .sim-tag{display:inline-block;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:20px}
+.sim-box.financiamento .sim-tag{background:var(--blue);color:var(--white)}
+.sim-box.consorcio .sim-tag{background:var(--green);color:var(--white)}
+.sim-box.financiamento h3{color:var(--blue)}
+.sim-box.consorcio h3{color:var(--green)}
+.sim-field{margin-bottom:16px}
+.sim-field label{display:block;font-size:.85rem;font-weight:600;color:var(--gray-800);margin-bottom:6px}
+.sim-field input,.sim-field select{width:100%;padding:12px 16px;border:1px solid rgba(0,0,0,.15);border-radius:var(--radius-sm);font-family:inherit;font-size:14px;background:rgba(255,255,255,.8);outline:none;transition:var(--transition)}
+.sim-field input:focus,.sim-field select:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,42,74,.1)}
+.sim-btn{width:100%;padding:14px;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:8px}
+.sim-btn.blue{background:linear-gradient(135deg,var(--blue),var(--blue-light));color:var(--white)}
+.sim-btn.green{background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--white)}
+.sim-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.sim-result{margin-top:20px;padding:20px;border-radius:var(--radius);background:rgba(255,255,255,.9);display:none}
+.sim-result.show{display:block}
+.sim-result .label{font-size:.8rem;color:var(--gray-600);margin-bottom:4px}
+.sim-result .value{font-size:1.6rem;font-weight:800;margin-bottom:12px}
+.sim-result .detail{font-size:.85rem;color:var(--gray-600);line-height:1.8}
+
+/* COMPARISON */
+.compare-box{margin-top:48px;background:var(--white);border:2px solid var(--navy);border-radius:var(--radius-lg);padding:40px;display:none}
+.compare-box.show{display:block}
+.compare-title{text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:32px}
+.compare-grid{display:grid;grid-template-columns:1fr 80px 1fr;gap:16px;align-items:start}
+@media(max-width:768px){.compare-grid{grid-template-columns:1fr;gap:8px}}
+.compare-col{text-align:center;padding:24px;border-radius:var(--radius);position:relative}
+.compare-col.fin{background:#E3F2FD;border:1px solid var(--blue)}
+.compare-col.con{background:#E8F5E9;border:1px solid var(--green)}
+.compare-col h4{font-size:1rem;font-weight:700;margin-bottom:16px}
+.compare-col .big-num{font-size:1.8rem;font-weight:800;margin-bottom:4px}
+.compare-col .sub{font-size:.85rem;color:var(--gray-600)}
+.compare-vs{display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:var(--navy)}
+@media(max-width:768px){.compare-vs{padding:8px 0}}
+.savings-banner{margin-top:24px;text-align:center;padding:20px;border-radius:var(--radius);background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--white)}
+.savings-banner .amount{font-size:2rem;font-weight:800}
+.savings-banner .label{font-size:.9rem;opacity:.9}
+
+/* CTA */
+.cta-section{text-align:center;padding:60px 0}
+.btn-whatsapp{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25D366,#128C7E);color:var(--white);padding:16px 36px;border-radius:50px;font-size:1rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:var(--transition);font-family:inherit;box-shadow:0 4px 20px rgba(37,211,102,.3)}
+.btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+.btn-whatsapp svg{width:24px;height:24px;fill:currentColor}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+@media(max-width:768px){.steps-grid{grid-template-columns:1fr 1fr;gap:16px}}
+@media(max-width:480px){.steps-grid{grid-template-columns:1fr}}
+.step-card{text-align:center;padding:24px;position:relative}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--white);font-size:1.2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.step-card h4{font-size:.95rem;font-weight:700;margin-bottom:8px}
+.step-card p{font-size:.85rem;color:var(--gray-600);line-height:1.5}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--gray-200);padding:20px 0}
+.faq-q{font-weight:700;font-size:1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:1.4rem;font-weight:300;transition:var(--transition)}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:.9rem;color:var(--gray-600);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px;padding-top:12px}
+
+/* FOOTER */
+.footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:40px 0;text-align:center;font-size:.85rem}
+.footer a{color:var(--red-light);text-decoration:none}
+
+/* ANIMATION */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<a href="top-imobiliaria.html" style="position:fixed;top:16px;left:16px;z-index:9999;background:rgba(0,0,0,0.7);color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;font-size:14px;font-family:sans-serif;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);transition:all 0.3s;">← Voltar ao Site</a>
+
+<!-- HEADER -->
+<header class="header">
+<div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+<a href="top-imobiliaria.html" class="logo">
+<div class="logo-text">Top <span>Imobiliária</span></div>
+</a>
+<nav class="nav">
+<a href="top-imobiliaria.html">Início</a>
+<a href="#simuladores">Simuladores</a>
+<a href="#como-funciona">Como Funciona</a>
+<a href="#faq">Dúvidas</a>
+<a href="https://wa.me/556130424344?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20consórcio%20imobiliário." class="nav-cta" target="_blank">Falar com Especialista</a>
+</nav>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<div class="hero-badge">🏠 Realize seu sonho sem pagar juros</div>
+<h1>Consórcio Imobiliário:<br><em>A forma mais inteligente de comprar seu imóvel</em></h1>
+<p>Sem juros bancários, sem entrada obrigatória, parcelas que cabem no bolso. Compare com o financiamento e descubra quanto você pode economizar.</p>
+<a href="#simuladores" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--green),var(--green-light));color:var(--white);padding:14px 32px;border-radius:50px;font-weight:700;text-decoration:none;transition:var(--transition);box-shadow:0 4px 20px rgba(46,125,50,.3);">🧮 Simular Agora</a>
+</div>
+</section>
+
+<!-- O QUE É CONSÓRCIO -->
+<section class="section section-gray" id="o-que-e">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Entenda</div>
+<h2 class="section-title">O que é Consórcio Imobiliário?</h2>
+<p class="section-desc">O consórcio é uma modalidade de compra planejada onde um grupo de pessoas se reúne para adquirir imóveis. Você paga parcelas mensais <strong>sem juros</strong> — apenas uma taxa administrativa muito menor que os juros bancários.</p>
+</div>
+<div class="info-grid">
+<div class="info-card reveal">
+<span class="icon">🚫</span>
+<h3>Sem Juros</h3>
+<p>Diferente do financiamento, você não paga juros. Apenas uma taxa administrativa que pode ser até <strong>5x menor</strong> que os juros do banco.</p>
+</div>
+<div class="info-card reveal">
+<span class="icon">💰</span>
+<h3>Sem Entrada</h3>
+<p>Não precisa ter valor de entrada. Comece a investir no seu imóvel com apenas a primeira parcela.</p>
+</div>
+<div class="info-card reveal">
+<span class="icon">🏆</span>
+<h3>Poder de Compra à Vista</h3>
+<p>Ao ser contemplado (por sorteio ou lance), você recebe a carta de crédito e compra o imóvel como se fosse <strong>à vista</strong>.</p>
+</div>
+<div class="info-card reveal">
+<span class="icon">📊</span>
+<h3>Parcelas Menores</h3>
+<p>Sem juros compostos, suas parcelas são significativamente menores do que em um financiamento tradicional.</p>
+</div>
+<div class="info-card reveal">
+<span class="icon">🔄</span>
+<h3>Flexibilidade</h3>
+<p>Use a carta de crédito para comprar imóvel novo, usado, terreno, construção ou até quitar financiamento existente.</p>
+</div>
+<div class="info-card reveal">
+<span class="icon">🛡️</span>
+<h3>Segurança</h3>
+<p>Regulamentado pelo Banco Central. Administradoras são fiscalizadas e seu dinheiro está protegido.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SIMULADORES -->
+<section class="section" id="simuladores">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Compare e Economize</div>
+<h2 class="section-title">Simulador: Financiamento vs Consórcio</h2>
+<p class="section-desc">Preencha os dados do imóvel nos dois simuladores e veja a diferença. O resultado vai te surpreender.</p>
+</div>
+
+<div class="sim-container">
+<!-- FINANCIAMENTO -->
+<div class="sim-box financiamento reveal">
+<h3>🔵 Simulador de Financiamento</h3>
+<span class="sim-tag">Com Juros Bancários</span>
+
+<div class="sim-field">
+<label>Valor do Imóvel (R$)</label>
+<input type="text" id="finValor" placeholder="Ex: 500.000" oninput="formatCurrency(this)">
+</div>
+<div class="sim-field">
+<label>Entrada (R$)</label>
+<input type="text" id="finEntrada" placeholder="Ex: 100.000" oninput="formatCurrency(this)">
+</div>
+<div class="sim-field">
+<label>Prazo (meses)</label>
+<select id="finPrazo">
+<option value="120">120 meses (10 anos)</option>
+<option value="180">180 meses (15 anos)</option>
+<option value="240">240 meses (20 anos)</option>
+<option value="300">300 meses (25 anos)</option>
+<option value="360" selected>360 meses (30 anos)</option>
+</select>
+</div>
+<div class="sim-field">
+<label>Taxa de Juros Anual (%)</label>
+<input type="number" id="finJuros" value="10.5" step="0.1" min="5" max="20">
+</div>
+<button class="sim-btn blue" onclick="calcFinanciamento()">🔍 Calcular Financiamento</button>
+
+<div class="sim-result" id="finResult">
+<div class="label">Parcela Mensal Estimada</div>
+<div class="value" id="finParcela" style="color:var(--blue)">—</div>
+<div class="detail">
+<div>💰 Valor financiado: <strong id="finFinanciado">—</strong></div>
+<div>📈 Total de juros: <strong id="finTotalJuros" style="color:#c62828">—</strong></div>
+<div>💵 Total pago: <strong id="finTotalPago">—</strong></div>
+</div>
+</div>
+</div>
+
+<!-- CONSÓRCIO -->
+<div class="sim-box consorcio reveal">
+<h3>🟢 Simulador de Consórcio</h3>
+<span class="sim-tag">Sem Juros — Taxa Administrativa</span>
+
+<div class="sim-field">
+<label>Valor da Carta de Crédito (R$)</label>
+<input type="text" id="conValor" placeholder="Ex: 500.000" oninput="formatCurrency(this)">
+</div>
+<div class="sim-field">
+<label>Prazo (meses)</label>
+<select id="conPrazo">
+<option value="60">60 meses (5 anos)</option>
+<option value="100">100 meses (~8 anos)</option>
+<option value="120">120 meses (10 anos)</option>
+<option value="150">150 meses (12.5 anos)</option>
+<option value="180">180 meses (15 anos)</option>
+<option value="200" selected>200 meses (~16 anos)</option>
+<option value="240">240 meses (20 anos)</option>
+</select>
+</div>
+<div class="sim-field">
+<label>Taxa Administrativa Total (%)</label>
+<input type="number" id="conTaxa" value="20" step="1" min="10" max="30">
+<span style="font-size:.75rem;color:var(--gray-600)">Média do mercado: 15% a 25% sobre o valor da carta</span>
+</div>
+<div class="sim-field">
+<label>Lance (%) — opcional</label>
+<input type="number" id="conLance" value="0" step="5" min="0" max="50">
+<span style="font-size:.75rem;color:var(--gray-600)">Antecipa contemplação. Reduz parcelas restantes.</span>
+</div>
+<button class="sim-btn green" onclick="calcConsorcio()">🔍 Calcular Consórcio</button>
+
+<div class="sim-result" id="conResult">
+<div class="label">Parcela Mensal Estimada</div>
+<div class="value" id="conParcela" style="color:var(--green)">—</div>
+<div class="detail">
+<div>🏠 Carta de crédito: <strong id="conCarta">—</strong></div>
+<div>📋 Taxa administrativa: <strong id="conTaxaTotal">—</strong></div>
+<div>🎯 Lance: <strong id="conLanceVal">—</strong></div>
+<div>💵 Total pago: <strong id="conTotalPago">—</strong></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- COMPARAÇÃO -->
+<div class="compare-box" id="compareBox">
+<div class="compare-title">📊 Comparação Lado a Lado</div>
+<div class="compare-grid">
+<div class="compare-col fin">
+<h4>🔵 Financiamento</h4>
+<div class="big-num" id="cmpFinParcela">—</div>
+<div class="sub">Parcela mensal</div>
+<div style="margin-top:16px">
+<div class="sub">Total pago</div>
+<div style="font-size:1.2rem;font-weight:700;color:var(--blue)" id="cmpFinTotal">—</div>
+</div>
+</div>
+<div class="compare-vs">VS</div>
+<div class="compare-col con">
+<h4>🟢 Consórcio</h4>
+<div class="big-num" id="cmpConParcela">—</div>
+<div class="sub">Parcela mensal</div>
+<div style="margin-top:16px">
+<div class="sub">Total pago</div>
+<div style="font-size:1.2rem;font-weight:700;color:var(--green)" id="cmpConTotal">—</div>
+</div>
+</div>
+</div>
+<div class="savings-banner" id="savingsBanner" style="display:none">
+<div class="label">💰 Economia estimada com consórcio</div>
+<div class="amount" id="savingsAmount">—</div>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+<a href="https://wa.me/556130424344?text=Olá!%20Fiz%20uma%20simulação%20de%20consórcio%20no%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" class="btn-whatsapp">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Falar com Especialista
+</a>
+<p style="margin-top:12px;font-size:.85rem;color:var(--gray-600)">Receba uma simulação completa e personalizada</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section section-gray" id="como-funciona">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label">Passo a Passo</div>
+<h2 class="section-title">Como Funciona o Consórcio?</h2>
+<p class="section-desc">Um processo simples e transparente para conquistar seu imóvel.</p>
+</div>
+<div class="steps-grid">
+<div class="step-card reveal">
+<div class="step-num">1</div>
+<h4>Escolha o Plano</h4>
+<p>Defina o valor da carta de crédito e o prazo que melhor cabe no seu orçamento.</p>
+</div>
+<div class="step-card reveal">
+<div class="step-num">2</div>
+<h4>Pague as Parcelas</h4>
+<p>Parcelas mensais sem juros — apenas taxa administrativa diluída no período.</p>
+</div>
+<div class="step-card reveal">
+<div class="step-num">3</div>
+<h4>Seja Contemplado</h4>
+<p>Por sorteio mensal ou ofertando um lance. Quanto maior o lance, maiores as chances.</p>
+</div>
+<div class="step-card reveal">
+<div class="step-num">4</div>
+<h4>Compre seu Imóvel</h4>
+<p>Receba a carta de crédito e compre à vista — com poder de negociação total.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- VANTAGENS -->
+<section class="section section-dark">
+<div class="container">
+<div class="text-center reveal">
+<div class="section-label" style="background:rgba(211,47,47,.2);">Vantagens</div>
+<h2 class="section-title" style="color:var(--white)">Por que escolher Consórcio?</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto">
+<div class="reveal" style="display:flex;gap:16px;align-items:flex-start">
+<span style="font-size:2rem;flex-shrink:0">✅</span>
+<div><strong style="color:var(--white)">Economia de até 50%</strong><p style="color:rgba(255,255,255,.6);font-size:.9rem;margin-top:4px">Comparado ao valor total pago em um financiamento de 30 anos.</p></div>
+</div>
+<div class="reveal" style="display:flex;gap:16px;align-items:flex-start">
+<span style="font-size:2rem;flex-shrink:0">✅</span>
+<div><strong style="color:var(--white)">FGTS aceito</strong><p style="color:rgba(255,255,255,.6);font-size:.9rem;margin-top:4px">Use seu FGTS para dar lance, complementar parcela ou amortizar.</p></div>
+</div>
+<div class="reveal" style="display:flex;gap:16px;align-items:flex-start">
+<span style="font-size:2rem;flex-shrink:0">✅</span>
+<div><strong style="color:var(--white)">Planejamento financeiro</strong><p style="color:rgba(255,255,255,.6);font-size:.9rem;margin-top:4px">Parcelas fixas e previsíveis. Sem surpresas de taxa variável.</p></div>
+</div>
+<div class="reveal" style="display:flex;gap:16px;align-items:flex-start">
+<span style="font-size:2rem;flex-shrink:0">✅</span>
+<div><strong style="color:var(--white)">Compra à vista</strong><p style="color:rgba(255,255,255,.6);font-size:.9rem;margin-top:4px">Negocie descontos como comprador à vista. Poder de barganha real.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+<div class="container" style="max-width:800px">
+<div class="text-center reveal">
+<div class="section-label">Dúvidas Frequentes</div>
+<h2 class="section-title">Perguntas sobre Consórcio</h2>
+</div>
+<div style="margin-top:40px">
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">Qual a diferença entre consórcio e financiamento?</div>
+<div class="faq-a">No <strong>financiamento</strong>, o banco te empresta o dinheiro e cobra juros compostos — você pode pagar até 2-3x o valor do imóvel. No <strong>consórcio</strong>, um grupo se organiza para comprar imóveis juntos, sem juros. Você paga apenas uma taxa administrativa muito menor, economizando significativamente no valor total.</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">Quanto tempo leva para ser contemplado?</div>
+<div class="faq-a">Depende da sorte (sorteio mensal) ou do valor do seu lance. Com lances estratégicos, muitos consorciados são contemplados nos primeiros meses. Em média, a contemplação acontece no primeiro terço do plano. A Top Imobiliária te ajuda a montar a melhor estratégia de lance.</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">Posso usar o FGTS no consórcio?</div>
+<div class="faq-a">Sim! O FGTS pode ser usado para dar lance, complementar parcelas ou amortizar o saldo devedor. É uma das melhores formas de acelerar sua contemplação.</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">O consórcio é seguro?</div>
+<div class="faq-a">Totalmente. Os consórcios são regulamentados e fiscalizados pelo <strong>Banco Central do Brasil</strong>. As administradoras precisam de autorização para operar e seguem regras rígidas de transparência e proteção ao consorciado.</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">Posso comprar qualquer tipo de imóvel?</div>
+<div class="faq-a">Sim. A carta de crédito pode ser usada para apartamentos, casas, terrenos, imóveis comerciais, construção ou até para quitar um financiamento existente. É extremamente flexível.</div>
+</div>
+<div class="faq-item reveal">
+<div class="faq-q" onclick="toggleFaq(this)">O que acontece se eu não for contemplado?</div>
+<div class="faq-a">Você continua pagando as parcelas normalmente e participando dos sorteios mensais. Ao final do plano, se não tiver sido contemplado antes, você recebe a carta de crédito garantida. Seu dinheiro está sempre protegido.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section section-gray">
+<div class="container cta-section">
+<div class="reveal">
+<h2 class="section-title">Pronto para realizar seu sonho?</h2>
+<p style="color:var(--gray-600);margin-bottom:32px;font-size:1.05rem">Fale com nossos especialistas e receba uma simulação personalizada gratuitamente.</p>
+<a href="https://wa.me/556130424344?text=Olá!%20Vi%20a%20página%20de%20consórcio%20no%20site%20e%20gostaria%20de%20uma%20simulação%20personalizada." target="_blank" class="btn-whatsapp" style="font-size:1.1rem;padding:18px 42px">
+<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Quero Minha Simulação Gratuita
+</a>
+<p style="margin-top:16px;font-size:.85rem;color:var(--gray-300)">Top Imobiliária — Especialistas em Imóveis desde 1992 | Águas Claras, DF</p>
+<p style="font-size:.85rem;color:var(--gray-300)">📞 (61) 3042-4344</p>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+<p>© 2026 Top Imobiliária — Todos os direitos reservados | Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a></p>
+</div>
+</footer>
+
+<script>
+// FORMAT CURRENCY
+function formatCurrency(input) {
+  let v = input.value.replace(/\D/g, '');
+  if (!v) { input.value = ''; return; }
+  v = (parseInt(v) / 100).toFixed(2);
+  input.value = parseFloat(v).toLocaleString('pt-BR', {minimumFractionDigits: 2});
+}
+
+function parseCurrency(str) {
+  if (!str) return 0;
+  return parseFloat(str.replace(/\./g, '').replace(',', '.')) || 0;
+}
+
+function fmtBRL(n) {
+  return 'R$ ' + n.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+// FINANCIAMENTO (Price/SAC simplified)
+let finData = null;
+function calcFinanciamento() {
+  const valor = parseCurrency(document.getElementById('finValor').value);
+  const entrada = parseCurrency(document.getElementById('finEntrada').value);
+  const prazo = parseInt(document.getElementById('finPrazo').value);
+  const jurosAnual = parseFloat(document.getElementById('finJuros').value);
+
+  if (!valor || valor <= entrada) { alert('Preencha o valor do imóvel corretamente.'); return; }
+
+  const financiado = valor - entrada;
+  const jurosMensal = Math.pow(1 + jurosAnual / 100, 1/12) - 1;
+  
+  // Price table
+  const parcela = financiado * (jurosMensal * Math.pow(1 + jurosMensal, prazo)) / (Math.pow(1 + jurosMensal, prazo) - 1);
+  const totalPago = (parcela * prazo) + entrada;
+  const totalJuros = totalPago - valor;
+
+  document.getElementById('finParcela').textContent = fmtBRL(parcela);
+  document.getElementById('finFinanciado').textContent = fmtBRL(financiado);
+  document.getElementById('finTotalJuros').textContent = fmtBRL(totalJuros);
+  document.getElementById('finTotalPago').textContent = fmtBRL(totalPago);
+  document.getElementById('finResult').classList.add('show');
+
+  finData = { parcela, totalPago, totalJuros, financiado, entrada, prazo };
+  updateComparison();
+}
+
+// CONSÓRCIO
+let conData = null;
+function calcConsorcio() {
+  const valor = parseCurrency(document.getElementById('conValor').value);
+  const prazo = parseInt(document.getElementById('conPrazo').value);
+  const taxaTotal = parseFloat(document.getElementById('conTaxa').value);
+  const lancePct = parseFloat(document.getElementById('conLance').value) || 0;
+
+  if (!valor) { alert('Preencha o valor da carta de crédito.'); return; }
+
+  const taxaValor = valor * (taxaTotal / 100);
+  const lanceValor = valor * (lancePct / 100);
+  const totalSemLance = valor + taxaValor;
+  const totalComLance = totalSemLance; // Lance antecipa mas não reduz total
+  const parcelasRestantes = prazo; // Simplified - lance reduces remaining installments
+  const parcela = (totalSemLance - lanceValor) / parcelasRestantes;
+
+  document.getElementById('conParcela').textContent = fmtBRL(parcela);
+  document.getElementById('conCarta').textContent = fmtBRL(valor);
+  document.getElementById('conTaxaTotal').textContent = fmtBRL(taxaValor) + ' (' + taxaTotal + '%)';
+  document.getElementById('conLanceVal').textContent = lancePct > 0 ? fmtBRL(lanceValor) + ' (' + lancePct + '%)' : 'Nenhum';
+  document.getElementById('conTotalPago').textContent = fmtBRL(totalSemLance);
+  document.getElementById('conResult').classList.add('show');
+
+  conData = { parcela, totalPago: totalSemLance, taxaValor, lanceValor, valor, prazo };
+  updateComparison();
+}
+
+function updateComparison() {
+  if (!finData || !conData) return;
+
+  document.getElementById('cmpFinParcela').textContent = fmtBRL(finData.parcela);
+  document.getElementById('cmpFinTotal').textContent = fmtBRL(finData.totalPago);
+  document.getElementById('cmpConParcela').textContent = fmtBRL(conData.parcela);
+  document.getElementById('cmpConTotal').textContent = fmtBRL(conData.totalPago);
+
+  const savings = finData.totalPago - conData.totalPago;
+  if (savings > 0) {
+    document.getElementById('savingsAmount').textContent = fmtBRL(savings);
+    document.getElementById('savingsBanner').style.display = 'block';
+  } else {
+    document.getElementById('savingsBanner').style.display = 'none';
+  }
+
+  document.getElementById('compareBox').classList.add('show');
+  document.getElementById('compareBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// FAQ
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// HEADER SCROLL
+window.addEventListener('scroll', () => {
+  document.getElementById('header').style.background = window.scrollY > 50 ? 'rgba(15,26,46,.98)' : 'rgba(15,26,46,.95)';
+});
+</script>
+</body>
+</html>
