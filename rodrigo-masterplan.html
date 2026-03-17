@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comeketo / Compenso — Strategic Business Map</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e1a;--card:#131929;--border:#1e2a45;--text:#e0e6f0;--dim:#6b7a99;--accent:#4f8cff;--green:#34d399;--red:#ef4444;--orange:#f59e0b;--purple:#a78bfa;--pink:#f472b6;--cyan:#22d3ee;--lime:#84cc16}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1400px;margin:0 auto;padding:24px}
+
+/* HEADER */
+.header{text-align:center;padding:40px 0 20px}
+.header h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;background:linear-gradient(135deg,var(--accent),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header p{color:var(--dim);font-size:1rem;margin-top:8px}
+
+/* TABS */
+.tabs{display:flex;justify-content:center;gap:8px;margin:32px 0;flex-wrap:wrap}
+.tab{padding:10px 24px;border-radius:50px;background:var(--card);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-size:14px;font-weight:600;transition:all .3s}
+.tab:hover{border-color:var(--accent);color:var(--text)}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;border-color:transparent}
+
+/* SECTION */
+.section{display:none;animation:fadeIn .4s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* MAP CONTAINER */
+.map-title{text-align:center;margin:24px 0 16px}
+.map-title h2{font-size:1.6rem;font-weight:700}
+.map-title .badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:8px}
+
+/* CENTER HUB */
+.hub{text-align:center;margin:32px 0}
+.hub-circle{display:inline-flex;align-items:center;justify-content:center;width:160px;height:160px;border-radius:50%;font-size:1.1rem;font-weight:800;color:#fff;position:relative;box-shadow:0 0 60px rgba(79,140,255,.3)}
+.hub-circle::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px dashed rgba(255,255,255,.15);animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* BRANCH GRID */
+.branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:24px}
+.branch{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;transition:all .3s;cursor:default;position:relative;overflow:hidden}
+.branch:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4);border-color:var(--accent)}
+.branch::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.branch-icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.branch h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.branch p{font-size:.85rem;color:var(--dim);line-height:1.5}
+.branch .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.branch .tag{font-size:.7rem;padding:3px 8px;border-radius:12px;background:rgba(79,140,255,.1);color:var(--accent);border:1px solid rgba(79,140,255,.2)}
+.branch .priority{position:absolute;top:12px;right:12px;font-size:.7rem;padding:3px 10px;border-radius:12px;font-weight:600}
+.priority.high{background:rgba(239,68,68,.15);color:var(--red)}
+.priority.med{background:rgba(245,158,11,.15);color:var(--orange)}
+.priority.low{background:rgba(107,122,153,.15);color:var(--dim)}
+.priority.active{background:rgba(52,211,153,.15);color:var(--green)}
+
+/* COLOR BARS */
+.c-blue::before{background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.c-green::before{background:linear-gradient(90deg,var(--green),var(--lime))}
+.c-purple::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.c-orange::before{background:linear-gradient(90deg,var(--orange),var(--red))}
+.c-pink::before{background:linear-gradient(90deg,var(--pink),var(--purple))}
+.c-cyan::before{background:linear-gradient(90deg,var(--cyan),var(--green))}
+
+/* STATS BAR */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.stat .num{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat .label{font-size:.75rem;color:var(--dim);margin-top:4px}
+
+/* ORG CHART */
+.org-row{display:flex;justify-content:center;gap:16px;margin:12px 0;flex-wrap:wrap}
+.org-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:center;min-width:120px}
+.org-card h4{font-size:.85rem;font-weight:700}
+.org-card p{font-size:.75rem;color:var(--dim)}
+.org-line{width:2px;height:24px;background:var(--border);margin:0 auto}
+
+/* FOOTER */
+.footer{text-align:center;padding:40px 0 20px;color:var(--dim);font-size:.8rem}
+.footer span{color:var(--accent)}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+<div class="header">
+<h1>🧠 Compenso / Comeketo Strategic Map</h1>
+<p>Rodrigo Souza — Business Master Plan (Organized & Enhanced)</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat"><div class="num">28+</div><div class="label">Marketing Channels</div></div>
+<div class="stat"><div class="num">20+</div><div class="label">NUFO Ventures</div></div>
+<div class="stat"><div class="num">40+</div><div class="label">Revenue Streams</div></div>
+<div class="stat"><div class="num">6</div><div class="label">Team Departments</div></div>
+<div class="stat"><div class="num">∞</div><div class="label">Ambition Level</div></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+<div class="tab active" onclick="showSection('marketing')">🎯 Marketing Stack</div>
+<div class="tab" onclick="showSection('nufo')">🏗️ NUFO Ventures</div>
+<div class="tab" onclick="showSection('revenue')">💰 Revenue Centers</div>
+<div class="tab" onclick="showSection('team')">👥 Team Structure</div>
+</div>
+
+<!-- ===== MARKETING STACK ===== -->
+<div class="section active" id="marketing">
+<div class="map-title">
+<div class="badge" style="background:rgba(79,140,255,.15);color:var(--accent)">MARKETING STACK</div>
+<h2>Compenso Marketing — Full Channel Map</h2>
+</div>
+
+<div class="hub">
+<div class="hub-circle" style="background:linear-gradient(135deg,#4f8cff,#a78bfa)">COMPENSO<br>MARKETING</div>
+</div>
+
+<div class="branches">
+<div class="branch c-blue">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">📱</span>
+<h3>Facebook (FB)</h3>
+<p>Multi-channel approach: Groups, Paid Ads, Manual Outreach to clients & vendors</p>
+<div class="tags"><span class="tag">Paid Ads</span><span class="tag">Groups</span><span class="tag">Manual Outreach</span><span class="tag">Vendors</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">📸</span>
+<h3>Instagram (IG)</h3>
+<p>Visual content, reels, stories. Showcase events and food photography.</p>
+<div class="tags"><span class="tag">Reels</span><span class="tag">Stories</span><span class="tag">Feed</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority high">HIGH</span>
+<span class="branch-icon">🎯</span>
+<h3>Google Ads</h3>
+<p>Search & display campaigns. Target local event planners and wedding searches.</p>
+<div class="tags"><span class="tag">Search</span><span class="tag">Display</span><span class="tag">Local</span></div>
+</div>
+
+<div class="branch c-green">
+<span class="priority high">HIGH</span>
+<span class="branch-icon">🔍</span>
+<h3>SEO & Backlinks</h3>
+<p>Organic search optimization. Build authority through venue partnerships and directory listings.</p>
+<div class="tags"><span class="tag">On-Page</span><span class="tag">Backlinks</span><span class="tag">Local SEO</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🎥</span>
+<h3>YouTube</h3>
+<p>Event videos, behind-the-scenes, client testimonials, cooking content.</p>
+<div class="tags"><span class="tag">Vlogs</span><span class="tag">Testimonials</span><span class="tag">How-To</span></div>
+</div>
+
+<div class="branch c-pink">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🎙️</span>
+<h3>Podcast</h3>
+<p>Event planning tips, vendor interviews, behind-the-business stories.</p>
+<div class="tags"><span class="tag">Interviews</span><span class="tag">Tips</span><span class="tag">Stories</span></div>
+</div>
+
+<div class="branch c-blue">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🎵</span>
+<h3>TikTok</h3>
+<p>Short-form viral content. Behind-the-scenes cooking, event setup timelapses.</p>
+<div class="tags"><span class="tag">Short-Form</span><span class="tag">Viral</span><span class="tag">BTS</span></div>
+</div>
+
+<div class="branch c-green">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">📧</span>
+<h3>Email Marketing</h3>
+<p>Drip campaigns, newsletters, lead nurturing sequences, post-event follow-ups.</p>
+<div class="tags"><span class="tag">Drips</span><span class="tag">Newsletters</span><span class="tag">Nurture</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">💬</span>
+<h3>Crisp (Live Chat)</h3>
+<p>Website live chat for instant lead capture and customer support.</p>
+<div class="tags"><span class="tag">Live Chat</span><span class="tag">Lead Capture</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">🏢</span>
+<h3>Reg Biz Expos</h3>
+<p>Regional business expos, bridal shows, corporate networking events.</p>
+<div class="tags"><span class="tag">Bridal Shows</span><span class="tag">Trade Shows</span><span class="tag">Booth</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">💼</span>
+<h3>LinkedIn</h3>
+<p>B2B outreach, corporate catering leads. Groups and industry connections.</p>
+<div class="tags"><span class="tag">B2B</span><span class="tag">Corporate</span><span class="tag">Groups</span></div>
+</div>
+
+<div class="branch c-pink">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🤝</span>
+<h3>Networking Groups</h3>
+<p>FB Groups, BNI-style networking, local business associations.</p>
+<div class="tags"><span class="tag">FB Groups</span><span class="tag">BNI</span><span class="tag">Local Biz</span></div>
+</div>
+
+<div class="branch c-green">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🐕</span>
+<h3>Bark</h3>
+<p>Lead generation marketplace for local service providers.</p>
+<div class="tags"><span class="tag">Marketplace</span><span class="tag">Leads</span></div>
+</div>
+
+<div class="branch c-blue">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">💍</span>
+<h3>Zola / The Knot</h3>
+<p>Wedding marketplace listings for catering services.</p>
+<div class="tags"><span class="tag">Weddings</span><span class="tag">Marketplace</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">📺</span>
+<h3>Internet TV / Vlog</h3>
+<p>Long-form video content, cooking shows, event coverage.</p>
+<div class="tags"><span class="tag">Video</span><span class="tag">Shows</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">🎓</span>
+<h3>Webinar: How to Plan an Event</h3>
+<p>Educational content that positions Compenso as the expert — leads funnel into booking.</p>
+<div class="tags"><span class="tag">Education</span><span class="tag">Lead Gen</span><span class="tag">Authority</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">📰</span>
+<h3>Compenso Partner Magazine</h3>
+<p>Digital/print magazine featuring partners, recipes, event spotlights.</p>
+<div class="tags"><span class="tag">Content</span><span class="tag">Partners</span><span class="tag">Brand</span></div>
+</div>
+
+<div class="branch c-pink">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">🚀</span>
+<h3>Growth Partner Program</h3>
+<p>Referral and partnership program with venues, planners, photographers.</p>
+<div class="tags"><span class="tag">Referrals</span><span class="tag">Partners</span><span class="tag">Commission</span></div>
+</div>
+
+<div class="branch c-green">
+<span class="priority active">ACTIVE</span>
+<span class="branch-icon">📋</span>
+<h3>Address/Mailing List</h3>
+<p>Direct mail campaigns, physical mailers, postcards for local reach.</p>
+<div class="tags"><span class="tag">Direct Mail</span><span class="tag">Postcards</span></div>
+</div>
+
+<div class="branch c-blue">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">⭐</span>
+<h3>BBB / Corporate Recs</h3>
+<p>Better Business Bureau listing, corporate recommendation programs.</p>
+<div class="tags"><span class="tag">Trust</span><span class="tag">Corporate</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">📲</span>
+<h3>WhatsApp Groups</h3>
+<p>Community selling, marketing through WhatsApp business groups.</p>
+<div class="tags"><span class="tag">Community</span><span class="tag">Direct</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">✖️</span>
+<h3>X (Twitter)</h3>
+<p>Industry conversations, event announcements, quick engagement.</p>
+<div class="tags"><span class="tag">Social</span><span class="tag">Engagement</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">🎓</span>
+<h3>Marketing & Coach Classes</h3>
+<p>Teaching marketing to other caterers/vendors — positions as industry leader.</p>
+<div class="tags"><span class="tag">Education</span><span class="tag">Authority</span></div>
+</div>
+</div>
+</div>
+
+<!-- ===== NUFO VENTURES ===== -->
+<div class="section" id="nufo">
+<div class="map-title">
+<div class="badge" style="background:rgba(52,211,153,.15);color:var(--green)">NUFO VENTURES</div>
+<h2>NUFO — Business Diversification & Ventures</h2>
+</div>
+
+<div class="hub">
+<div class="hub-circle" style="background:linear-gradient(135deg,#34d399,#84cc16)">NUFO</div>
+</div>
+
+<div class="branches">
+<div class="branch c-green">
+<span class="priority high">HIGH</span>
+<span class="branch-icon">🏛️</span>
+<h3>Government Contracts</h3>
+<p>Federal, state, and local government catering contracts. High-volume, recurring.</p>
+<div class="tags"><span class="tag">Federal</span><span class="tag">State</span><span class="tag">Recurring</span></div>
+</div>
+
+<div class="branch c-blue">
+<span class="priority high">HIGH</span>
+<span class="branch-icon">🏋️</span>
+<h3>Gym / Wellness Biz</h3>
+<p>Leasing, community fitness stations. Rodrigo's passion: boxing, physical training, wellness.</p>
+<div class="tags"><span class="tag">Gym</span><span class="tag">Boxing</span><span class="tag">Wellness</span><span class="tag">Passion</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🥤</span>
+<h3>Bottling Services</h3>
+<p>Custom beverage bottling, branded drinks for events and retail.</p>
+<div class="tags"><span class="tag">Beverages</span><span class="tag">Branded</span><span class="tag">Retail</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🍿</span>
+<h3>Snack Services / Vending</h3>
+<p>Vending machine providers, pre-packaged snacks, chips. Passive income stream.</p>
+<div class="tags"><span class="tag">Vending</span><span class="tag">Passive</span><span class="tag">Snacks</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🏠</span>
+<h3>Properties / Solar</h3>
+<p>Real estate investments, solar energy installations. Long-term wealth building.</p>
+<div class="tags"><span class="tag">Real Estate</span><span class="tag">Solar</span><span class="tag">Investment</span></div>
+</div>
+
+<div class="branch c-pink">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🏪</span>
+<h3>Retail Business</h3>
+<p>Consumer products, mattresses, physical retail locations.</p>
+<div class="tags"><span class="tag">Consumer</span><span class="tag">Retail</span><span class="tag">Products</span></div>
+</div>
+
+<div class="branch c-green">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">💳</span>
+<h3>Credit Repair</h3>
+<p>Credit repair consulting services. High-demand service with recurring revenue.</p>
+<div class="tags"><span class="tag">Financial</span><span class="tag">Consulting</span><span class="tag">Recurring</span></div>
+</div>
+
+<div class="branch c-blue">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">🧹</span>
+<h3>Laundry / Soap Biz</h3>
+<p>Laundromat locations, soap/supplies business. Subscriber model.</p>
+<div class="tags"><span class="tag">Laundromat</span><span class="tag">Subscribers</span><span class="tag">Supplies</span></div>
+</div>
+
+<div class="branch c-orange">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">📦</span>
+<h3>Shipping / Logistics</h3>
+<p>TJ Shipping, visual competition analysis, logistics services.</p>
+<div class="tags"><span class="tag">Shipping</span><span class="tag">Logistics</span></div>
+</div>
+
+<div class="branch c-purple">
+<span class="priority high">HIGH</span>
+<span class="branch-icon">👥</span>
+<h3>Staffing / Recruiting</h3>
+<p>Zenthia / Emily Stiff recruiting. Staff providers, capitalize on HR needs.</p>
+<div class="tags"><span class="tag">Recruiting</span><span class="tag">HR</span><span class="tag">Staffing</span></div>
+</div>
+
+<div class="branch c-cyan">
+<span class="priority low">PLANNED</span>
+<span class="branch-icon">📊</span>
+<h3>Consulting / Flagging</h3>
+<p>Business consulting services, compliance, and operational auditing.</p>
+<div class="tags"><span class="tag">Consulting</span><span class="tag">Compliance</span></div>
+</div>
+
+<div class="branch c-pink">
+<span class="priority med">MEDIUM</span>
+<span class="branch-icon">🛒</span>
+<h3>Sales Leads Platform</h3>
+<p>Selling qualified leads to other businesses. Data-driven lead gen.</p>
+<div class="tags"><span class="tag">Lead Gen</span><span class="tag">B2B</span><span class="tag">Data</span></div>
+</div>
+</div>
+
+<div style="margin-top:32px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:16px">
+<h3 style="margin-bottom:8px">🔥 Rodrigo's Passion Zone</h3>
+<p style="color:var(--dim)">Gym · Boxing · Physical Training · Wellness · Offline Learning for Households · Side Financing</p>
+<p style="margin-top:8px;color:var(--green);font-weight:600">💡 Insight: The wellness angle could integrate with Comeketo's healthy meal prep / corporate wellness catering</p>
+</div>
+</div>
+
+<!-- ===== REVENUE CENTERS ===== -->
+<div class="section" id="revenue">
+<div class="map-title">
+<div class="badge" style="background:rgba(167,139,250,.15);color:var(--purple)">REVENUE / PROMOTION CENTERS</div>
+<h2>Compenso Cristina — Revenue Streams & Products</h2>
+</div>
+
+<div class="hub">
+<div class="hub-circle" style="background:linear-gradient(135deg,#a78bfa,#f472b6)">COMPENSO<br>CRISTINA</div>
+</div>
+
+<h3 style="text-align:center;margin:24px 0 16px;color:var(--purple)">📚 Product Publishing</h3>
+<div class="branches">
+<div class="branch c-purple"><span class="branch-icon">🧠</span><h3>AI Prompts</h3><p>AI prompt libraries, templates, courses</p><div class="tags"><span class="tag">Digital</span><span class="tag">Scalable</span></div></div>
+<div class="branch c-blue"><span class="branch-icon">🏠</span><h3>Property Maintenance & Repair</h3><p>Content, guides, service referrals</p><div class="tags"><span class="tag">Content</span><span class="tag">Referrals</span></div></div>
+<div class="branch c-green"><span class="branch-icon">🎉</span><h3>Events</h3><p>Event planning content, coordination services</p><div class="tags"><span class="tag">Services</span><span class="tag">Content</span></div></div>
+<div class="branch c-orange"><span class="branch-icon">💰</span><h3>Financial Literacy</h3><p>FinLit courses, coupons, discounts & steals</p><div class="tags"><span class="tag">Education</span><span class="tag">Deals</span></div></div>
+<div class="branch c-pink"><span class="branch-icon">₿</span><h3>Crypto News</h3><p>Crypto updates, investment education</p><div class="tags"><span class="tag">News</span><span class="tag">Education</span></div></div>
+<div class="branch c-cyan"><span class="branch-icon">🌿</span><h3>CBD Experts</h3><p>CBD product expertise, content, affiliate</p><div class="tags"><span class="tag">Affiliate</span><span class="tag">Products</span></div></div>
+<div class="branch c-purple"><span class="branch-icon">💆</span><h3>Self Care</h3><p>Wellness, self-care content and products</p><div class="tags"><span class="tag">Wellness</span><span class="tag">Products</span></div></div>
+<div class="branch c-blue"><span class="branch-icon">🔄</span><h3>Reselling</h3><p>Product reselling, arbitrage, marketplace</p><div class="tags"><span class="tag">Arbitrage</span><span class="tag">Marketplace</span></div></div>
+<div class="branch c-green"><span class="branch-icon">⛪</span><h3>Black Church</h3><p>Community outreach, church partnerships</p><div class="tags"><span class="tag">Community</span><span class="tag">Partnerships</span></div></div>
+<div class="branch c-orange"><span class="branch-icon">🔄</span><h3>Barter Network</h3><p>Service/product exchange network</p><div class="tags"><span class="tag">Exchange</span><span class="tag">Network</span></div></div>
+<div class="branch c-pink"><span class="branch-icon">🚚</span><h3>Movers</h3><p>Moving services, referral partnerships</p><div class="tags"><span class="tag">Services</span><span class="tag">Referrals</span></div></div>
+<div class="branch c-cyan"><span class="branch-icon">🏘️</span><h3>Community Planning</h3><p>Community planning expertise, housing policy</p><div class="tags"><span class="tag">Policy</span><span class="tag">Planning</span></div></div>
+</div>
+
+<h3 style="text-align:center;margin:32px 0 16px;color:var(--pink)">💰 Direct Revenue Streams</h3>
+<div class="branches">
+<div class="branch c-pink"><span class="priority high">HIGH</span><span class="branch-icon">🎓</span><h3>Courses & Coaching</h3><p>Online courses, 1-on-1 coaching, group programs</p><div class="tags"><span class="tag">Recurring</span><span class="tag">Scalable</span><span class="tag">Digital</span></div></div>
+<div class="branch c-purple"><span class="priority high">HIGH</span><span class="branch-icon">📖</span><h3>Books & Journals</h3><p>Published books, branded journals, digital downloads</p><div class="tags"><span class="tag">Passive</span><span class="tag">Print</span><span class="tag">Digital</span></div></div>
+<div class="branch c-blue"><span class="priority high">HIGH</span><span class="branch-icon">💻</span><h3>Contract Services</h3><p>Web development, SEO, advertising design, consulting</p><div class="tags"><span class="tag">B2B</span><span class="tag">Services</span><span class="tag">Recurring</span></div></div>
+<div class="branch c-green"><span class="priority med">MEDIUM</span><span class="branch-icon">🏪</span><h3>B2B Rentals</h3><p>Event lounges, service stores, equipment rental</p><div class="tags"><span class="tag">Rental</span><span class="tag">Events</span><span class="tag">Equipment</span></div></div>
+<div class="branch c-orange"><span class="priority med">MEDIUM</span><span class="branch-icon">👕</span><h3>Merch & Products</h3><p>Branded merchandise, service stores (e.g. Relaxy)</p><div class="tags"><span class="tag">Merch</span><span class="tag">Brand</span><span class="tag">Physical</span></div></div>
+<div class="branch c-cyan"><span class="priority med">MEDIUM</span><span class="branch-icon">🖨️</span><h3>Signage & Vending</h3><p>Physical signage production, vending machine network</p><div class="tags"><span class="tag">Physical</span><span class="tag">Passive</span></div></div>
+<div class="branch c-pink"><span class="priority active">ACTIVE</span><span class="branch-icon">🤝</span><h3>Referral Partners</h3><p>Commission-based referral network</p><div class="tags"><span class="tag">Referrals</span><span class="tag">Commission</span><span class="tag">Network</span></div></div>
+<div class="branch c-purple"><span class="priority active">ACTIVE</span><span class="branch-icon">🌐</span><h3>Networking & Sponsorships</h3><p>Events, conferences, MREA EXPO, collabs, sponsorships</p><div class="tags"><span class="tag">Events</span><span class="tag">Sponsors</span><span class="tag">Collabs</span></div></div>
+</div>
+</div>
+
+<!-- ===== TEAM STRUCTURE ===== -->
+<div class="section" id="team">
+<div class="map-title">
+<div class="badge" style="background:rgba(244,114,182,.15);color:var(--pink)">ORGANIZATIONAL STRUCTURE</div>
+<h2>Team & Operations</h2>
+</div>
+
+<div class="org-row">
+<div class="org-card" style="border-color:var(--accent)"><h4>🎯 CEO / Execs</h4><p>Strategic Direction</p></div>
+</div>
+<div class="org-line"></div>
+<div class="org-row">
+<div class="org-card" style="border-color:var(--green)"><h4>💰 CFO / COO</h4><p>Finance & Operations</p></div>
+<div class="org-card" style="border-color:var(--purple)"><h4>📢 Marketing</h4><p>All channels</p></div>
+<div class="org-card" style="border-color:var(--orange)"><h4>⚙️ Prod Ops</h4><p>Production</p></div>
+<div class="org-card" style="border-color:var(--pink)"><h4>📋 Coord Comms</h4><p>Communications</p></div>
+</div>
+<div class="org-line"></div>
+<div class="org-row">
+<div class="org-card"><h4>🎨 Graphics Team</h4><p>Design & Content</p></div>
+<div class="org-card"><h4>💆 Spa / Fitness</h4><p>Wellness Division</p></div>
+<div class="org-card"><h4>📊 Manage Ops</h4><p>Daily Operations</p></div>
+<div class="org-card"><h4>🎓 Interns</h4><p>Pipeline & Training</p></div>
+</div>
+
+<div style="margin-top:40px;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-align:center">
+<h3 style="margin-bottom:12px">🚀 The Vision</h3>
+<p style="color:var(--dim);line-height:1.8;max-width:700px;margin:0 auto">
+From catering to empire. Compenso/Comeketo isn't just food — it's a <strong style="color:var(--green)">full ecosystem</strong>: marketing machine, diversified ventures, multiple revenue streams, and a team structure built to scale. The mindmap shows a founder thinking in <strong style="color:var(--accent)">systems, not services</strong>.
+</p>
+<p style="margin-top:16px;font-size:.85rem;color:var(--dim)">
+<em>"How to hit BUY mode in Business"</em> — Rodrigo Souza
+</p>
+</div>
+</div>
+
+</div>
+
+<footer class="footer">
+<p>Built with 🔥 by <span>Raw AI Business Solutions</span> · Strategic visualization for Compenso / Comeketo</p>
+</footer>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
