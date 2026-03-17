@@ -425,8 +425,10 @@ img{max-width:100%;display:block}
 .dual-path{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px;max-width:680px}
 @media(max-width:600px){.dual-path{grid-template-columns:1fr;gap:16px}}
 .hero-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;max-width:960px}
-@media(max-width:900px){.hero-cards-grid{grid-template-columns:1fr 1fr;gap:12px}}
-@media(max-width:480px){.hero-cards-grid{grid-template-columns:1fr;gap:10px}}
+.hero-cards-grid.hero-cards-5{grid-template-columns:repeat(5,1fr);max-width:1100px}
+@media(max-width:1024px){.hero-cards-grid.hero-cards-5{grid-template-columns:repeat(3,1fr);gap:12px}}
+@media(max-width:768px){.hero-cards-grid,.hero-cards-grid.hero-cards-5{grid-template-columns:1fr 1fr;gap:12px}}
+@media(max-width:480px){.hero-cards-grid,.hero-cards-grid.hero-cards-5{grid-template-columns:1fr;gap:10px}}
 @media(max-width:768px){[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}}
 .dual-path-card{background:rgba(15,26,46,.85);border:2px solid rgba(211,47,47,.35);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block;backdrop-filter:blur(10px)}
 .dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(211,47,47,.08),transparent);opacity:0;transition:var(--transition)}
@@ -681,7 +683,7 @@ img{max-width:100%;display:block}
 <h1 class="hero-content-anim">Top Imobiliária<br><span>Especialistas em Imóveis<br>em Águas Claras – DF</span></h1>
 <p class="hero-sub hero-content-anim" style="margin:0 auto 36px;text-align:center;">Seu imóvel nas mãos de quem entende. Há mais de 34 anos conectando proprietários e inquilinos com excelência, segurança e aluguel protegido com garantia locatícia.</p>
 
-<div class="hero-cards-grid hero-content-anim">
+<div class="hero-cards-grid hero-cards-5 hero-content-anim">
 <a href="#imoveis" class="dual-path-card" onclick="filterProperties('sale')">
 <span class="dp-emoji">🏠</span>
 <div class="dp-title">COMPRAR IMÓVEL</div>
@@ -701,6 +703,11 @@ img{max-width:100%;display:block}
 <span class="dp-emoji">🧮</span>
 <div class="dp-title" style="color:#2E7D32">CONSÓRCIO IMOBILIÁRIO</div>
 <div class="dp-sub">Compare com financiamento e veja quanto você economiza — sem juros</div>
+</a>
+<a href="#indique" class="dual-path-card" style="border-color:rgba(255,152,0,.4);background:linear-gradient(135deg,rgba(255,152,0,.1),rgba(245,124,0,.05))">
+<span class="dp-emoji">🎁</span>
+<div class="dp-title" style="color:#FF9800">INDIQUE E GANHE</div>
+<div class="dp-sub">Indique alguém e ganhe recompensa quando o negócio for fechado</div>
 </a>
 </div>
 
