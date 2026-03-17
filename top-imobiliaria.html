@@ -494,6 +494,52 @@ img{max-width:100%;display:block}
 @keyframes pulseGlow{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.3)}50%{box-shadow:0 4px 30px rgba(37,211,102,.6),0 0 50px rgba(37,211,102,.2)}}
 .sim-result .btn-whatsapp{animation:pulseGlow 2s ease-in-out 1s infinite}
 
+/* LEAD CAPTURE FORM */
+.lead-capture-form{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .6s cubic-bezier(.4,0,.2,1),opacity .5s ease .1s,margin .4s ease;
+  margin-top:0;
+}
+.lead-capture-form.show{
+  max-height:600px;opacity:1;margin-top:24px;
+}
+.lead-capture-inner{
+  background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:32px;
+}
+.lead-capture-inner h4{
+  font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.3;
+}
+.lead-capture-inner .lc-sub{
+  font-size:.85rem;color:var(--gray-600);margin-bottom:20px;
+}
+.lead-capture-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;
+}
+@media(max-width:600px){.lead-capture-grid{grid-template-columns:1fr}}
+.lead-capture-grid label{display:block;font-size:.75rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.lead-capture-grid input,.lead-capture-grid select{
+  width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);
+  font-family:inherit;font-size:.9rem;color:var(--gray-800);background:var(--white);outline:none;transition:var(--transition);
+}
+.lead-capture-grid input:focus,.lead-capture-grid select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(211,47,47,.1)}
+.lead-capture-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.btn-lead-submit{
+  flex:1;min-width:200px;padding:14px 24px;border-radius:var(--radius-sm);border:none;
+  background:var(--navy);color:var(--white);font-family:inherit;font-size:.95rem;font-weight:700;
+  cursor:pointer;transition:var(--transition);
+}
+.btn-lead-submit:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,42,74,.3)}
+.btn-lead-wa{
+  flex:1;min-width:180px;padding:14px 24px;border-radius:var(--radius-sm);border:none;
+  background:linear-gradient(135deg,#25D366,#128C7E);color:var(--white);font-family:inherit;
+  font-size:.95rem;font-weight:700;cursor:pointer;transition:var(--transition);
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+}
+.btn-lead-wa:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,.3)}
+.lead-capture-inner .lc-optional{
+  font-size:.78rem;color:var(--gray-300);text-align:center;font-style:italic;
+}
+
 /* POWERED-BY SECTION */
 .powered-section{padding:40px 0;text-align:center;background:var(--gray-50);border-top:1px solid var(--gray-100)}
 .powered-section p{font-size:.9rem;color:var(--gray-600);line-height:1.8;margin:0}
@@ -1283,12 +1329,66 @@ Saiba Mais Sobre Garantias Locatícias
 <div class="est-label">Estimativa de Aluguel Mensal</div>
 <div class="est-value" id="simValor">R$ 0 — R$ 0 /mês</div>
 <p class="est-cta">Quer uma avaliação profissional gratuita e personalizada?</p>
-<a href="https://wa.me/556130424344?text=Olá!%20Usei%20o%20simulador%20e%20gostaria%20de%20uma%20avaliação%20gratuita%20de%20aluguel%20do%20meu%20imóvel." target="_blank">
+<a href="https://wa.me/556130424344?text=Olá,%20acabei%20de%20fazer%20uma%20simulação%20de%20aluguel%20no%20site%20e%20gostaria%20de%20uma%20avaliação%20mais%20precisa." target="_blank">
 <button class="btn-whatsapp" style="font-size:.9rem;padding:14px 28px">
 <svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 Quero Avaliação Gratuita
 </button>
 </a>
+</div>
+
+<!-- Lead Capture Form - Aluguel -->
+<div class="lead-capture-form" id="leadFormAluguel">
+<div class="lead-capture-inner">
+<h4>📋 Quer saber o valor exato do seu imóvel? Receba uma avaliação completa</h4>
+<p class="lc-sub">Preencha seus dados e nossa equipe entrará em contato com uma avaliação personalizada.</p>
+<form action="https://formsubmit.co/redetopdf@gmail.com" method="POST" id="leadFormAluguelForm">
+<input type="hidden" name="_subject" value="Novo Lead Top Imobiliária — Avaliação de Locação">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="lead_type" value="Avaliação de Locação">
+<input type="hidden" name="sim_tipo" id="leadAluguelTipo">
+<input type="hidden" name="sim_bairro" id="leadAluguelBairro">
+<input type="hidden" name="sim_quartos" id="leadAluguelQuartos">
+<input type="hidden" name="sim_area" id="leadAluguelArea">
+<input type="hidden" name="sim_resultado" id="leadAluguelResultado">
+<div class="lead-capture-grid">
+<div>
+<label>Nome</label>
+<input type="text" name="nome" placeholder="Seu nome">
+</div>
+<div>
+<label>Telefone</label>
+<input type="tel" name="telefone" placeholder="(61) 99999-9999">
+</div>
+<div>
+<label>Tipo de Imóvel</label>
+<input type="text" name="tipo_imovel" id="leadAluguelTipoDisplay" readonly style="background:var(--gray-50)">
+</div>
+<div>
+<label>Região</label>
+<input type="text" name="regiao" id="leadAluguelRegiaoDisplay" readonly style="background:var(--gray-50)">
+</div>
+<div style="grid-column:1/-1">
+<label>Objetivo</label>
+<select name="objetivo">
+<option value="">Selecione...</option>
+<option value="Alugar">Alugar</option>
+<option value="Vender">Vender</option>
+<option value="Comprar">Comprar</option>
+</select>
+</div>
+</div>
+<div class="lead-capture-actions">
+<button type="submit" class="btn-lead-submit">📩 Receber avaliação completa</button>
+<a href="#" id="leadAluguelWaBtn" target="_blank" class="btn-lead-wa">
+<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Falar no WhatsApp
+</a>
+</div>
+<p class="lc-optional">(Opcional — seus dados nos ajudam a preparar uma avaliação mais precisa)</p>
+</form>
+</div>
 </div>
 </div>
 
@@ -1378,12 +1478,66 @@ Quero Avaliação Gratuita
 <div class="est-label">Estimativa de Valor para Venda</div>
 <div class="est-value" id="simValorVenda">R$ 0 — R$ 0</div>
 <p class="est-cta">Quer uma avaliação profissional gratuita e personalizada?</p>
-<a href="https://wa.me/556130424344?text=Olá!%20Usei%20o%20simulador%20de%20venda%20e%20gostaria%20de%20uma%20avaliação%20gratuita%20do%20meu%20imóvel." target="_blank">
+<a href="https://wa.me/556130424344?text=Olá,%20acabei%20de%20fazer%20uma%20simulação%20de%20venda%20no%20site%20e%20gostaria%20de%20avaliar%20meu%20imóvel." target="_blank">
 <button class="btn-whatsapp" style="font-size:.9rem;padding:14px 28px">
 <svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 Quero Avaliação Gratuita para Venda
 </button>
 </a>
+</div>
+
+<!-- Lead Capture Form - Venda -->
+<div class="lead-capture-form" id="leadFormVenda">
+<div class="lead-capture-inner">
+<h4>📋 Quer saber o valor exato do seu imóvel? Receba uma avaliação completa</h4>
+<p class="lc-sub">Preencha seus dados e nossa equipe entrará em contato com uma avaliação personalizada.</p>
+<form action="https://formsubmit.co/redetopdf@gmail.com" method="POST" id="leadFormVendaForm">
+<input type="hidden" name="_subject" value="Novo Lead Top Imobiliária — Avaliação de Venda">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="lead_type" value="Avaliação de Venda">
+<input type="hidden" name="sim_tipo" id="leadVendaTipo">
+<input type="hidden" name="sim_bairro" id="leadVendaBairro">
+<input type="hidden" name="sim_quartos" id="leadVendaQuartos">
+<input type="hidden" name="sim_area" id="leadVendaArea">
+<input type="hidden" name="sim_resultado" id="leadVendaResultado">
+<div class="lead-capture-grid">
+<div>
+<label>Nome</label>
+<input type="text" name="nome" placeholder="Seu nome">
+</div>
+<div>
+<label>Telefone</label>
+<input type="tel" name="telefone" placeholder="(61) 99999-9999">
+</div>
+<div>
+<label>Tipo de Imóvel</label>
+<input type="text" name="tipo_imovel" id="leadVendaTipoDisplay" readonly style="background:var(--gray-50)">
+</div>
+<div>
+<label>Região</label>
+<input type="text" name="regiao" id="leadVendaRegiaoDisplay" readonly style="background:var(--gray-50)">
+</div>
+<div style="grid-column:1/-1">
+<label>Objetivo</label>
+<select name="objetivo">
+<option value="">Selecione...</option>
+<option value="Alugar">Alugar</option>
+<option value="Vender" selected>Vender</option>
+<option value="Comprar">Comprar</option>
+</select>
+</div>
+</div>
+<div class="lead-capture-actions">
+<button type="submit" class="btn-lead-submit">📩 Receber avaliação completa</button>
+<a href="#" id="leadVendaWaBtn" target="_blank" class="btn-lead-wa">
+<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Falar no WhatsApp
+</a>
+</div>
+<p class="lc-optional">(Opcional — seus dados nos ajudam a preparar uma avaliação mais precisa)</p>
+</form>
+</div>
 </div>
 </div>
 
@@ -2470,12 +2624,28 @@ function calcularAluguel() {
   maxVal = Math.round(maxVal / 100) * 100;
 
   const fmt = (v) => v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
-  document.getElementById('simValor').textContent = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)} /mês`;
+  var resultadoTexto = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)} /mês`;
+  document.getElementById('simValor').textContent = resultadoTexto;
   const result = document.getElementById('simResult');
   result.classList.remove('show');
   void result.offsetWidth; // trigger reflow for animation
   result.classList.add('show');
   result.style.display = 'block';
+
+  // Populate and show lead capture form
+  var tipoEl = document.getElementById('simTipo');
+  var bairroEl = document.getElementById('simBairro');
+  var tipoText = tipoEl.options[tipoEl.selectedIndex].text;
+  var bairroText = bairroEl.options[bairroEl.selectedIndex].text;
+  document.getElementById('leadAluguelTipo').value = tipoText;
+  document.getElementById('leadAluguelBairro').value = bairroText;
+  document.getElementById('leadAluguelQuartos').value = document.getElementById('simQuartos').value + ' quartos';
+  document.getElementById('leadAluguelArea').value = area + 'm²';
+  document.getElementById('leadAluguelResultado').value = resultadoTexto;
+  document.getElementById('leadAluguelTipoDisplay').value = tipoText;
+  document.getElementById('leadAluguelRegiaoDisplay').value = bairroText;
+  document.getElementById('leadAluguelWaBtn').href = 'https://wa.me/556130424344?text=' + encodeURIComponent('Olá, acabei de fazer uma simulação de aluguel no site e gostaria de uma avaliação mais precisa.');
+  setTimeout(function(){ document.getElementById('leadFormAluguel').classList.add('show'); }, 400);
 }
 
 // Show/hide simulators
@@ -2574,12 +2744,28 @@ function calcularVenda() {
   maxVal = Math.round(maxVal / 5000) * 5000;
 
   const fmt = (v) => v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
-  document.getElementById('simValorVenda').textContent = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)}`;
+  var resultadoTexto = `R$ ${fmt(minVal)} — R$ ${fmt(maxVal)}`;
+  document.getElementById('simValorVenda').textContent = resultadoTexto;
   const result = document.getElementById('simResultVenda');
   result.classList.remove('show');
   void result.offsetWidth; // trigger reflow for animation
   result.classList.add('show');
   result.style.display = 'block';
+
+  // Populate and show lead capture form
+  var tipoEl = document.getElementById('simTipoVenda');
+  var bairroEl = document.getElementById('simBairroVenda');
+  var tipoText = tipoEl.options[tipoEl.selectedIndex].text;
+  var bairroText = bairroEl.options[bairroEl.selectedIndex].text;
+  document.getElementById('leadVendaTipo').value = tipoText;
+  document.getElementById('leadVendaBairro').value = bairroText;
+  document.getElementById('leadVendaQuartos').value = document.getElementById('simQuartosVenda').value + ' quartos';
+  document.getElementById('leadVendaArea').value = area + 'm²';
+  document.getElementById('leadVendaResultado').value = resultadoTexto;
+  document.getElementById('leadVendaTipoDisplay').value = tipoText;
+  document.getElementById('leadVendaRegiaoDisplay').value = bairroText;
+  document.getElementById('leadVendaWaBtn').href = 'https://wa.me/556130424344?text=' + encodeURIComponent('Olá, acabei de fazer uma simulação de venda no site e gostaria de avaliar meu imóvel.');
+  setTimeout(function(){ document.getElementById('leadFormVenda').classList.add('show'); }, 400);
 }
 
 // Filter properties by type (for nav Comprar/Alugar)
