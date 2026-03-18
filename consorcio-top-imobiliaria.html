@@ -233,13 +233,17 @@ body{font-family:'Inter',sans-serif;color:var(--gray-800);background:var(--white
 </div>
 <div class="sim-field">
 <label>Prazo (meses)</label>
-<select id="finPrazo">
+<select id="finPrazo" onchange="toggleCustomPrazo(this)">
 <option value="120">120 meses (10 anos)</option>
 <option value="180">180 meses (15 anos)</option>
 <option value="240">240 meses (20 anos)</option>
 <option value="300">300 meses (25 anos)</option>
 <option value="360" selected>360 meses (30 anos)</option>
+<option value="420">420 meses (35 anos)</option>
+<option value="custom">Outro prazo...</option>
 </select>
+<input type="number" id="finPrazoCustom" placeholder="Ex: 400" min="12" max="480" style="display:none;margin-top:8px" oninput="updateCustomPrazo()">
+<span id="finPrazoCustomHint" style="display:none;font-size:.75rem;color:var(--gray-600)">Insira o número de meses desejado</span>
 </div>
 <div class="sim-field">
 <label>Taxa de Juros Anual (%)</label>
@@ -288,9 +292,9 @@ Ferramenta desenvolvida pela <a href="https://rawdre.github.io/ai-consulting/" t
 <span style="font-size:.75rem;color:var(--gray-600)">Média do mercado: 15% a 25% sobre o valor da carta</span>
 </div>
 <div class="sim-field">
-<label>Lance (%) — opcional</label>
+<label>Entrada / Lance (%) — opcional</label>
 <input type="number" id="conLance" value="0" step="5" min="0" max="50">
-<span style="font-size:.75rem;color:var(--gray-600)">Antecipa contemplação. Reduz parcelas restantes.</span>
+<span style="font-size:.75rem;color:var(--gray-600)">Informe o valor de entrada, lance ou ágio</span>
 </div>
 <button class="sim-btn green" onclick="calcConsorcio()">🔍 Calcular Consórcio</button>
 
@@ -300,7 +304,7 @@ Ferramenta desenvolvida pela <a href="https://rawdre.github.io/ai-consulting/" t
 <div class="detail">
 <div>🏠 Carta de crédito: <strong id="conCarta">—</strong></div>
 <div>📋 Taxa administrativa: <strong id="conTaxaTotal">—</strong></div>
-<div>🎯 Lance: <strong id="conLanceVal">—</strong></div>
+<div>🎯 Entrada / Lance: <strong id="conLanceVal">—</strong></div>
 <div>💵 Total pago: <strong id="conTotalPago">—</strong></div>
 </div>
 </div>
@@ -513,12 +517,28 @@ function fmtBRL(n) {
   return 'R$ ' + n.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
+// Toggle custom prazo field
+function toggleCustomPrazo(sel) {
+  const customInput = document.getElementById('finPrazoCustom');
+  const customHint = document.getElementById('finPrazoCustomHint');
+  if (sel.value === 'custom') {
+    customInput.style.display = 'block';
+    customHint.style.display = 'block';
+    customInput.focus();
+  } else {
+    customInput.style.display = 'none';
+    customHint.style.display = 'none';
+  }
+}
+
 // FINANCIAMENTO (Price/SAC simplified)
 let finData = null;
 function calcFinanciamento() {
   const valor = parseCurrency(document.getElementById('finValor').value);
   const entrada = parseCurrency(document.getElementById('finEntrada').value);
-  const prazo = parseInt(document.getElementById('finPrazo').value);
+  const prazoSelect = document.getElementById('finPrazo').value;
+  const prazo = prazoSelect === 'custom' ? parseInt(document.getElementById('finPrazoCustom').value) : parseInt(prazoSelect);
+  if (!prazo || prazo < 12) { alert('Informe um prazo válido (mínimo 12 meses).'); return; }
   const jurosAnual = parseFloat(document.getElementById('finJuros').value);
 
   if (!valor || valor <= entrada) { alert('Preencha o valor do imóvel corretamente.'); return; }
