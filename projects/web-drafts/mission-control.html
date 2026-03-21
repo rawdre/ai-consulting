@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAW AI Mission Control</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0f;
+            font-family: 'Rajdhani', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Background particles canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        /* Glass morphism base */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.15);
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #00f0ff, #ff00aa, #00ff88, #ffaa00);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #00f0ff;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .live-time {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #00ff88;
+        }
+        
+        /* Scorecards */
+        .scorecards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .scorecard {
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .scorecard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 240, 255, 0.3);
+        }
+        
+        .scorecard-title {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .scorecard-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scorecard-progress {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 2s ease;
+            animation: progressPulse 2s ease-in-out infinite alternate;
+        }
+        
+        /* Agent Grid */
+        .agents-container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .agent-card {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .agent-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        
+        .avatar-ring {
+            width: 100%;
+            height: 100%;
+            border: 3px solid;
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .avatar-inner {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .agent-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .agent-role {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        
+        .agent-status {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            min-height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-left: 0.5rem;
+        }
+        
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: typingDot 1.4s ease-in-out infinite both;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.16s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.32s; }
+        
+        /* Activity Feed */
+        .activity-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #00f0ff;
+        }
+        
+        .activity-feed {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid #00f0ff;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateX(-100px);
+            animation: slideInActivity 0.6s ease forwards;
+        }
+        
+        .activity-time {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            min-width: 60px;
+            margin-right: 1rem;
+        }
+        
+        .activity-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        
+        .footer a {
+            color: #00f0ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+            text-shadow: 0 0 10px #00f0ff;
+        }
+        
+        /* Animations */
+        @keyframes titleGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes progressPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes typingDot {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slideInActivity {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Color classes */
+        .cyan { color: #00f0ff; border-color: #00f0ff; }
+        .magenta { color: #ff00aa; border-color: #ff00aa; }
+        .green { color: #00ff88; border-color: #00ff88; }
+        .amber { color: #ffaa00; border-color: #ffaa00; }
+        .purple { color: #aa44ff; border-color: #aa44ff; }
+        
+        .cyan-bg { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05)); }
+        .magenta-bg { background: linear-gradient(135deg, rgba(255, 0, 170, 0.2), rgba(255, 0, 170, 0.05)); }
+        .green-bg { background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.05)); }
+        .amber-bg { background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 170, 0, 0.05)); }
+        .purple-bg { background: linear-gradient(135deg, rgba(170, 68, 255, 0.2), rgba(170, 68, 255, 0.05)); }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .live-time {
+                position: static;
+                margin: 1rem 0;
+                display: inline-block;
+            }
+            
+            .agents-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .scorecards {
+                grid-template-columns: 1fr;
+                margin: 1rem;
+            }
+            
+            .activity-feed {
+                height: 300px;
+            }
+        }
+        
+        /* Custom scrollbar */
+        .activity-feed::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .activity-feed::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .activity-feed::-webkit-scrollbar-thumb {
+            background: #00f0ff;
+            border-radius: 3px;
+        }
+        
+        .activity-feed::-webkit-scrollbar-thumb:hover {
+            background: #00d4dd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background particles canvas -->
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Header -->
+    <header class="header">
+        <h1 class="main-title">RAW AI SUCCESS TEAM</h1>
+        <div class="subtitle">Mission Control — Live Operations Dashboard</div>
+        <div class="live-time" id="live-time"></div>
+    </header>
+    
+    <!-- Scorecards -->
+    <section class="scorecards">
+        <div class="scorecard glass">
+            <div class="scorecard-title">Sites Vendidos</div>
+            <div class="scorecard-value cyan" data-target="1">0</div>
+            <div class="scorecard-progress">
+                <div class="progress-fill cyan-bg" style="width: 10%"></div>
+            </div>
+        </div>
+        
+        <div class="scorecard glass">
+            <div class="scorecard-title">Pipeline Comeketo</div>
+            <div class="scorecard-value green">$<span data-target="36505">0</span></div>
+        </div>
+        
+        <div class="scorecard glass">
+            <div class="scorecard-title">Expo Leads Hoje</div>
+            <div class="scorecard-value amber" data-target="24">0</div>
+        </div>
+        
+        <div class="scorecard glass">
+            <div class="scorecard-title">Tasks Completas</div>
+            <div class="scorecard-value purple" data-target="47">0</div>
+        </div>
+    </section>
+    
+    <!-- Agents Grid -->
+    <section class="agents-container">
+        <div class="agents-grid">
+            <!-- Rawbot -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring cyan"></div>
+                    <div class="avatar-inner">🤖</div>
+                </div>
+                <div class="agent-name cyan">Rawbot</div>
+                <div class="agent-role">Chief of Staff</div>
+                <div class="agent-status cyan" data-agent="rawbot">
+                    Monitoring CRM inbox...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Ogilvy -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring magenta"></div>
+                    <div class="avatar-inner">📈</div>
+                </div>
+                <div class="agent-name magenta">Ogilvy</div>
+                <div class="agent-role">Market Strategist</div>
+                <div class="agent-status magenta" data-agent="ogilvy">
+                    Analyzing competitor pricing...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Buffett -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring green"></div>
+                    <div class="avatar-inner">📊</div>
+                </div>
+                <div class="agent-name green">Buffett</div>
+                <div class="agent-role">Financial Analyst</div>
+                <div class="agent-status green" data-agent="buffett">
+                    Projecting Q2 revenue...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Cialdini -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring amber"></div>
+                    <div class="avatar-inner">💰</div>
+                </div>
+                <div class="agent-name amber">Cialdini</div>
+                <div class="agent-role">Sales Architect</div>
+                <div class="agent-status amber" data-agent="cialdini">
+                    Optimizing NEPQ sequences...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Turing -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring purple"></div>
+                    <div class="avatar-inner">🛡️</div>
+                </div>
+                <div class="agent-name purple">Turing</div>
+                <div class="agent-role">Data Intelligence</div>
+                <div class="agent-status purple" data-agent="turing">
+                    Scanning 180 prospects...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Ada -->
+            <div class="agent-card glass">
+                <div class="agent-avatar">
+                    <div class="avatar-ring magenta"></div>
+                    <div class="avatar-inner">🎨</div>
+                </div>
+                <div class="agent-name magenta">Ada</div>
+                <div class="agent-role">Design Engineer</div>
+                <div class="agent-status magenta" data-agent="ada">
+                    Building site template...
+                    <span class="typing-indicator">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Activity Feed -->
+    <section class="activity-section">
+        <h2 class="section-title">Live Activity Feed</h2>
+        <div class="activity-feed glass" id="activity-feed">
+            <!-- Activities will be dynamically added here -->
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Powered by <a href="https://rawdre.github.io/ai-consulting" target="_blank">Raw AI Business Solutions</a></p>
+    </footer>
+    
+    <script>
+        // Particles background
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.connections = [];
+                
+                this.resize();
+                this.createParticles();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            createParticles() {
+                const numParticles = Math.min(100, Math.floor(this.canvas.width * this.canvas.height / 15000));
+                
+                for (let i = 0; i < numParticles; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        size: Math.random() * 2 + 1,
+                        opacity: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Update particles
+                this.particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+                    
+                    // Draw particle
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 240, 255, ${particle.opacity})`;
+                    this.ctx.fill();
+                });
+                
+                // Draw connections
+                this.particles.forEach((particle, i) => {
+                    this.particles.slice(i + 1).forEach(otherParticle => {
+                        const dx = particle.x - otherParticle.x;
+                        const dy = particle.y - otherParticle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(particle.x, particle.y);
+                            this.ctx.lineTo(otherParticle.x, otherParticle.y);
+                            this.ctx.strokeStyle = `rgba(0, 240, 255, ${0.1 * (1 - distance / 100)})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+        
+        // Initialize particles
+        const particleCanvas = document.getElementById('particles-canvas');
+        new ParticleSystem(particleCanvas);
+        
+        // Live time update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('pt-BR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('live-time').textContent = timeString;
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Animate counting numbers
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(start + (target - start) * progress);
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+        
+        // Initialize counters
+        document.querySelectorAll('[data-target]').forEach(element => {
+            const target = parseInt(element.dataset.target);
+            animateCounter(element, target);
+        });
+        
+        // Agent status messages
+        const agentStatuses = {
+            rawbot: [
+                "Monitoring CRM inbox...",
+                "Syncing calendar events...", 
+                "Processing voice notes...",
+                "Updating task priorities...",
+                "Checking email queue..."
+            ],
+            ogilvy: [
+                "Analyzing competitor pricing...",
+                "Researching market trends...",
+                "Studying Sobradinho demographics...",
+                "Analyzing social media engagement...",
+                "Tracking industry keywords..."
+            ],
+            buffett: [
+                "Projecting Q2 revenue...",
+                "Calculating ROI metrics...",
+                "Updating financial forecasts...",
+                "Analyzing expense patterns...",
+                "Reviewing profit margins..."
+            ],
+            cialdini: [
+                "Optimizing NEPQ sequences...",
+                "Drafting follow-up messages...",
+                "Analyzing conversion rates...",
+                "Personalizing outreach scripts...",
+                "Reviewing sales funnels..."
+            ],
+            turing: [
+                "Scanning 180 prospects...",
+                "Mapping lead networks...",
+                "Processing contact data...",
+                "Running predictive models...",
+                "Analyzing behavior patterns..."
+            ],
+            ada: [
+                "Building site template...",
+                "Optimizing UI components...",
+                "Generating design systems...",
+                "Creating visual assets...",
+                "Testing responsive layouts..."
+            ]
+        };
+        
+        // Rotate agent statuses
+        function rotateAgentStatus() {
+            Object.keys(agentStatuses).forEach(agentKey => {
+                const element = document.querySelector(`[data-agent="${agentKey}"]`);
+                const statuses = agentStatuses[agentKey];
+                const currentText = element.textContent.split('\n')[0].trim();
+                
+                let currentIndex = statuses.indexOf(currentText);
+                currentIndex = (currentIndex + 1) % statuses.length;
+                
+                const typingIndicator = element.querySelector('.typing-indicator');
+                element.innerHTML = statuses[currentIndex];
+                element.appendChild(typingIndicator);
+            });
+        }
+        
+        setInterval(rotateAgentStatus, 4000);
+        
+        // Activity feed
+        const activities = [
+            "🤖 Rawbot checked CRM inbox — 0 new messages",
+            "📈 Ogilvy analyzed Sobradinho market — 55% sem site",
+            "💰 Cialdini drafted NEPQ follow-up for Sophie Kroeze",
+            "🎨 Ada generated bike shop template",
+            "📊 Buffett updated March projections — R$16,270 target",
+            "🛡️ Turing mapped 3 walking routes for prospecting",
+            "🤖 Rawbot processed 12 voice notes",
+            "📈 Ogilvy identified 8 competitor weaknesses",
+            "💰 Cialdini optimized email subject lines",
+            "🎨 Ada created responsive landing page",
+            "📊 Buffett calculated quarterly burn rate",
+            "🛡️ Turing updated contact scoring model",
+            "🤖 Rawbot synced Google Calendar events",
+            "📈 Ogilvy researched industry benchmarks",
+            "💰 Cialdini analyzed sales call recordings",
+            "🎨 Ada tested mobile UI components",
+            "📊 Buffett projected cash flow scenarios",
+            "🛡️ Turing processed LinkedIn connections",
+            "🤖 Rawbot organized task priorities",
+            "📈 Ogilvy tracked social media mentions",
+            "💰 Cialdini scheduled follow-up sequences",
+            "🎨 Ada generated brand style guide"
+        ];
+        
+        let activityIndex = 0;
+        
+        function addActivity() {
+            const feedElement = document.getElementById('activity-feed');
+            const activity = activities[activityIndex % activities.length];
+            
+            const activityElement = document.createElement('div');
+            activityElement.className = 'activity-item';
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            activityElement.innerHTML = `
+                <div class="activity-time">${timeString}</div>
+                <div class="activity-text">${activity}</div>
+            `;
+            
+            feedElement.insertBefore(activityElement, feedElement.firstChild);
+            
+            // Remove old activities (keep only last 20)
+            const items = feedElement.querySelectorAll('.activity-item');
+            if (items.length > 20) {
+                items[items.length - 1].remove();
+            }
+            
+            activityIndex++;
+        }
+        
+        // Add initial activities
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => addActivity(), i * 500);
+        }
+        
+        // Continue adding activities
+        setInterval(addActivity, 5000);
+        
+        // Add floating animation to agent cards
+        document.querySelectorAll('.agent-card').forEach((card, index) => {
+            card.style.animation = `float 3s ease-in-out infinite ${index * 0.5}s`;
+        });
+        
+        // Add hover effects with color-based glows
+        document.querySelectorAll('.agent-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const color = card.querySelector('.agent-name').classList[0];
+                const colorMap = {
+                    'cyan': 'rgba(0, 240, 255, 0.3)',
+                    'magenta': 'rgba(255, 0, 170, 0.3)',
+                    'green': 'rgba(0, 255, 136, 0.3)',
+                    'amber': 'rgba(255, 170, 0, 0.3)',
+                    'purple': 'rgba(170, 68, 255, 0.3)'
+                };
+                card.style.boxShadow = `0 15px 50px ${colorMap[color]}`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '';
+            });
+        });
+        
+        // Smooth scroll for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>
