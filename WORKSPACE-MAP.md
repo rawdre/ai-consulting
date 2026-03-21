@@ -4,7 +4,8 @@ Organized by **Rawbot 🔥**
 Date: 2026-03-21
 
 ## Active / Important
-- `ai-consulting/` → canonical Raw AI public site
+- `ai-consulting/` → canonical Raw AI public site source
+- `_publish_ai_consulting/` → actual live publish repo for Raw AI GitHub Pages
 - `christalight-menus/` → draft menu sources and working packet material
 - `clients/` → client notes and related materials
 - `assets/` → reusable assets
