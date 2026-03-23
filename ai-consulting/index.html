@@ -169,6 +169,15 @@ section{padding:100px 0;position:relative;z-index:1}
 .service-card p{color:var(--muted);font-size:.9rem;flex:1;margin-bottom:24px}
 .service-card .btn{width:100%;justify-content:center}
 
+/* CURRENT WORK */
+.current-work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.current-work-card{padding:32px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:.3s;display:flex;flex-direction:column;min-height:100%}
+.current-work-card:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.25);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.current-work-tag{display:inline-flex;align-items:center;gap:8px;width:max-content;padding:7px 14px;border-radius:999px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.2);color:var(--gold);font-size:.8rem;font-weight:700;margin-bottom:18px}
+.current-work-card h3{font-size:1.25rem;font-weight:800;margin-bottom:12px;color:var(--text)}
+.current-work-card p{color:var(--muted);font-size:.95rem;flex:1;margin-bottom:24px}
+.current-work-card .btn{width:100%;justify-content:center}
+
 /* PROOF */
 .proof{background:var(--bg2)}
 .proof-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
@@ -387,6 +396,7 @@ footer a{color:var(--accent)}
       <div class="hero-ctas">
         <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="💬 Talk to André on WhatsApp" data-pt="💬 Fale com André no WhatsApp">💬 Talk to André on WhatsApp</a>
         <a href="mailto:rawandre@gmail.com" class="btn btn-secondary" data-en="📧 Send an Email" data-pt="📧 Enviar um Email">📧 Send an Email</a>
+        <a href="#current-work" class="btn btn-secondary" data-en="🗂️ Current Work" data-pt="🗂️ Trabalhos em Andamento">🗂️ Current Work</a>
       </div>
     </div>
   </div>
@@ -862,6 +872,41 @@ footer a{color:var(--accent)}
         <div class="service-price" data-en="Let's Talk" data-pt="Vamos Conversar">Let's Talk</div>
         <p data-en="Full business automation from A to Z. Custom AI architecture designed for your specific industry, workflow, and goals." data-pt="Automação total do negócio de A a Z. Arquitetura IA personalizada pro seu setor, fluxo de trabalho e objetivos.">Full business automation from A to Z. Custom AI architecture designed for your specific industry, workflow, and goals.</p>
         <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20need%20a%20custom%20AI%20solution" target="_blank" class="btn btn-secondary btn-sm" data-en="Let's Talk →" data-pt="Vamos Conversar →">Let's Talk →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT WORK -->
+<section id="current-work" style="background:linear-gradient(135deg,rgba(255,215,0,.04),rgba(0,212,255,.04));">
+  <div class="container">
+    <div class="section-label reveal" data-en="🗂️ Current Work" data-pt="🗂️ Trabalhos em Andamento">🗂️ Current Work</div>
+    <div class="section-title reveal" data-en="Projects <span class='highlight'>Being Built Right Now</span>" data-pt="Projetos <span class='highlight'>Sendo Construídos Agora</span>">Projects <span class="highlight">Being Built Right Now</span></div>
+    <div class="section-subtitle reveal" data-en="A clean snapshot of live demos, client pages, and active builds inside the Raw AI ecosystem." data-pt="Um retrato limpo dos demos, páginas de clientes e builds ativos dentro do ecossistema Raw AI.">A clean snapshot of live demos, client pages, and active builds inside the Raw AI ecosystem.</div>
+    <div class="current-work-grid">
+      <div class="current-work-card reveal">
+        <div class="current-work-tag">🔥 Active Client Work</div>
+        <h3>Christalight × Comeketo</h3>
+        <p data-en="BBQ-first catering presentation system for Christalight, with executive packet, full presentation, and venue-facing sales flow." data-pt="Sistema de apresentação BBQ-first para a Christalight, com versão executiva, apresentação completa e fluxo comercial para venue.">BBQ-first catering presentation system for Christalight, with executive packet, full presentation, and venue-facing sales flow.</p>
+        <a href="christalight-comeketo.html" class="btn btn-secondary btn-sm" data-en="Open Christalight →" data-pt="Abrir Christalight →">Open Christalight →</a>
+      </div>
+      <div class="current-work-card reveal">
+        <div class="current-work-tag">🏠 Real Estate</div>
+        <h3>Top Imobiliária</h3>
+        <p data-en="Main real estate site/demo restored on the Raw AI homepage so you can jump straight into the Top Imobiliária work again." data-pt="Site/demo principal da imobiliária restaurado na home da Raw AI para você entrar direto no trabalho da Top Imobiliária de novo.">Main real estate site/demo restored on the Raw AI homepage so you can jump straight into the Top Imobiliária work again.</p>
+        <a href="top-imobiliaria.html" class="btn btn-secondary btn-sm" data-en="Open Top Imobiliária →" data-pt="Abrir Top Imobiliária →">Open Top Imobiliária →</a>
+      </div>
+      <div class="current-work-card reveal">
+        <div class="current-work-tag">📄 Proposal</div>
+        <h3>Top Imobiliária Proposal</h3>
+        <p data-en="Proposal page for the Top Imobiliária project, linked back into the main Raw AI experience for quick access during sales conversations." data-pt="Página de proposta do projeto Top Imobiliária, ligada de volta à experiência principal da Raw AI para acesso rápido nas conversas comerciais.">Proposal page for the Top Imobiliária project, linked back into the main Raw AI experience for quick access during sales conversations.</p>
+        <a href="proposta-top-imobiliaria.html" class="btn btn-secondary btn-sm" data-en="Open Proposal →" data-pt="Abrir Proposta →">Open Proposal →</a>
+      </div>
+      <div class="current-work-card reveal">
+        <div class="current-work-tag">🧾 Extra Access</div>
+        <h3>Consórcio Top Imobiliária</h3>
+        <p data-en="Extra supporting page for the Top ecosystem, now exposed from the main site so the whole cluster stays reachable in one place." data-pt="Página complementar do ecossistema Top, agora exposta no site principal para deixar todo o conjunto acessível em um só lugar.">Extra supporting page for the Top ecosystem, now exposed from the main site so the whole cluster stays reachable in one place.</p>
+        <a href="consorcio-top-imobiliaria.html" class="btn btn-secondary btn-sm" data-en="Open Consórcio Page →" data-pt="Abrir Página de Consórcio →">Open Consórcio Page →</a>
       </div>
     </div>
   </div>
