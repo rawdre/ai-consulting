@@ -94,7 +94,7 @@ img{max-width:100%;display:block}
 }
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,rgba(15,26,46,.82) 0%,rgba(27,42,74,.78) 40%,rgba(36,54,86,.72) 100%),url('../assets/top-imobiliaria/hero-aguas-claras-day.jpg') center/cover no-repeat;overflow:hidden;padding:120px 0 80px}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,rgba(15,26,46,.68) 0%,rgba(27,42,74,.60) 40%,rgba(36,54,86,.54) 100%),url('../assets/top-imobiliaria/hero-aguas-claras-day.jpg') 50% center/cover no-repeat;overflow:hidden;padding:120px 0 80px}
 
 .hero.noise-overlay{position:relative}
 
@@ -417,7 +417,8 @@ img{max-width:100%;display:block}
 
 @media(max-width:480px){
 .section{padding:64px 0}
-.hero{padding:100px 0 60px}
+.hero{padding:100px 0 60px;background-position:78% center}
+.hero::before{background:linear-gradient(165deg,rgba(15,26,46,.42) 0%,rgba(27,42,74,.34) 45%,rgba(36,54,86,.28) 100%)}
 .trust-badge .num{font-size:15px}
 .trust-badge .label{font-size:10px}
 }
