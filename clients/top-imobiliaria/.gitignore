@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
+*.log
+
+# Node / build
+node_modules/
+dist/
+build/
+.cache/
+
+# Secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
