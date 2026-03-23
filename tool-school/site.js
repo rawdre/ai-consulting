@@ -5,6 +5,8 @@
   const progressItems = Array.from(document.querySelectorAll("[data-progress-item]"));
   const progressFill = document.querySelector("[data-progress-fill]");
   const progressLabel = document.querySelector("[data-progress-label]");
+  const progressPercent = document.querySelector("[data-progress-percent]");
+  const resetButton = document.querySelector("[data-progress-reset]");
   const tabButtons = Array.from(document.querySelectorAll("[data-tab-button]"));
   const tabPanels = Array.from(document.querySelectorAll("[data-tab-panel]"));
   const langButtons = Array.from(document.querySelectorAll("[data-lang-switch]"));
@@ -74,7 +76,13 @@
     }
 
     if (progressLabel) {
-      progressLabel.textContent = completed + " of " + total + " completed";
+      progressLabel.textContent = completed === total
+        ? "Day complete"
+        : completed + " of " + total + " completed";
+    }
+
+    if (progressPercent) {
+      progressPercent.textContent = percent + "%";
     }
   }
 
@@ -112,6 +120,13 @@
       renderProgress();
     });
   });
+
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      renderProgress();
+    });
+  }
 
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => setActiveTab(button.dataset.tabButton));

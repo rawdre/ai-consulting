@@ -340,21 +340,135 @@
           <p class="lang-pt">O checklist fica salvo no navegador desta máquina.</p>
         </div>
         <div class="glass-card">
-          <h3>
-            <span class="lang-en">Progress</span>
-            <span class="lang-pt">Progresso</span>
-          </h3>
-          <p data-progress-label>0 of 6 completed</p>
+          <div class="progress-tools">
+            <div>
+              <h3>
+                <span class="lang-en">Progress</span>
+                <span class="lang-pt">Progresso</span>
+              </h3>
+              <p data-progress-label>0 of 6 completed</p>
+            </div>
+            <div>
+              <strong data-progress-percent>0%</strong>
+            </div>
+          </div>
           <div class="progress-bar"><div class="progress-fill" data-progress-fill></div></div>
+          <div class="hero-actions" style="margin-top: 14px;">
+            <button class="button secondary" type="button" data-progress-reset>
+              <span class="lang-en">Reset Day</span>
+              <span class="lang-pt">Resetar dia</span>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="check-grid">
-        <article class="check-card"><label for="check-home"><input id="check-home" type="checkbox" data-progress-item><span class="lang-en">Open this homepage first and decide which path you are following.</span><span class="lang-pt">Abra esta página primeiro e decida qual trilha você vai seguir.</span></label></article>
-        <article class="check-card"><label for="check-first"><input id="check-first" type="checkbox" data-progress-item><span class="lang-en">Do the guided first-build page before going deeper.</span><span class="lang-pt">Faça a página guiada da primeira construção antes de ir mais fundo.</span></label></article>
-        <article class="check-card"><label for="check-codex"><input id="check-codex" type="checkbox" data-progress-item><span class="lang-en">Read the Codex guide and keep one prompt pattern.</span><span class="lang-pt">Leia o guia do Codex e guarde um padrão de prompt.</span></label></article>
-        <article class="check-card"><label for="check-claude"><input id="check-claude" type="checkbox" data-progress-item><span class="lang-en">Read the Claude Code guide and note one terminal workflow.</span><span class="lang-pt">Leia o guia do Claude Code e anote um fluxo de terminal.</span></label></article>
-        <article class="check-card"><label for="check-notion"><input id="check-notion" type="checkbox" data-progress-item><span class="lang-en">Review Notion and decide what should be pages vs databases.</span><span class="lang-pt">Revise o Notion e decida o que deve ser página ou banco de dados.</span></label></article>
-        <article class="check-card"><label for="check-warp"><input id="check-warp" type="checkbox" data-progress-item><span class="lang-en">Review Warp and identify one workflow, one prompt, or one notebook.</span><span class="lang-pt">Revise o Warp e identifique um workflow, um prompt ou um notebook.</span></label></article>
+      <div class="action-grid">
+        <article class="action-card">
+          <h3>
+            <span class="lang-en">Homepage Path</span>
+            <span class="lang-pt">Trilha da Página Inicial</span>
+          </h3>
+          <p class="action-mission lang-en">Use the homepage as the control center and decide whether you are following the business, coding, or systems path.</p>
+          <p class="action-mission lang-pt">Use a página inicial como central de controle e decida se você vai seguir a trilha de negócios, programação ou sistemas.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="#paths">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="index.html#compare">
+              <span class="lang-en">Site Map</span>
+              <span class="lang-pt">Mapa do site</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-home"><input id="check-home" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
+
+        <article class="action-card">
+          <h3>
+            <span class="lang-en">First Build</span>
+            <span class="lang-pt">Primeira Construção</span>
+          </h3>
+          <p class="action-mission lang-en">Do the guided first project so the visitor gets one clear win before diving into deeper tool-specific material.</p>
+          <p class="action-mission lang-pt">Faça o primeiro projeto guiado para que a pessoa tenha uma vitória clara antes de mergulhar nos materiais mais profundos.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="first-build.html">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="https://platform.openai.com/docs/overview" target="_blank" rel="noreferrer">
+              <span class="lang-en">Official Docs</span>
+              <span class="lang-pt">Docs oficiais</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-first"><input id="check-first" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
+
+        <article class="action-card">
+          <h3>Codex</h3>
+          <p class="action-mission lang-en">Learn how to prompt safely, constrain scope, and get a reliable result with verification.</p>
+          <p class="action-mission lang-pt">Aprenda a orientar com segurança, limitar escopo e obter um resultado confiável com verificação.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="codex-best-practices.html">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="https://platform.openai.com/docs/overview" target="_blank" rel="noreferrer">
+              <span class="lang-en">Official Docs</span>
+              <span class="lang-pt">Docs oficiais</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-codex"><input id="check-codex" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
+
+        <article class="action-card">
+          <h3>Claude Code</h3>
+          <p class="action-mission lang-en">Read the terminal-first coding guide and leave with one concrete repo workflow you want to try.</p>
+          <p class="action-mission lang-pt">Leia o guia de programação no terminal e saia com um fluxo concreto de repositório para testar.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="claude-code-complete-guide.html">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noreferrer">
+              <span class="lang-en">Official Docs</span>
+              <span class="lang-pt">Docs oficiais</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-claude"><input id="check-claude" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
+
+        <article class="action-card">
+          <h3>Notion</h3>
+          <p class="action-mission lang-en">Review the structure guide and decide what in your life should be a page, a database, or a template.</p>
+          <p class="action-mission lang-pt">Revise o guia de estrutura e decida o que na sua vida deve ser página, banco de dados ou template.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="notion-complete-guide.html">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="https://www.notion.so/help" target="_blank" rel="noreferrer">
+              <span class="lang-en">Official Docs</span>
+              <span class="lang-pt">Docs oficiais</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-notion"><input id="check-notion" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
+
+        <article class="action-card">
+          <h3>Warp</h3>
+          <p class="action-mission lang-en">Use the Warp guide to identify one workflow, one prompt, or one notebook worth saving.</p>
+          <p class="action-mission lang-pt">Use o guia do Warp para identificar um workflow, um prompt ou um notebook que vale salvar.</p>
+          <div class="action-buttons">
+            <a class="button primary" href="warp-complete-guide.html">
+              <span class="lang-en">Open Guide</span>
+              <span class="lang-pt">Abrir guia</span>
+            </a>
+            <a class="button secondary" href="https://docs.warp.dev" target="_blank" rel="noreferrer">
+              <span class="lang-en">Official Docs</span>
+              <span class="lang-pt">Docs oficiais</span>
+            </a>
+          </div>
+          <label class="action-check" for="check-warp"><input id="check-warp" type="checkbox" data-progress-item><span class="lang-en">Mark as done</span><span class="lang-pt">Marcar como concluído</span></label>
+        </article>
       </div>
     </section>
 
