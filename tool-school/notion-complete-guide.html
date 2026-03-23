@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion Complete Guide</title>
+  <style>
+    :root { --bg:#f4f0e7; --paper:#fffaf3; --ink:#1c2529; --muted:#5d676c; --accent:#8a5a2c; --accent-soft:#efdcc7; --line:#d8cbbc; --good:#2d6a4f; --good-soft:rgba(45,106,79,.1); --warn-soft:rgba(138,90,44,.11); --shadow:0 24px 50px rgba(64,43,24,.11); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Georgia,"Times New Roman",serif; line-height:1.65; background:radial-gradient(circle at top left, rgba(138,90,44,.12), transparent 28%),radial-gradient(circle at top right, rgba(45,106,79,.08), transparent 22%),linear-gradient(180deg,#faf7f1 0%,var(--bg) 100%); }
+    a { color:inherit; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+    .topbar { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; color:var(--muted); font-size:.95rem; }
+    .topbar nav { display:flex; flex-wrap:wrap; gap:12px; }
+    .topbar a { text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; }
+    .topbar a:hover { border-color:rgba(28,37,41,.35); }
+    .hero { border-radius:32px; overflow:hidden; position:relative; border:1px solid rgba(216,203,188,.92); box-shadow:var(--shadow); background:linear-gradient(135deg, rgba(255,250,243,.98), rgba(246,236,223,.94)); }
+    .hero::after { content:""; position:absolute; inset:auto -100px -110px auto; width:320px; height:320px; background:radial-gradient(circle, rgba(138,90,44,.15), transparent 70%); pointer-events:none; }
+    .hero-inner, .section-head, .quick-grid, .grid-2, .grid-3, .workflow, .resource-grid { display:grid; gap:18px; }
+    .hero-inner { grid-template-columns:minmax(0,1.45fr) minmax(280px,.95fr); gap:26px; padding:46px 34px 34px; position:relative; z-index:1; }
+    .eyebrow, .section-kicker { display:inline-block; margin-bottom:12px; font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+    h1,h2,h3 { margin:0 0 14px; line-height:1.12; }
+    h1 { font-size:clamp(2.5rem,6vw,5rem); max-width:11ch; }
+    h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
+    h3 { font-size:1.14rem; }
+    p { margin:0 0 14px; color:var(--muted); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); text-decoration:none; font-weight:700; }
+    .button.primary { background:var(--accent); color:#fff8f1; border-color:transparent; }
+    .panel,.card,.quick-card,.workflow-item,.prompt,.resource { border:1px solid rgba(216,203,188,.9); background:rgba(255,255,255,.7); border-radius:22px; padding:20px; }
+    .hero-side { display:grid; gap:16px; align-content:start; }
+    .section { margin-top:28px; border:1px solid rgba(216,203,188,.86); border-radius:28px; padding:30px 28px; background:rgba(255,250,243,.74); box-shadow:var(--shadow); }
+    .section-head { grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr); gap:22px; align-items:end; margin-bottom:22px; }
+    .quick-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .workflow { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .quick-card span,.workflow-item small { display:block; margin-bottom:10px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+    ul,ol { margin:12px 0 0 20px; padding:0; }
+    li { margin-bottom:10px; }
+    .steps { list-style:none; margin:0; padding:0; counter-reset:step; display:grid; gap:14px; }
+    .steps li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; margin:0; }
+    .steps li::before { counter-increment:step; content:counter(step); width:40px; height:40px; display:grid; place-items:center; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-weight:700; }
+    .compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .good { background:var(--good-soft); }
+    .warn { background:var(--warn-soft); }
+    .badge { display:inline-block; margin-bottom:12px; padding:6px 12px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .badge.good { color:var(--good); background:rgba(45,106,79,.11); }
+    .badge.warn { color:var(--accent); background:rgba(138,90,44,.12); }
+    .example { margin-top:16px; padding:18px; border-radius:18px; background:#221f1d; color:#f7eee6; overflow-x:auto; border:1px solid rgba(255,255,255,.08); }
+    pre,code { font-family:Consolas,"Courier New",monospace; font-size:.95rem; }
+    .prompt-list { display:grid; gap:14px; }
+    .prompt strong { display:block; margin-bottom:8px; color:var(--ink); }
+    .note,.footer { border-radius:24px; background:linear-gradient(135deg,#23333a,#2d4741); color:#f8f1e9; box-shadow:var(--shadow); }
+    .note { padding:18px 20px; }
+    .footer { margin-top:28px; padding:26px 28px; }
+    .note p,.footer p,.footer li { color:rgba(248,241,233,.84); }
+    .resource a { color:var(--accent); text-decoration:none; font-weight:700; }
+    .resource a:hover { text-decoration:underline; }
+    @media (max-width:980px) { .hero-inner,.section-head,.quick-grid,.workflow,.grid-3,.resource-grid,.grid-2,.compare { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .wrap { padding:18px 14px 54px; } .hero-inner,.section,.footer { padding:24px 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>Practical local guide for learning Notion well</div>
+      <nav>
+        <a href="#start">Start</a>
+        <a href="#structure">Structure</a>
+        <a href="#databases">Databases</a>
+        <a href="#daily">Daily Use</a>
+        <a href="#mistakes">Mistakes</a>
+        <a href="#templates">Templates</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="start">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Notion Playbook</div>
+          <h1>Get genuinely good at Notion</h1>
+          <p>Notion is easiest to master when you stop treating it as a blank page and start treating it as a system. Pages hold content, databases hold structured records, views show the same records in different ways, and relations connect systems together.</p>
+          <p>If you learn that model early, Notion becomes much more useful for work, planning, notes, SOPs, CRM, and team knowledge.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#structure">Learn the right structure</a>
+            <a class="button" href="#templates">Jump to starter setups</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="panel">
+            <h3>Fast mental model</h3>
+            <p><strong>Page:</strong> flexible document.</p>
+            <p><strong>Database:</strong> structured collection of pages.</p>
+            <p><strong>View:</strong> filtered lens on the same data.</p>
+            <p><strong>Relation + rollup:</strong> connect systems together.</p>
+          </div>
+          <div class="panel">
+            <h3>Best beginner rule</h3>
+            <p>Start with one clear use case, not a giant all-in-one workspace. Build slowly, then connect it later.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick-card"><span>1. Pages</span>Use for notes, docs, SOPs, and meeting notes.</div>
+        <div class="quick-card"><span>2. Databases</span>Use for tasks, projects, leads, content, and pipelines.</div>
+        <div class="quick-card"><span>3. Views</span>Table, board, calendar, timeline, list, gallery.</div>
+        <div class="quick-card"><span>4. Relations</span>Connect tasks to projects, notes to clients, and more.</div>
+      </div>
+    </section>
+
+    <section class="section" id="structure">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Foundation</div>
+          <h2>How to structure Notion without making a mess</h2>
+          <p>The biggest beginner mistake is creating dozens of pages with no system. The better approach is to build a small number of clear home bases.</p>
+        </div>
+        <div class="note">
+          <p><strong>Good default workspace:</strong> one dashboard, one tasks database, one projects database, one notes area, and one reference/wiki area.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good starter architecture</h3>
+          <ol class="steps">
+            <li><div>Create a personal or team dashboard page.</div></li>
+            <li><div>Add one database for projects.</div></li>
+            <li><div>Add one database for tasks.</div></li>
+            <li><div>Relate tasks to projects.</div></li>
+            <li><div>Create a notes/wiki section for non-database content.</div></li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>What each area should do</h3>
+          <ul>
+            <li><strong>Dashboard:</strong> navigation, important views, quick capture.</li>
+            <li><strong>Projects:</strong> each project is a page with status, owner, dates, notes.</li>
+            <li><strong>Tasks:</strong> small actionable work tied to projects.</li>
+            <li><strong>Wiki:</strong> evergreen documents, SOPs, policies, references.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="databases">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Databases</div>
+          <h2>The skill that unlocks most of Notion</h2>
+          <p>Notion’s official database guides emphasize that each database item is its own page and properties describe that page. Once you understand this, you stop rebuilding the same information over and over.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Essential properties</h3>
+          <ul>
+            <li>Title</li>
+            <li>Status</li>
+            <li>Owner / Person</li>
+            <li>Date</li>
+            <li>Tags / Select</li>
+            <li>Priority</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Best first views</h3>
+          <ul>
+            <li>Table for editing</li>
+            <li>Board for status pipelines</li>
+            <li>Calendar for deadlines</li>
+            <li>List for simple review</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>When to use a database</h3>
+          <ul>
+            <li>You have repeated entries</li>
+            <li>You need sorting or filtering</li>
+            <li>You want multiple views</li>
+            <li>You need relations to other work</li>
+          </ul>
+        </article>
+      </div>
+      <div class="example"><pre>Good databases to build first:
+- Projects
+- Tasks
+- Meetings
+- Clients / Leads
+- Content calendar
+- SOP library</pre></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Relations And Rollups</div>
+          <h2>This is where Notion stops being just notes</h2>
+          <p>Relation and rollup features let one database reference another. This is how you connect tasks to projects, meeting notes to clients, or purchases to customers.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="card good">
+          <div class="badge good">Relation</div>
+          <p>Connect one database item to another database item.</p>
+          <ul>
+            <li>Task to Project</li>
+            <li>Meeting to Client</li>
+            <li>Article to Campaign</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <div class="badge warn">Rollup</div>
+          <p>Pull or calculate information from related records.</p>
+          <ul>
+            <li>Project completion from tasks</li>
+            <li>Total value from linked deals</li>
+            <li>Latest date across linked items</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Templates And Reuse</div>
+          <h2>How good Notion setups stay consistent</h2>
+          <p>Templates help standardize repeated work. Use them where you want consistent structure without rebuilding the page every time.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Use templates for</h3>
+          <ul>
+            <li>Meeting notes</li>
+            <li>Project kickoff pages</li>
+            <li>Client records</li>
+            <li>SOP documents</li>
+            <li>Weekly review pages</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Template rule</h3>
+          <p>Only templatize repeated work. If something happens often and should look similar every time, it should probably be a template.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="daily">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Daily Workflow</div>
+          <h2>A strong day-to-day way to use Notion</h2>
+          <p>The best practical workflow is capture, triage, organize, then review. Notion becomes more useful when you use it consistently in short cycles.</p>
+        </div>
+      </div>
+      <div class="workflow">
+        <div class="workflow-item"><small>Capture</small>Drop quick tasks, notes, links, and ideas into one inbox area.</div>
+        <div class="workflow-item"><small>Clarify</small>Convert raw notes into tasks, projects, or reference pages.</div>
+        <div class="workflow-item"><small>Relate</small>Link tasks to projects and notes to the right entities.</div>
+        <div class="workflow-item"><small>Review</small>Check due dates, statuses, and blocked work daily or weekly.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Sharing And Permissions</div>
+          <h2>Get organized before you invite other people</h2>
+          <p>Notion’s sharing model matters. Official guidance separates workspace roles, teamspace roles, and page-level sharing. If you ignore permissions early, team workspaces get confusing fast.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good team habits</h3>
+          <ul>
+            <li>Decide what is private, shared, or company-wide</li>
+            <li>Use teamspaces intentionally</li>
+            <li>Avoid scattering the same document in multiple places</li>
+            <li>Use page permissions carefully before publishing broadly</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Personal habit</h3>
+          <p>Even if you work alone, structure your pages as if someone else may need to understand them later. That forces clarity.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Notion AI</div>
+          <h2>Use AI to speed up thinking, not replace structure</h2>
+          <p>Current Notion AI features include inline writing help, workspace Q&amp;A, and database help. The right use is to accelerate summarizing, rewriting, extracting, and finding information already in your system.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good AI uses</h3>
+          <ul>
+            <li>Summarize long meeting notes</li>
+            <li>Draft a first SOP outline</li>
+            <li>Extract action items from notes</li>
+            <li>Ask questions across your workspace</li>
+            <li>Populate or enrich database pages</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Bad AI use</h3>
+          <ul>
+            <li>Using AI before your workspace has clean structure</li>
+            <li>Relying on summaries without checking the source</li>
+            <li>Generating lots of pages nobody will maintain</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Mistakes</div>
+          <h2>What usually makes a Notion workspace feel bad</h2>
+          <p>Most Notion pain comes from overbuilding, duplicating information, or using databases where a simple page would do.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="card warn">
+          <div class="badge warn">Weak setup</div>
+          <ul>
+            <li>Too many pages with no home</li>
+            <li>Five separate task systems</li>
+            <li>Fancy dashboard with no real workflow</li>
+            <li>Everything duplicated manually</li>
+          </ul>
+        </div>
+        <div class="card good">
+          <div class="badge good">Better setup</div>
+          <ul>
+            <li>One clear dashboard</li>
+            <li>One task database</li>
+            <li>One projects database</li>
+            <li>Clean templates and linked views</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="templates">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Starter Setups</div>
+          <h2>Three setups worth building first</h2>
+          <p>These are the fastest paths to actual value.</p>
+        </div>
+      </div>
+      <div class="prompt-list">
+        <div class="prompt"><strong>1. Projects + Tasks</strong><p>Build a projects database and a tasks database. Link them with a relation. Add views for active work, overdue tasks, and board by status.</p></div>
+        <div class="prompt"><strong>2. Meetings + Notes</strong><p>Create a meeting notes template with agenda, decisions, action items, and related project or client.</p></div>
+        <div class="prompt"><strong>3. Wiki / SOP Library</strong><p>Create a clean knowledge area for repeatable processes, references, policies, and how-to pages.</p></div>
+      </div>
+      <div class="example"><pre>Best early question:
+"Is this a one-off page, or is this a repeated thing that should live in a database?"</pre></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Morning Checklist</div>
+          <h2>What to look for when you review this tomorrow</h2>
+          <p>Use this page as a learning pass, not just a one-time read.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Ask yourself</h3>
+          <ul>
+            <li>What in my life or business should be a page?</li>
+            <li>What should be a database?</li>
+            <li>What needs a template?</li>
+            <li>What should relate to what?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Then build</h3>
+          <ul>
+            <li>One dashboard</li>
+            <li>One tasks database</li>
+            <li>One projects database</li>
+            <li>One notes or SOP area</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Official Resources</div>
+          <h2>Pages this guide was grounded on</h2>
+          <p>These official Notion pages are worth reading after this HTML guide.</p>
+        </div>
+      </div>
+      <div class="resource-grid">
+        <div class="resource"><h3>Creating a database</h3><p><a href="https://www.notion.com/en-gb/help/guides/creating-a-database" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Relations and rollups</h3><p><a href="https://www.notion.com/help/relations-and-rollups" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Sharing and permissions</h3><p><a href="https://www.notion.com/help/guides/sharing-and-permissions?id=982497%40" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Notion AI</h3><p><a href="https://www.notion.com/help/notion-ai-faqs" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Q&amp;A</h3><p><a href="https://www.notion.com/help/guides/get-answers-about-content-faster-with-q-and-a" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Templates for your team</h3><p><a href="https://www.notion.com/help/guides/getting-started-with-templates-for-your-team?slug=getting-started-with-templates-for-your-team" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>Your shortcut</h2>
+      <p>If you remember one thing, remember this: keep documents as pages, keep repeated things as databases, and connect systems only after each part works on its own.</p>
+      <p>That one habit prevents most beginner Notion chaos.</p>
+    </section>
+  </div>
+</body>
+</html>

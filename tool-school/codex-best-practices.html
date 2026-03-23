@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codex Beginner Guide</title>
+  <style>
+    :root {
+      --bg: #f2ede4;
+      --paper: #fffaf1;
+      --ink: #1e2b30;
+      --muted: #5a686d;
+      --accent: #a7502b;
+      --accent-soft: #f3d7c8;
+      --forest: #2f6b4f;
+      --forest-soft: rgba(47, 107, 79, 0.11);
+      --line: #d9c9ba;
+      --deep: #223238;
+      --card: rgba(255, 252, 246, 0.88);
+      --shadow: 0 24px 50px rgba(72, 49, 30, 0.12);
+      --mono: Consolas, "Courier New", monospace;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at top left, rgba(167, 80, 43, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(47, 107, 79, 0.1), transparent 22%),
+        linear-gradient(180deg, #faf6ef 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .topbar nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .topbar a {
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .topbar a:hover {
+      border-color: rgba(30, 43, 48, 0.35);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 250, 241, 0.97), rgba(249, 239, 226, 0.94)),
+        var(--paper);
+      border: 1px solid rgba(217, 201, 186, 0.92);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -110px -120px auto;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(167, 80, 43, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+      gap: 28px;
+      padding: 46px 34px 34px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 14px;
+      line-height: 1.12;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      max-width: 11ch;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+    }
+
+    h3 {
+      font-size: 1.12rem;
+    }
+
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #fff8f2;
+      border-color: transparent;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid rgba(217, 201, 186, 0.88);
+      border-radius: 22px;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .panel strong {
+      color: var(--ink);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(217, 201, 186, 0.95);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .quick-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 253, 248, 0.72);
+      border: 1px solid rgba(217, 201, 186, 0.92);
+    }
+
+    .quick-card span {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .section {
+      margin-top: 28px;
+      background: rgba(255, 250, 242, 0.72);
+      border: 1px solid rgba(217, 201, 186, 0.85);
+      border-radius: 28px;
+      padding: 30px 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    ul, ol {
+      margin: 12px 0 0 20px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: start;
+      margin: 0;
+    }
+
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .good {
+      background: var(--forest-soft);
+    }
+
+    .warn {
+      background: rgba(167, 80, 43, 0.1);
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .badge.good {
+      color: var(--forest);
+    }
+
+    .badge.warn {
+      color: var(--accent);
+    }
+
+    .example {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #231f1c;
+      color: #f8eee4;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-x: auto;
+    }
+
+    pre, code {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+    }
+
+    .prompt-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .prompt {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(217, 201, 186, 0.9);
+    }
+
+    .prompt strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .workflow-item {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(217, 201, 186, 0.9);
+    }
+
+    .workflow-item small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .note {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #223238, #2f4742);
+      color: #f5eee7;
+    }
+
+    .note p,
+    .note li {
+      color: rgba(245, 238, 231, 0.84);
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 26px 28px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #23353c, #2e4a45);
+      color: #f8f1e9;
+      box-shadow: var(--shadow);
+    }
+
+    .footer p {
+      color: rgba(248, 241, 233, 0.84);
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .section-head,
+      .quick-grid,
+      .workflow,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2,
+      .compare {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        padding: 18px 14px 54px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-inner,
+      .section,
+      .footer {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>Codex learning page for this workspace</div>
+      <nav>
+        <a href="#start">Start</a>
+        <a href="#prompting">Prompting</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#mistakes">Mistakes</a>
+        <a href="#templates">Templates</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="start">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Codex Field Guide</div>
+          <h1>Learn how to get real work done with Codex</h1>
+          <p>
+            Codex works best when you use it like a careful technical teammate: give it the outcome,
+            give it the local context, say what is risky, and ask it to verify the result. This page
+            turns that idea into a practical guide you can reread while you learn.
+          </p>
+          <p>
+            The shortest useful mental model is: <strong>ask clearly, constrain risk, review the work,
+            and close the loop with verification.</strong>
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#prompting">Learn the prompt pattern</a>
+            <a class="button" href="#templates">Jump to ready-to-use prompts</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="panel">
+            <h3>What Codex is good at</h3>
+            <p><strong>Reading:</strong> files, local structure, recent changes, and technical context.</p>
+            <p><strong>Doing:</strong> editing code, writing docs, generating HTML pages, drafting messages, and running checks.</p>
+            <p><strong>Explaining:</strong> what changed, why it changed, and what still needs a decision.</p>
+          </div>
+          <div class="panel">
+            <h3>Fast safety rule</h3>
+            <p>If the action could send, delete, overwrite, or change live data, say so directly.</p>
+            <div class="pill-row">
+              <span class="pill">Preview first</span>
+              <span class="pill">Do not send</span>
+              <span class="pill">Do not delete</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick-card">
+          <span>1. Outcome</span>
+          Tell Codex the finish line, not just the topic.
+        </div>
+        <div class="quick-card">
+          <span>2. Context</span>
+          Include the repo, file, bug symptom, customer, or workflow.
+        </div>
+        <div class="quick-card">
+          <span>3. Constraints</span>
+          Say what not to touch and what must stay safe.
+        </div>
+        <div class="quick-card">
+          <span>4. Verification</span>
+          Ask it to test, check, confirm, or explain failure.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prompting">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Prompting Basics</div>
+          <h2>The beginner prompt formula</h2>
+          <p>
+            Most weak results come from requests that are too vague. You get better work when every
+            request names the goal, scope, constraints, and definition of done.
+          </p>
+        </div>
+        <div class="note">
+          <p><strong>Best default sentence:</strong> “I’m new to this. Keep it safe, show the preview first, and explain the best practice while you do it.”</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Prompt formula</h3>
+          <ol class="steps">
+            <li><div><strong>Goal:</strong> what you want completed.</div></li>
+            <li><div><strong>Scope:</strong> where it lives and what area matters.</div></li>
+            <li><div><strong>Constraints:</strong> safety rules, style rules, and do-not-touch rules.</div></li>
+            <li><div><strong>Done means:</strong> what output you want back from Codex.</div></li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h3>Good context to include</h3>
+          <ul>
+            <li>The file or folder name</li>
+            <li>The visible bug or error text</li>
+            <li>The expected behavior</li>
+            <li>Whether this is draft-only or real execution</li>
+            <li>Anything that must not be changed</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="example">
+<pre>Fix the signup bug in this workspace.
+The problem is that the submit button does nothing on mobile.
+Only change the signup flow files and do not touch styling outside that flow.
+Run the relevant check and tell me exactly what changed.</pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">How Codex Operates</div>
+          <h2>What usually happens after you ask</h2>
+          <p>
+            Understanding the internal rhythm helps you collaborate better. Codex will usually inspect
+            the workspace first, decide on a path, make changes, and then verify what it did.
+          </p>
+        </div>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-item">
+          <small>Read</small>
+          It checks files, folder structure, current code, or previous content before acting.
+        </div>
+        <div class="workflow-item">
+          <small>Plan</small>
+          It decides what needs to change and what should stay untouched.
+        </div>
+        <div class="workflow-item">
+          <small>Edit</small>
+          It updates the relevant file or files based on your request.
+        </div>
+        <div class="workflow-item">
+          <small>Verify</small>
+          It runs tests, checks results, or tells you clearly what could not be verified.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Working Modes</div>
+          <h2>Preview mode vs execution mode</h2>
+          <p>
+            This is one of the most useful distinctions for a beginner. Start with preview when there is
+            risk. Use execution when the task is bounded and you are ready for the change.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="card good">
+          <div class="badge good">Preview</div>
+          <p>Use this when you want a safe proposal first.</p>
+          <ul>
+            <li>Draft the email but do not send it</li>
+            <li>Show the automation setup but do not activate it</li>
+            <li>Explain the code change before editing</li>
+            <li>Prepare options for review</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <div class="badge warn">Execution</div>
+          <p>Use this when the task is clear and you want real action.</p>
+          <ul>
+            <li>Fix the bug in the specified file</li>
+            <li>Update the HTML page in this workspace</li>
+            <li>Run the check and report the result</li>
+            <li>Create the local document or draft</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflows">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Useful Job Types</div>
+          <h2>Common things you can ask Codex to do</h2>
+          <p>
+            A lot of beginners underuse Codex by asking only broad questions. It is usually better at
+            concrete tasks with a visible output.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Code and bugs</h3>
+          <ul>
+            <li>Find the cause of an error</li>
+            <li>Fix a specific broken flow</li>
+            <li>Explain a file in plain English</li>
+            <li>Run the relevant test or check</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Documents and HTML</h3>
+          <ul>
+            <li>Create or expand a guide page</li>
+            <li>Rewrite copy to be clearer</li>
+            <li>Turn notes into a readable document</li>
+            <li>Improve layout while keeping content intact</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>CRM and outreach</h3>
+          <ul>
+            <li>Read recent lead context</li>
+            <li>Summarize prior touchpoints</li>
+            <li>Draft a reply in your tone</li>
+            <li>Separate drafting from sending</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Safe Habits</div>
+          <h2>What to say when something has risk</h2>
+          <p>
+            Codex becomes much safer when you tell it exactly what it must not do. These lines are short,
+            but they prevent a lot of mistakes.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>High-value safety phrases</h3>
+          <ul>
+            <li>Do not send anything</li>
+            <li>Preview only</li>
+            <li>Do not delete files</li>
+            <li>Only work in this folder</li>
+            <li>Do not rewrite unrelated code</li>
+            <li>Start paused</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Good definition of done</h3>
+          <ul>
+            <li>Show me the edited file</li>
+            <li>Summarize the changes in plain English</li>
+            <li>Run the relevant check</li>
+            <li>Tell me what failed if verification failed</li>
+            <li>Leave the result as a local draft</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Common Mistakes</div>
+          <h2>Why beginners often get weaker results</h2>
+          <p>
+            The issue is usually not that Codex cannot do the task. The issue is that the request does
+            not create a clear target or safe boundary.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="card warn">
+          <div class="badge warn">Weak ask</div>
+          <p>“Check this repo.”</p>
+          <p>Too open-ended. There is no finish line and no clue what matters.</p>
+        </div>
+        <div class="card good">
+          <div class="badge good">Better ask</div>
+          <p>“Find why login fails, fix only the login flow, run the relevant check, and summarize the change.”</p>
+          <p>Clear goal, clear scope, clear verification.</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 18px;">
+        <article class="card">
+          <h3>Common beginner errors</h3>
+          <ul>
+            <li>Asking something vague with no success criteria</li>
+            <li>Forgetting to say what is risky</li>
+            <li>Requesting too many unrelated tasks at once</li>
+            <li>Not asking for verification at the end</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Better learning pattern</h3>
+          <ol class="steps">
+            <li><div>Ask for one small task.</div></li>
+            <li><div>Review the output or preview.</div></li>
+            <li><div>Let Codex do one real execution.</div></li>
+            <li><div>Ask what worked and what to improve next time.</div></li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Learning Ladder</div>
+          <h2>A simple way to educate yourself fast</h2>
+          <p>
+            If you want to get good quickly, do not jump straight into high-risk automation. Build your
+            habits in stages.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Week 1 focus</h3>
+          <ul>
+            <li>Ask Codex to explain files and folders</li>
+            <li>Have it make one safe local edit</li>
+            <li>Ask it to improve one document or HTML page</li>
+            <li>Compare weak prompts against better prompts</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Week 2 focus</h3>
+          <ul>
+            <li>Ask it to fix a small bug and verify it</li>
+            <li>Use preview mode for emails or automations</li>
+            <li>Start saving prompt patterns that worked well</li>
+            <li>Learn to separate drafting, review, and action</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="templates">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Templates</div>
+          <h2>Starter prompts you can reuse</h2>
+          <p>
+            These are written to be practical. Replace the nouns and keep the structure.
+          </p>
+        </div>
+      </div>
+
+      <div class="prompt-list">
+        <div class="prompt">
+          <strong>Understand a codebase area</strong>
+          <div class="example"><pre>Read this folder and explain how it works in plain English.
+Focus on the main files, the data flow, and what I should read next.
+Do not edit anything.</pre></div>
+        </div>
+
+        <div class="prompt">
+          <strong>Fix one bug safely</strong>
+          <div class="example"><pre>Find why this feature is failing, fix only the relevant files, and verify the result.
+Do not rewrite unrelated code.
+Tell me exactly what changed and what check you ran.</pre></div>
+        </div>
+
+        <div class="prompt">
+          <strong>Draft, do not send</strong>
+          <div class="example"><pre>Read the recent context for this lead and draft the next reply in my tone.
+Do not send anything.
+Show me the draft and explain why it matches the context.</pre></div>
+        </div>
+
+        <div class="prompt">
+          <strong>Create a learning document</strong>
+          <div class="example"><pre>Build me a readable HTML page in this workspace that teaches me this system as a beginner.
+Keep the design clean and make the content practical.
+Include examples, mistakes to avoid, and reusable prompt templates.</pre></div>
+        </div>
+
+        <div class="prompt">
+          <strong>Automation preview</strong>
+          <div class="example"><pre>Create a suggested automation for this workflow.
+Keep it paused and do not activate anything.
+I want a reviewable draft output first, not automatic sending.</pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>Your shortcut</h2>
+      <p>
+        If you forget everything else, remember this pattern:
+        “Here is the goal. Here is the scope. Here is what not to touch. Show me the result and verify it.”
+      </p>
+      <p>
+        The fastest way to learn Codex is to alternate between asking for explanation, asking for one
+        small execution, and then asking why that prompt worked better than the last one.
+      </p>
+    </section>
+  </div>
+</body>
+</html>

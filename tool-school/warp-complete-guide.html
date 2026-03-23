@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warp Complete Guide</title>
+  <style>
+    :root { --bg:#ecefe8; --paper:#f7fbf5; --ink:#162126; --muted:#56656b; --accent:#2a6f63; --accent-soft:#cfe8df; --warn:#9a5d33; --line:#c9d8d1; --good-soft:rgba(42,111,99,.11); --warn-soft:rgba(154,93,51,.11); --shadow:0 24px 50px rgba(29,58,52,.11); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Georgia,"Times New Roman",serif; line-height:1.65; background:radial-gradient(circle at top left, rgba(42,111,99,.12), transparent 28%),radial-gradient(circle at top right, rgba(154,93,51,.08), transparent 22%),linear-gradient(180deg,#f9fcf8 0%,var(--bg) 100%); }
+    a { color:inherit; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+    .topbar { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; color:var(--muted); font-size:.95rem; }
+    .topbar nav { display:flex; flex-wrap:wrap; gap:12px; }
+    .topbar a { text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; }
+    .topbar a:hover { border-color:rgba(22,33,38,.35); }
+    .hero { border-radius:32px; overflow:hidden; position:relative; border:1px solid rgba(201,216,209,.92); box-shadow:var(--shadow); background:linear-gradient(135deg, rgba(247,251,245,.98), rgba(232,243,238,.94)); }
+    .hero::after { content:""; position:absolute; inset:auto -100px -110px auto; width:320px; height:320px; background:radial-gradient(circle, rgba(42,111,99,.16), transparent 70%); pointer-events:none; }
+    .hero-inner, .section-head, .quick-grid, .grid-2, .grid-3, .workflow, .resource-grid { display:grid; gap:18px; }
+    .hero-inner { grid-template-columns:minmax(0,1.45fr) minmax(280px,.95fr); gap:26px; padding:46px 34px 34px; position:relative; z-index:1; }
+    .eyebrow, .section-kicker { display:inline-block; margin-bottom:12px; font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+    h1,h2,h3 { margin:0 0 14px; line-height:1.12; }
+    h1 { font-size:clamp(2.5rem,6vw,5rem); max-width:11ch; }
+    h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
+    h3 { font-size:1.14rem; }
+    p { margin:0 0 14px; color:var(--muted); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); text-decoration:none; font-weight:700; }
+    .button.primary { background:var(--accent); color:#f4fffb; border-color:transparent; }
+    .panel,.card,.quick-card,.workflow-item,.prompt,.resource { border:1px solid rgba(201,216,209,.9); background:rgba(255,255,255,.72); border-radius:22px; padding:20px; }
+    .hero-side { display:grid; gap:16px; align-content:start; }
+    .section { margin-top:28px; border:1px solid rgba(201,216,209,.86); border-radius:28px; padding:30px 28px; background:rgba(247,251,245,.76); box-shadow:var(--shadow); }
+    .section-head { grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr); gap:22px; align-items:end; margin-bottom:22px; }
+    .quick-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .workflow { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .quick-card span,.workflow-item small { display:block; margin-bottom:10px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+    ul,ol { margin:12px 0 0 20px; padding:0; }
+    li { margin-bottom:10px; }
+    .steps { list-style:none; margin:0; padding:0; counter-reset:step; display:grid; gap:14px; }
+    .steps li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; margin:0; }
+    .steps li::before { counter-increment:step; content:counter(step); width:40px; height:40px; display:grid; place-items:center; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-weight:700; }
+    .compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .good { background:var(--good-soft); }
+    .warn { background:var(--warn-soft); }
+    .badge { display:inline-block; margin-bottom:12px; padding:6px 12px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .badge.good { color:var(--accent); background:rgba(42,111,99,.11); }
+    .badge.warn { color:var(--warn); background:rgba(154,93,51,.12); }
+    .example { margin-top:16px; padding:18px; border-radius:18px; background:#172024; color:#eff9f4; overflow-x:auto; border:1px solid rgba(255,255,255,.08); }
+    pre,code { font-family:Consolas,"Courier New",monospace; font-size:.95rem; }
+    .prompt-list { display:grid; gap:14px; }
+    .prompt strong { display:block; margin-bottom:8px; color:var(--ink); }
+    .note,.footer { border-radius:24px; background:linear-gradient(135deg,#162b31,#24443e); color:#f3fbf8; box-shadow:var(--shadow); }
+    .note { padding:18px 20px; }
+    .footer { margin-top:28px; padding:26px 28px; }
+    .note p,.footer p,.footer li { color:rgba(243,251,248,.84); }
+    .resource a { color:var(--accent); text-decoration:none; font-weight:700; }
+    .resource a:hover { text-decoration:underline; }
+    @media (max-width:980px) { .hero-inner,.section-head,.quick-grid,.workflow,.grid-3,.resource-grid,.grid-2,.compare { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .wrap { padding:18px 14px 54px; } .hero-inner,.section,.footer { padding:24px 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>Practical local guide for learning Warp well</div>
+      <nav>
+        <a href="#start">Start</a>
+        <a href="#terminal">Terminal Model</a>
+        <a href="#drive">Warp Drive</a>
+        <a href="#agents">Agents</a>
+        <a href="#mistakes">Mistakes</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+
+    <section class="hero" id="start">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Warp Playbook</div>
+          <h1>Get genuinely good at Warp</h1>
+          <p>Warp is not just a prettier terminal. Its main advantage is that it turns terminal work into a more structured workflow using blocks, better editing, saved workflows, notebooks, prompts, and agents.</p>
+          <p>The right mental model is: <strong>Warp helps you think, edit, save, repeat, and collaborate around terminal work.</strong></p>
+          <div class="hero-actions">
+            <a class="button primary" href="#terminal">Learn the terminal model</a>
+            <a class="button" href="#agents">Jump to Warp agents</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="panel">
+            <h3>What makes Warp different</h3>
+            <p><strong>Blocks:</strong> commands and output grouped together.</p>
+            <p><strong>Editor:</strong> terminal input behaves more like an IDE.</p>
+            <p><strong>Drive:</strong> reusable workflows, notebooks, prompts, env vars.</p>
+            <p><strong>Agents:</strong> natural-language help that can act in your environment.</p>
+          </div>
+          <div class="panel">
+            <h3>Best beginner rule</h3>
+            <p>Do not try to learn every Warp feature at once. First learn blocks, command entry, and command search. Then add workflows and agents.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick-card"><span>1. Blocks</span>Every command and its output are grouped together.</div>
+        <div class="quick-card"><span>2. Editor</span>The input behaves more like a modern text editor.</div>
+        <div class="quick-card"><span>3. Search</span>Find commands, notebooks, workflows, prompts, and actions quickly.</div>
+        <div class="quick-card"><span>4. Save</span>Turn repeated actions into reusable workflows and prompts.</div>
+      </div>
+    </section>
+
+    <section class="section" id="terminal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Terminal Model</div>
+          <h2>Understand blocks first or Warp will feel random</h2>
+          <p>Warp’s official docs describe a block as the atomic unit that groups commands and outputs. Once you understand blocks, the rest of the interface becomes much easier to use.</p>
+        </div>
+        <div class="note">
+          <p><strong>Core shift:</strong> instead of one endless stream of text, Warp gives you structured command history you can copy, bookmark, re-run, and share.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Why blocks matter</h3>
+          <ul>
+            <li>Copy command only</li>
+            <li>Copy output only</li>
+            <li>Re-input prior commands</li>
+            <li>Bookmark important terminal moments</li>
+            <li>Share formatted output more cleanly</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Good beginner habit</h3>
+          <p>Stop scrolling blindly. Select the block you need, inspect it, then copy, rerun, or save from there.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Command Entry</div>
+          <h2>Use Warp like a text editor, not an old terminal</h2>
+          <p>Warp’s input editor supports modern text editing behavior, which makes longer commands and edits much less painful than traditional terminals.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Use the editor for</h3>
+          <ul>
+            <li>Long commands</li>
+            <li>Safe command editing</li>
+            <li>Multi-part commands</li>
+            <li>Corrections before running</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Key concept</h3>
+          <p>Edit before executing instead of treating terminal input as disposable.</p>
+        </article>
+        <article class="card">
+          <h3>Practical benefit</h3>
+          <p>The more complex your command line work gets, the more Warp’s editor becomes a real advantage.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Search And Navigation</div>
+          <h2>Good Warp users search instead of hunting manually</h2>
+          <p>Warp’s Command Palette and command search are central features. They help you find workflows, notebooks, prompts, shortcuts, files, sessions, and actions faster.</p>
+        </div>
+      </div>
+      <div class="workflow">
+        <div class="workflow-item"><small>Search</small>Use the palette to find workflows, prompts, notebooks, and actions fast.</div>
+        <div class="workflow-item"><small>Reuse</small>Pull prior commands back into the editor instead of retyping them.</div>
+        <div class="workflow-item"><small>Bookmark</small>Mark important blocks so they are easy to revisit.</div>
+        <div class="workflow-item"><small>Share</small>Use block actions when output needs to be sent cleanly.</div>
+      </div>
+    </section>
+
+    <section class="section" id="drive">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Warp Drive</div>
+          <h2>This is where Warp becomes a system, not just a terminal</h2>
+          <p>Warp Drive is the saved workspace for workflows, notebooks, prompts, and environment variables. These objects sync and are meant to be reusable and searchable.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Workflows</h3><p>Saved parameterized commands for actions you repeat. Best for repeatable command-line operations.</p></article>
+        <article class="card"><h3>Prompts</h3><p>Saved parameterized natural-language instructions for Agent Mode. Best for repeatable AI-assisted tasks.</p></article>
+        <article class="card"><h3>Notebooks</h3><p>Runnable documentation with markdown, shell snippets, and searchable operating instructions.</p></article>
+      </div>
+      <div class="compare" style="margin-top:18px;">
+        <div class="card good">
+          <div class="badge good">Workflow</div>
+          <p>Use when the task is command-first and predictable.</p>
+          <ul>
+            <li>Start dev server</li>
+            <li>Run tests</li>
+            <li>Deploy with arguments</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <div class="badge warn">Prompt</div>
+          <p>Use when the task is reasoning-first and still benefits from AI flexibility.</p>
+          <ul>
+            <li>Review current diff</li>
+            <li>Draft PR notes</li>
+            <li>Explain errors</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Notebooks</div>
+          <h2>Notebooks are one of the most underrated Warp features</h2>
+          <p>Notebooks are runnable documentation with markdown and executable shell snippets. They are useful for onboarding, ops playbooks, setup docs, and repeatable procedures.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Great uses for notebooks</h3>
+          <ul>
+            <li>Environment setup guides</li>
+            <li>Deployment runbooks</li>
+            <li>Incident response steps</li>
+            <li>Team onboarding</li>
+            <li>Personal dev playbooks</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Notebook rule</h3>
+          <p>If someone else would benefit from a sequence of commands plus explanation, it should probably be a notebook.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="agents">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Agents</div>
+          <h2>How to use Warp agents without getting sloppy</h2>
+          <p>Warp’s current agents can write and edit code, debug issues, run commands, and automate workflows while using local environment context. They become stronger when you give them rules and codebase context.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good agent tasks</h3>
+          <ul>
+            <li>Explain an error and propose a fix</li>
+            <li>Review a branch or diff</li>
+            <li>Draft a command sequence</li>
+            <li>Refactor a bounded piece of code</li>
+            <li>Create repeatable prompts for common work</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Bad beginner pattern</h3>
+          <ul>
+            <li>Giving the agent a vague objective</li>
+            <li>Not reviewing what it plans to do</li>
+            <li>Using AI before understanding terminal flow</li>
+            <li>Skipping project rules</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Rules And Codebase Context</div>
+          <h2>These two features make Warp agents much better</h2>
+          <p>Current Warp docs describe reusable rules for coding standards and project conventions, and codebase context for indexing local Git-tracked repositories so agents understand the real project.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Rules</h3>
+          <ul>
+            <li>Global rules apply broadly</li>
+            <li>Project rules are more specific</li>
+            <li>Project rules can live in <code>AGENTS.md</code> or <code>WARP.md</code></li>
+            <li>Use rules to enforce preferences and standards</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Codebase context</h3>
+          <ul>
+            <li>Indexes Git-tracked local code</li>
+            <li>Helps agents answer with real project context</li>
+            <li>Improves relevance of edits and suggestions</li>
+            <li>For large repos, expect indexing time</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Daily Workflow</div>
+          <h2>A high-quality way to use Warp every day</h2>
+          <p>Warp is best when you combine terminal execution with saving and reuse. Do the task once, then decide whether it should become a workflow, prompt, or notebook.</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><div>Run the command or process once manually.</div></li>
+        <li><div>Inspect the output block and confirm it worked.</div></li>
+        <li><div>Save repeated commands as workflows.</div></li>
+        <li><div>Save repeated AI instructions as prompts.</div></li>
+        <li><div>Turn longer procedures into notebooks.</div></li>
+      </ol>
+    </section>
+
+    <section class="section" id="mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Mistakes</div>
+          <h2>What usually keeps people from getting real value out of Warp</h2>
+          <p>The most common failure is using Warp exactly like a plain terminal and never using the features that make it different.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="card warn">
+          <div class="badge warn">Weak use</div>
+          <ul>
+            <li>Typing and forgetting commands</li>
+            <li>Not using block actions</li>
+            <li>Never saving workflows</li>
+            <li>Using agents with no rules</li>
+            <li>Keeping no reusable terminal knowledge</li>
+          </ul>
+        </div>
+        <div class="card good">
+          <div class="badge good">Better use</div>
+          <ul>
+            <li>Reusing command history intentionally</li>
+            <li>Bookmarking key blocks</li>
+            <li>Saving repeated commands</li>
+            <li>Creating prompts for repeatable AI tasks</li>
+            <li>Capturing procedures in notebooks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Starter Setups</div>
+          <h2>Three things worth creating first</h2>
+          <p>These are the fastest ways to feel the benefit of Warp.</p>
+        </div>
+      </div>
+      <div class="prompt-list">
+        <div class="prompt"><strong>1. Personal dev workflows</strong><p>Save your most common run, test, build, and open commands as workflows with parameters where needed.</p></div>
+        <div class="prompt"><strong>2. One notebook for setup</strong><p>Create a notebook for machine setup, project setup, or deployment steps so you stop reconstructing the same process.</p></div>
+        <div class="prompt"><strong>3. One prompt for code review help</strong><p>Save a reusable prompt that tells the agent to inspect current changes, find issues, and summarize risks.</p></div>
+      </div>
+      <div class="example"><pre>Good Warp question:
+"I run this workflow often. Should this be a saved Workflow, a Prompt, or a Notebook?"</pre></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Morning Checklist</div>
+          <h2>What to review when you come back tomorrow</h2>
+          <p>Use this guide to decide which Warp features matter for your real work.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Ask yourself</h3>
+          <ul>
+            <li>Which commands do I repeat constantly?</li>
+            <li>Which procedures should become notebooks?</li>
+            <li>Where would saved prompts save time?</li>
+            <li>What project rules would improve agent behavior?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Then build</h3>
+          <ul>
+            <li>2-3 workflows</li>
+            <li>1 notebook</li>
+            <li>1 reusable prompt</li>
+            <li>1 simple project rule file</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Official Resources</div>
+          <h2>Pages this guide was grounded on</h2>
+          <p>These official Warp docs are worth reading after this HTML guide.</p>
+        </div>
+      </div>
+      <div class="resource-grid">
+        <div class="resource"><h3>Blocks</h3><p><a href="https://docs.warp.dev/terminal/blocks" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Block actions</h3><p><a href="https://docs.warp.dev/terminal/blocks/block-actions" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Modern text editing</h3><p><a href="https://docs.warp.dev/terminal/editor" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Command palette</h3><p><a href="https://docs.warp.dev/features/command-palette" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Warp Drive</h3><p><a href="https://docs.warp.dev/features/warp-drive" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Workflows</h3><p><a href="https://docs.warp.dev/features/warp-drive/workflows" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Prompts</h3><p><a href="https://docs.warp.dev/knowledge-and-collaboration/warp-drive/prompts" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Notebooks</h3><p><a href="https://docs.warp.dev/features/warp-drive/notebooks" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Agents</h3><p><a href="https://docs.warp.dev/agents" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Agents in Warp</h3><p><a href="https://docs.warp.dev/agent-platform/getting-started/agents-in-warp" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Codebase context</h3><p><a href="https://docs.warp.dev/agent-platform/capabilities/codebase-context" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Rules</h3><p><a href="https://docs.warp.dev/agent-platform/capabilities/rules" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>Your shortcut</h2>
+      <p>If you remember one thing, remember this: every repeated terminal action should eventually become a saved artifact, either a workflow, prompt, or notebook.</p>
+      <p>That habit is what turns Warp from a nicer shell into a real operating system for your command-line work.</p>
+    </section>
+  </div>
+</body>
+</html>

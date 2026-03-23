@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Complete Guide</title>
+  <style>
+    :root { --bg:#f3efe8; --paper:#fffaf3; --ink:#1a252b; --muted:#5c686d; --accent:#8f5732; --accent-soft:#efd8c5; --accent-2:#2b685f; --line:#d7cabd; --good-soft:rgba(43,104,95,.1); --warn-soft:rgba(143,87,50,.11); --shadow:0 24px 50px rgba(53,38,24,.11); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Georgia,"Times New Roman",serif; line-height:1.65; background:radial-gradient(circle at top left, rgba(143,87,50,.12), transparent 28%),radial-gradient(circle at top right, rgba(43,104,95,.08), transparent 22%),linear-gradient(180deg,#faf7f1 0%,var(--bg) 100%); }
+    a { color:inherit; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+    .topbar { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; color:var(--muted); font-size:.95rem; }
+    .topbar nav { display:flex; flex-wrap:wrap; gap:12px; }
+    .topbar a { text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; }
+    .topbar a:hover { border-color:rgba(26,37,43,.35); }
+    .hero { border-radius:32px; overflow:hidden; position:relative; border:1px solid rgba(215,202,189,.92); box-shadow:var(--shadow); background:linear-gradient(135deg, rgba(255,250,243,.98), rgba(245,236,227,.94)); }
+    .hero::after { content:""; position:absolute; inset:auto -100px -110px auto; width:320px; height:320px; background:radial-gradient(circle, rgba(143,87,50,.15), transparent 70%); pointer-events:none; }
+    .hero-inner,.section-head,.quick-grid,.grid-2,.grid-3,.workflow,.resource-grid { display:grid; gap:18px; }
+    .hero-inner { grid-template-columns:minmax(0,1.45fr) minmax(280px,.95fr); gap:26px; padding:46px 34px 34px; position:relative; z-index:1; }
+    .eyebrow,.section-kicker { display:inline-block; margin-bottom:12px; font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+    h1,h2,h3 { margin:0 0 14px; line-height:1.12; }
+    h1 { font-size:clamp(2.5rem,6vw,5rem); max-width:12ch; }
+    h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
+    h3 { font-size:1.14rem; }
+    p { margin:0 0 14px; color:var(--muted); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); text-decoration:none; font-weight:700; }
+    .button.primary { background:var(--accent); color:#fff8f1; border-color:transparent; }
+    .panel,.card,.quick-card,.workflow-item,.prompt,.resource { border:1px solid rgba(215,202,189,.9); background:rgba(255,255,255,.7); border-radius:22px; padding:20px; }
+    .hero-side { display:grid; gap:16px; align-content:start; }
+    .section { margin-top:28px; border:1px solid rgba(215,202,189,.86); border-radius:28px; padding:30px 28px; background:rgba(255,250,243,.74); box-shadow:var(--shadow); }
+    .section-head { grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr); gap:22px; align-items:end; margin-bottom:22px; }
+    .quick-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .workflow { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .quick-card span,.workflow-item small { display:block; margin-bottom:10px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+    ul,ol { margin:12px 0 0 20px; padding:0; }
+    li { margin-bottom:10px; }
+    .steps { list-style:none; margin:0; padding:0; counter-reset:step; display:grid; gap:14px; }
+    .steps li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; margin:0; }
+    .steps li::before { counter-increment:step; content:counter(step); width:40px; height:40px; display:grid; place-items:center; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-weight:700; }
+    .compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .good { background:var(--good-soft); }
+    .warn { background:var(--warn-soft); }
+    .badge { display:inline-block; margin-bottom:12px; padding:6px 12px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .badge.good { color:var(--accent-2); background:rgba(43,104,95,.11); }
+    .badge.warn { color:var(--accent); background:rgba(143,87,50,.12); }
+    .example { margin-top:16px; padding:18px; border-radius:18px; background:#231f1d; color:#f7eee6; overflow-x:auto; border:1px solid rgba(255,255,255,.08); }
+    pre,code { font-family:Consolas,"Courier New",monospace; font-size:.95rem; }
+    .prompt-list { display:grid; gap:14px; }
+    .prompt strong { display:block; margin-bottom:8px; color:var(--ink); }
+    .note,.footer { border-radius:24px; background:linear-gradient(135deg,#223338,#2d4942); color:#f8f1e9; box-shadow:var(--shadow); }
+    .note { padding:18px 20px; }
+    .footer { margin-top:28px; padding:26px 28px; }
+    .note p,.footer p,.footer li { color:rgba(248,241,233,.84); }
+    .resource a { color:var(--accent-2); text-decoration:none; font-weight:700; }
+    .resource a:hover { text-decoration:underline; }
+    @media (max-width:980px) { .hero-inner,.section-head,.quick-grid,.workflow,.grid-3,.resource-grid,.grid-2,.compare { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .wrap { padding:18px 14px 54px; } .hero-inner,.section,.footer { padding:24px 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>Practical local guide for learning OpenClaw well</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="#model">Model</a>
+        <a href="#channels">Channels</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#safety">Safety</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">OpenClaw Playbook</div>
+          <h1>Get genuinely useful with OpenClaw</h1>
+          <p>OpenClaw’s official positioning is not “just another chatbot.” It is an open-source personal AI assistant and autonomous agent that can run on your own machine and work through channels you already use, like chat apps.</p>
+          <p>The easiest mental model is: <strong>OpenClaw is a personal assistant system with local control, channel-based interaction, and real-world task handling.</strong></p>
+          <div class="hero-actions">
+            <a class="button primary" href="#model">Learn the model</a>
+            <a class="button" href="index.html">Back to home</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="panel">
+            <h3>What makes OpenClaw different</h3>
+            <p><strong>Local-first:</strong> official site emphasizes local control and data sovereignty.</p>
+            <p><strong>Chat-native:</strong> you can interact through messaging channels instead of a special app only.</p>
+            <p><strong>Task-oriented:</strong> designed to do useful assistant work, not just answer questions.</p>
+          </div>
+          <div class="panel">
+            <h3>Best beginner rule</h3>
+            <p>Start with one assistant workflow only, such as inbox help or calendar help. Do not try to automate your whole life on day one.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick-card"><span>1. Local</span>It can run on your machine rather than only in a hosted black box.</div>
+        <div class="quick-card"><span>2. Channels</span>You interact through chat channels like Telegram and others.</div>
+        <div class="quick-card"><span>3. Assistant</span>Use it for personal operational help, not just Q&amp;A.</div>
+        <div class="quick-card"><span>4. Control</span>You decide what it can access and how far it can act.</div>
+      </div>
+    </section>
+
+    <section class="section" id="model">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Mental Model</div>
+          <h2>Think assistant system, not single chat</h2>
+          <p>OpenClaw makes the most sense when you think of it as your own assistant operating layer. The official site emphasizes privacy, local operation, and working inside familiar messaging surfaces.</p>
+        </div>
+        <div class="note">
+          <p><strong>Good framing:</strong> “What repeated tasks do I wish an assistant could help me handle from chat?”</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good use cases</h3>
+          <ul>
+            <li>Inbox triage</li>
+            <li>Calendar help</li>
+            <li>Travel or reminders</li>
+            <li>Quick task follow-up</li>
+            <li>Personal operations from chat</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Weak use cases</h3>
+          <ul>
+            <li>Random conversation with no workflow</li>
+            <li>Huge autonomous scope from day one</li>
+            <li>Giving it access before you know what success looks like</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="channels">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Channels</div>
+          <h2>Channels are how OpenClaw becomes practical</h2>
+          <p>The official OpenClaw docs include step-by-step setup flows for channels like Telegram. This matters because the tool is designed to meet you in the communication surfaces you already use.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Why channels matter</h3>
+          <ul>
+            <li>You do not need to live inside a special dashboard</li>
+            <li>The assistant can feel present in daily life</li>
+            <li>Interaction becomes faster and more natural</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Beginner start</h3>
+          <p>Pick one channel, configure it properly, test a simple task, and only then consider adding more surfaces.</p>
+        </article>
+        <article class="card">
+          <h3>Good first channel</h3>
+          <p>Telegram is a sensible first setup because the official docs have a full setup walkthrough and the interaction style is simple.</p>
+        </article>
+      </div>
+      <div class="example"><pre>Good beginner goal:
+"I want OpenClaw available through one chat channel so I can test reminders, inbox help, or scheduling assistance safely."</pre></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Setup Logic</div>
+          <h2>A better way to start than brute-force experimentation</h2>
+          <p>You will learn faster if you decide the workflow first, then the channel, then the permissions.</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><div>Choose one useful assistant job.</div></li>
+        <li><div>Choose one channel to talk through.</div></li>
+        <li><div>Connect only the minimum tools or data needed.</div></li>
+        <li><div>Test with low-risk requests.</div></li>
+        <li><div>Expand only after a few clean runs.</div></li>
+      </ol>
+    </section>
+
+    <section class="section" id="workflows">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Workflows</div>
+          <h2>What good OpenClaw workflows look like</h2>
+          <p>The highest-value workflows are repetitive, bounded, and personally meaningful. The official site highlights useful real-world jobs like inbox cleanup, email, calendar help, and travel operations.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="card good">
+          <div class="badge good">Good first workflows</div>
+          <ul>
+            <li>Summarize my newest messages</li>
+            <li>Help me review today’s schedule</li>
+            <li>Prepare a travel checklist</li>
+            <li>Draft help, not auto-send</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <div class="badge warn">Riskier workflows</div>
+          <ul>
+            <li>Automatic sending with no review</li>
+            <li>Broad account access before trust is built</li>
+            <li>Multiple complex actions in one prompt</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="safety">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Safety</div>
+          <h2>How to stay smart while still getting value</h2>
+          <p>OpenClaw is most useful when you treat it like a capable assistant with guardrails. The local-first positioning is a strength, but safety still depends on what access and autonomy you grant.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Safe habits</h3>
+          <ul>
+            <li>Start with read-only or review-first tasks</li>
+            <li>Limit channels and connected tools at first</li>
+            <li>Use one workflow per test session</li>
+            <li>Review outputs before letting it act further</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Do not skip this</h3>
+          <p>The fastest way to lose trust in an assistant system is to give it too much scope before you understand how it behaves.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Beginner Prompts</div>
+          <h2>Starter requests that teach you the system</h2>
+          <p>These are simple enough to learn from but useful enough to matter.</p>
+        </div>
+      </div>
+      <div class="prompt-list">
+        <div class="prompt"><strong>Inbox help</strong><div class="example"><pre>Summarize my newest important messages and tell me which ones need a reply first.</pre></div></div>
+        <div class="prompt"><strong>Calendar help</strong><div class="example"><pre>Show me my main commitments for today and flag anything I may need to prepare for.</pre></div></div>
+        <div class="prompt"><strong>Assistant preview</strong><div class="example"><pre>Draft the response or plan first. Do not send or confirm anything without showing me.</pre></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Morning Checklist</div>
+          <h2>What to review tomorrow</h2>
+          <p>Read this guide and answer these before you do any deeper setup.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Ask yourself</h3>
+          <ul>
+            <li>What one assistant job would save me real time?</li>
+            <li>Which chat channel should I start with?</li>
+            <li>What data access is actually necessary?</li>
+            <li>What should stay review-first?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Then do</h3>
+          <ul>
+            <li>Choose one channel</li>
+            <li>Choose one workflow</li>
+            <li>Limit access</li>
+            <li>Test with a low-risk request</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Official Resources</div>
+          <h2>Pages this guide was grounded on</h2>
+          <p>These official OpenClaw pages are the best next reads after this guide.</p>
+        </div>
+      </div>
+      <div class="resource-grid">
+        <div class="resource"><h3>OpenClaw official site</h3><p><a href="https://open-claw.org/" target="_blank" rel="noreferrer">Open official site</a></p></div>
+        <div class="resource"><h3>Telegram setup guide</h3><p><a href="https://open-claw.org/docs/telegram-setup" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Chinese homepage</h3><p><a href="https://open-claw.org/zh" target="_blank" rel="noreferrer">Open official page</a></p></div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>Your shortcut</h2>
+      <p>If you remember one thing, remember this: OpenClaw should start as one useful, low-risk assistant workflow in one channel, not as an all-powerful life automation engine.</p>
+      <p>That one discipline will keep the system useful and trustworthy.</p>
+    </section>
+  </div>
+</body>
+</html>

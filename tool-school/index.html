@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tool School</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body data-lang="en">
+  <div class="site-wrap">
+    <header class="site-nav">
+      <div class="site-nav-inner">
+        <div class="brand">AI Tool School</div>
+        <div class="nav-actions">
+          <nav class="site-links">
+            <a href="#guides">Guides</a>
+            <a href="#paths">Paths</a>
+            <a href="#compare">Compare</a>
+            <a href="#progress">Morning Plan</a>
+          </nav>
+          <div class="lang-toggle" aria-label="Language toggle">
+            <button type="button" class="active" data-lang-switch="en">EN</button>
+            <button type="button" data-lang-switch="pt">PT-BR</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Built For Beginners</div>
+          <div class="lang-en">
+            <h1>A better website for learning AI tools without getting lost</h1>
+            <p>This project is now a starter school for the tools you want to get good at: Codex, OpenClaw, Claude Code, Notion, and Warp. It is built as a readable, local-first website so you can learn one tool at a time without drowning in docs.</p>
+            <p>This is also part of the proof: this was built on a first serious hands-on pass. The point is not “look how advanced this is.” The point is <strong>someone new can read, follow, and build useful results too.</strong></p>
+            <p>The idea is simple: read the beginner guide, follow the learning path, and use the morning checklist until the workflows start to feel natural.</p>
+          </div>
+          <div class="lang-pt">
+            <h1>Um site melhor para aprender ferramentas de IA sem se perder</h1>
+            <p>Este projeto agora virou uma escola inicial para as ferramentas que você quer dominar: Codex, OpenClaw, Claude Code, Notion e Warp. Ele foi feito como um site local, legível e prático para você aprender uma ferramenta por vez sem se afogar em documentação.</p>
+            <p>Isso também serve como prova: tudo isso foi construído em uma primeira passada séria e prática. A ideia não é “olha como isso é avançado”. A ideia é <strong>mostrar que alguém começando agora consegue ler, seguir e produzir resultados úteis também.</strong></p>
+            <p>A lógica é simples: leia o guia de iniciante, siga a trilha de aprendizado e use o checklist da manhã até os fluxos começarem a parecer naturais.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#guides">
+              <span class="lang-en">Explore the guides</span>
+              <span class="lang-pt">Explorar os guias</span>
+            </a>
+            <a class="button" href="first-build.html">
+              <span class="lang-en">Start the first build</span>
+              <span class="lang-pt">Começar a primeira construção</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">What this site is for</span>
+              <span class="lang-pt">Para que este site serve</span>
+            </h3>
+            <p class="lang-en">Not hype. Not vague tips. This is meant to help you actually operate the tools.</p>
+            <p class="lang-pt">Não é hype. Não são dicas vagas. Isto foi feito para ajudar você a realmente operar as ferramentas.</p>
+          </div>
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">Why it matters</span>
+              <span class="lang-pt">Por que isso importa</span>
+            </h3>
+            <p class="lang-en">This is a live beginner build, not a theory project. It shows what a first serious pass can already produce.</p>
+            <p class="lang-pt">Isto é uma construção real de iniciante, não um projeto teórico. Mostra o que uma primeira tentativa séria já consegue produzir.</p>
+          </div>
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">Best way to use it</span>
+              <span class="lang-pt">Melhor forma de usar</span>
+            </h3>
+            <p class="lang-en">Pick one guide. Read the core model. Try one real workflow. Come back and mark progress.</p>
+            <p class="lang-pt">Escolha um guia. Leia o modelo principal. Teste um fluxo real. Volte e marque o progresso.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="mini-grid">
+        <div class="mini-card"><span>Codex</span><div class="lang-en">Technical teammate for code, docs, local edits, and verification.</div><div class="lang-pt">Parceiro técnico para código, documentos, edições locais e verificação.</div></div>
+        <div class="mini-card"><span>Claude Code</span><div class="lang-en">Terminal-first coding agent for implementation, debugging, and repo work.</div><div class="lang-pt">Agente de código focado em terminal para implementação, debug e trabalho em repositórios.</div></div>
+        <div class="mini-card"><span>OpenClaw</span><div class="lang-en">Personal AI assistant and agent that runs through chat apps and local control.</div><div class="lang-pt">Assistente pessoal de IA que funciona por apps de chat com controle local.</div></div>
+        <div class="mini-card"><span>Notion + Warp</span><div class="lang-en">One for organizing knowledge, one for structuring command-line work.</div><div class="lang-pt">Um para organizar conhecimento, outro para estruturar trabalho no terminal.</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="guides">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Guide Library</span>
+            <span class="lang-pt">Biblioteca de Guias</span>
+          </div>
+          <h2>
+            <span class="lang-en">Everything in one place</span>
+            <span class="lang-pt">Tudo em um só lugar</span>
+          </h2>
+          <p class="lang-en">Search by topic or filter by the kind of work you are trying to learn.</p>
+          <p class="lang-pt">Pesquise por assunto ou filtre pelo tipo de trabalho que você quer aprender.</p>
+        </div>
+        <div class="glass-card">
+          <div class="search-row">
+            <input type="text" placeholder="Search by tool, topic, workflow, or skill" data-guide-search>
+            <div class="search-note">
+              <span class="lang-en">Live filter</span>
+              <span class="lang-pt">Filtro ao vivo</span>
+            </div>
+          </div>
+          <div class="chip-row" style="margin-top: 14px;">
+            <button class="chip active" type="button" data-filter="all">All</button>
+            <button class="chip" type="button" data-filter="coding">Coding</button>
+            <button class="chip" type="button" data-filter="automation">Automation</button>
+            <button class="chip" type="button" data-filter="ops">Ops</button>
+            <button class="chip" type="button" data-filter="knowledge">Knowledge</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-grid">
+        <article class="guide-card" data-guide-card data-tags="knowledge coding automation ops" data-search="first build hands-on beginner experience guided one on one step by step start here dummies">
+          <div class="guide-meta"><span class="pill">Start Here</span><span class="pill">Hands-on</span></div>
+          <h3>First Build Experience</h3>
+          <p class="lang-en">A guided first project for someone using this site for the first time, with first steps, common mistakes, and a simple real outcome.</p>
+          <p class="lang-pt">Uma primeira experiência guiada para quem está usando este site pela primeira vez, com primeiros passos, erros comuns e um resultado real simples.</p>
+          <div class="guide-actions"><a class="guide-link" href="first-build.html">Open guide</a></div>
+        </article>
+
+        <article class="guide-card" data-guide-card data-tags="coding automation" data-search="codex guide coding technical teammate prompts safety verification local edits automation drafts html docs">
+          <div class="guide-meta"><span class="pill">Coding</span><span class="pill">Automation</span></div>
+          <h3>Codex Beginner Guide</h3>
+          <p class="lang-en">How to prompt Codex, use preview vs execution mode, keep risky work safe, and get reliable results.</p>
+          <p class="lang-pt">Como orientar o Codex, usar modo de prévia versus execução, manter trabalhos arriscados seguros e obter resultados confiáveis.</p>
+          <div class="guide-actions"><a class="guide-link" href="codex-best-practices.html">Open guide</a></div>
+        </article>
+
+        <article class="guide-card" data-guide-card data-tags="knowledge ops" data-search="notion guide pages databases views relations rollups templates permissions ai notes wiki projects tasks">
+          <div class="guide-meta"><span class="pill">Knowledge</span><span class="pill">Ops</span></div>
+          <h3>Notion Complete Guide</h3>
+          <p class="lang-en">How to structure pages, databases, templates, permissions, and AI so your workspace does not turn into chaos.</p>
+          <p class="lang-pt">Como estruturar páginas, bancos de dados, templates, permissões e IA para que seu workspace não vire um caos.</p>
+          <div class="guide-actions"><a class="guide-link" href="notion-complete-guide.html">Open guide</a></div>
+        </article>
+
+        <article class="guide-card" data-guide-card data-tags="ops coding" data-search="warp guide terminal blocks workflows notebooks prompts agent rules codebase context command palette">
+          <div class="guide-meta"><span class="pill">Ops</span><span class="pill">Coding</span></div>
+          <h3>Warp Complete Guide</h3>
+          <p class="lang-en">How to use Warp’s blocks, editor, command palette, workflows, notebooks, prompts, and agents well.</p>
+          <p class="lang-pt">Como usar bem os blocos, editor, paleta de comandos, workflows, notebooks, prompts e agentes do Warp.</p>
+          <div class="guide-actions"><a class="guide-link" href="warp-complete-guide.html">Open guide</a></div>
+        </article>
+
+        <article class="guide-card" data-guide-card data-tags="automation ops" data-search="openclaw guide personal assistant chat apps whatsapp telegram email calendar local privacy channels autonomous agent">
+          <div class="guide-meta"><span class="pill">Automation</span><span class="pill">Ops</span></div>
+          <h3>OpenClaw Complete Guide</h3>
+          <p class="lang-en">How to think about OpenClaw as a private assistant system, set up channels, and use it safely for useful tasks.</p>
+          <p class="lang-pt">Como pensar no OpenClaw como um sistema privado de assistente, configurar canais e usá-lo com segurança em tarefas úteis.</p>
+          <div class="guide-actions"><a class="guide-link" href="openclaw-complete-guide.html">Open guide</a></div>
+        </article>
+
+        <article class="guide-card" data-guide-card data-tags="coding automation" data-search="claude code guide anthropic terminal coding repo debugging slash commands memory permissions mcp workflows">
+          <div class="guide-meta"><span class="pill">Coding</span><span class="pill">Automation</span></div>
+          <h3>Claude Code Complete Guide</h3>
+          <p class="lang-en">How to get real value from Claude Code in the terminal, from repo understanding to edits, memory, and MCP.</p>
+          <p class="lang-pt">Como extrair valor real do Claude Code no terminal, desde entender o repositório até edições, memória e MCP.</p>
+          <div class="guide-actions"><a class="guide-link" href="claude-code-complete-guide.html">Open guide</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="paths">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Learning Paths</span>
+            <span class="lang-pt">Trilhas de Aprendizado</span>
+          </div>
+          <h2>
+            <span class="lang-en">Pick the path that matches what you actually want to do</span>
+            <span class="lang-pt">Escolha a trilha que combina com o que você realmente quer fazer</span>
+          </h2>
+          <p class="lang-en">Beginners need a sequence, not a random feature dump.</p>
+          <p class="lang-pt">Iniciantes precisam de uma sequência, não de um despejo aleatório de recursos.</p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="chip active" type="button" data-tab-button="business">Business Builder</button>
+        <button class="chip" type="button" data-tab-button="coder">Coding Builder</button>
+        <button class="chip" type="button" data-tab-button="operator">Systems Operator</button>
+      </div>
+
+      <div class="tab-panel active" data-tab-panel="business">
+        <div class="lang-en">
+          <h3>Business Builder Path</h3>
+          <ul>
+            <li>Read the Notion guide first so your information has structure.</li>
+            <li>Read the Codex guide next so you can create documents, drafts, and local assets quickly.</li>
+            <li>Read the OpenClaw guide after that if you want a chat-native assistant workflow.</li>
+          </ul>
+        </div>
+        <div class="lang-pt">
+          <h3>Trilha de Construção de Negócio</h3>
+          <ul>
+            <li>Leia o guia do Notion primeiro para dar estrutura às suas informações.</li>
+            <li>Leia o guia do Codex em seguida para criar documentos, rascunhos e arquivos locais rapidamente.</li>
+            <li>Leia o guia do OpenClaw depois se quiser um fluxo de assistente nativo em chat.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-tab-panel="coder">
+        <div class="lang-en">
+          <h3>Coding Builder Path</h3>
+          <ul>
+            <li>Read the Codex guide first for controlled code edits and verification.</li>
+            <li>Read the Claude Code guide second for terminal-first coding and repo workflows.</li>
+            <li>Read the Warp guide third so your terminal process becomes reusable and organized.</li>
+          </ul>
+        </div>
+        <div class="lang-pt">
+          <h3>Trilha de Construção para Programação</h3>
+          <ul>
+            <li>Leia o guia do Codex primeiro para edições controladas e verificação.</li>
+            <li>Leia o guia do Claude Code em segundo para fluxos de programação no terminal e repositórios.</li>
+            <li>Leia o guia do Warp em terceiro para tornar seu processo de terminal reutilizável e organizado.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-tab-panel="operator">
+        <div class="lang-en">
+          <h3>Systems Operator Path</h3>
+          <ul>
+            <li>Read the Warp guide first for blocks, workflows, notebooks, and repeatability.</li>
+            <li>Read the Notion guide second to document systems and keep knowledge stable.</li>
+            <li>Use OpenClaw or Codex depending on whether the work is chat-native or workspace-native.</li>
+          </ul>
+        </div>
+        <div class="lang-pt">
+          <h3>Trilha de Operador de Sistemas</h3>
+          <ul>
+            <li>Leia o guia do Warp primeiro para blocos, workflows, notebooks e repetibilidade.</li>
+            <li>Leia o guia do Notion em segundo para documentar sistemas e manter o conhecimento estável.</li>
+            <li>Use OpenClaw ou Codex dependendo se o trabalho acontece mais em chat ou dentro do workspace.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Proof Section</span>
+            <span class="lang-pt">Seção de Prova</span>
+          </div>
+          <h2>
+            <span class="lang-en">Why this site can persuade someone seeing it for the first time</span>
+            <span class="lang-pt">Por que este site convence alguém que está vendo isso pela primeira vez</span>
+          </h2>
+        </div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card good">
+          <h3>
+            <span class="lang-en">What it proves</span>
+            <span class="lang-pt">O que isso prova</span>
+          </h3>
+          <ul class="lang-en">
+            <li>A beginner can use these tools to build something clear and publishable.</li>
+            <li>The process can be followed by other people, not just “experts.”</li>
+            <li>Hands-on learning produces visible outcomes fast.</li>
+          </ul>
+          <ul class="lang-pt">
+            <li>Um iniciante consegue usar essas ferramentas para criar algo claro e publicável.</li>
+            <li>O processo pode ser seguido por outras pessoas, não só por “especialistas”.</li>
+            <li>Aprendizado prático gera resultados visíveis rapidamente.</li>
+          </ul>
+        </div>
+        <div class="compare-card warn">
+          <h3>
+            <span class="lang-en">What makes it credible</span>
+            <span class="lang-pt">O que torna isso crível</span>
+          </h3>
+          <ul class="lang-en">
+            <li>It is organized by outcome, not by empty theory.</li>
+            <li>It includes guides, paths, and a first-build experience.</li>
+            <li>It can be shown live as a real working artifact.</li>
+          </ul>
+          <ul class="lang-pt">
+            <li>Está organizado por resultado, não por teoria vazia.</li>
+            <li>Inclui guias, trilhas e uma experiência de primeira construção.</li>
+            <li>Pode ser mostrado ao vivo como um artefato funcionando de verdade.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Compare</span>
+            <span class="lang-pt">Comparação</span>
+          </div>
+          <h2>
+            <span class="lang-en">When to use which tool</span>
+            <span class="lang-pt">Quando usar cada ferramenta</span>
+          </h2>
+        </div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card good"><h3>Codex</h3><p class="lang-en">Use when you want controlled workspace edits, documents, and verification.</p><p class="lang-pt">Use quando quiser edições controladas no workspace, documentos e verificação.</p></div>
+        <div class="compare-card warn"><h3>Claude Code</h3><p class="lang-en">Use when you want terminal-first coding help and repo-centered work.</p><p class="lang-pt">Use quando quiser ajuda de programação focada em terminal e trabalho centrado em repositórios.</p></div>
+        <div class="compare-card good"><h3>OpenClaw</h3><p class="lang-en">Use when you want a private assistant feel through chat channels and local control.</p><p class="lang-pt">Use quando quiser uma experiência de assistente privado por canais de chat com controle local.</p></div>
+        <div class="compare-card warn"><h3>Notion / Warp</h3><p class="lang-en">Use Notion for structure and knowledge. Use Warp for repeatable terminal operations.</p><p class="lang-pt">Use Notion para estrutura e conhecimento. Use Warp para operações repetíveis no terminal.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="progress">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Morning Plan</span>
+            <span class="lang-pt">Plano da Manhã</span>
+          </div>
+          <h2>
+            <span class="lang-en">Use this tomorrow morning</span>
+            <span class="lang-pt">Use isso amanhã de manhã</span>
+          </h2>
+          <p class="lang-en">The checklist saves in your browser on this machine.</p>
+          <p class="lang-pt">O checklist fica salvo no navegador desta máquina.</p>
+        </div>
+        <div class="glass-card">
+          <h3>
+            <span class="lang-en">Progress</span>
+            <span class="lang-pt">Progresso</span>
+          </h3>
+          <p data-progress-label>0 of 6 completed</p>
+          <div class="progress-bar"><div class="progress-fill" data-progress-fill></div></div>
+        </div>
+      </div>
+      <div class="check-grid">
+        <article class="check-card"><label for="check-home"><input id="check-home" type="checkbox" data-progress-item><span class="lang-en">Open this homepage first and decide which path you are following.</span><span class="lang-pt">Abra esta página primeiro e decida qual trilha você vai seguir.</span></label></article>
+        <article class="check-card"><label for="check-first"><input id="check-first" type="checkbox" data-progress-item><span class="lang-en">Do the guided first-build page before going deeper.</span><span class="lang-pt">Faça a página guiada da primeira construção antes de ir mais fundo.</span></label></article>
+        <article class="check-card"><label for="check-codex"><input id="check-codex" type="checkbox" data-progress-item><span class="lang-en">Read the Codex guide and keep one prompt pattern.</span><span class="lang-pt">Leia o guia do Codex e guarde um padrão de prompt.</span></label></article>
+        <article class="check-card"><label for="check-claude"><input id="check-claude" type="checkbox" data-progress-item><span class="lang-en">Read the Claude Code guide and note one terminal workflow.</span><span class="lang-pt">Leia o guia do Claude Code e anote um fluxo de terminal.</span></label></article>
+        <article class="check-card"><label for="check-notion"><input id="check-notion" type="checkbox" data-progress-item><span class="lang-en">Review Notion and decide what should be pages vs databases.</span><span class="lang-pt">Revise o Notion e decida o que deve ser página ou banco de dados.</span></label></article>
+        <article class="check-card"><label for="check-warp"><input id="check-warp" type="checkbox" data-progress-item><span class="lang-en">Review Warp and identify one workflow, one prompt, or one notebook.</span><span class="lang-pt">Revise o Warp e identifique um workflow, um prompt ou um notebook.</span></label></article>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>
+        <span class="lang-en">What makes this stand out</span>
+        <span class="lang-pt">O que faz isso se destacar</span>
+      </h2>
+      <p class="lang-en">This is not a random stack of copied docs. It is a learning system built around how beginners actually learn: mental model first, practical workflow second, repetition third.</p>
+      <p class="lang-pt">Isto não é uma pilha aleatória de documentação copiada. É um sistema de aprendizado construído em torno de como iniciantes realmente aprendem: modelo mental primeiro, fluxo prático depois, repetição em seguida.</p>
+      <p class="lang-en">If you later push this to GitHub, it already has the bones of a clean starter site.</p>
+      <p class="lang-pt">Se depois você colocar isso no GitHub, ele já tem a base de um site inicial limpo.</p>
+    </section>
+  </div>
+
+  <script src="site.js"></script>
+</body>
+</html>

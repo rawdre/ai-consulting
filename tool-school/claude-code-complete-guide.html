@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Complete Guide</title>
+  <style>
+    :root { --bg:#eef0e8; --paper:#f9fbf6; --ink:#172127; --muted:#55646a; --accent:#266759; --accent-soft:#cfe7de; --warn:#94592f; --line:#c7d7d0; --good-soft:rgba(38,103,89,.11); --warn-soft:rgba(148,89,47,.11); --shadow:0 24px 50px rgba(27,55,49,.11); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Georgia,"Times New Roman",serif; line-height:1.65; background:radial-gradient(circle at top left, rgba(38,103,89,.12), transparent 28%),radial-gradient(circle at top right, rgba(148,89,47,.08), transparent 22%),linear-gradient(180deg,#f9fcf8 0%,var(--bg) 100%); }
+    a { color:inherit; }
+    .wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+    .topbar { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; color:var(--muted); font-size:.95rem; }
+    .topbar nav { display:flex; flex-wrap:wrap; gap:12px; }
+    .topbar a { text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; }
+    .topbar a:hover { border-color:rgba(23,33,39,.35); }
+    .hero { border-radius:32px; overflow:hidden; position:relative; border:1px solid rgba(199,215,208,.92); box-shadow:var(--shadow); background:linear-gradient(135deg, rgba(249,251,246,.98), rgba(232,242,237,.94)); }
+    .hero::after { content:""; position:absolute; inset:auto -100px -110px auto; width:320px; height:320px; background:radial-gradient(circle, rgba(38,103,89,.16), transparent 70%); pointer-events:none; }
+    .hero-inner,.section-head,.quick-grid,.grid-2,.grid-3,.workflow,.resource-grid { display:grid; gap:18px; }
+    .hero-inner { grid-template-columns:minmax(0,1.45fr) minmax(280px,.95fr); gap:26px; padding:46px 34px 34px; position:relative; z-index:1; }
+    .eyebrow,.section-kicker { display:inline-block; margin-bottom:12px; font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+    h1,h2,h3 { margin:0 0 14px; line-height:1.12; }
+    h1 { font-size:clamp(2.5rem,6vw,5rem); max-width:12ch; }
+    h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
+    h3 { font-size:1.14rem; }
+    p { margin:0 0 14px; color:var(--muted); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); text-decoration:none; font-weight:700; }
+    .button.primary { background:var(--accent); color:#f4fffb; border-color:transparent; }
+    .panel,.card,.quick-card,.workflow-item,.prompt,.resource { border:1px solid rgba(199,215,208,.9); background:rgba(255,255,255,.72); border-radius:22px; padding:20px; }
+    .hero-side { display:grid; gap:16px; align-content:start; }
+    .section { margin-top:28px; border:1px solid rgba(199,215,208,.86); border-radius:28px; padding:30px 28px; background:rgba(249,251,246,.76); box-shadow:var(--shadow); }
+    .section-head { grid-template-columns:minmax(0,1.3fr) minmax(260px,.8fr); gap:22px; align-items:end; margin-bottom:22px; }
+    .quick-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .workflow { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .resource-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .quick-card span,.workflow-item small { display:block; margin-bottom:10px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+    ul,ol { margin:12px 0 0 20px; padding:0; }
+    li { margin-bottom:10px; }
+    .steps { list-style:none; margin:0; padding:0; counter-reset:step; display:grid; gap:14px; }
+    .steps li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; margin:0; }
+    .steps li::before { counter-increment:step; content:counter(step); width:40px; height:40px; display:grid; place-items:center; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-weight:700; }
+    .compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .good { background:var(--good-soft); }
+    .warn { background:var(--warn-soft); }
+    .badge { display:inline-block; margin-bottom:12px; padding:6px 12px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .badge.good { color:var(--accent); background:rgba(38,103,89,.11); }
+    .badge.warn { color:var(--warn); background:rgba(148,89,47,.12); }
+    .example { margin-top:16px; padding:18px; border-radius:18px; background:#182125; color:#eff9f4; overflow-x:auto; border:1px solid rgba(255,255,255,.08); }
+    pre,code { font-family:Consolas,"Courier New",monospace; font-size:.95rem; }
+    .prompt-list { display:grid; gap:14px; }
+    .prompt strong { display:block; margin-bottom:8px; color:var(--ink); }
+    .note,.footer { border-radius:24px; background:linear-gradient(135deg,#182c31,#25433d); color:#f3fbf8; box-shadow:var(--shadow); }
+    .note { padding:18px 20px; }
+    .footer { margin-top:28px; padding:26px 28px; }
+    .note p,.footer p,.footer li { color:rgba(243,251,248,.84); }
+    .resource a { color:var(--accent); text-decoration:none; font-weight:700; }
+    .resource a:hover { text-decoration:underline; }
+    @media (max-width:980px) { .hero-inner,.section-head,.quick-grid,.workflow,.grid-3,.resource-grid,.grid-2,.compare { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .wrap { padding:18px 14px 54px; } .hero-inner,.section,.footer { padding:24px 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>Practical local guide for learning Claude Code well</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="#model">Model</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#commands">Commands</a>
+        <a href="#mcp">MCP</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Claude Code Playbook</div>
+          <h1>Get genuinely useful with Claude Code</h1>
+          <p>Anthropic’s official docs describe Claude Code as an agentic coding tool that lives in your terminal. It is strongest when you use it for real repo work: building, debugging, explaining, planning, editing, and checking code.</p>
+          <p>The simplest mental model is: <strong>Claude Code is a terminal-native coding teammate that becomes better when your prompts, repo context, and tool connections are clear.</strong></p>
+          <div class="hero-actions">
+            <a class="button primary" href="#model">Learn the model</a>
+            <a class="button" href="index.html">Back to home</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="panel">
+            <h3>What it is good at</h3>
+            <p><strong>Build:</strong> feature work from description.</p>
+            <p><strong>Fix:</strong> debugging from symptoms or errors.</p>
+            <p><strong>Explain:</strong> navigating unfamiliar codebases.</p>
+            <p><strong>Operate:</strong> terminal-first workflows with MCP and tools.</p>
+          </div>
+          <div class="panel">
+            <h3>Best beginner rule</h3>
+            <p>Keep tasks bounded. Ask for one feature, one bug fix, one explanation, or one review loop at a time.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quick-grid">
+        <div class="quick-card"><span>1. Terminal-first</span>Claude Code lives in the terminal, not only in a web chat.</div>
+        <div class="quick-card"><span>2. Repo-aware</span>It shines when it can inspect the real codebase.</div>
+        <div class="quick-card"><span>3. Agentic</span>It can plan, edit, and help complete work, not just answer questions.</div>
+        <div class="quick-card"><span>4. Extensible</span>MCP and related tooling expand what context and tools it can use.</div>
+      </div>
+    </section>
+
+    <section class="section" id="model">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Mental Model</div>
+          <h2>Think coding teammate in the terminal</h2>
+          <p>The official overview makes this clear: Claude Code is for turning plain-English requests into actual coding work. It is not just for code explanation. It is for build, debug, navigate, and implement loops.</p>
+        </div>
+        <div class="note">
+          <p><strong>Good framing:</strong> “Here is the repo, here is the problem, here is the scope, and here is how I want success verified.”</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Strong requests</h3>
+          <ul>
+            <li>Find why this test fails and fix it</li>
+            <li>Explain this folder and map the flow</li>
+            <li>Implement this bounded feature</li>
+            <li>Review this diff for bugs or regressions</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Weak requests</h3>
+          <ul>
+            <li>“Check everything”</li>
+            <li>Huge unclear refactors</li>
+            <li>Requests with no repo context</li>
+            <li>Tasks with no finish line or verification</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core Workflow</div>
+          <h2>What good Claude Code usage looks like</h2>
+          <p>The best way to use it is not random chatting. It is a loop: inspect, constrain, act, verify. That is how you get useful output and avoid unnecessary drift.</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><div>Open the repo and give a concrete task.</div></li>
+        <li><div>Say what files or scope matter.</div></li>
+        <li><div>Say what not to touch.</div></li>
+        <li><div>Ask for implementation or explanation.</div></li>
+        <li><div>Ask for verification or next-step guidance.</div></li>
+      </ol>
+      <div class="example"><pre>Find why login is failing in this repo.
+Only work in the auth flow.
+Fix it, explain what changed, and tell me how you verified the result.</pre></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Repo Navigation</div>
+          <h2>One of the fastest ways to get value</h2>
+          <p>Claude Code is particularly useful when you have a repo you do not fully understand yet. Ask it to map the structure, explain flows, and point you at the critical files.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Ask it to explain</h3>
+          <ul>
+            <li>Main folders</li>
+            <li>Entry points</li>
+            <li>Data flow</li>
+            <li>Where business logic lives</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Ask it to find</h3>
+          <ul>
+            <li>Bug source</li>
+            <li>Feature boundaries</li>
+            <li>Risky code paths</li>
+            <li>Tests related to a feature</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Ask it to summarize</h3>
+          <ul>
+            <li>What changed in a diff</li>
+            <li>What a module does</li>
+            <li>What to read next</li>
+            <li>Why a fix makes sense</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="commands">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Commands And Features</div>
+          <h2>Learn the core behavior before getting fancy</h2>
+          <p>Current Anthropic docs cover features like slash commands, memory, settings, and terminal usage patterns. You do not need all of them on day one, but they matter once you repeat work.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="card good">
+          <div class="badge good">Learn early</div>
+          <ul>
+            <li>How to start Claude Code in a repo</li>
+            <li>How to give bounded tasks</li>
+            <li>How to ask for explanation plus implementation</li>
+            <li>How to ask for verification</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <div class="badge warn">Learn later</div>
+          <ul>
+            <li>Deeper settings customization</li>
+            <li>Advanced memory patterns</li>
+            <li>More elaborate slash command habits</li>
+            <li>Complex multi-tool expansions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mcp">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">MCP And Extensions</div>
+          <h2>How Claude Code gets outside information and tools</h2>
+          <p>Anthropic’s official docs describe MCP as the protocol for connecting AI systems to tools and data sources. For Claude Code, MCP matters when you want richer context, external systems, or specialized integrations.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Why MCP matters</h3>
+          <ul>
+            <li>Lets Claude Code use external context and tools</li>
+            <li>Improves workflows that need more than local files</li>
+            <li>Creates more extensible development setups</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Beginner advice</h3>
+          <p>Do not start with MCP unless you already understand the basic repo workflow. Learn core Claude Code usage first, then add integrations.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Good Habits</div>
+          <h2>What separates solid usage from sloppy usage</h2>
+          <p>Most problems come from scope creep, vague asks, or skipping verification. The tool is strongest when you close the loop.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Good habits</h3>
+          <ul>
+            <li>Use one clear task at a time</li>
+            <li>State file or feature boundaries</li>
+            <li>Ask for reasoning in plain English</li>
+            <li>Ask for verification or test steps</li>
+            <li>Save prompt patterns that worked</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Bad habits</h3>
+          <ul>
+            <li>Vague “fix the repo” requests</li>
+            <li>No constraints on what can change</li>
+            <li>Blind trust without review</li>
+            <li>Skipping test or verification requests</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Beginner Prompts</div>
+          <h2>Starter requests worth reusing</h2>
+          <p>These are useful enough to matter and narrow enough to produce better output.</p>
+        </div>
+      </div>
+      <div class="prompt-list">
+        <div class="prompt"><strong>Repo explanation</strong><div class="example"><pre>Explain this repo in plain English.
+Show me the main folders, entry points, and what I should read first.
+Do not edit anything.</pre></div></div>
+        <div class="prompt"><strong>Bounded bug fix</strong><div class="example"><pre>Find why this flow is failing, fix only the relevant files, and tell me how you verified the fix.</pre></div></div>
+        <div class="prompt"><strong>Review help</strong><div class="example"><pre>Review these changes for likely bugs, regressions, and missing tests.
+Summarize findings first.</pre></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Morning Checklist</div>
+          <h2>What to review tomorrow</h2>
+          <p>Use these questions before you try to do too much with Claude Code.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Ask yourself</h3>
+          <ul>
+            <li>What repo or folder do I want help with first?</li>
+            <li>Do I need explanation, implementation, review, or debugging?</li>
+            <li>What part of the code should stay untouched?</li>
+            <li>How will I know the task is done?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Then do</h3>
+          <ul>
+            <li>Open one repo</li>
+            <li>Pick one bounded task</li>
+            <li>State clear constraints</li>
+            <li>Ask for verification</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Official Resources</div>
+          <h2>Pages this guide was grounded on</h2>
+          <p>These official Anthropic docs are the best next reads after this guide.</p>
+        </div>
+      </div>
+      <div class="resource-grid">
+        <div class="resource"><h3>Claude Code overview</h3><p><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Claude Code docs index</h3><p><a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noreferrer">Open official docs</a></p></div>
+        <div class="resource"><h3>MCP overview</h3><p><a href="https://docs.anthropic.com/en/docs/build-with-claude/mcp" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+        <div class="resource"><h3>Models overview</h3><p><a href="https://docs.anthropic.com/en/docs/models-overview" target="_blank" rel="noreferrer">Open official guide</a></p></div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>Your shortcut</h2>
+      <p>If you remember one thing, remember this: Claude Code gets dramatically better when you give it a real repo, a bounded task, clear constraints, and a verification target.</p>
+      <p>That is the difference between random chat and reliable coding work.</p>
+    </section>
+  </div>
+</body>
+</html>
