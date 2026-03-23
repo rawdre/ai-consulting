@@ -432,13 +432,13 @@ img{max-width:100%;display:block}
 @media(max-width:768px){.hero-cards-grid,.hero-cards-grid.hero-cards-5{grid-template-columns:1fr 1fr;gap:12px}}
 @media(max-width:480px){.hero-cards-grid,.hero-cards-grid.hero-cards-5{grid-template-columns:1fr;gap:10px}}
 @media(max-width:768px){[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}}
-.dual-path-card{background:rgba(15,26,46,.85);border:2px solid rgba(211,47,47,.35);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block;backdrop-filter:blur(10px)}
+.dual-path-card{background:rgba(15,26,46,.28);border:1.5px solid rgba(255,255,255,.22);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-decoration:none;display:block;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.08)}
 .dual-path-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(211,47,47,.08),transparent);opacity:0;transition:var(--transition)}
 .dual-path-card:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 12px 40px rgba(211,47,47,.25)}
 .dual-path-card:hover::before{opacity:1}
 .dual-path-card .dp-emoji{font-size:48px;display:block;margin-bottom:16px;position:relative;z-index:1}
-.dual-path-card .dp-title{font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
-.dual-path-card .dp-sub{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.5;position:relative;z-index:1}
+.dual-path-card .dp-title{font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:8px;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.dual-path-card .dp-sub{font-size:.85rem;color:rgba(255,255,255,.88);line-height:1.5;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.4)}
 
 /* PROPRIETÁRIOS BANNER */
 .prop-banner{background:linear-gradient(135deg,var(--red),var(--red-dark));padding:28px 0;position:relative;overflow:hidden}
