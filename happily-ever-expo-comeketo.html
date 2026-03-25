@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happily Ever Expo × Comeketo Catering — Working Proposal Draft</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{
+  --ink:#1d1a19;
+  --muted:#6e635b;
+  --bg:#f6f0e8;
+  --paper:#fffaf4;
+  --card:#fffdf9;
+  --line:rgba(135,96,53,.18);
+  --gold:#b88746;
+  --gold-deep:#8f6735;
+  --rose:#ead9d4;
+  --shadow:0 18px 48px rgba(40,24,10,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Manrope',sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(234,217,212,.8), transparent 34%),
+    linear-gradient(180deg, #f8f2eb 0%, #efe5da 100%);
+  color:var(--ink);
+  padding:28px 16px 40px;
+}
+.wrap{max-width:1100px;margin:0 auto}
+.sheet{
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  border-radius:28px;
+  overflow:hidden;
+}
+.hero{
+  padding:44px 44px 28px;
+  background:
+    linear-gradient(135deg, rgba(184,135,70,.12), rgba(255,255,255,.55)),
+    linear-gradient(135deg, #fff7ef 0%, #f7eee8 100%);
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(184,135,70,.12);
+  color:var(--gold-deep);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+}
+h1,h2,h3{
+  font-family:'Cormorant Garamond',serif;
+  color:#201715;
+}
+h1{
+  font-size:58px;
+  line-height:.95;
+  margin:18px 0 14px;
+  max-width:760px;
+}
+.sub{
+  max-width:760px;
+  font-size:18px;
+  line-height:1.8;
+  color:#51463e;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+  margin-top:28px;
+}
+.pillars,.snapshot,.section,.note,.message{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+}
+.pillars{padding:22px}
+.pillars h3,.snapshot h3,.section h2,.message h2{margin-bottom:12px}
+.pillars ul,.checklist,.message ul{
+  padding-left:18px;
+  color:#433832;
+  line-height:1.9;
+}
+.snapshot{
+  padding:22px;
+  background:linear-gradient(160deg, #fffdf9 0%, #f8f0e6 100%);
+}
+.meta{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:10px;
+}
+.meta-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  background:#fff;
+}
+.meta-card .big{
+  font-size:27px;
+  font-weight:800;
+  color:var(--gold-deep);
+  margin-bottom:4px;
+}
+.meta-card .small{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--muted);
+}
+.content{
+  padding:28px;
+  display:grid;
+  gap:18px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.section{
+  padding:24px;
+}
+.section h2{
+  font-size:40px;
+  line-height:1;
+  margin-bottom:10px;
+}
+.section p{
+  color:#4d433c;
+  line-height:1.85;
+  font-size:15px;
+}
+.band{
+  margin-top:14px;
+  padding:14px 16px;
+  border-left:4px solid var(--gold);
+  background:#fcf4e8;
+  color:#53473f;
+  border-radius:12px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+.card{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+}
+.card h3{
+  font-size:28px;
+  margin-bottom:8px;
+}
+.card p{
+  font-size:14px;
+  line-height:1.8;
+  color:#4f443d;
+}
+.tag{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:rgba(184,135,70,.12);
+  color:var(--gold-deep);
+}
+.note{
+  padding:20px 22px;
+  background:linear-gradient(135deg, #fffaf4 0%, #f8efe3 100%);
+}
+.note strong{color:#3b2b1f}
+.message{
+  padding:24px;
+}
+.message p{
+  white-space:pre-line;
+  line-height:1.85;
+  color:#433832;
+}
+.footer{
+  padding:18px 28px 28px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media (max-width:860px){
+  h1{font-size:42px}
+  .hero{padding:28px 22px 22px}
+  .content{padding:18px}
+  .hero-grid,.grid-2,.cards,.meta{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="sheet">
+      <section class="hero">
+        <div class="eyebrow">Working Draft for Rodrigo / Andre</div>
+        <h1>Happily Ever Expo × Comeketo Catering</h1>
+        <p class="sub">A practical proposal draft built around what Happily Ever Expo appears to actually value: intimate vendor conversations, strong attendee experience, giveaways, and planning support for engaged couples across New England. The goal is not to ask them to rebuild their operation mid-season. The goal is to fit Comeketo into the flow they already run.</p>
+
+        <div class="hero-grid">
+          <div class="pillars">
+            <h3>What They Seem To Be About</h3>
+            <ul>
+              <li>Modern New England wedding expo brand focused on engaged couples, venues, and curated wedding vendors.</li>
+              <li>Smaller reservation-based expo flow instead of oversized crowded shows, which suggests quality conversations matter.</li>
+              <li>Experience-led positioning with swag bags, giveaways, venue tours, and opportunities to meet vendors in person.</li>
+              <li>Regional schedule across Massachusetts and Rhode Island, which creates repeat visibility instead of a one-off show.</li>
+            </ul>
+          </div>
+
+          <aside class="snapshot">
+            <h3>Current Snapshot</h3>
+            <div class="meta">
+              <div class="meta-card">
+                <div class="big">Franklin</div>
+                <div class="small">Facebook page location</div>
+              </div>
+              <div class="meta-card">
+                <div class="big">1.3k</div>
+                <div class="small">Facebook followers shown</div>
+              </div>
+              <div class="meta-card">
+                <div class="big">Apr 26</div>
+                <div class="small">Wrentham expo on site</div>
+              </div>
+              <div class="meta-card">
+                <div class="big">May 17</div>
+                <div class="small">Peabody expo on site</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="grid-2">
+          <section class="section">
+            <h2>Why Comeketo Fits</h2>
+            <p>Comeketo is not generic banquet food. That is exactly why it can work here. Wedding expos need vendors that create memory fast. Brazilian BBQ, passed bites, pão de queijo, and a polished tasting station all give couples something they remember and talk about after the show. It photographs well, smells good in the room, and gives Happily Ever Expo a more experiential food partner than a standard buffet handout.</p>
+            <div class="band"><strong>Positioning angle:</strong> not just “catering available,” but “interactive wedding food experience with strong visual identity and tasting appeal.”</div>
+          </section>
+
+          <section class="section">
+            <h2>Main Constraint</h2>
+            <p>The message on screen makes the constraint obvious: she is busy, capacity-limited, and resistant to extra work unless the upside is clearly worth it. That means the first offer should be easy to understand, easy to host, and easy to repeat. If the ask feels like custom production every time, it will stall. If it feels like a simple, revenue-supporting add-on, it has a chance.</p>
+            <div class="band"><strong>Best response posture:</strong> make the initial program simple, measured, and optional to expand later.</div>
+          </section>
+        </div>
+
+        <section class="section">
+          <h2>Recommended Partnership Structure</h2>
+          <p>Start with a low-friction pilot. Give them one clear model, then one optional expansion. That keeps the decision binary and manageable.</p>
+          <div class="cards">
+            <div class="card">
+              <h3>Option A</h3>
+              <p><strong>On-site tasting station at selected expos.</strong> Comeketo brings a compact tasting menu for a defined service window. Happily Ever Expo provides placement, traffic, and inclusion as a featured vendor. This is the cleanest fit if the goal is direct lead generation.</p>
+              <div class="tag">Recommended First</div>
+            </div>
+            <div class="card">
+              <h3>Option B</h3>
+              <p><strong>Off-site private tasting invitation.</strong> At the expo, couples receive a Comeketo tasting certificate or RSVP invitation for a later tasting day at Comeketo’s location. Much lower event-day strain for the expo team.</p>
+              <div class="tag">Lower Lift</div>
+            </div>
+            <div class="card">
+              <h3>Option C</h3>
+              <p><strong>Hybrid model.</strong> Light bites on site to create interest, then qualified couples get invited to a fuller tasting later. This balances wow factor with operational control.</p>
+              <div class="tag">Best Long Term</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid-2">
+          <section class="section">
+            <h2>What To Propose For On-Site</h2>
+            <p>If you answer her directly, keep it specific. A reasonable pilot would be a compact tasting activation with 2 to 4 signature bites, one branded display table, and one short service block during peak attendee traffic.</p>
+            <ul class="checklist">
+              <li>Footprint: one 6 to 8 foot tasting table</li>
+              <li>Crew: 2 to 3 Comeketo staff</li>
+              <li>Service style: sample-size bites, not full meal service</li>
+              <li>Ideal timing: one concentrated 90 to 150 minute window during expo peak</li>
+              <li>Power: optional, depending on whether hot holding is needed</li>
+              <li>Menu example: mini churrasco bite, pão de queijo, Brazilian sausage bite, small dessert sample</li>
+              <li>Lead capture: QR code plus inquiry card for wedding date, guest count, venue, budget range</li>
+            </ul>
+            <div class="band"><strong>Key framing:</strong> “We are not asking you to redesign the event. We would slot into your existing vendor floor as a compact featured tasting partner.”</div>
+          </section>
+
+          <section class="section">
+            <h2>How It Helps Them</h2>
+            <ul class="checklist">
+              <li>Adds a memorable food element couples can taste immediately.</li>
+              <li>Supports the “modern expo experience” brand instead of just another table row.</li>
+              <li>Creates sponsor-style value without major production overhead.</li>
+              <li>Can be limited to select dates only, so they are not committing across the full season.</li>
+              <li>Gives them a differentiated catering partner for couples still shopping vendor bundles.</li>
+            </ul>
+            <div class="band"><strong>Commercial logic:</strong> if Comeketo sponsors, exhibits, or contributes tasting value, Happily Ever Expo gets stronger attendee experience with minimal operational drag.</div>
+          </section>
+        </div>
+
+        <section class="note">
+          <strong>Recommendation:</strong> pitch the hybrid path first. Offer a small on-site tasting presence at one event only, then invite serious couples to a fuller tasting on another day. That directly addresses her capacity concern while still giving Rodrigo a real shot at lead generation and visibility.
+        </section>
+
+        <section class="message">
+          <h2>Draft Reply You Could Send</h2>
+          <p>Totally understood. I am not looking to create a heavy lift for you mid-season.
+
+What I have in mind is a very simple pilot that fits into the flow you already run.
+
+The cleanest version would be Comeketo participating as a featured catering partner at one selected expo with a compact tasting station, not a full production setup. We would keep it to a small footprint, a short defined service window, and a limited tasting menu so it adds value for couples without creating a lot of extra work on your side.
+
+Example:
+- one 6-8 ft tasting table
+- 2-3 staff
+- 2-4 sample items
+- one peak service window during the expo
+- QR code / inquiry capture for couples interested in wedding catering
+
+If on-site feels like too much, the second option would be even simpler: we attend as a vendor and offer couples an invitation to a separate tasting at our location on another day.
+
+My goal is really to explore something that gives your attendees a strong food experience and gives us a chance to connect with qualified couples, without asking you to materially change your event structure.
+
+If helpful, I can lay this out as a one-page proposal with exactly what we would bring, space needed, timing, and what the value is on both sides.</p>
+        </section>
+      </section>
+
+      <footer class="footer">
+        Working proposal draft based on Happily Ever Expo public website/event listings and the Facebook page details shown in your screenshots. Built for internal planning before any polished client-facing version.
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
