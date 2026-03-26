@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Teacher Setup Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root{
+      --bg:#0a0a0d;
+      --panel:#15151d;
+      --panel-soft:#1d1d27;
+      --ink:#f4f1ea;
+      --muted:#b6b1c8;
+      --accent:#8ef0c6;
+      --accent-2:#7cc7ff;
+      --line:rgba(255,255,255,.08);
+      --warn:#ffd18a;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Manrope',sans-serif;
+      background:linear-gradient(180deg,#08080b 0%,#101018 100%);
+      color:var(--ink);
+      padding:28px 18px 48px;
+    }
+    .wrap{max-width:1100px;margin:0 auto}
+    .hero,.section,.card,.prompt-box{background:var(--panel);border:1px solid var(--line);border-radius:28px}
+    .hero{padding:30px;margin-bottom:18px}
+    .badge{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(124,199,255,.12);
+      color:var(--accent-2);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+    h1,h2,h3{font-family:'Cormorant Garamond',serif}
+    h1{font-size:60px;line-height:.9;margin:16px 0 12px}
+    h2{font-size:38px;margin-bottom:12px}
+    h3{font-size:28px;margin-bottom:10px}
+    p,li{color:var(--muted);line-height:1.85}
+    .hero p{max-width:780px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .section{padding:24px;margin-bottom:18px}
+    .card{padding:18px;background:var(--panel-soft);border-radius:22px}
+    .pill{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(142,240,198,.12);
+      color:var(--accent);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+    ul{list-style:none;display:grid;gap:10px}
+    li{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#13131a;
+    }
+    .prompt-box{
+      padding:22px;
+      background:linear-gradient(180deg,#12121a 0%,#181821 100%);
+    }
+    pre{
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size:13px;
+      line-height:1.75;
+      color:#eef3ff;
+    }
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      border-left:4px solid var(--warn);
+      border-radius:12px;
+      background:rgba(255,209,138,.08);
+      color:#ead8b8;
+    }
+    .top-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      font-size:13px;
+      transition:.2s;
+    }
+    .button.primary{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#081018}
+    .button.secondary{border:1px solid var(--line);color:var(--ink)}
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:42px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">AI Teacher / system setup</div>
+      <h1>AI Teacher Instructions for a Small AI Website</h1>
+      <p>This guide turns the AI Teacher idea into build-ready instructions. The goal is not just to answer questions. The goal is to make the AI act like a guided teacher inside the site: clear, calm, technical, and focused on helping the user move step by step.</p>
+      <div class="top-actions">
+        <a class="button primary" href="#prompt">Jump to final prompt</a>
+        <a class="button secondary" href="index.html">Back to Tool School</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Build Rules</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="pill">Storage + keys</div>
+          <h3>BYOK + IndexedDB</h3>
+          <ul>
+            <li>The site must use BYOK, which means the user provides their own API key.</li>
+            <li>The key must be stored locally, not hardcoded in the site.</li>
+            <li>Use IndexedDB to store the key, user progress, settings, and model choice.</li>
+            <li>The site must still work in limited mode even if no key is set.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill">Provider + model</div>
+          <h3>OpenRouter First</h3>
+          <ul>
+            <li>Use OpenRouter as the provider for now.</li>
+            <li>Default to `nvidia/nemotron-3-super-120b-a12b:free`.</li>
+            <li>Explain that free models can change or disappear later.</li>
+            <li>Make model switching available in settings so the site does not break when a free model moves.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill">UX rule</div>
+          <h3>Hide Settings From the Main Screen</h3>
+          <ul>
+            <li>Put API key, provider, and model selectors inside a settings panel.</li>
+            <li>Do not expose technical errors and provider details on the main learning surface.</li>
+            <li>Settings should be easy to find, but not visually noisy.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill">AI behavior</div>
+          <h3>Teacher Role Only</h3>
+          <ul>
+            <li>The AI should act like a teacher, not a vague chatbot.</li>
+            <li>It should explain what to do next, give small tasks, and guide the user through the site.</li>
+            <li>It should be friendly, technical, and never overwhelming.</li>
+            <li>It should improve messy instructions before trying to implement them.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How the Teacher Should Behave</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="pill">Navigation behavior</div>
+          <h3>Guide the Site Journey</h3>
+          <p>The AI should understand the structure of the site and move the user through it. It should tell the user what to click, what to read, what to test next, and when a step is complete.</p>
+        </article>
+        <article class="card">
+          <div class="pill">Instruction cleanup</div>
+          <h3>Rewrite Before Building</h3>
+          <p>If the user gives messy instructions, the AI should reorganize them, clarify them, and then implement. That rule should be part of the system behavior, not an optional habit.</p>
+        </article>
+      </div>
+      <div class="note">Good default sections for the AI to understand: Morning plan, first build, guides, tools, and settings.</div>
+    </section>
+
+    <section class="section" id="prompt">
+      <h2>Final System Prompt</h2>
+      <div class="prompt-box">
+<pre>You are an AI Teacher helping build a small AI-powered website.
+Your job is to guide the agent step-by-step and explain what to implement, using clear technical instructions but simple language.
+
+Follow these rules carefully.
+
+1. Use BYOK (Bring Your Own Key)
+
+Tell the agent that the site must use a BYOK (Bring Your Own Key) setup.
+
+This means:
+- The user provides their own API key
+- The key is stored locally
+- The site does not hardcode any key
+- The site must still work without a key (limited mode)
+
+Explain to the agent that BYOK is required for flexibility and to avoid breaking the site later.
+
+2. Use IndexedDB for Browser Storage
+
+Tell the agent to implement browser storage using IndexedDB.
+
+Requirements:
+- Store API keys locally
+- Store user progress
+- Store settings
+- Store model selection
+- Do NOT use server database for now
+
+Explain that:
+IndexedDB is perfect for small local sites.
+Bigger apps may use SQL / backend storage later, but not now.
+
+3. Use OpenRouter with a Free Model
+
+Tell the agent to use OpenRouter as the provider.
+
+Steps:
+- Go to OpenRouter
+- Create a free API key
+- Choose a free model
+
+Use this model for now:
+nvidia/nemotron-3-super-120b-a12b:free
+
+Explain clearly:
+- Free models may change
+- Free models may disappear
+- If the AI stops working later, this is probably why
+- The site must allow model change in settings
+
+4. Put BYOK + Model Settings in a Settings Panel
+
+Tell the agent:
+The BYOK setup must NOT be visible on the main screen.
+
+Requirements:
+- Create a Settings section
+- Put API key input there
+- Put model selector there
+- Put provider selector there
+
+Explain:
+It looks unprofessional when the site shows API errors or model names on the main page.
+Settings should be hidden but easy to find.
+
+5. Decide the Role of the AI on the Site
+
+Tell the agent the AI must have a defined role.
+
+Possible roles:
+- Teacher
+- Guide
+- Assistant
+- Secretary
+- Coach
+- Progress helper
+
+For this site:
+The AI should act as:
+A Teacher that helps the user learn AI tools step-by-step.
+
+The teacher should:
+- Explain what to do next
+- Give small tasks
+- Encourage progress
+- Not overwhelm the user
+- Speak clearly
+- Be friendly but technical
+
+6. The AI Should Guide the User Through the Site
+
+The AI must understand that the site has sections like:
+- Morning plan
+- First build
+- Guides
+- Tools
+- Settings
+
+The AI should help the user move forward, not just answer questions.
+
+Example behavior:
+- Tell what to click
+- Tell what to read
+- Tell what to try next
+- Tell when something is done
+
+7. Final Rule (Very Important)
+
+Take ALL instructions given by the user, including this one, and improve them before building.
+
+The agent should always:
+- Rewrite messy instructions
+- Organize them
+- Clarify them
+- Then implement
+
+If instructions are unclear, the agent must fix them first.</pre>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
