@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comeketo Mind Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg:#090909;
+  --panel:#121212;
+  --panel-soft:#171717;
+  --ink:#f6eee0;
+  --muted:#bda98c;
+  --gold:#d1a257;
+  --gold-soft:#f1d39c;
+  --line:rgba(209,162,87,.18);
+  --green:#4db28d;
+  --red:#d56f5f;
+  --blue:#6f95d8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Manrope',sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(209,162,87,.11), transparent 24%),
+    linear-gradient(180deg,#060606 0%,#0d0d0d 100%);
+  color:var(--ink);
+  padding:28px 18px 48px;
+}
+.wrap{max-width:1220px;margin:0 auto}
+.hero,.section{
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  border-radius:30px;
+}
+.hero{padding:32px;margin-bottom:18px}
+.badge,.pill,.status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border-radius:999px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+}
+.badge{
+  padding:8px 12px;
+  background:rgba(209,162,87,.1);
+  color:var(--gold-soft);
+  font-size:11px;
+  font-weight:800;
+}
+h1,h2,h3{
+  font-family:'Cormorant Garamond',serif;
+  color:#fff4e2;
+}
+h1{
+  font-size:70px;
+  line-height:.88;
+  margin:16px 0 14px;
+  max-width:860px;
+}
+.hero p{
+  max-width:820px;
+  color:#d3c2ac;
+  line-height:1.86;
+  font-size:16px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:16px;
+  margin-top:24px;
+}
+.lead,.snapshot,.card,.lane,.step,.note{
+  background:var(--panel-soft);
+  border:1px solid var(--line);
+  border-radius:24px;
+}
+.lead,.snapshot{padding:22px}
+.lead h2,.snapshot h2,.section h2{font-size:40px;line-height:.95;margin-bottom:10px}
+.lead p,.snapshot p,.card p,.lane p,.step p,.note p{color:#cdbca7;line-height:1.8;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.stat{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+}
+.stat .num{font-size:27px;font-weight:800;color:var(--gold-soft);margin-bottom:4px}
+.stat .label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.section{padding:24px;margin-bottom:18px}
+.section h2{margin-bottom:12px}
+.section-intro{max-width:900px;color:#cfbda8;line-height:1.85;font-size:15px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.card{padding:18px}
+.card h3{font-size:30px;margin-bottom:8px}
+.pill{
+  padding:6px 10px;
+  background:rgba(209,162,87,.1);
+  color:var(--gold-soft);
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+.priority{
+  margin-top:14px;
+  display:inline-flex;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.priority.now{background:rgba(77,178,141,.16);color:#8fe0bf}
+.priority.next{background:rgba(111,149,216,.16);color:#a9c1f4}
+.priority.later{background:rgba(213,111,95,.16);color:#f0ab9e}
+.lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.lane{padding:18px}
+.lane h3{font-size:31px;margin-bottom:8px}
+.status{
+  padding:6px 10px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.status.green{background:rgba(77,178,141,.16);color:#8fe0bf}
+.status.blue{background:rgba(111,149,216,.16);color:#a9c1f4}
+.status.red{background:rgba(213,111,95,.16);color:#f0ab9e}
+.lane ul,.steps,.checklist{list-style:none;display:grid;gap:10px}
+.lane li,.step li,.checklist li{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 13px;
+  color:#d4c3ae;
+  line-height:1.7;
+  font-size:14px;
+}
+.steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.step{padding:18px}
+.step h3{font-size:31px;margin-bottom:8px}
+.matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.note{padding:16px}
+.note strong{display:block;color:#fff0d1;font-size:15px;margin-bottom:6px}
+.footer{text-align:center;color:#9f8d78;font-size:12px;padding:8px 0 0}
+@media (max-width:980px){
+  h1{font-size:50px}
+  .hero-grid,.grid-3,.lanes,.steps-wrap,.matrix{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">Comeketo section / practical mind map</div>
+      <h1>Comeketo Mind Map, With the Next Steps Built In</h1>
+      <p>This is the action-oriented version of Rodrigo’s master plan. The goal is not to keep adding ideas. The goal is to turn the right ideas into movement. The page below treats the business like a mind map with execution lanes: what happens now, what happens next, what gets parked, and what concrete actions move the whole system forward.</p>
+
+      <div class="hero-grid">
+        <div class="lead">
+          <h2>Core Decision</h2>
+          <p>Comeketo should not try to build every branch at the same time. The cleanest path is to use the wedding and venue ecosystem as the front door, then connect content, webinars, virtual tastings, rentals, and franchise outreach behind it. That keeps the business coherent and gives every new offer a distribution channel.</p>
+        </div>
+        <div class="snapshot">
+          <h2>What Actually Matters</h2>
+          <p>The mind map has a lot of branches, but only a few deserve immediate energy. Focus should stay on the channels that create bookings, brand authority, and operational proof.</p>
+          <div class="stats">
+            <div class="stat"><div class="num">1</div><div class="label">Main engine: venues + weddings</div></div>
+            <div class="stat"><div class="num">3</div><div class="label">Immediate priorities</div></div>
+            <div class="stat"><div class="num">90</div><div class="label">days to prove traction</div></div>
+            <div class="stat"><div class="num">7</div><div class="label">franchise target states</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Priority Stack</h2>
+      <p class="section-intro">These are the branches that deserve real attention first. Everything else can support them later. If it does not improve bookings, venue relationships, or repeatable systems, it should not get first priority.</p>
+      <div class="grid-3">
+        <article class="card">
+          <div class="pill">Primary engine</div>
+          <h3>Venue + Wedding System</h3>
+          <p>Build around venue partnerships, the luxury magazine concept, Christalight-style pages, and event-facing sales material. This is the clearest route to premium positioning and repeatable visibility.</p>
+          <div class="priority now">Do Now</div>
+        </article>
+        <article class="card">
+          <div class="pill">Conversion layer</div>
+          <h3>Virtual Tastings + Webinar Flow</h3>
+          <p>Every venue page and magazine issue should push people toward tastings, planning help, and consultation calls. This turns brand visibility into bookable action.</p>
+          <div class="priority now">Do Now</div>
+        </article>
+        <article class="card">
+          <div class="pill">Scale layer</div>
+          <h3>Franchise Readiness</h3>
+          <p>Use the venue system as proof that the brand can sell and support premium catering in new markets. Franchise conversations become stronger when the sales engine is already visible.</p>
+          <div class="priority next">Do Next</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Execution Lanes</h2>
+      <p class="section-intro">This is the filter. Not every good idea is a now idea. The business needs one lane for immediate execution, one for the next build-out, and one for parked ideas that stay on the map but do not consume current focus.</p>
+      <div class="lanes">
+        <div class="lane">
+          <div class="status green">Now</div>
+          <h3>Build Immediately</h3>
+          <ul>
+            <li>Finish the first venue-first magazine concept and use it as a flagship pitch asset.</li>
+            <li>Create one polished virtual tasting flow for remote clients.</li>
+            <li>Build a webinar outline for wedding planning and catering consultation.</li>
+            <li>Follow up with existing relationship-based leads such as Everton and active networking groups.</li>
+            <li>Package Christalight, Happily Ever Expo, and the luxury magazine into one venue growth system.</li>
+          </ul>
+        </div>
+        <div class="lane">
+          <div class="status blue">Next</div>
+          <h3>Build After Proof</h3>
+          <ul>
+            <li>Launch YouTube in three directions: consulting, catering promotion, and virtual tastings.</li>
+            <li>Build the operational manual for Crystal Light using existing inspiration materials.</li>
+            <li>Set up a vendor ad structure for the magazine so the publication can partially fund itself.</li>
+            <li>Open the B2B webinar track for restaurant and catering operators.</li>
+            <li>Begin outreach to franchise candidates in Vermont and the rest of New England.</li>
+          </ul>
+        </div>
+        <div class="lane">
+          <div class="status red">Later</div>
+          <h3>Park, Don’t Ignore</h3>
+          <ul>
+            <li>Smart fridge and meal-prep expansion.</li>
+            <li>Retail sausage, seasoning, and frozen product line.</li>
+            <li>Podcast expansion.</li>
+            <li>Additional rental inventory beyond what clearly supports current events.</li>
+            <li>Broader non-core ventures from the old master plan that do not connect directly to the Comeketo engine.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Next 30 Days</h2>
+      <p class="section-intro">This should be the immediate operating plan. These items are designed to convert the mind map into visible assets and real conversations.</p>
+      <div class="steps-wrap">
+        <div class="step">
+          <h3>Build the Sales Spine</h3>
+          <ul class="checklist">
+            <li>Create a single venue-facing package that links the luxury magazine, Christalight packet, Happily Ever Expo concept, and BBQ presentation.</li>
+            <li>Add one clear booking path to every page: tasting request, consultation, or partner meeting.</li>
+            <li>Prepare a one-line explanation for each asset so Rodrigo can present them without overexplaining.</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3>Capture the Brand Experience</h3>
+          <ul class="checklist">
+            <li>Film or photograph the tasting experience in a way that can become the virtual tasting system.</li>
+            <li>Collect venue-quality photo and video from existing events.</li>
+            <li>Define the minimum content kit needed for every new venue page or magazine issue.</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3>Activate Relationships</h3>
+          <ul class="checklist">
+            <li>Follow up with Everton from EEZ and use networking groups as distribution channels.</li>
+            <li>Identify 3 venues and 5 vendors who would actually fit the magazine model.</li>
+            <li>Prepare a short pitch for vendors explaining why ad placement in a venue issue matters.</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3>Prepare the Education Layer</h3>
+          <ul class="checklist">
+            <li>Draft the consumer webinar: wedding planning tips, food strategy, venue planning mistakes.</li>
+            <li>Draft the B2B webinar: how to run a better catering operation and add revenue through lighter catering models.</li>
+            <li>Choose one webinar format that can be reused instead of reinvented each time.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Action Ideas That Make This Real</h2>
+      <p class="section-intro">These are practical ideas, not vague strategy language. Each one can turn into a real asset, pitch, or workflow.</p>
+      <div class="matrix">
+        <div class="note">
+          <strong>Magazine pilot issue</strong>
+          <p>Choose one venue and build a full sample issue, even if the first run is digital-only. Use it to sell the print vision.</p>
+        </div>
+        <div class="note">
+          <strong>Vendor ad one-sheet</strong>
+          <p>Create a simple pricing and placement sheet for vendors already working the venue. This becomes the monetization proof.</p>
+        </div>
+        <div class="note">
+          <strong>Virtual tasting page</strong>
+          <p>Build one page that explains the tasting process, includes visuals, and gives remote clients a reason to book a call.</p>
+        </div>
+        <div class="note">
+          <strong>Venue scorecard</strong>
+          <p>Rate venues on fit, audience, prestige, vendor network, and magazine potential so expansion decisions are cleaner.</p>
+        </div>
+        <div class="note">
+          <strong>Webinar calendar</strong>
+          <p>Set one recurring day for consumer sessions and one for B2B sessions so the content system feels real and repeatable.</p>
+        </div>
+        <div class="note">
+          <strong>Franchise shortlist</strong>
+          <p>Start a target list by state, especially Vermont, and define exactly what a local operator would need to qualify.</p>
+        </div>
+        <div class="note">
+          <strong>Corporate mini-packet</strong>
+          <p>Pull a lighter version of the venue system into a separate corporate/expo pitch for gala parties, church programs, and business events.</p>
+        </div>
+        <div class="note">
+          <strong>Content capture day</strong>
+          <p>Reserve one event day specifically for photos, reels, tasting clips, and testimonial footage so content stops being accidental.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What Success Looks Like</h2>
+      <p class="section-intro">The mind map is working if the business stops feeling like disconnected ideas and starts feeling like one system. Every new venue should strengthen the brand. Every content piece should support sales. Every sales asset should point toward a tasting, a consultation, or a partner conversation.</p>
+      <div class="grid-3">
+        <article class="card">
+          <div class="pill">Signal one</div>
+          <h3>One flagship venue issue</h3>
+          <p>Something polished enough that Rodrigo can show it proudly and use it to start partner conversations immediately.</p>
+        </article>
+        <article class="card">
+          <div class="pill">Signal two</div>
+          <h3>One repeatable tasting path</h3>
+          <p>A clear system for remote and local consultations that can be linked from every page and every pitch.</p>
+        </article>
+        <article class="card">
+          <div class="pill">Signal three</div>
+          <h3>One measurable pipeline</h3>
+          <p>Real leads coming from venues, networking groups, webinars, or content rather than only from ad hoc outreach.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">Comeketo mind map / action-plan version of Rodrigo’s strategy page</div>
+  </div>
+</body>
+</html>
