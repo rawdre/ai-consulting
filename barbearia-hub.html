@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia Templates Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#0a0a0a;--panel:#131313;--panel2:#1a1a1a;--ink:#f5efe4;--muted:#baa78c;--gold:#d1a257;--line:rgba(209,162,87,.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',sans-serif;background:linear-gradient(180deg,#070707 0%,#0f0f0f 100%);color:var(--ink);padding:28px 18px 40px}
+.wrap{max-width:1100px;margin:0 auto}
+.hero,.section{background:var(--panel);border:1px solid var(--line);border-radius:28px}
+.hero{padding:30px;margin-bottom:18px}
+.badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(209,162,87,.12);color:#f0cb93;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+h1,h2,h3{font-family:'Cormorant Garamond',serif}
+h1{font-size:58px;line-height:.9;margin:16px 0 12px}
+.hero p,.card p{color:var(--muted);line-height:1.8}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.section{padding:22px}
+.section h2{font-size:36px;margin-bottom:14px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:22px;padding:18px}
+.card h3{font-size:28px;margin-bottom:8px}
+.card a{display:inline-block;margin-top:14px;padding:10px 14px;border-radius:999px;background:var(--gold);color:#111;text-decoration:none;font-weight:800;font-size:13px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}h1{font-size:42px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">Reusable Templates</div>
+      <h1>Barbearia Templates</h1>
+      <p>Reusable barbershop demos and queue pages kept together so they stay easy to reuse later.</p>
+    </section>
+    <section class="section">
+      <h2>Templates</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Barbearia Gabriel Demo</h3>
+          <p>Demo page and visual template for Gabriel.</p>
+          <a href="demo-barbearia-gabriel.html">Open Demo</a>
+        </article>
+        <article class="card">
+          <h3>Fila Gabriel</h3>
+          <p>Queue/flow page for the Gabriel concept.</p>
+          <a href="fila-barbearia-gabriel.html">Open Queue</a>
+        </article>
+        <article class="card">
+          <h3>Barbearia Imperio Demo</h3>
+          <p>Demo page and template for Imperio.</p>
+          <a href="demo-barbearia-imperio.html">Open Demo</a>
+        </article>
+        <article class="card">
+          <h3>Fila Imperio</h3>
+          <p>Queue/flow page for the Imperio concept.</p>
+          <a href="fila-barbearia-imperio.html">Open Queue</a>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
