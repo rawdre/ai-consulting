@@ -134,9 +134,28 @@
 
         <div class="work-layout">
           <article class="feature-work">
-            <div class="feature-image feature-image-main">
-              <img src="assets/luizastabs/rawstabs.png" alt="Selected tattoo work from Luizastabs Instagram">
-              <div class="feature-mark">Selected Instagram work</div>
+            <div class="feature-image feature-image-main" data-work-carousel>
+              <div class="feature-track" data-work-track>
+                <figure class="feature-slide is-active">
+                  <img src="assets/luizastabs/rawstabs.png" alt="Selected tattoo work from Luizastabs Instagram">
+                </figure>
+                <figure class="feature-slide">
+                  <img src="assets/luizastabs/rawstabs1.png" alt="Additional tattoo work from Luizastabs Instagram">
+                </figure>
+                <figure class="feature-slide">
+                  <img src="assets/luizastabs/rawstabs2.png" alt="Luizastabs Instagram profile">
+                </figure>
+              </div>
+              <div class="feature-mark">Selected work</div>
+              <div class="feature-controls">
+                <button class="feature-arrow" type="button" data-work-prev aria-label="Previous image">‹</button>
+                <div class="feature-dots" data-work-dots>
+                  <button class="feature-dot is-active" type="button" data-work-dot="0" aria-label="Show image 1"></button>
+                  <button class="feature-dot" type="button" data-work-dot="1" aria-label="Show image 2"></button>
+                  <button class="feature-dot" type="button" data-work-dot="2" aria-label="Show image 3"></button>
+                </div>
+                <button class="feature-arrow" type="button" data-work-next aria-label="Next image">›</button>
+              </div>
             </div>
             <div class="feature-copy">
               <p class="link-label">Portfolio overview</p>

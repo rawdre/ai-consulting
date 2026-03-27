@@ -19,7 +19,27 @@
   const bookingLinks = Array.from(document.querySelectorAll("[data-booking-link]"));
   const instagramProfileLinks = Array.from(document.querySelectorAll("[data-instagram-profile]"));
   const instagramDmLinks = Array.from(document.querySelectorAll("[data-instagram-dm]"));
+  const workCarousel = document.querySelector("[data-work-carousel]");
+  const workTrack = document.querySelector("[data-work-track]");
+  const workPrev = document.querySelector("[data-work-prev]");
+  const workNext = document.querySelector("[data-work-next]");
+  const workDots = Array.from(document.querySelectorAll("[data-work-dot]"));
   let latestSummary = "";
+  let activeWorkIndex = 0;
+
+  function renderWorkCarousel(index) {
+    if (!workTrack) {
+      return;
+    }
+
+    const slideCount = workDots.length || 1;
+    activeWorkIndex = (index + slideCount) % slideCount;
+    workTrack.style.transform = "translateX(-" + (activeWorkIndex * 100) + "%)";
+
+    workDots.forEach(function (dot, dotIndex) {
+      dot.classList.toggle("is-active", dotIndex === activeWorkIndex);
+    });
+  }
 
   function initializeLinks() {
     const defaultWhatsappMessage = "Hi " + artistConfig.name + "! I want to book a tattoo.";
@@ -157,6 +177,46 @@
     copySummaryButton.addEventListener("click", function () {
       copyText(latestSummary || resultBox.textContent.trim(), copySummaryButton);
     });
+  }
+
+  if (workPrev && workNext && workTrack) {
+    workPrev.addEventListener("click", function () {
+      renderWorkCarousel(activeWorkIndex - 1);
+    });
+
+    workNext.addEventListener("click", function () {
+      renderWorkCarousel(activeWorkIndex + 1);
+    });
+
+    workDots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        renderWorkCarousel(Number(dot.dataset.workDot));
+      });
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    workCarousel.addEventListener("touchstart", function (event) {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+
+    workCarousel.addEventListener("touchend", function (event) {
+      touchEndX = event.changedTouches[0].clientX;
+      const delta = touchEndX - touchStartX;
+
+      if (Math.abs(delta) < 35) {
+        return;
+      }
+
+      if (delta < 0) {
+        renderWorkCarousel(activeWorkIndex + 1);
+      } else {
+        renderWorkCarousel(activeWorkIndex - 1);
+      }
+    }, { passive: true });
+
+    renderWorkCarousel(0);
   }
 
   initializeLinks();
