@@ -24,8 +24,10 @@
   const workPrev = document.querySelector("[data-work-prev]");
   const workNext = document.querySelector("[data-work-next]");
   const workDots = Array.from(document.querySelectorAll("[data-work-dot]"));
+  const revealItems = Array.from(document.querySelectorAll(".reveal-on-scroll"));
   let latestSummary = "";
   let activeWorkIndex = 0;
+  let workAutoplayTimer = 0;
 
   function renderWorkCarousel(index) {
     if (!workTrack) {
@@ -39,6 +41,18 @@
     workDots.forEach(function (dot, dotIndex) {
       dot.classList.toggle("is-active", dotIndex === activeWorkIndex);
     });
+  }
+
+  function scheduleWorkAutoplay() {
+    if (!workTrack || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    window.clearTimeout(workAutoplayTimer);
+    workAutoplayTimer = window.setTimeout(function () {
+      renderWorkCarousel(activeWorkIndex + 1);
+      scheduleWorkAutoplay();
+    }, 4800);
   }
 
   function initializeLinks() {
@@ -182,15 +196,18 @@
   if (workPrev && workNext && workTrack) {
     workPrev.addEventListener("click", function () {
       renderWorkCarousel(activeWorkIndex - 1);
+      scheduleWorkAutoplay();
     });
 
     workNext.addEventListener("click", function () {
       renderWorkCarousel(activeWorkIndex + 1);
+      scheduleWorkAutoplay();
     });
 
     workDots.forEach(function (dot) {
       dot.addEventListener("click", function () {
         renderWorkCarousel(Number(dot.dataset.workDot));
+        scheduleWorkAutoplay();
       });
     });
 
@@ -214,9 +231,36 @@
       } else {
         renderWorkCarousel(activeWorkIndex - 1);
       }
+
+      scheduleWorkAutoplay();
     }, { passive: true });
 
     renderWorkCarousel(0);
+    scheduleWorkAutoplay();
+  }
+
+  if ("IntersectionObserver" in window && revealItems.length) {
+    const revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.18,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    revealItems.forEach(function (item) {
+      if (!item.classList.contains("is-visible")) {
+        revealObserver.observe(item);
+      }
+    });
+  } else {
+    revealItems.forEach(function (item) {
+      item.classList.add("is-visible");
+    });
   }
 
   initializeLinks();
