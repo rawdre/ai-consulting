@@ -1,16 +1,47 @@
 {
   "meta": {
-    "version": 1,
-    "generatedAt": "2026-03-28T19:35:00-03:00",
-    "timezone": "America/Sao_Paulo",
-    "mode": "live-v1",
-    "note": "Mission Control v1 live data source. Update this feed from operations, automations, or future backend jobs."
+    "version": 2,
+    "generatedAt": "2026-03-29T05:16:03.476Z",
+    "mode": "live-v2",
+    "source": "mission-control-events.jsonl"
   },
   "scorecards": [
-    { "key": "sitesSold", "title": "Sites Vendidos", "value": 1, "prefix": "", "suffix": "", "color": "cyan", "progress": 10 },
-    { "key": "pipelineComeketo", "title": "Pipeline Comeketo", "value": 36505, "prefix": "$", "suffix": "", "color": "green", "progress": 73 },
-    { "key": "activeProjects", "title": "Projetos Ativos", "value": 4, "prefix": "", "suffix": "", "color": "amber", "progress": 40 },
-    { "key": "tasksCompleted", "title": "Tasks Completas", "value": 47, "prefix": "", "suffix": "", "color": "purple", "progress": 94 }
+    {
+      "key": "quotesSent",
+      "title": "Quotes Sent",
+      "value": 1,
+      "prefix": "",
+      "suffix": "",
+      "color": "green",
+      "progress": 20
+    },
+    {
+      "key": "inboxTasksCleared",
+      "title": "Inbox Clears",
+      "value": 1,
+      "prefix": "",
+      "suffix": "",
+      "color": "amber",
+      "progress": 30
+    },
+    {
+      "key": "tasksCompleted",
+      "title": "Tasks Completed",
+      "value": 3,
+      "prefix": "",
+      "suffix": "",
+      "color": "purple",
+      "progress": 30
+    },
+    {
+      "key": "eventsLogged",
+      "title": "Events Logged",
+      "value": 3,
+      "prefix": "",
+      "suffix": "",
+      "color": "cyan",
+      "progress": 30
+    }
   ],
   "agents": [
     {
@@ -19,79 +50,22 @@
       "emoji": "🤖",
       "role": "Chief of Staff",
       "color": "cyan",
-      "status": "Running CRM, memory, and operator coordination.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
-    },
-    {
-      "key": "ogilvy",
-      "name": "Ogilvy",
-      "emoji": "📈",
-      "role": "Market Strategist",
-      "color": "magenta",
-      "status": "Positioning offers, messaging, and market strategy.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
-    },
-    {
-      "key": "buffett",
-      "name": "Buffett",
-      "emoji": "📊",
-      "role": "Financial Analyst",
-      "color": "green",
-      "status": "Tracking pipeline value, ROI, and strategic numbers.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
-    },
-    {
-      "key": "cialdini",
-      "name": "Cialdini",
-      "emoji": "💰",
-      "role": "Sales Architect",
-      "color": "amber",
-      "status": "Sharpening conversion paths, NEPQ, and follow-up logic.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
-    },
-    {
-      "key": "turing",
-      "name": "Turing",
-      "emoji": "🛡️",
-      "role": "Data Intelligence",
-      "color": "purple",
-      "status": "Designing automations and operational intelligence flows.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
-    },
-    {
-      "key": "ada",
-      "name": "Ada",
-      "emoji": "🎨",
-      "role": "Design Engineer",
-      "color": "magenta",
-      "status": "Pushing premium design, UI polish, and visual differentiation.",
-      "updatedAt": "2026-03-28T19:35:00-03:00"
+      "status": "Rawbot moved follow-up tasks forward after outreach for active leads.",
+      "updatedAt": "2026-03-29T02:25:00-03:00"
     }
   ],
   "activities": [
     {
-      "time": "19:34",
-      "text": "🤖 Rawbot published the RAW AI site update with the new Success Team section and Mission Control CTA."
+      "time": "02:25",
+      "text": "Rawbot moved follow-up tasks forward after outreach for active leads."
     },
     {
-      "time": "19:31",
-      "text": "🏠 Top Imobiliária main contact flow was fixed to redirect reliably to WhatsApp with structured lead data."
+      "time": "02:22",
+      "text": "Rawbot sent a ballpark quote outreach flow for Geovanni Salazar."
     },
     {
-      "time": "18:58",
-      "text": "📬 Rawbot cleaned André's Close inbox by moving non-André-owned tasks out of the way."
-    },
-    {
-      "time": "18:40",
-      "text": "💰 Cialdini/Rawbot sent ballpark quote outreach for Geovanni Salazar and moved the follow-up task forward."
-    },
-    {
-      "time": "18:18",
-      "text": "🎙️ Voice stack audit completed: ElevenLabs auth works but quota is blocked; Edge TTS installed but not yet generating audio due to endpoint/network failure."
-    },
-    {
-      "time": "17:42",
-      "text": "🧠 Rawbot recovered the Comeketo quote rules and pricing structure from backup memory and calculator sources."
+      "time": "02:20",
+      "text": "Rawbot cleared André's Close inbox by moving open tasks to Monday."
     }
   ]
 }
