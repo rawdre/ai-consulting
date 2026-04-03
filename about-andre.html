@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Andre Raw | Raw AI Business Solutions</title>
+<meta name="description" content="Meet Andre Raw, the operator behind Raw AI Business Solutions. Builder of AI systems, lead triage workflows, bilingual operations, and live client execution.">
+<meta property="og:title" content="About Andre Raw | Raw AI Business Solutions">
+<meta property="og:description" content="Operator, systems architect, and AI builder behind Raw AI Business Solutions.">
+<meta property="og:image" content="https://rawdre.github.io/ai-consulting/icon-512.png">
+<meta property="og:url" content="https://rawdre.github.io/ai-consulting/about-andre.html">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#00d4ff">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#12121a;
+  --bg3:#1a1a2e;
+  --panel:rgba(18,18,26,.9);
+  --text:#e8e8f0;
+  --muted:#8b90ae;
+  --accent:#00d4ff;
+  --accent2:#00ff88;
+  --gold:#ffd700;
+  --line:rgba(255,255,255,.08);
+  --gradient:linear-gradient(135deg,#00d4ff,#00ff88);
+  --gradient-soft:linear-gradient(135deg,rgba(0,212,255,.14),rgba(0,255,136,.08));
+  --shadow:0 24px 80px rgba(0,0,0,.35);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.tech-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0,212,255,.12), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(0,255,136,.09), transparent 26%),
+    radial-gradient(circle at 50% 78%, rgba(255,215,0,.05), transparent 24%),
+    linear-gradient(transparent 95%, rgba(0,212,255,.05) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(0,255,136,.04) 95%);
+  background-size:auto,auto,auto,72px 72px,72px 72px;
+}
+.container{width:min(1180px,calc(100% - 48px));margin:0 auto;position:relative;z-index:1}
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+  background:rgba(10,10,15,.82);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:78px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+.brand-mark{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,255,136,.18));
+  border:1px solid rgba(0,212,255,.22);
+  display:grid;
+  place-items:center;
+  box-shadow:inset 0 0 24px rgba(0,212,255,.08);
+}
+.brand-mark span{
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:1rem;
+}
+.brand-text{
+  display:flex;
+  align-items:baseline;
+  gap:4px;
+  font-size:1.5rem;
+}
+.brand-text .accent{color:var(--accent2)}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{
+  color:var(--muted);
+  font-size:.92rem;
+  font-weight:600;
+  transition:.25s;
+}
+.nav-links a:hover{color:var(--text)}
+.lang-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.03);
+  color:var(--text);
+  cursor:pointer;
+  font-size:.88rem;
+  font-weight:700;
+  transition:.25s;
+}
+.lang-toggle:hover{
+  border-color:rgba(0,212,255,.35);
+  box-shadow:0 0 24px rgba(0,212,255,.15);
+}
+main{position:relative;z-index:1}
+section{padding:96px 0}
+.hero{padding:152px 0 88px}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);
+  gap:36px;
+  align-items:center;
+}
+.eyebrow,.section-label{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:.82rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:rgba(0,212,255,.08);
+  border:1px solid rgba(0,212,255,.18);
+}
+.hero h1{
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  line-height:1.02;
+  font-weight:900;
+  margin:22px 0 20px;
+  max-width:11ch;
+}
+.hero h1 .highlight{
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero p{
+  color:var(--muted);
+  font-size:1.12rem;
+  max-width:62ch;
+  margin-bottom:28px;
+}
+.hero-points{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:32px;
+}
+.hero-points span{
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  color:#c8cee8;
+  font-size:.92rem;
+}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  padding:0 26px;
+  border-radius:14px;
+  font-size:.98rem;
+  font-weight:800;
+  transition:.25s;
+}
+.btn-primary{
+  background:var(--gradient);
+  color:#071018;
+  box-shadow:0 14px 40px rgba(0,212,255,.22);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 48px rgba(0,212,255,.3)}
+.btn-secondary{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  color:var(--text);
+}
+.btn-secondary:hover{border-color:rgba(0,212,255,.28);transform:translateY(-2px)}
+.hero-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top right, rgba(0,212,255,.16), transparent 36%);
+  pointer-events:none;
+}
+.identity-head{display:flex;align-items:center;gap:18px;margin-bottom:26px}
+.avatar{
+  width:88px;
+  height:88px;
+  border-radius:24px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,255,136,.16));
+  border:1px solid rgba(0,212,255,.18);
+  font-size:2rem;
+}
+.identity-head h2{font-size:1.45rem;margin-bottom:6px}
+.identity-head p{color:var(--muted);font-size:.98rem}
+.signal-list{display:grid;gap:14px;margin-bottom:20px}
+.signal{
+  padding:16px 18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+.signal strong{display:block;margin-bottom:4px;font-size:1rem}
+.signal span{color:var(--muted);font-size:.92rem}
+.card-note{
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:#dbe3ff;
+  font-size:.95rem;
+}
+.metrics{padding-top:12px}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.metric{
+  padding:28px 22px;
+  border-radius:20px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.metric strong{
+  display:block;
+  font-size:2.35rem;
+  line-height:1;
+  margin-bottom:10px;
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.metric span{color:var(--muted);font-size:.95rem}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  align-items:end;
+  margin-bottom:32px;
+}
+.section-title{
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:850;
+  line-height:1.08;
+  max-width:12ch;
+}
+.section-title .highlight{
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.section-copy{
+  max-width:56ch;
+  color:var(--muted);
+  font-size:1.02rem;
+}
+.two-col{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.9fr);
+  gap:24px;
+}
+.panel{
+  padding:28px;
+  border-radius:24px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.panel h3{font-size:1.34rem;margin-bottom:14px}
+.panel p{color:var(--muted)}
+.stack{display:grid;gap:16px}
+.mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.mini{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+}
+.mini strong{display:block;font-size:1rem;margin-bottom:6px}
+.mini p{color:var(--muted);font-size:.92rem}
+.capabilities-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+.capability{
+  padding:24px;
+  border-radius:22px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  transition:.25s;
+}
+.capability:hover{
+  transform:translateY(-3px);
+  border-color:rgba(0,212,255,.22);
+}
+.capability-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:16px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(255,215,0,.1);
+  border:1px solid rgba(255,215,0,.18);
+  color:var(--gold);
+  font-size:.76rem;
+  font-weight:800;
+}
+.capability h3{margin-bottom:10px;font-size:1.2rem}
+.capability p{color:var(--muted);margin-bottom:14px}
+.capability ul{list-style:none;display:grid;gap:8px}
+.capability li{
+  position:relative;
+  padding-left:18px;
+  color:#c6ccdf;
+  font-size:.94rem;
+}
+.capability li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.6em;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gradient);
+}
+.timeline{display:grid;gap:16px}
+.timeline-item{
+  display:grid;
+  grid-template-columns:130px minmax(0,1fr);
+  gap:22px;
+  padding:24px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.timeline-item:last-child{border-bottom:none}
+.timeline-year{font-size:1rem;font-weight:800;color:var(--accent)}
+.timeline-content h3{font-size:1.12rem;margin-bottom:6px}
+.timeline-content p{color:var(--muted)}
+.people-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.person{
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+}
+.person strong{display:block;font-size:1rem;margin-bottom:4px}
+.person .role{
+  color:var(--accent2);
+  font-size:.84rem;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.person p{color:var(--muted);font-size:.92rem}
+.cta-band{
+  text-align:center;
+  padding:42px;
+  border-radius:28px;
+  background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(0,255,136,.08));
+  border:1px solid rgba(0,212,255,.16);
+  box-shadow:var(--shadow);
+}
+.cta-band h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:14px}
+.cta-band p{
+  color:var(--muted);
+  max-width:58ch;
+  margin:0 auto 26px;
+}
+footer{
+  padding:36px 0 52px;
+  color:var(--muted);
+  text-align:center;
+  font-size:.88rem;
+}
+@media (max-width:980px){
+  .hero-grid,.two-col,.capabilities-grid,.metrics-grid,.people-grid{grid-template-columns:1fr}
+  .section-head{display:block}
+  .section-title{max-width:none;margin-bottom:12px}
+}
+@media (max-width:760px){
+  .container{width:min(100% - 32px,1180px)}
+  .nav-shell{min-height:72px}
+  .nav-links a:not(.nav-home){display:none}
+  .hero{padding-top:132px}
+  .hero h1{max-width:none}
+  .timeline-item{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="tech-bg" aria-hidden="true"></div>
+<nav>
+  <div class="container nav-shell">
+    <a href="index.html" class="brand" aria-label="Raw AI Business Solutions home">
+      <div class="brand-mark"><span>RA</span></div>
+      <div class="brand-text"><span>RAW</span><span class="accent">AI</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-home" data-en="Main Site" data-pt="Site Principal">Main Site</a>
+      <a href="#operating-system" data-en="How I Work" data-pt="Como Eu Opero">How I Work</a>
+      <a href="#focus-areas" data-en="Focus Areas" data-pt="Áreas de Foco">Focus Areas</a>
+      <a href="#partners" data-en="Partners" data-pt="Parceiros">Partners</a>
+      <a href="#timeline" data-en="Timeline" data-pt="Linha do Tempo">Timeline</a>
+      <button class="lang-toggle" type="button" onclick="toggleLang()"><span>🌐</span><span id="lang-label">PT-BR</span></button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow" data-en="Operator Profile" data-pt="Perfil do Operador">Operator Profile</div>
+        <h1 data-en="Andre Raw builds the <span class='highlight'>systems layer</span> behind Raw AI." data-pt="Andre Raw constrói a <span class='highlight'>camada de sistemas</span> por trás da Raw AI.">Andre Raw builds the <span class="highlight">systems layer</span> behind Raw AI.</h1>
+        <p data-en="I work as the operator, builder, and translator between business pressure and technical execution. The goal is not demos. The goal is production-ready AI that answers leads, moves work forward, and closes operational gaps." data-pt="Eu trabalho como operador, construtor e tradutor entre a pressão do negócio e a execução técnica. O objetivo não é demo. O objetivo é IA pronta para produção que responde leads, move o trabalho para frente e fecha lacunas operacionais.">I work as the operator, builder, and translator between business pressure and technical execution. The goal is not demos. The goal is production-ready AI that answers leads, moves work forward, and closes operational gaps.</p>
+        <div class="hero-points">
+          <span data-en="Bilingual operations: English + Portuguese" data-pt="Operação bilíngue: inglês + português">Bilingual operations: English + Portuguese</span>
+          <span data-en="Live client builds, not theory" data-pt="Builds reais de clientes, não teoria">Live client builds, not theory</span>
+          <span data-en="CRM, AI agents, web assets, and workflows" data-pt="CRM, agentes de IA, sites e fluxos">CRM, AI agents, web assets, and workflows</span>
+        </div>
+        <div class="hero-ctas">
+          <a href="index.html" class="btn btn-primary" data-en="Open Raw AI Main Site" data-pt="Abrir Site Principal da Raw AI">Open Raw AI Main Site</a>
+          <a href="https://wa.me/5561998229223?text=Hi%20Andre!%20I%20want%20to%20talk%20about%20Raw%20AI." target="_blank" rel="noreferrer" class="btn btn-secondary" data-en="Talk on WhatsApp" data-pt="Falar no WhatsApp">Talk on WhatsApp</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <div class="identity-head">
+          <div class="avatar">AI</div>
+          <div>
+            <h2>Andre Alexandre Raw</h2>
+            <p data-en="Systems architect, operator, and AI implementation lead." data-pt="Arquiteto de sistemas, operador e líder de implementação de IA.">Systems architect, operator, and AI implementation lead.</p>
+          </div>
+        </div>
+        <div class="signal-list">
+          <div class="signal">
+            <strong data-en="Raw AI Business Solutions" data-pt="Raw AI Business Solutions">Raw AI Business Solutions</strong>
+            <span data-en="The commercial shell: AI systems, sales flow, live demos, and operator-facing execution." data-pt="A estrutura comercial: sistemas de IA, fluxo de vendas, demos ao vivo e execução voltada para operação.">The commercial shell: AI systems, sales flow, live demos, and operator-facing execution.</span>
+          </div>
+          <div class="signal">
+            <strong data-en="Comeketo + client ecosystem" data-pt="Ecossistema Comeketo + clientes">Comeketo + client ecosystem</strong>
+            <span data-en="Real-world venue presentations, catering systems, and outbound experiments used as the proving ground." data-pt="Apresentações reais para venues, sistemas de catering e experimentos de outbound usados como campo de prova.">Real-world venue presentations, catering systems, and outbound experiments used as the proving ground.</span>
+          </div>
+          <div class="signal">
+            <strong data-en="Tool School + education layer" data-pt="Tool School + camada de educação">Tool School + education layer</strong>
+            <span data-en="A teaching track that turns execution into repeatable workflows and training assets." data-pt="Uma trilha de ensino que transforma execução em fluxos repetíveis e ativos de treinamento.">A teaching track that turns execution into repeatable workflows and training assets.</span>
+          </div>
+        </div>
+        <div class="card-note" data-en="This page sits inside the same Raw AI system on purpose. It is not a separate brand story. It is the operator profile behind the work you see on the main site." data-pt="Esta página fica dentro do mesmo sistema da Raw AI de propósito. Não é uma história de marca separada. É o perfil do operador por trás do trabalho que você vê no site principal.">This page sits inside the same Raw AI system on purpose. It is not a separate brand story. It is the operator profile behind the work you see on the main site.</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="metrics">
+    <div class="container metrics-grid">
+      <div class="metric">
+        <strong>34+</strong>
+        <span data-en="Years of business and operating experience." data-pt="Anos de experiência em negócios e operação.">Years of business and operating experience.</span>
+      </div>
+      <div class="metric">
+        <strong>50+</strong>
+        <span data-en="AI and workflow systems mapped, tested, or shipped." data-pt="Sistemas de IA e fluxos mapeados, testados ou entregues.">AI and workflow systems mapped, tested, or shipped.</span>
+      </div>
+      <div class="metric">
+        <strong>150+</strong>
+        <span data-en="Lead and pipeline automation actions handled across live work." data-pt="Ações de automação de lead e pipeline tratadas em trabalho real.">Lead and pipeline automation actions handled across live work.</span>
+      </div>
+      <div class="metric">
+        <strong>24/7</strong>
+        <span data-en="Execution mindset: systems must work while the team sleeps." data-pt="Mentalidade de execução: os sistemas precisam funcionar enquanto o time dorme.">Execution mindset: systems must work while the team sleeps.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="operating-system">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label" data-en="Operating System" data-pt="Sistema Operacional">Operating System</div>
+          <h2 class="section-title" data-en="How I turn <span class='highlight'>messy business input</span> into usable systems." data-pt="Como eu transformo <span class='highlight'>entrada de negócio confusa</span> em sistemas utilizáveis.">How I turn <span class="highlight">messy business input</span> into usable systems.</h2>
+        </div>
+        <p class="section-copy" data-en="My role is usually the same: take unclear requests, rewrite them into a cleaner structure, decide what matters now, and ship the artifact that lets the business move." data-pt="Meu papel normalmente é o mesmo: pegar pedidos pouco claros, reescrever em uma estrutura melhor, decidir o que importa agora e entregar o artefato que faz o negócio andar.">My role is usually the same: take unclear requests, rewrite them into a cleaner structure, decide what matters now, and ship the artifact that lets the business move.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3 data-en="What that looks like in practice" data-pt="Como isso aparece na prática">What that looks like in practice</h3>
+          <p data-en="I work between outbound sales, websites, CRM cleanup, lead triage, prompt design, client-facing presentation pages, and operational logic. The constant is this: the work has to be usable by the team, not just impressive on screen." data-pt="Eu trabalho entre vendas outbound, websites, limpeza de CRM, triagem de leads, design de prompts, páginas de apresentação para clientes e lógica operacional. A constante é esta: o trabalho precisa ser usável pelo time, não apenas impressionar na tela.">I work between outbound sales, websites, CRM cleanup, lead triage, prompt design, client-facing presentation pages, and operational logic. The constant is this: the work has to be usable by the team, not just impressive on screen.</p>
+        </div>
+        <div class="stack">
+          <div class="mini-grid">
+            <div class="mini">
+              <strong data-en="Rewrite first" data-pt="Primeiro, reescrevo">Rewrite first</strong>
+              <p data-en="Bad instructions get cleaned up before execution." data-pt="Instruções ruins são limpas antes da execução.">Bad instructions get cleaned up before execution.</p>
+            </div>
+            <div class="mini">
+              <strong data-en="Ship visible work" data-pt="Entrego trabalho visível">Ship visible work</strong>
+              <p data-en="Live pages, live links, and assets that can be used immediately." data-pt="Páginas ao vivo, links reais e ativos que podem ser usados na hora.">Live pages, live links, and assets that can be used immediately.</p>
+            </div>
+            <div class="mini">
+              <strong data-en="Protect the team" data-pt="Protejo o time">Protect the team</strong>
+              <p data-en="Systems should remove friction instead of creating more manual work." data-pt="Os sistemas devem remover atrito em vez de criar mais trabalho manual.">Systems should remove friction instead of creating more manual work.</p>
+            </div>
+            <div class="mini">
+              <strong data-en="Teach while building" data-pt="Ensino enquanto construo">Teach while building</strong>
+              <p data-en="Execution becomes a repeatable process, not just a one-off fix." data-pt="A execução vira processo repetível, não apenas um conserto isolado.">Execution becomes a repeatable process, not just a one-off fix.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="focus-areas">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label" data-en="Focus Areas" data-pt="Áreas de Foco">Focus Areas</div>
+          <h2 class="section-title" data-en="The work sits across <span class='highlight'>sales, systems, and delivery</span>." data-pt="O trabalho fica entre <span class='highlight'>vendas, sistemas e entrega</span>.">The work sits across <span class="highlight">sales, systems, and delivery</span>.</h2>
+        </div>
+        <p class="section-copy" data-en="This is the actual working mix behind Raw AI. Not a generic service list. These are the lanes where the projects are already being built and used." data-pt="Esta é a mistura real de trabalho por trás da Raw AI. Não é uma lista genérica de serviços. São as frentes onde os projetos já estão sendo construídos e usados.">This is the actual working mix behind Raw AI. Not a generic service list. These are the lanes where the projects are already being built and used.</p>
+      </div>
+      <div class="capabilities-grid">
+        <article class="capability">
+          <div class="capability-badge" data-en="Client Execution" data-pt="Execução para Cliente">Client Execution</div>
+          <h3 data-en="AI presentation and proposal systems" data-pt="Sistemas de apresentação e proposta com IA">AI presentation and proposal systems</h3>
+          <p data-en="Builds like Comeketo venue pages, executive packets, sales-ready landing pages, and public project hubs." data-pt="Builds como páginas de venue da Comeketo, pacotes executivos, landing pages comerciais e hubs públicos de projeto.">Builds like Comeketo venue pages, executive packets, sales-ready landing pages, and public project hubs.</p>
+          <ul>
+            <li data-en="GitHub Pages deployment and live share links" data-pt="Deploy em GitHub Pages e links públicos">GitHub Pages deployment and live share links</li>
+            <li data-en="Fast turnaround for client-facing assets" data-pt="Entrega rápida de ativos para cliente">Fast turnaround for client-facing assets</li>
+            <li data-en="Bilingual copy where the market demands it" data-pt="Copy bilíngue quando o mercado exige">Bilingual copy where the market demands it</li>
+          </ul>
+        </article>
+        <article class="capability">
+          <div class="capability-badge" data-en="Lead Operations" data-pt="Operação de Leads">Lead Operations</div>
+          <h3 data-en="Triage, CRM hygiene, and follow-up logic" data-pt="Triagem, higiene de CRM e lógica de follow-up">Triage, CRM hygiene, and follow-up logic</h3>
+          <p data-en="The sales side matters. Systems have to answer faster, classify leads clearly, and keep the pipeline moving without dropping context." data-pt="O lado comercial importa. Os sistemas precisam responder mais rápido, classificar leads com clareza e manter o pipeline andando sem perder contexto.">The sales side matters. Systems have to answer faster, classify leads clearly, and keep the pipeline moving without dropping context.</p>
+          <ul>
+            <li data-en="Lead scoring and follow-up rules" data-pt="Regras de score e follow-up">Lead scoring and follow-up rules</li>
+            <li data-en="Outreach assets that support real conversations" data-pt="Ativos de outreach que apoiam conversas reais">Outreach assets that support real conversations</li>
+            <li data-en="Operational clarity between marketing and fulfillment" data-pt="Clareza operacional entre marketing e execução">Operational clarity between marketing and fulfillment</li>
+          </ul>
+        </article>
+        <article class="capability">
+          <div class="capability-badge" data-en="Education Layer" data-pt="Camada de Educação">Education Layer</div>
+          <h3 data-en="Tool School and practical AI teaching" data-pt="Tool School e ensino prático de IA">Tool School and practical AI teaching</h3>
+          <p data-en="The same work becomes curriculum: how to use Codex, Cursor, Warp, ChatGPT, OpenRouter, BYOK setups, and safer workflows without the hype layer." data-pt="O mesmo trabalho vira currículo: como usar Codex, Cursor, Warp, ChatGPT, OpenRouter, setups BYOK e fluxos mais seguros sem a camada de hype.">The same work becomes curriculum: how to use Codex, Cursor, Warp, ChatGPT, OpenRouter, BYOK setups, and safer workflows without the hype layer.</p>
+          <ul>
+            <li data-en="Step-by-step teaching assets" data-pt="Ativos de ensino passo a passo">Step-by-step teaching assets</li>
+            <li data-en="Interactive guidance with AI teacher logic" data-pt="Orientação interativa com lógica de professor de IA">Interactive guidance with AI teacher logic</li>
+            <li data-en="Progress-focused workflows instead of random tutorials" data-pt="Fluxos focados em progresso em vez de tutoriais aleatórios">Progress-focused workflows instead of random tutorials</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label" data-en="Key Partners" data-pt="Parceiros-Chave">Key Partners</div>
+          <h2 class="section-title" data-en="The projects are shaped with <span class='highlight'>real operators and collaborators</span>." data-pt="Os projetos são moldados com <span class='highlight'>operadores e colaboradores reais</span>.">The projects are shaped with <span class="highlight">real operators and collaborators</span>.</h2>
+        </div>
+        <p class="section-copy" data-en="This is not a solo-in-a-vacuum setup. The work connects to venue projects, catering systems, education, and client-facing business builds." data-pt="Isto não é uma operação isolada no vácuo. O trabalho se conecta a projetos de venue, sistemas de catering, educação e builds comerciais para clientes.">This is not a solo-in-a-vacuum setup. The work connects to venue projects, catering systems, education, and client-facing business builds.</p>
+      </div>
+      <div class="people-grid">
+        <div class="person">
+          <strong>Rodrigo</strong>
+          <div class="role" data-en="Comeketo Owner" data-pt="Dono da Comeketo">Comeketo Owner</div>
+          <p data-en="Primary operator on the catering side. Venue partnerships, offers, and real-world testing of presentation systems happen here." data-pt="Operador principal do lado do catering. Parcerias com venues, ofertas e testes reais dos sistemas de apresentação acontecem aqui.">Primary operator on the catering side. Venue partnerships, offers, and real-world testing of presentation systems happen here.</p>
+        </div>
+        <div class="person">
+          <strong>Camila</strong>
+          <div class="role" data-en="Execution + Support" data-pt="Execução + Suporte">Execution + Support</div>
+          <p data-en="Supports implementation, follow-through, and the day-to-day movement around the work when projects have to keep advancing." data-pt="Apoia implementação, continuidade e o movimento do dia a dia quando os projetos precisam continuar avançando.">Supports implementation, follow-through, and the day-to-day movement around the work when projects have to keep advancing.</p>
+        </div>
+        <div class="person">
+          <strong>Spyros / Marcelo / Jake</strong>
+          <div class="role" data-en="Builder Network" data-pt="Rede de Construtores">Builder Network</div>
+          <p data-en="A broader collaborator layer around systems, AI experimentation, implementation feedback, and product thinking." data-pt="Uma camada mais ampla de colaboradores em sistemas, experimentação com IA, feedback de implementação e pensamento de produto.">A broader collaborator layer around systems, AI experimentation, implementation feedback, and product thinking.</p>
+        </div>
+        <div class="person">
+          <strong data-en="AI Team" data-pt="Time de IA">AI Team</strong>
+          <div class="role" data-en="Agent Stack" data-pt="Stack de Agentes">Agent Stack</div>
+          <p data-en="Codex, ChatGPT, and other agent workflows are part of the system. They are tools inside the operation, not the operation itself." data-pt="Codex, ChatGPT e outros fluxos com agentes fazem parte do sistema. Eles são ferramentas dentro da operação, não a operação em si.">Codex, ChatGPT, and other agent workflows are part of the system. They are tools inside the operation, not the operation itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label" data-en="Timeline" data-pt="Linha do Tempo">Timeline</div>
+          <h2 class="section-title" data-en="From builder to <span class='highlight'>operator with systems</span>." data-pt="De construtor para <span class='highlight'>operador com sistemas</span>.">From builder to <span class="highlight">operator with systems</span>.</h2>
+        </div>
+        <p class="section-copy" data-en="The through-line is straightforward: teach, build, operate, then codify the process so it can be reused." data-pt="A linha principal é simples: ensinar, construir, operar e depois codificar o processo para que ele possa ser reutilizado.">The through-line is straightforward: teach, build, operate, then codify the process so it can be reused.</p>
+      </div>
+      <div class="panel timeline">
+        <div class="timeline-item">
+          <div class="timeline-year" data-en="Foundation" data-pt="Base">Foundation</div>
+          <div class="timeline-content">
+            <h3 data-en="Business-first operating experience" data-pt="Experiência operacional guiada por negócio">Business-first operating experience</h3>
+            <p data-en="Years of real business pressure shaped the standard: if it cannot be used by the team, it is not done." data-pt="Anos de pressão real de negócio moldaram o padrão: se o time não consegue usar, o trabalho não está pronto.">Years of real business pressure shaped the standard: if it cannot be used by the team, it is not done.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-en="Education" data-pt="Educação">Education</div>
+          <div class="timeline-content">
+            <h3 data-en="Teaching as a systems discipline" data-pt="Ensinar como disciplina de sistemas">Teaching as a systems discipline</h3>
+            <p data-en="Language education and clear communication became a technical advantage: better prompts, better handoffs, better execution." data-pt="Ensino de idiomas e comunicação clara viraram vantagem técnica: prompts melhores, handoffs melhores, execução melhor.">Language education and clear communication became a technical advantage: better prompts, better handoffs, better execution.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-en="AI Layer" data-pt="Camada de IA">AI Layer</div>
+          <div class="timeline-content">
+            <h3 data-en="AI agents applied to live operations" data-pt="Agentes de IA aplicados à operação real">AI agents applied to live operations</h3>
+            <p data-en="Instead of chasing theory, AI was pushed into follow-up, lead routing, client pages, prompt systems, and internal operator support." data-pt="Em vez de correr atrás de teoria, a IA foi colocada em follow-up, roteamento de leads, páginas de clientes, sistemas de prompt e suporte interno ao operador.">Instead of chasing theory, AI was pushed into follow-up, lead routing, client pages, prompt systems, and internal operator support.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" data-en="Current" data-pt="Atual">Current</div>
+          <div class="timeline-content">
+            <h3 data-en="Raw AI as the public system" data-pt="Raw AI como sistema público">Raw AI as the public system</h3>
+            <p data-en="The current stage is consolidation: one visible Raw AI ecosystem where client work, education, proposals, and AI operations all connect." data-pt="A etapa atual é de consolidação: um ecossistema Raw AI visível onde trabalho de cliente, educação, propostas e operação com IA se conectam.">The current stage is consolidation: one visible Raw AI ecosystem where client work, education, proposals, and AI operations all connect.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="cta-band">
+        <h2 data-en="See the work inside the main Raw AI system." data-pt="Veja o trabalho dentro do sistema principal da Raw AI.">See the work inside the main Raw AI system.</h2>
+        <p data-en="This profile makes more sense when seen next to the live projects. The homepage now links here directly, and this page links back into the main ecosystem." data-pt="Este perfil faz mais sentido quando visto ao lado dos projetos ativos. A homepage agora aponta para cá diretamente, e esta página volta para o ecossistema principal.">This profile makes more sense when seen next to the live projects. The homepage now links here directly, and this page links back into the main ecosystem.</p>
+        <div class="hero-ctas" style="justify-content:center">
+          <a href="index.html" class="btn btn-primary" data-en="Open Raw AI Homepage" data-pt="Abrir Homepage da Raw AI">Open Raw AI Homepage</a>
+          <a href="tool-school/" class="btn btn-secondary" data-en="Open Tool School" data-pt="Abrir Tool School">Open Tool School</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span data-en="Andre Raw inside the Raw AI Business Solutions ecosystem." data-pt="Andre Raw dentro do ecossistema Raw AI Business Solutions.">Andre Raw inside the Raw AI Business Solutions ecosystem.</span>
+  </div>
+</footer>
+
+<script>
+let currentLang = localStorage.getItem("raw-ai-lang") || "en";
+
+function applyLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+  document.querySelectorAll("[data-en]").forEach((element) => {
+    const value = element.getAttribute(lang === "pt" ? "data-pt" : "data-en");
+    if (value !== null) {
+      element.innerHTML = value;
+    }
+  });
+  const label = document.getElementById("lang-label");
+  if (label) {
+    label.textContent = lang === "pt" ? "EN" : "PT-BR";
+  }
+  localStorage.setItem("raw-ai-lang", lang);
+}
+
+function toggleLang(){
+  applyLanguage(currentLang === "en" ? "pt" : "en");
+}
+
+applyLanguage(currentLang);
+</script>
+</body>
+</html>
