@@ -4,7 +4,10 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const root = path.dirname(__filename);
-const outputDir = path.join(root, "close_guardrail", "output");
+const sourceArgIndex = process.argv.indexOf("--source-dir");
+const sourceArgValue = sourceArgIndex >= 0 ? process.argv[sourceArgIndex + 1] : null;
+const sourceDirOverride = sourceArgValue || process.env.MISSION_CONTROL_SOURCE_DIR || path.join("close_guardrail", "output");
+const outputDir = path.resolve(root, sourceDirOverride);
 const projectFile = path.join(root, "mission-control-data", "projects.json");
 const targetFile = path.join(root, "mission-control-data", "latest.json");
 

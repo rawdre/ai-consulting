@@ -20,5 +20,15 @@ If a page is meant to go live on the Raw AI site, edit it here first.
 GitHub Pages behavior can get messy if branches are mixed.
 Use the publish helper/checklist from the workspace root/scripts when possible.
 
+## Mission Control refresh
+- `mission-control.html` reads from `mission-control-data/latest.json`
+- `refresh-mission-control.mjs` rebuilds that file from the Close guardrail runner
+- `.github/workflows/mission-control-refresh.yml` runs the refresh on a schedule and on manual dispatch
+
+### GitHub setup required
+- Add repository secret `CLOSE_API_KEY`
+- Optional: add repository secret `CLOSE_OWNER_ID`
+- Optional: add repository variable `CLOSE_API_BASE_URL` if Close base URL ever changes
+
 ## Signature
 Organized by **Rawbot 🔥** for André Raw.

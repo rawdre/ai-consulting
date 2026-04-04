@@ -1,0 +1,138 @@
+{
+  "owner": {
+    "id": "user_andre",
+    "name": "Andre Raw"
+  },
+  "tasting_windows": [
+    "2026-04-06T18:00:00-04:00",
+    "2026-04-07T18:30:00-04:00"
+  ],
+  "leads": [
+    {
+      "id": "lead_hot_reply",
+      "display_name": "Camila Fernandes",
+      "status_label": "Definitely",
+      "description": "Portuguese tasting lead",
+      "contacts": [
+        {
+          "name": "Camila Fernandes",
+          "emails": [
+            {
+              "email": "camila@example.com"
+            }
+          ]
+        }
+      ],
+      "custom": {
+        "00. 🦖 LEAD OWNER": "Andre Raw"
+      },
+      "opportunities": [
+        {
+          "status_label": "Booked Tasting"
+        }
+      ],
+      "activities": [
+        {
+          "type": "Email",
+          "direction": "incoming",
+          "status": "sent",
+          "date_created": "2026-04-03T12:00:00Z",
+          "subject": "Olá Andre",
+          "body_text": "Olá Andre, gostaria de confirmar a degustação."
+        }
+      ],
+      "tasks": []
+    },
+    {
+      "id": "lead_warm_tasting",
+      "display_name": "Michael Stone",
+      "status_label": "Probably",
+      "description": "Needs tasting invite",
+      "contacts": [
+        {
+          "name": "Michael Stone",
+          "emails": [
+            {
+              "email": "michael@example.com"
+            }
+          ]
+        }
+      ],
+      "custom": {
+        "00. 🦖 LEAD OWNER": "Andre Raw"
+      },
+      "opportunities": [
+        {
+          "status_label": "Setting Tasting Appointment"
+        }
+      ],
+      "activities": [
+        {
+          "type": "Email",
+          "direction": "outgoing",
+          "status": "sent",
+          "date_created": "2026-04-02T12:00:00Z",
+          "subject": "Checking in",
+          "body_text": "Would you like to book a tasting?"
+        }
+      ],
+      "tasks": []
+    },
+    {
+      "id": "lead_cold_roll",
+      "display_name": "Laura Pierce",
+      "status_label": "Potential",
+      "description": "Cold follow-up",
+      "contacts": [
+        {
+          "name": "Laura Pierce",
+          "emails": [
+            {
+              "email": "laura@example.com"
+            }
+          ]
+        }
+      ],
+      "custom": {
+        "00. 🦖 LEAD OWNER": "Andre Raw"
+      },
+      "opportunities": [
+        {
+          "status_label": "Quoted"
+        }
+      ],
+      "activities": [
+        {
+          "type": "Email",
+          "direction": "outgoing",
+          "status": "sent",
+          "date_created": "2026-03-20T15:00:00Z",
+          "subject": "Ballpark quote",
+          "body_text": "Sharing the quote."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "task_roll_me",
+          "lead_id": "lead_cold_roll",
+          "text": "Follow up tomorrow",
+          "date": "2026-03-27",
+          "is_complete": false
+        }
+      ]
+    },
+    {
+      "id": "lead_other_owner",
+      "display_name": "Not Andre Lead",
+      "status_label": "Definitely",
+      "description": "Should be ignored",
+      "contacts": [],
+      "custom": {
+        "00. 🦖 LEAD OWNER": "Someone Else"
+      },
+      "opportunities": [],
+      "activities": [],
+      "tasks": []
+    }
+  ]
+}

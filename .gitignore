@@ -1,0 +1,4 @@
+.env.close
+node_modules/
+.cache/
+close_guardrail/output/
