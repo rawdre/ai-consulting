@@ -1,845 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAW AI Mission Control</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: #0a0a0f;
-            font-family: 'Rajdhani', sans-serif;
-            color: #ffffff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        
-        /* Background particles canvas */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-        }
-        
-        /* Glass morphism base */
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.15);
-        }
-        
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 0;
-            position: relative;
-        }
-        
-        .main-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #00f0ff, #ff00aa, #00ff88, #ffaa00);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: titleGlow 4s ease-in-out infinite alternate;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-            margin-bottom: 0.5rem;
-        }
-        
-        .subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: #00f0ff;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-        }
-        
-        .live-time {
-            position: absolute;
-            top: 1rem;
-            right: 2rem;
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            color: #00ff88;
-            background: rgba(0, 255, 136, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid #00ff88;
-        }
-        
-        /* Scorecards */
-        .scorecards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .scorecard {
-            padding: 1.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .scorecard:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 240, 255, 0.3);
-        }
-        
-        .scorecard-title {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .scorecard-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .scorecard-progress {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 2px;
-            transition: width 2s ease;
-            animation: progressPulse 2s ease-in-out infinite alternate;
-        }
-        
-        /* Agent Grid */
-        .agents-container {
-            max-width: 1400px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-        
-        .agents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .agent-card {
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .agent-card:hover {
-            transform: scale(1.05);
-        }
-        
-        .agent-avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
-            position: relative;
-        }
-        
-        .avatar-ring {
-            width: 100%;
-            height: 100%;
-            border: 3px solid;
-            border-radius: 50%;
-            position: absolute;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .avatar-inner {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .agent-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .agent-role {
-            font-size: 1rem;
-            opacity: 0.7;
-            margin-bottom: 1rem;
-        }
-        
-        .agent-status {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            min-height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .typing-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            margin-left: 0.5rem;
-        }
-        
-        .typing-dot {
-            width: 4px;
-            height: 4px;
-            background: currentColor;
-            border-radius: 50%;
-            animation: typingDot 1.4s ease-in-out infinite both;
-        }
-        
-        .typing-dot:nth-child(2) { animation-delay: 0.16s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.32s; }
-        
-        /* Activity Feed */
-        .activity-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #00f0ff;
-        }
-        
-        .activity-feed {
-            height: 400px;
-            overflow-y: auto;
-            padding: 1.5rem;
-        }
-        
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.8rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-left: 3px solid #00f0ff;
-            border-radius: 8px;
-            opacity: 0;
-            transform: translateX(-100px);
-            animation: slideInActivity 0.6s ease forwards;
-        }
-        
-        .activity-time {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
-            opacity: 0.6;
-            min-width: 60px;
-            margin-right: 1rem;
-        }
-        
-        .activity-text {
-            flex: 1;
-            font-size: 0.9rem;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(0, 240, 255, 0.2);
-        }
-        
-        .footer a {
-            color: #00f0ff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer a:hover {
-            text-shadow: 0 0 10px #00f0ff;
-        }
-        
-        /* Animations */
-        @keyframes titleGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes progressPulse {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-        
-        @keyframes typingDot {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes slideInActivity {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Color classes */
-        .cyan { color: #00f0ff; border-color: #00f0ff; }
-        .magenta { color: #ff00aa; border-color: #ff00aa; }
-        .green { color: #00ff88; border-color: #00ff88; }
-        .amber { color: #ffaa00; border-color: #ffaa00; }
-        .purple { color: #aa44ff; border-color: #aa44ff; }
-        
-        .cyan-bg { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05)); }
-        .magenta-bg { background: linear-gradient(135deg, rgba(255, 0, 170, 0.2), rgba(255, 0, 170, 0.05)); }
-        .green-bg { background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.05)); }
-        .amber-bg { background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 170, 0, 0.05)); }
-        .purple-bg { background: linear-gradient(135deg, rgba(170, 68, 255, 0.2), rgba(170, 68, 255, 0.05)); }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .live-time {
-                position: static;
-                margin: 1rem 0;
-                display: inline-block;
-            }
-            
-            .agents-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .scorecards {
-                grid-template-columns: 1fr;
-                margin: 1rem;
-            }
-            
-            .activity-feed {
-                height: 300px;
-            }
-        }
-        
-        /* Custom scrollbar */
-        .activity-feed::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .activity-feed::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-        
-        .activity-feed::-webkit-scrollbar-thumb {
-            background: #00f0ff;
-            border-radius: 3px;
-        }
-        
-        .activity-feed::-webkit-scrollbar-thumb:hover {
-            background: #00d4dd;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAW AI Mission Control</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #070b12;
+      --panel: rgba(13, 20, 34, 0.88);
+      --panel-strong: rgba(18, 29, 48, 0.94);
+      --line: rgba(100, 214, 255, 0.18);
+      --ink: #eef7ff;
+      --muted: #93a8bc;
+      --cyan: #57e9ff;
+      --green: #53f2a5;
+      --amber: #ffc35a;
+      --magenta: #ff6bc1;
+      --purple: #b08dff;
+      --red: #ff7b91;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Manrope", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(87, 233, 255, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 107, 193, 0.1), transparent 24%),
+        linear-gradient(180deg, #05080e 0%, var(--bg) 100%);
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 26px 18px 42px;
+    }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.8fr);
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0 0 12px;
+      line-height: 1.08;
+    }
+
+    h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+    }
+
+    h2 {
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.25rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .side-panel {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .status-line {
+      display: grid;
+      gap: 6px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(87, 233, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .status-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .status-value {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .scorecards {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .scorecard {
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .scorecard-title {
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .scorecard-value {
+      font-family: "Orbitron", sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .scorecard-foot {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.8fr);
+      gap: 18px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .focus-list,
+    .queue-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .focus-item,
+    .queue-item,
+    .project-card {
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(87, 233, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .focus-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .item-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .item-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    .item-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .badge.crm { color: var(--cyan); }
+    .badge.project { color: var(--amber); }
+    .badge.high { color: var(--red); }
+    .badge.medium { color: var(--amber); }
+    .badge.hot { color: var(--magenta); }
+    .badge.warm { color: var(--green); }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(87, 233, 255, 0.2);
+      background: rgba(87, 233, 255, 0.08);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .action-link:hover {
+      background: rgba(87, 233, 255, 0.16);
+    }
+
+    .queue-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .queue-column {
+      display: grid;
+      gap: 12px;
+    }
+
+    .queue-column h3 {
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+
+    .project-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .project-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    @media (max-width: 1180px) {
+      .scorecards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .layout,
+      .header,
+      .queue-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        padding: 16px 14px 30px;
+      }
+
+      .hero,
+      .side-panel,
+      .panel,
+      .scorecard {
+        padding: 18px;
+      }
+
+      .scorecards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .focus-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Background particles canvas -->
-    <canvas id="particles-canvas"></canvas>
-    
-    <!-- Header -->
-    <header class="header">
-        <h1 class="main-title">RAW AI SUCCESS TEAM</h1>
-        <div class="subtitle">Mission Control — Live Operations Dashboard</div>
-        <div class="live-time" id="live-time"></div>
-    </header>
-    
-    <!-- Scorecards -->
-    <section class="scorecards">
-        <div class="scorecard glass">
-            <div class="scorecard-title">Sites Vendidos</div>
-            <div class="scorecard-value cyan" data-target="1">0</div>
-            <div class="scorecard-progress">
-                <div class="progress-fill cyan-bg" style="width: 10%"></div>
-            </div>
+  <canvas id="particles-canvas"></canvas>
+  <div class="wrap">
+    <section class="header">
+      <div class="hero glass">
+        <div class="eyebrow">Live Operating System</div>
+        <h1 class="hero-title">Mission Control</h1>
+        <p>This page is now built to answer one question first: <strong>what should Andre work next?</strong> It pulls the latest CRM priority snapshot from the Close revenue guardrail and combines it with active project lanes so this can become the daily cockpit.</p>
+        <div class="hero-meta">
+          <span class="pill">CRM priorities</span>
+          <span class="pill">Project radar</span>
+          <span class="pill">What to work next</span>
         </div>
-        
-        <div class="scorecard glass">
-            <div class="scorecard-title">Pipeline Comeketo</div>
-            <div class="scorecard-value green">$<span data-target="36505">0</span></div>
+      </div>
+      <aside class="side-panel glass">
+        <div class="status-line">
+          <div class="status-label">Latest CRM Sync</div>
+          <div class="status-value" id="sync-time">Loading...</div>
         </div>
-        
-        <div class="scorecard glass">
-            <div class="scorecard-title">Expo Leads Hoje</div>
-            <div class="scorecard-value amber" data-target="24">0</div>
+        <div class="status-line">
+          <div class="status-label">Data Source</div>
+          <div class="status-value" id="source-file">Loading...</div>
         </div>
-        
-        <div class="scorecard glass">
-            <div class="scorecard-title">Tasks Completas</div>
-            <div class="scorecard-value purple" data-target="47">0</div>
+        <div class="status-line">
+          <div class="status-label">Mission Focus</div>
+          <div class="status-value">Work the hottest CRM moves first, then unblock the highest-priority project lane.</div>
         </div>
+      </aside>
     </section>
-    
-    <!-- Agents Grid -->
-    <section class="agents-container">
-        <div class="agents-grid">
-            <!-- Rawbot -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring cyan"></div>
-                    <div class="avatar-inner">🤖</div>
-                </div>
-                <div class="agent-name cyan">Rawbot</div>
-                <div class="agent-role">Chief of Staff</div>
-                <div class="agent-status cyan" data-agent="rawbot">
-                    Monitoring CRM inbox...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
+
+    <section class="scorecards" id="scorecards"></section>
+
+    <section class="layout">
+      <div class="stack">
+        <article class="panel glass">
+          <h2>What To Work Next</h2>
+          <div class="focus-list" id="focus-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>CRM Frontline</h2>
+          <div class="queue-grid">
+            <div class="queue-column">
+              <h3>Replies Owed</h3>
+              <div class="queue-list" id="replies-list"></div>
             </div>
-            
-            <!-- Ogilvy -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring magenta"></div>
-                    <div class="avatar-inner">📈</div>
-                </div>
-                <div class="agent-name magenta">Ogilvy</div>
-                <div class="agent-role">Market Strategist</div>
-                <div class="agent-status magenta" data-agent="ogilvy">
-                    Analyzing competitor pricing...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
+            <div class="queue-column">
+              <h3>Follow-Ups Due</h3>
+              <div class="queue-list" id="followups-list"></div>
             </div>
-            
-            <!-- Buffett -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring green"></div>
-                    <div class="avatar-inner">📊</div>
-                </div>
-                <div class="agent-name green">Buffett</div>
-                <div class="agent-role">Financial Analyst</div>
-                <div class="agent-status green" data-agent="buffett">
-                    Projecting Q2 revenue...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
+            <div class="queue-column">
+              <h3>Hot Leads At Risk</h3>
+              <div class="queue-list" id="hot-list"></div>
             </div>
-            
-            <!-- Cialdini -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring amber"></div>
-                    <div class="avatar-inner">💰</div>
-                </div>
-                <div class="agent-name amber">Cialdini</div>
-                <div class="agent-role">Sales Architect</div>
-                <div class="agent-status amber" data-agent="cialdini">
-                    Optimizing NEPQ sequences...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
-            </div>
-            
-            <!-- Turing -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring purple"></div>
-                    <div class="avatar-inner">🛡️</div>
-                </div>
-                <div class="agent-name purple">Turing</div>
-                <div class="agent-role">Data Intelligence</div>
-                <div class="agent-status purple" data-agent="turing">
-                    Scanning 180 prospects...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
-            </div>
-            
-            <!-- Ada -->
-            <div class="agent-card glass">
-                <div class="agent-avatar">
-                    <div class="avatar-ring magenta"></div>
-                    <div class="avatar-inner">🎨</div>
-                </div>
-                <div class="agent-name magenta">Ada</div>
-                <div class="agent-role">Design Engineer</div>
-                <div class="agent-status magenta" data-agent="ada">
-                    Building site template...
-                    <span class="typing-indicator">
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                        <span class="typing-dot"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="stack">
+        <article class="panel glass">
+          <h2>Project Radar</h2>
+          <div class="project-grid" id="project-grid"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Warm Queue</h2>
+          <div class="queue-list" id="warm-list"></div>
+        </article>
+      </div>
     </section>
-    
-    <!-- Activity Feed -->
-    <section class="activity-section">
-        <h2 class="section-title">Live Activity Feed</h2>
-        <div class="activity-feed glass" id="activity-feed">
-            <!-- Activities will be dynamically added here -->
-        </div>
-    </section>
-    
-    <!-- Footer -->
+
     <footer class="footer">
-        <p>Powered by <a href="https://rawdre.github.io/ai-consulting" target="_blank">Raw AI Business Solutions</a></p>
+      Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank" rel="noreferrer">Raw AI Business Solutions</a>
     </footer>
-    
-    <script>
-        // Particles background
-        class ParticleSystem {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.particles = [];
-                this.connections = [];
-                
-                this.resize();
-                this.createParticles();
-                this.animate();
-                
-                window.addEventListener('resize', () => this.resize());
-            }
-            
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-            
-            createParticles() {
-                const numParticles = Math.min(100, Math.floor(this.canvas.width * this.canvas.height / 15000));
-                
-                for (let i = 0; i < numParticles; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        vx: (Math.random() - 0.5) * 0.5,
-                        vy: (Math.random() - 0.5) * 0.5,
-                        size: Math.random() * 2 + 1,
-                        opacity: Math.random() * 0.5 + 0.2
-                    });
-                }
-            }
-            
-            animate() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Update particles
-                this.particles.forEach(particle => {
-                    particle.x += particle.vx;
-                    particle.y += particle.vy;
-                    
-                    if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-                    if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-                    
-                    // Draw particle
-                    this.ctx.beginPath();
-                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(0, 240, 255, ${particle.opacity})`;
-                    this.ctx.fill();
-                });
-                
-                // Draw connections
-                this.particles.forEach((particle, i) => {
-                    this.particles.slice(i + 1).forEach(otherParticle => {
-                        const dx = particle.x - otherParticle.x;
-                        const dy = particle.y - otherParticle.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 100) {
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(particle.x, particle.y);
-                            this.ctx.lineTo(otherParticle.x, otherParticle.y);
-                            this.ctx.strokeStyle = `rgba(0, 240, 255, ${0.1 * (1 - distance / 100)})`;
-                            this.ctx.lineWidth = 1;
-                            this.ctx.stroke();
-                        }
-                    });
-                });
-                
-                requestAnimationFrame(() => this.animate());
-            }
+  </div>
+
+  <script>
+    class ParticleSystem {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.particles = [];
+        this.resize();
+        this.createParticles();
+        this.animate();
+        window.addEventListener("resize", () => this.resize());
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      createParticles() {
+        const count = Math.min(90, Math.floor((this.canvas.width * this.canvas.height) / 18000));
+        this.particles = Array.from({ length: count }, () => ({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          size: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.4 + 0.12
+        }));
+      }
+
+      animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        for (const particle of this.particles) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+          if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(87, 233, 255, ${particle.opacity})`;
+          this.ctx.fill();
         }
-        
-        // Initialize particles
-        const particleCanvas = document.getElementById('particles-canvas');
-        new ParticleSystem(particleCanvas);
-        
-        // Live time update
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleString('pt-BR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('live-time').textContent = timeString;
-        }
-        
-        setInterval(updateTime, 1000);
-        updateTime();
-        
-        // Animate counting numbers
-        function animateCounter(element, target, duration = 2000) {
-            const start = 0;
-            const startTime = performance.now();
-            
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                const current = Math.floor(start + (target - start) * progress);
-                element.textContent = current.toLocaleString();
-                
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
+
+        for (let index = 0; index < this.particles.length; index += 1) {
+          const particle = this.particles[index];
+          for (let inner = index + 1; inner < this.particles.length; inner += 1) {
+            const other = this.particles[inner];
+            const dx = particle.x - other.x;
+            const dy = particle.y - other.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 110) {
+              this.ctx.beginPath();
+              this.ctx.moveTo(particle.x, particle.y);
+              this.ctx.lineTo(other.x, other.y);
+              this.ctx.strokeStyle = `rgba(87, 233, 255, ${0.08 * (1 - distance / 110)})`;
+              this.ctx.lineWidth = 1;
+              this.ctx.stroke();
             }
-            
-            requestAnimationFrame(update);
+          }
         }
-        
-        // Initialize counters
-        document.querySelectorAll('[data-target]').forEach(element => {
-            const target = parseInt(element.dataset.target);
-            animateCounter(element, target);
-        });
-        
-        // Agent status messages
-        const agentStatuses = {
-            rawbot: [
-                "Monitoring CRM inbox...",
-                "Syncing calendar events...", 
-                "Processing voice notes...",
-                "Updating task priorities...",
-                "Checking email queue..."
-            ],
-            ogilvy: [
-                "Analyzing competitor pricing...",
-                "Researching market trends...",
-                "Studying Sobradinho demographics...",
-                "Analyzing social media engagement...",
-                "Tracking industry keywords..."
-            ],
-            buffett: [
-                "Projecting Q2 revenue...",
-                "Calculating ROI metrics...",
-                "Updating financial forecasts...",
-                "Analyzing expense patterns...",
-                "Reviewing profit margins..."
-            ],
-            cialdini: [
-                "Optimizing NEPQ sequences...",
-                "Drafting follow-up messages...",
-                "Analyzing conversion rates...",
-                "Personalizing outreach scripts...",
-                "Reviewing sales funnels..."
-            ],
-            turing: [
-                "Scanning 180 prospects...",
-                "Mapping lead networks...",
-                "Processing contact data...",
-                "Running predictive models...",
-                "Analyzing behavior patterns..."
-            ],
-            ada: [
-                "Building site template...",
-                "Optimizing UI components...",
-                "Generating design systems...",
-                "Creating visual assets...",
-                "Testing responsive layouts..."
-            ]
-        };
-        
-        // Rotate agent statuses
-        function rotateAgentStatus() {
-            Object.keys(agentStatuses).forEach(agentKey => {
-                const element = document.querySelector(`[data-agent="${agentKey}"]`);
-                const statuses = agentStatuses[agentKey];
-                const currentText = element.textContent.split('\n')[0].trim();
-                
-                let currentIndex = statuses.indexOf(currentText);
-                currentIndex = (currentIndex + 1) % statuses.length;
-                
-                const typingIndicator = element.querySelector('.typing-indicator');
-                element.innerHTML = statuses[currentIndex];
-                element.appendChild(typingIndicator);
-            });
-        }
-        
-        setInterval(rotateAgentStatus, 4000);
-        
-        // Activity feed
-        const activities = [
-            "🤖 Rawbot checked CRM inbox — 0 new messages",
-            "📈 Ogilvy analyzed Sobradinho market — 55% sem site",
-            "💰 Cialdini drafted NEPQ follow-up for Sophie Kroeze",
-            "🎨 Ada generated bike shop template",
-            "📊 Buffett updated March projections — R$16,270 target",
-            "🛡️ Turing mapped 3 walking routes for prospecting",
-            "🤖 Rawbot processed 12 voice notes",
-            "📈 Ogilvy identified 8 competitor weaknesses",
-            "💰 Cialdini optimized email subject lines",
-            "🎨 Ada created responsive landing page",
-            "📊 Buffett calculated quarterly burn rate",
-            "🛡️ Turing updated contact scoring model",
-            "🤖 Rawbot synced Google Calendar events",
-            "📈 Ogilvy researched industry benchmarks",
-            "💰 Cialdini analyzed sales call recordings",
-            "🎨 Ada tested mobile UI components",
-            "📊 Buffett projected cash flow scenarios",
-            "🛡️ Turing processed LinkedIn connections",
-            "🤖 Rawbot organized task priorities",
-            "📈 Ogilvy tracked social media mentions",
-            "💰 Cialdini scheduled follow-up sequences",
-            "🎨 Ada generated brand style guide"
-        ];
-        
-        let activityIndex = 0;
-        
-        function addActivity() {
-            const feedElement = document.getElementById('activity-feed');
-            const activity = activities[activityIndex % activities.length];
-            
-            const activityElement = document.createElement('div');
-            activityElement.className = 'activity-item';
-            
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('pt-BR', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            activityElement.innerHTML = `
-                <div class="activity-time">${timeString}</div>
-                <div class="activity-text">${activity}</div>
-            `;
-            
-            feedElement.insertBefore(activityElement, feedElement.firstChild);
-            
-            // Remove old activities (keep only last 20)
-            const items = feedElement.querySelectorAll('.activity-item');
-            if (items.length > 20) {
-                items[items.length - 1].remove();
-            }
-            
-            activityIndex++;
-        }
-        
-        // Add initial activities
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => addActivity(), i * 500);
-        }
-        
-        // Continue adding activities
-        setInterval(addActivity, 5000);
-        
-        // Add floating animation to agent cards
-        document.querySelectorAll('.agent-card').forEach((card, index) => {
-            card.style.animation = `float 3s ease-in-out infinite ${index * 0.5}s`;
-        });
-        
-        // Add hover effects with color-based glows
-        document.querySelectorAll('.agent-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                const color = card.querySelector('.agent-name').classList[0];
-                const colorMap = {
-                    'cyan': 'rgba(0, 240, 255, 0.3)',
-                    'magenta': 'rgba(255, 0, 170, 0.3)',
-                    'green': 'rgba(0, 255, 136, 0.3)',
-                    'amber': 'rgba(255, 170, 0, 0.3)',
-                    'purple': 'rgba(170, 68, 255, 0.3)'
-                };
-                card.style.boxShadow = `0 15px 50px ${colorMap[color]}`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.boxShadow = '';
-            });
-        });
-        
-        // Smooth scroll for any anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-    </script>
+
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+
+    new ParticleSystem(document.getElementById("particles-canvas"));
+
+    const scorecards = [
+      { label: "Hot Leads", key: "hot", color: "var(--magenta)" },
+      { label: "Follow-Ups Due", key: "followUpsDueToday", color: "var(--amber)" },
+      { label: "Replies Owed", key: "repliesOwedNow", color: "var(--cyan)" },
+      { label: "Drafts Ready", key: "drafted", color: "var(--green)" },
+      { label: "Active Projects", key: "activeProjects", color: "var(--purple)" },
+      { label: "Cold Leads", key: "cold", color: "var(--red)" }
+    ];
+
+    function fmtDate(value) {
+      if (!value) return "No date";
+      return new Date(value).toLocaleString("pt-BR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function badge(label, className = "") {
+      return `<span class="badge ${className}">${label}</span>`;
+    }
+
+    function renderScorecards(summary) {
+      const root = document.getElementById("scorecards");
+      root.innerHTML = scorecards.map((card) => `
+        <article class="scorecard">
+          <div class="scorecard-title">${card.label}</div>
+          <div class="scorecard-value" style="color:${card.color}">${summary[card.key] ?? 0}</div>
+          <div class="scorecard-foot">Live snapshot metric</div>
+        </article>
+      `).join("");
+    }
+
+    function renderFocus(items) {
+      const root = document.getElementById("focus-list");
+      root.innerHTML = items.map((item) => `
+        <article class="focus-item">
+          <div>
+            <div class="item-title">${item.title}</div>
+            <div class="item-sub">${item.type === "crm" ? `${item.recommendedAction} · ${item.stage || item.section}` : item.nextAction}</div>
+            <div class="item-meta">
+              ${item.type === "crm"
+                ? `${badge("CRM", "crm")} ${badge(item.statusBucket, item.statusBucket.toLowerCase())} ${badge(`Score ${item.score}`)}`
+                : `${badge("Project", "project")} ${badge(item.priority, item.priority)} ${badge(item.status)}`
+              }
+            </div>
+          </div>
+          <a class="action-link" href="${item.link}" ${item.type === "crm" ? 'target="_blank" rel="noreferrer"' : ""}>Open</a>
+        </article>
+      `).join("");
+    }
+
+    function renderQueue(id, entries, emptyLabel) {
+      const root = document.getElementById(id);
+      if (!entries.length) {
+        root.innerHTML = `<article class="queue-item"><div class="item-sub">${emptyLabel}</div></article>`;
+        return;
+      }
+      root.innerHTML = entries.map((entry) => `
+        <article class="queue-item">
+          <div class="item-title">${entry.leadName}</div>
+          <div class="item-sub">${entry.recommendedAction} · ${entry.stage || entry.section}</div>
+          <div class="item-meta">
+            ${badge(entry.statusBucket, entry.statusBucket.toLowerCase())}
+            ${badge(`Score ${entry.score}`)}
+            ${entry.nextStepDue ? badge(`Due ${entry.nextStepDue}`) : ""}
+          </div>
+          <div style="margin-top:10px;">
+            <a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">Open Close Lead</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderProjects(projects) {
+      const root = document.getElementById("project-grid");
+      root.innerHTML = projects.map((project) => `
+        <article class="project-card">
+          <div class="item-title">${project.name}</div>
+          <div class="item-sub">${project.nextAction}</div>
+          <div class="item-meta">
+            ${badge(project.lane, "project")}
+            ${badge(project.priority, project.priority)}
+            ${badge(project.status)}
+          </div>
+          <div style="margin-top:8px;">
+            <a class="action-link" href="${project.link}">Open Project</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function boot() {
+      const response = await fetch("mission-control-data/latest.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("Mission Control data could not be loaded.");
+      const data = await response.json();
+
+      document.getElementById("sync-time").textContent = fmtDate(data.generated_at);
+      document.getElementById("source-file").textContent = `${data.source_file} · ${data.checkpoint}`;
+
+      renderScorecards(data.summary);
+      renderFocus(data.topFocus);
+      renderQueue("replies-list", data.crm.repliesOwedNow, "No replies owed right now.");
+      renderQueue("followups-list", data.crm.followUpsDueToday.slice(0, 6), "No follow-ups due today.");
+      renderQueue("hot-list", data.crm.hotLeadsAtRisk.slice(0, 6), "No hot leads flagged.");
+      renderQueue("warm-list", data.crm.warmNurtureCandidates.slice(0, 8), "No warm nurture candidates.");
+      renderProjects(data.projects);
+    }
+
+    boot().catch((error) => {
+      document.getElementById("focus-list").innerHTML = `<article class="focus-item"><div><div class="item-title">Data load failed</div><div class="item-sub">${error.message}</div></div></article>`;
+    });
+  </script>
 </body>
 </html>

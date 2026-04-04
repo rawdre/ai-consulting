@@ -1,0 +1,713 @@
+{
+  "generated_at": "2026-04-03T23:55:13.924Z",
+  "checkpoint": "morning",
+  "source_file": "2026-04-03-morning.json",
+  "summary": {
+    "totalLeads": 107,
+    "hot": 12,
+    "warm": 36,
+    "cold": 59,
+    "drafted": 78,
+    "skipped": 29,
+    "followUpsDueToday": 0,
+    "repliesOwedNow": 0,
+    "activeProjects": 4,
+    "highPriorityProjects": 2
+  },
+  "topFocus": [
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_VTBL7f5EFXqwjSKYUh2UZSv61I0NaA5wPayYdEp937t",
+      "leadName": "Jose Quefau",
+      "statusBucket": "Hot",
+      "score": 133,
+      "recommendedAction": "confirm tasting",
+      "stage": "🔥 03. Booked for Tasting",
+      "nextStepDue": "2026-04-18",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Definitely, which you treat as hot.",
+        "Opportunity is at Booked Tasting, which is hottest priority.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_VTBL7f5EFXqwjSKYUh2UZSv61I0NaA5wPayYdEp937t/",
+      "title": "Jose Quefau",
+      "subtitle": "confirm tasting",
+      "weight": 313
+    },
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_4sz22T6bgDA9WBcHcroFZ1vjzhRtzH8RzCBUOVBuVLN",
+      "leadName": "Rebecca Almeida",
+      "statusBucket": "Hot",
+      "score": 133,
+      "recommendedAction": "confirm tasting",
+      "stage": "🔥 03. Booked for Tasting",
+      "nextStepDue": "2026-04-13",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Definitely, which you treat as hot.",
+        "Opportunity is at Booked Tasting, which is hottest priority.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_4sz22T6bgDA9WBcHcroFZ1vjzhRtzH8RzCBUOVBuVLN/",
+      "title": "Rebecca Almeida",
+      "subtitle": "confirm tasting",
+      "weight": 313
+    },
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_PS3uxxtU8HDNXucLB9Fff3dkyauEF4WzhJw9tGA0gsv",
+      "leadName": "Jenn Smiley",
+      "statusBucket": "Hot",
+      "score": 114,
+      "recommendedAction": "confirm tasting",
+      "stage": "🔥 03. Booked for Tasting",
+      "nextStepDue": "2026-04-18",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Probably, which you treat as warm/hot.",
+        "Opportunity is at Booked Tasting, which is hottest priority.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_PS3uxxtU8HDNXucLB9Fff3dkyauEF4WzhJw9tGA0gsv/",
+      "title": "Jenn Smiley",
+      "subtitle": "confirm tasting",
+      "weight": 294
+    },
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_XHelhvrglQSqfmSxiB3vYXQki9rSSkOADqFMBacosen",
+      "leadName": "Lazaro Silva",
+      "statusBucket": "Hot",
+      "score": 114,
+      "recommendedAction": "confirm tasting",
+      "stage": "🔥 03. Booked for Tasting",
+      "nextStepDue": "2026-04-06",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Probably, which you treat as warm/hot.",
+        "Opportunity is at Booked Tasting, which is hottest priority.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_XHelhvrglQSqfmSxiB3vYXQki9rSSkOADqFMBacosen/",
+      "title": "Lazaro Silva",
+      "subtitle": "confirm tasting",
+      "weight": 294
+    },
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_VUn2EY3TzwXU8pL4bqdFB21aiT3pRBXm1QxWVxRCKR2",
+      "leadName": "Janet Aracena",
+      "statusBucket": "Hot",
+      "score": 104,
+      "recommendedAction": "invite to tasting",
+      "stage": "📲 02. Setting Tasting Appointment",
+      "nextStepDue": "2026-04-06",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Probably, which you treat as warm/hot.",
+        "Opportunity is at Setting Tasting, which is high urgency.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_VUn2EY3TzwXU8pL4bqdFB21aiT3pRBXm1QxWVxRCKR2/",
+      "title": "Janet Aracena",
+      "subtitle": "invite to tasting",
+      "weight": 284
+    },
+    {
+      "type": "crm",
+      "section": "Hot leads at risk",
+      "leadId": "lead_mCbQ7uhMQYfSmncArrHBt4KKW0IK5dLTx6QUqLPlEON",
+      "leadName": "Sandy B",
+      "statusBucket": "Hot",
+      "score": 104,
+      "recommendedAction": "invite to tasting",
+      "stage": "📲 02. Setting Tasting Appointment",
+      "nextStepDue": "2026-04-05",
+      "rationale": [
+        "Conversation is active but not urgent yet.",
+        "Lead status is Probably, which you treat as warm/hot.",
+        "Opportunity is at Setting Tasting, which is high urgency.",
+        "Lead remains active in the pipeline.",
+        "There was human touch in the last 24 hours.",
+        "Lead is engaged and still missing a tasting invitation."
+      ],
+      "link": "https://app.close.com/lead/lead_mCbQ7uhMQYfSmncArrHBt4KKW0IK5dLTx6QUqLPlEON/",
+      "title": "Sandy B",
+      "subtitle": "invite to tasting",
+      "weight": 284
+    },
+    {
+      "type": "project",
+      "title": "Top Imobiliaria",
+      "lane": "Client project",
+      "status": "Active build cluster",
+      "nextAction": "Decide the next page or workflow to ship inside the Top Imobiliaria cluster.",
+      "priority": "high",
+      "owner": "Andre + design/build",
+      "link": "top-imobiliaria-hub.html",
+      "weight": 100
+    },
+    {
+      "type": "project",
+      "title": "Mission Control",
+      "lane": "Internal ops",
+      "status": "Operational dashboard",
+      "nextAction": "Keep the CRM snapshot fresh and expand the project feeds so this page becomes the default daily cockpit.",
+      "priority": "high",
+      "owner": "Andre + automation",
+      "link": "mission-control.html",
+      "weight": 100
+    },
+    {
+      "type": "project",
+      "title": "AI Tool School",
+      "lane": "Internal product",
+      "status": "Live on GitHub Pages",
+      "nextAction": "Translate the long guides to Portuguese and add deeper guided navigation.",
+      "priority": "medium",
+      "owner": "Andre + Codex",
+      "link": "tool-school/",
+      "weight": 60
+    },
+    {
+      "type": "project",
+      "title": "Next Projects Pipeline",
+      "lane": "Business development",
+      "status": "Needs intake",
+      "nextAction": "Add the next incoming project as soon as there is a defined scope, owner, and next move.",
+      "priority": "medium",
+      "owner": "Andre",
+      "link": "index.html",
+      "weight": 60
+    }
+  ],
+  "crm": {
+    "repliesOwedNow": [],
+    "followUpsDueToday": [],
+    "hotLeadsAtRisk": [
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_VTBL7f5EFXqwjSKYUh2UZSv61I0NaA5wPayYdEp937t",
+        "leadName": "Jose Quefau",
+        "statusBucket": "Hot",
+        "score": 133,
+        "recommendedAction": "confirm tasting",
+        "stage": "🔥 03. Booked for Tasting",
+        "nextStepDue": "2026-04-18",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Definitely, which you treat as hot.",
+          "Opportunity is at Booked Tasting, which is hottest priority.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_VTBL7f5EFXqwjSKYUh2UZSv61I0NaA5wPayYdEp937t/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_4sz22T6bgDA9WBcHcroFZ1vjzhRtzH8RzCBUOVBuVLN",
+        "leadName": "Rebecca Almeida",
+        "statusBucket": "Hot",
+        "score": 133,
+        "recommendedAction": "confirm tasting",
+        "stage": "🔥 03. Booked for Tasting",
+        "nextStepDue": "2026-04-13",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Definitely, which you treat as hot.",
+          "Opportunity is at Booked Tasting, which is hottest priority.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_4sz22T6bgDA9WBcHcroFZ1vjzhRtzH8RzCBUOVBuVLN/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_PS3uxxtU8HDNXucLB9Fff3dkyauEF4WzhJw9tGA0gsv",
+        "leadName": "Jenn Smiley",
+        "statusBucket": "Hot",
+        "score": 114,
+        "recommendedAction": "confirm tasting",
+        "stage": "🔥 03. Booked for Tasting",
+        "nextStepDue": "2026-04-18",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Opportunity is at Booked Tasting, which is hottest priority.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_PS3uxxtU8HDNXucLB9Fff3dkyauEF4WzhJw9tGA0gsv/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_XHelhvrglQSqfmSxiB3vYXQki9rSSkOADqFMBacosen",
+        "leadName": "Lazaro Silva",
+        "statusBucket": "Hot",
+        "score": 114,
+        "recommendedAction": "confirm tasting",
+        "stage": "🔥 03. Booked for Tasting",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Opportunity is at Booked Tasting, which is hottest priority.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_XHelhvrglQSqfmSxiB3vYXQki9rSSkOADqFMBacosen/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_VUn2EY3TzwXU8pL4bqdFB21aiT3pRBXm1QxWVxRCKR2",
+        "leadName": "Janet Aracena",
+        "statusBucket": "Hot",
+        "score": 104,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_VUn2EY3TzwXU8pL4bqdFB21aiT3pRBXm1QxWVxRCKR2/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_mCbQ7uhMQYfSmncArrHBt4KKW0IK5dLTx6QUqLPlEON",
+        "leadName": "Sandy B",
+        "statusBucket": "Hot",
+        "score": 104,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-05",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_mCbQ7uhMQYfSmncArrHBt4KKW0IK5dLTx6QUqLPlEON/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_xa4jQBsskaIvYrRoCJpFJjDHbcLRSGA5En6dTm3lF6A",
+        "leadName": "Leslie Kearse Smith",
+        "statusBucket": "Hot",
+        "score": 92,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_xa4jQBsskaIvYrRoCJpFJjDHbcLRSGA5En6dTm3lF6A/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_B2hKmTC2WEkuPiaGYPo9Y4UG0b8Ldlb3BcVeaLPPnS2",
+        "leadName": "Miguel Lopez Rivera",
+        "statusBucket": "Hot",
+        "score": 92,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_B2hKmTC2WEkuPiaGYPo9Y4UG0b8Ldlb3BcVeaLPPnS2/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_yBbHVw7byMWycWLiaKGZEs2iBg7urqO5aLyqHo8ChJB",
+        "leadName": "Rachel Sawyer",
+        "statusBucket": "Hot",
+        "score": 92,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-20",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_yBbHVw7byMWycWLiaKGZEs2iBg7urqO5aLyqHo8ChJB/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_wCrBQUqjdQ2W9LUjHNZjE5WnubehOgzxvmxWaxAElub",
+        "leadName": "Andreia DePina Moore",
+        "statusBucket": "Hot",
+        "score": 80,
+        "recommendedAction": "invite to tasting",
+        "stage": "📲 02. Setting Tasting Appointment",
+        "nextStepDue": "2026-04-04",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably Not, so it should not inflate hot priority by itself.",
+          "Opportunity is at Setting Tasting, which is high urgency.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_wCrBQUqjdQ2W9LUjHNZjE5WnubehOgzxvmxWaxAElub/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_EJPElRQvN3tEUBium8eOYGRFsP6OJ3ncNePeMhKJL7W",
+        "leadName": "Rosana Barros",
+        "statusBucket": "Hot",
+        "score": 74,
+        "recommendedAction": "invite to tasting",
+        "stage": "🟩 01. Qualified",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Opportunity is Qualified, which is warm/hot by your standard.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_EJPElRQvN3tEUBium8eOYGRFsP6OJ3ncNePeMhKJL7W/"
+      },
+      {
+        "type": "crm",
+        "section": "Hot leads at risk",
+        "leadId": "lead_3UsiDR1toez7VpLHNryEwqVuarYhtGuHYD0gJRqQ5mV",
+        "leadName": "Cheryl Rank",
+        "statusBucket": "Hot",
+        "score": 73,
+        "recommendedAction": "invite to tasting",
+        "stage": "🔥 04. Attended Tasting",
+        "nextStepDue": "2026-04-07",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Definitely, which you treat as hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_3UsiDR1toez7VpLHNryEwqVuarYhtGuHYD0gJRqQ5mV/"
+      }
+    ],
+    "warmNurtureCandidates": [
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_dHYtFQfbH3NUNnszd6mxD28LFFA5TvV3yHXbw5ytgD9",
+        "leadName": "Alexa Rodriguez",
+        "statusBucket": "Warm",
+        "score": 54,
+        "recommendedAction": "invite to tasting",
+        "stage": "🔥 04. Attended Tasting",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_dHYtFQfbH3NUNnszd6mxD28LFFA5TvV3yHXbw5ytgD9/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_DJaxvlNheydM9EYjU0RO85Hqhfqr15hVuk8HCc3QBCN",
+        "leadName": "Anna",
+        "statusBucket": "Warm",
+        "score": 54,
+        "recommendedAction": "invite to tasting",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_DJaxvlNheydM9EYjU0RO85Hqhfqr15hVuk8HCc3QBCN/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_kQe4s2nc81KMhW0DlyytnbeS0czIIYcmdfZf1B9deCY",
+        "leadName": "Karla Velazquez",
+        "statusBucket": "Warm",
+        "score": 54,
+        "recommendedAction": "invite to tasting",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_kQe4s2nc81KMhW0DlyytnbeS0czIIYcmdfZf1B9deCY/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_X3HPwSo54A5hRihhlTZ5bRl7ZqeNbQ5wl1nmgSnLj7E",
+        "leadName": "Anna Julia Duarte",
+        "statusBucket": "Warm",
+        "score": 50,
+        "recommendedAction": "invite to tasting",
+        "stage": "🟩 01. Qualified",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably Not, so it should not inflate hot priority by itself.",
+          "Opportunity is Qualified, which is warm/hot by your standard.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_X3HPwSo54A5hRihhlTZ5bRl7ZqeNbQ5wl1nmgSnLj7E/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_sdfvhzqqM65OVhaipCD2bnMh831AYikDsPXXt47bzVe",
+        "leadName": "David Anthony",
+        "statusBucket": "Warm",
+        "score": 50,
+        "recommendedAction": "invite to tasting",
+        "stage": "🟩 01. Qualified",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably Not, so it should not inflate hot priority by itself.",
+          "Opportunity is Qualified, which is warm/hot by your standard.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_sdfvhzqqM65OVhaipCD2bnMh831AYikDsPXXt47bzVe/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_2ekODGbXRancziKWgZDb2mb7nm0OwYdE5LaHr7myzOQ",
+        "leadName": "Gabrieli Reilly",
+        "statusBucket": "Warm",
+        "score": 48,
+        "recommendedAction": "invite to tasting",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Lead remains active in the pipeline.",
+          "The lead has been touched recently.",
+          "Lead is engaged and still missing a tasting invitation."
+        ],
+        "link": "https://app.close.com/lead/lead_2ekODGbXRancziKWgZDb2mb7nm0OwYdE5LaHr7myzOQ/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_17C7x7hpgP89ZLkbSjDSQJhxfuKWghXhO5ZwAFFyVUP",
+        "leadName": "Ludymilla Grizotte",
+        "statusBucket": "Warm",
+        "score": 42,
+        "recommendedAction": "invite to tasting",
+        "stage": "🔥 04. Attended Tasting",
+        "nextStepDue": "2026-04-10",
+        "rationale": [
+          "Andre has a proactive follow-up due.",
+          "Lead status is Probably, which you treat as warm/hot.",
+          "Lead remains active in the pipeline."
+        ],
+        "link": "https://app.close.com/lead/lead_17C7x7hpgP89ZLkbSjDSQJhxfuKWghXhO5ZwAFFyVUP/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_jhFsNRvUCAFZM0f6qUc50Z3MODjko0iD6f2nj2qiIpu",
+        "leadName": "Alex Ayala",
+        "statusBucket": "Warm",
+        "score": 32,
+        "recommendedAction": "wait",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours."
+        ],
+        "link": "https://app.close.com/lead/lead_jhFsNRvUCAFZM0f6qUc50Z3MODjko0iD6f2nj2qiIpu/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_7BlXxxSZ8Z3fwInxzf1YOJo1aP9Pa6m6dMSrkSmnomK",
+        "leadName": "Ari",
+        "statusBucket": "Warm",
+        "score": 32,
+        "recommendedAction": "wait",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours."
+        ],
+        "link": "https://app.close.com/lead/lead_7BlXxxSZ8Z3fwInxzf1YOJo1aP9Pa6m6dMSrkSmnomK/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_A1XAJUbdZYqlhGklUgIv1xGEwmhi7FGaTo1Cq9NDKXM",
+        "leadName": "Chris Aucella",
+        "statusBucket": "Warm",
+        "score": 32,
+        "recommendedAction": "wait",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours."
+        ],
+        "link": "https://app.close.com/lead/lead_A1XAJUbdZYqlhGklUgIv1xGEwmhi7FGaTo1Cq9NDKXM/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_DuqAw70Bt18wTmjk5DO7S6HUU30SrKOW1hvj3pOdAAx",
+        "leadName": "Chuck Zucco",
+        "statusBucket": "Warm",
+        "score": 32,
+        "recommendedAction": "wait",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours."
+        ],
+        "link": "https://app.close.com/lead/lead_DuqAw70Bt18wTmjk5DO7S6HUU30SrKOW1hvj3pOdAAx/"
+      },
+      {
+        "type": "crm",
+        "section": "Warm nurture candidates",
+        "leadId": "lead_2Zg6DA6ZmcEyxhgoLfUrCaYmYmpAZB235IC4UslALBS",
+        "leadName": "DadaPau DP",
+        "statusBucket": "Warm",
+        "score": 32,
+        "recommendedAction": "wait",
+        "stage": "⬜ 00. Prospect",
+        "nextStepDue": "2026-04-06",
+        "rationale": [
+          "Conversation is active but not urgent yet.",
+          "Lead status is Maybe, so it stays active but below hot.",
+          "Lead remains active in the pipeline.",
+          "There was human touch in the last 24 hours."
+        ],
+        "link": "https://app.close.com/lead/lead_2Zg6DA6ZmcEyxhgoLfUrCaYmYmpAZB235IC4UslALBS/"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "top-imobiliaria",
+      "name": "Top Imobiliaria",
+      "lane": "Client project",
+      "priority": "high",
+      "status": "Active build cluster",
+      "nextAction": "Decide the next page or workflow to ship inside the Top Imobiliaria cluster.",
+      "owner": "Andre + design/build",
+      "link": "top-imobiliaria-hub.html"
+    },
+    {
+      "id": "tool-school",
+      "name": "AI Tool School",
+      "lane": "Internal product",
+      "priority": "medium",
+      "status": "Live on GitHub Pages",
+      "nextAction": "Translate the long guides to Portuguese and add deeper guided navigation.",
+      "owner": "Andre + Codex",
+      "link": "tool-school/"
+    },
+    {
+      "id": "mission-control",
+      "name": "Mission Control",
+      "lane": "Internal ops",
+      "priority": "high",
+      "status": "Operational dashboard",
+      "nextAction": "Keep the CRM snapshot fresh and expand the project feeds so this page becomes the default daily cockpit.",
+      "owner": "Andre + automation",
+      "link": "mission-control.html"
+    },
+    {
+      "id": "next-project-pipeline",
+      "name": "Next Projects Pipeline",
+      "lane": "Business development",
+      "priority": "medium",
+      "status": "Needs intake",
+      "nextAction": "Add the next incoming project as soon as there is a defined scope, owner, and next move.",
+      "owner": "Andre",
+      "link": "index.html"
+    }
+  ]
+}

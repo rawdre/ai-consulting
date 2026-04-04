@@ -1,0 +1,42 @@
+[
+  {
+    "id": "top-imobiliaria",
+    "name": "Top Imobiliaria",
+    "lane": "Client project",
+    "priority": "high",
+    "status": "Active build cluster",
+    "nextAction": "Decide the next page or workflow to ship inside the Top Imobiliaria cluster.",
+    "owner": "Andre + design/build",
+    "link": "top-imobiliaria-hub.html"
+  },
+  {
+    "id": "tool-school",
+    "name": "AI Tool School",
+    "lane": "Internal product",
+    "priority": "medium",
+    "status": "Live on GitHub Pages",
+    "nextAction": "Translate the long guides to Portuguese and add deeper guided navigation.",
+    "owner": "Andre + Codex",
+    "link": "tool-school/"
+  },
+  {
+    "id": "mission-control",
+    "name": "Mission Control",
+    "lane": "Internal ops",
+    "priority": "high",
+    "status": "Operational dashboard",
+    "nextAction": "Keep the CRM snapshot fresh and expand the project feeds so this page becomes the default daily cockpit.",
+    "owner": "Andre + automation",
+    "link": "mission-control.html"
+  },
+  {
+    "id": "next-project-pipeline",
+    "name": "Next Projects Pipeline",
+    "lane": "Business development",
+    "priority": "medium",
+    "status": "Needs intake",
+    "nextAction": "Add the next incoming project as soon as there is a defined scope, owner, and next move.",
+    "owner": "Andre",
+    "link": "index.html"
+  }
+]
