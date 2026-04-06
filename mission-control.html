@@ -321,6 +321,49 @@
       gap: 12px;
     }
 
+    .accountability-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .accountability-card {
+      display: grid;
+      gap: 10px;
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(87, 233, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .accountability-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .accountability-owner {
+      color: var(--cyan);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .accountability-meta {
+      display: grid;
+      gap: 6px;
+    }
+
+    .accountability-row {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .accountability-row strong {
+      color: var(--ink);
+    }
+
     .project-card {
       display: grid;
       gap: 10px;
@@ -431,6 +474,11 @@
       </div>
 
       <div class="stack">
+        <article class="panel glass">
+          <h2>Squad Accountability</h2>
+          <div class="accountability-grid" id="accountability-grid"></div>
+        </article>
+
         <article class="panel glass">
           <h2>Project Radar</h2>
           <div class="project-grid" id="project-grid"></div>
@@ -609,6 +657,26 @@
       `).join("");
     }
 
+    function renderAccountability(lanes) {
+      const root = document.getElementById("accountability-grid");
+      root.innerHTML = lanes.map((entry) => `
+        <article class="accountability-card">
+          <div class="accountability-top">
+            <div>
+              <div class="item-title">${entry.lane}</div>
+              <div class="accountability-owner">${entry.owner}</div>
+            </div>
+            ${badge(entry.currentStatus, "project")}
+          </div>
+          <div class="accountability-meta">
+            <div class="accountability-row"><strong>Next:</strong> ${entry.nextAction}</div>
+            <div class="accountability-row"><strong>Blocked:</strong> ${entry.blocked}</div>
+            <div class="accountability-row"><strong>Last updated:</strong> ${entry.lastUpdated}</div>
+          </div>
+        </article>
+      `).join("");
+    }
+
     async function boot() {
       const response = await fetch("mission-control-data/latest.json", { cache: "no-store" });
       if (!response.ok) throw new Error("Mission Control data could not be loaded.");
@@ -623,6 +691,7 @@
       renderQueue("followups-list", data.crm.followUpsDueToday.slice(0, 6), "No follow-ups due today.");
       renderQueue("hot-list", data.crm.hotLeadsAtRisk.slice(0, 6), "No hot leads flagged.");
       renderQueue("warm-list", data.crm.warmNurtureCandidates.slice(0, 8), "No warm nurture candidates.");
+      renderAccountability(data.squad.lanes);
       renderProjects(data.projects);
     }
 

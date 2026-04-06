@@ -33,6 +33,16 @@ function loadDotEnvClose() {
 
 loadDotEnvClose();
 
+function ensureCloseCredentials() {
+  if (process.env.CLOSE_API_KEY) {
+    return;
+  }
+
+  throw new Error(
+    "Mission Control refresh cannot run live because CLOSE_API_KEY is missing. Add it to .env.close in the repo root or export it in the shell before running refresh-mission-control.mjs.",
+  );
+}
+
 function runNodeScript(scriptPath, args = [], extraEnv = {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [scriptPath, ...args], {
@@ -63,6 +73,8 @@ async function hasMorningSnapshot(dir) {
 }
 
 async function main() {
+  ensureCloseCredentials();
+
   await fs.rm(refreshOutputDir, { recursive: true, force: true });
   await fs.mkdir(refreshOutputDir, { recursive: true });
 

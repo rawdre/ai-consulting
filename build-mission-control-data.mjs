@@ -6,9 +6,13 @@ const __filename = fileURLToPath(import.meta.url);
 const root = path.dirname(__filename);
 const sourceArgIndex = process.argv.indexOf("--source-dir");
 const sourceArgValue = sourceArgIndex >= 0 ? process.argv[sourceArgIndex + 1] : null;
-const sourceDirOverride = sourceArgValue || process.env.MISSION_CONTROL_SOURCE_DIR || path.join("close_guardrail", "output");
-const outputDir = path.resolve(root, sourceDirOverride);
+const defaultSourceCandidates = [
+  path.join("close_guardrail", "output"),
+  path.join(".cache", "mission-control-refresh"),
+];
+const sourceDirOverride = sourceArgValue || process.env.MISSION_CONTROL_SOURCE_DIR || null;
 const projectFile = path.join(root, "mission-control-data", "projects.json");
+const squadFile = path.join(root, "mission-control-data", "squad-accountability.json");
 const targetFile = path.join(root, "mission-control-data", "latest.json");
 
 function toCloseUrl(leadId) {
@@ -19,11 +23,43 @@ function priorityWeight(priority) {
   return { high: 100, medium: 60, low: 30 }[priority] || 40;
 }
 
-async function pickLatestMorningSnapshot() {
+async function pathExists(target) {
+  try {
+    await fs.access(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function resolveSourceDir() {
+  if (sourceDirOverride) {
+    const resolved = path.resolve(root, sourceDirOverride);
+    if (!(await pathExists(resolved))) {
+      throw new Error(`Mission Control source directory does not exist: ${resolved}`);
+    }
+    return resolved;
+  }
+
+  for (const candidate of defaultSourceCandidates) {
+    const resolved = path.resolve(root, candidate);
+    if (await pathExists(resolved)) {
+      return resolved;
+    }
+  }
+
+  throw new Error(
+    `No Mission Control snapshot source directory was found. Checked: ${defaultSourceCandidates
+      .map((candidate) => path.resolve(root, candidate))
+      .join(", ")}`,
+  );
+}
+
+async function pickLatestMorningSnapshot(outputDir) {
   const files = await fs.readdir(outputDir);
   const candidates = files.filter((name) => /^\d{4}-\d{2}-\d{2}-morning\.json$/.test(name)).sort();
   if (candidates.length === 0) {
-    throw new Error("No morning snapshot JSON files were found in close_guardrail/output.");
+    throw new Error(`No morning snapshot JSON files were found in ${outputDir}.`);
   }
   return path.join(outputDir, candidates[candidates.length - 1]);
 }
@@ -59,9 +95,11 @@ function projectItem(project) {
 }
 
 async function main() {
-  const snapshotPath = await pickLatestMorningSnapshot();
+  const outputDir = await resolveSourceDir();
+  const snapshotPath = await pickLatestMorningSnapshot(outputDir);
   const snapshot = JSON.parse(await fs.readFile(snapshotPath, "utf8"));
   const projects = JSON.parse(await fs.readFile(projectFile, "utf8"));
+  const squad = JSON.parse(await fs.readFile(squadFile, "utf8"));
 
   const replies = (snapshot.sections["Replies owed now"] || []).map((entry) => mapLead(entry, "Replies owed now"));
   const followUps = (snapshot.sections["Follow-ups due today"] || []).map((entry) => mapLead(entry, "Follow-ups due today"));
@@ -100,6 +138,7 @@ async function main() {
       warmNurtureCandidates: warm.slice(0, 12),
     },
     projects,
+    squad,
   };
 
   await fs.mkdir(path.dirname(targetFile), { recursive: true });

@@ -1,0 +1,298 @@
+{
+  "generatedNote": "Static squad accountability source for Mission Control v1.",
+  "agents": [
+    {
+      "id": "rawbot",
+      "name": "Rawbot 🔥",
+      "role": "Commander, operator, main execution channel",
+      "owns": "Sequencing, active execution priorities, day-to-day operating drive",
+      "reportsIn": "Sequencing lane",
+      "accountableFor": "Keeping Mission Control focused on what Andre should do next"
+    },
+    {
+      "id": "lenorawbot",
+      "name": "LenoRawbot",
+      "role": "Structure, memory, diagnostics, doctrine, coordination clarity",
+      "owns": "Operating rules, continuity docs, coordination hygiene",
+      "reportsIn": "Doctrine / continuity lane",
+      "accountableFor": "Keeping the system clear, consistent, and disciplined"
+    },
+    {
+      "id": "ada",
+      "name": "Ada",
+      "role": "Mission Control UI, visual polish, premium dashboard surface",
+      "owns": "Dashboard readability, visual hierarchy, scan speed",
+      "reportsIn": "Dashboard / UI lane",
+      "accountableFor": "Making Mission Control readable and premium without clutter"
+    },
+    {
+      "id": "linus",
+      "name": "Linus",
+      "role": "Repo/code/debugging, Close/API infrastructure, technical reliability",
+      "owns": "Code paths, data build, guardrail reliability",
+      "reportsIn": "Engineering / debug lane",
+      "accountableFor": "Keeping the stack reliable and maintainable"
+    },
+    {
+      "id": "ogilvy",
+      "name": "Ogilvy",
+      "role": "NEPQ drafts, follow-up language, outreach positioning",
+      "owns": "Follow-up wording, sales language, reply framing",
+      "reportsIn": "CRM / follow-up lane",
+      "accountableFor": "Improving outbound message quality and reply likelihood"
+    },
+    {
+      "id": "cialdini",
+      "name": "Cialdini",
+      "role": "Call booking, tasting conversion, funnel pressure",
+      "owns": "Call-first logic, tasting conversion pressure, stage movement",
+      "reportsIn": "Call / tasting conversion lane",
+      "accountableFor": "Increasing booked calls, tastings, and forward motion"
+    },
+    {
+      "id": "turing",
+      "name": "Turing",
+      "role": "Automation, Expo to Close, archive resurrection, orchestration",
+      "owns": "Intake pipelines, automation handoffs, resurrection paths",
+      "reportsIn": "Automation / intake lane",
+      "accountableFor": "Getting leads into the correct path cleanly"
+    },
+    {
+      "id": "buffett",
+      "name": "Buffett",
+      "role": "ROI, prioritization, spend judgment",
+      "owns": "Automation worthiness, stop-doing calls, leverage decisions",
+      "reportsIn": "Prioritization / ROI lane",
+      "accountableFor": "Making sure time and systems go to what is worth it"
+    },
+    {
+      "id": "spielberg",
+      "name": "Spielberg",
+      "role": "Voice, story, video layer",
+      "owns": "Media and narrative support when it helps sales",
+      "reportsIn": "Voice / media lane",
+      "accountableFor": "Using media only when it strengthens sales or trust"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "crm-follow-up",
+      "lane": "CRM / Follow-Up",
+      "owner": "Rawbot 🔥 + Ogilvy",
+      "mission": "Turn Close context into the next best reply or follow-up move.",
+      "inputs": [
+        "Close guardrail snapshot",
+        "unanswered messages",
+        "follow-up debt",
+        "lead stage"
+      ],
+      "outputs": [
+        "reply recommendations",
+        "follow-up drafts",
+        "visible contact priorities"
+      ],
+      "done": "Andre can see who needs contact now and what the next message should aim to do.",
+      "currentStatus": "Active on dashboard",
+      "whatWasDone": "CRM priorities already drive Mission Control and now have named ownership.",
+      "pending": "Keep message-quality signals tied to the lane over time.",
+      "blocked": "No explicit message-quality indicator is shown yet.",
+      "nextAction": "Keep the hottest reply and follow-up work ahead of side tasks.",
+      "evidenceArtifact": "mission-control-data/latest.json",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "call-tasting-conversion",
+      "lane": "Call / Tasting Conversion",
+      "owner": "Cialdini + Rawbot 🔥",
+      "mission": "Push qualified leads toward calls, tastings, and booked events.",
+      "inputs": [
+        "opportunity stage",
+        "hot leads at risk",
+        "tasting status"
+      ],
+      "outputs": [
+        "booking pressure",
+        "tasting invitation priorities",
+        "confirmation actions"
+      ],
+      "done": "The highest-leverage conversion moves are visible before generic nurture work.",
+      "currentStatus": "Hot lane",
+      "whatWasDone": "Conversion ownership is now explicit for tasting-stage work.",
+      "pending": "Add stronger conversion summary signals later.",
+      "blocked": "No dedicated conversion scorecard exists yet.",
+      "nextAction": "Keep booked and setting-tasting leads at the top of the operator focus list.",
+      "evidenceArtifact": "mission-control-data/latest.json",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "automation-intake",
+      "lane": "Automation / Intake",
+      "owner": "Turing + Linus",
+      "mission": "Keep intake and automation handoffs clean, canonical, and useful.",
+      "inputs": [
+        "forms",
+        "inboxes",
+        "Expo leads",
+        "archive candidates"
+      ],
+      "outputs": [
+        "clean intake routing",
+        "automation tasks",
+        "handoff fixes"
+      ],
+      "done": "Leads enter the right path without confusion or hidden dependencies.",
+      "currentStatus": "Needs intake alignment",
+      "whatWasDone": "Lane ownership is defined and ready for canonical inbox cleanup.",
+      "pending": "Align intake around the canonical team inbox path.",
+      "blocked": "Public form and legacy Gmail path are still mismatched.",
+      "nextAction": "Run the intake alignment pass and mark legacy pieces clearly.",
+      "evidenceArtifact": "INTAKE-PROTOCOL.md",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "dashboard-ui",
+      "lane": "Dashboard / UI",
+      "owner": "Ada",
+      "mission": "Keep Mission Control premium, readable, and fast to scan.",
+      "inputs": [
+        "latest dashboard payload",
+        "operator needs",
+        "lane accountability data"
+      ],
+      "outputs": [
+        "clean sections",
+        "better scan speed",
+        "compact accountability view"
+      ],
+      "done": "Andre can glance at the page and know who owns what and what is next.",
+      "currentStatus": "Shipping v1 accountability view",
+      "whatWasDone": "A compact squad accountability surface is being added to Mission Control.",
+      "pending": "Tune spacing and hierarchy after the first pass is visible.",
+      "blocked": "None",
+      "nextAction": "Render the lane ownership table without cluttering the dashboard.",
+      "evidenceArtifact": "mission-control.html",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "engineering-debug",
+      "lane": "Engineering / Debug",
+      "owner": "Linus",
+      "mission": "Keep the repo, data build, and Close guardrail reliable.",
+      "inputs": [
+        "code defects",
+        "stale data",
+        "broken refresh paths"
+      ],
+      "outputs": [
+        "fixes",
+        "stable data builds",
+        "maintainable code"
+      ],
+      "done": "Mission Control refreshes cleanly and the codebase stays trustworthy.",
+      "currentStatus": "Active reliability maintenance",
+      "whatWasDone": "Data build path reviewed and extended for squad accountability.",
+      "pending": "Keep the accountability payload easy to maintain.",
+      "blocked": "None",
+      "nextAction": "Regenerate latest.json with the new squad payload and verify rendering.",
+      "evidenceArtifact": "build-mission-control-data.mjs",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "prioritization-roi",
+      "lane": "Prioritization / ROI",
+      "owner": "Buffett",
+      "mission": "Decide what is worth building, automating, or paying attention to.",
+      "inputs": [
+        "task backlog",
+        "conversion leverage",
+        "maintenance cost"
+      ],
+      "outputs": [
+        "priority judgment",
+        "stop-doing decisions",
+        "worth-it filters"
+      ],
+      "done": "The system emphasizes high-value work and starves low-value noise.",
+      "currentStatus": "Guiding scope discipline",
+      "whatWasDone": "ROI and prioritization now have a named lane instead of being implicit.",
+      "pending": "Add stronger ROI framing to project backlog later.",
+      "blocked": "Current project list does not yet show explicit ROI ranking.",
+      "nextAction": "Keep dashboard additions small and operator-useful.",
+      "evidenceArtifact": "mission-control-data/projects.json",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "voice-media",
+      "lane": "Voice / Media",
+      "owner": "Spielberg",
+      "mission": "Use media only when it supports sales or brand trust.",
+      "inputs": [
+        "campaign needs",
+        "presentation needs",
+        "story opportunities"
+      ],
+      "outputs": [
+        "story framing",
+        "media concepts",
+        "supporting assets"
+      ],
+      "done": "Media work directly supports a live sales or brand objective.",
+      "currentStatus": "Idle unless needed",
+      "whatWasDone": "Lane defined so media work stays optional, not distracting.",
+      "pending": "No current active media push.",
+      "blocked": "No live Comeketo media objective is surfaced right now.",
+      "nextAction": "Stay quiet until a real sales-supporting media need appears.",
+      "evidenceArtifact": "SQUAD-MAP.md",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "doctrine-continuity",
+      "lane": "Doctrine / Continuity",
+      "owner": "LenoRawbot",
+      "mission": "Preserve rules, continuity, and operational clarity.",
+      "inputs": [
+        "doctrine updates",
+        "coordination failures",
+        "system constraints"
+      ],
+      "outputs": [
+        "clear rules",
+        "continuity docs",
+        "status hygiene"
+      ],
+      "done": "The system can be explained simply and run without drift.",
+      "currentStatus": "Active clarification",
+      "whatWasDone": "Role map, lane map, and status format have been formalized.",
+      "pending": "Keep the status surface current instead of letting it decay.",
+      "blocked": "No previous on-screen accountability existed.",
+      "nextAction": "Use the shared reporting format across future lane updates.",
+      "evidenceArtifact": "SQUAD-STATUS.md",
+      "lastUpdated": "2026-04-05"
+    },
+    {
+      "id": "sequencing",
+      "lane": "Sequencing",
+      "owner": "Rawbot 🔥 + Buffett",
+      "mission": "Decide what happens next across the whole operating system.",
+      "inputs": [
+        "CRM urgency",
+        "project blocks",
+        "conversion leverage",
+        "ROI"
+      ],
+      "outputs": [
+        "next-action order",
+        "lane priority",
+        "execution sequence"
+      ],
+      "done": "Mission Control answers what Andre should do next and why.",
+      "currentStatus": "Primary operating lane",
+      "whatWasDone": "The squad now has a visible accountability layer tied back to Mission Control.",
+      "pending": "Keep lane status current as live work changes.",
+      "blocked": "None",
+      "nextAction": "Use CRM and conversion pressure to drive the day before side projects.",
+      "evidenceArtifact": "mission-control.html",
+      "lastUpdated": "2026-04-05"
+    }
+  ]
+}
