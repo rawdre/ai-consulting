@@ -10,6 +10,7 @@ This module implements the recurring Close revenue guardrail sweeps for Andre-ow
 - Drafts NEPQ-style reply, follow-up, reactivation, and tasting-invite messages
 - Resolves a lead by name and can create a live Close email or SMS draft, or send it live on command
 - Builds ballpark quote drafts with fixed tax/admin/service rules for Comeketo pricing
+- Uses the local pricing reference in `COMEKETO-PRICING-HUB.md` as the source of truth for food, bar, and beverage ballpark numbers
 - Appends Andre's standard email signature automatically to outgoing email drafts and sends
 - Writes normalized JSON and Markdown reports for each sweep
 - Writes an audit log with `drafted`, `skipped`, and `rolled` status
@@ -118,6 +119,7 @@ Quote rules baked into `quote` mode:
 - Default steak is `Top Sirloin`
 - Default chicken is `Chicken Wrapped in Bacon`
 - Complimentary cookies are always mentioned
+- Pricing reference lives in `publish-ai-consulting\close_guardrail\COMEKETO-PRICING-HUB.md`
 
 Calendar workflow rules:
 

@@ -4,14 +4,62 @@
     "name": "Andre Raw"
   },
   "tasting_windows": [
-    "2026-04-06T18:00:00-04:00",
-    "2026-04-07T18:30:00-04:00"
+    "2026-04-19T14:00:00-04:00",
+    "2026-04-26T14:00:00-04:00"
+  ],
+  "tasks": [
+    {
+      "id": "task_roll_me",
+      "lead_id": "lead_cold_roll",
+      "assigned_to_name": "Andre Raw",
+      "assigned_to_id": "user_andre",
+      "text": "Follow up tomorrow",
+      "date": "2026-03-27",
+      "is_complete": false
+    }
+  ],
+  "activities": [
+    {
+      "id": "act_camila_in",
+      "lead_id": "lead_hot_reply",
+      "type": "Email",
+      "direction": "incoming",
+      "status": "sent",
+      "date_created": "2026-04-03T12:00:00Z",
+      "subject": "Olá Andre",
+      "body_text": "Olá Andre, gostaria de confirmar a degustação."
+    },
+    {
+      "id": "act_michael_out",
+      "lead_id": "lead_warm_tasting",
+      "type": "Email",
+      "direction": "outgoing",
+      "status": "sent",
+      "date_created": "2026-04-02T12:00:00Z",
+      "user_id": "user_andre",
+      "user_name": "Andre Raw",
+      "subject": "Checking in",
+      "body_text": "Would you like to book a tasting?"
+    },
+    {
+      "id": "act_laura_out",
+      "lead_id": "lead_cold_roll",
+      "type": "Email",
+      "direction": "outgoing",
+      "status": "sent",
+      "date_created": "2026-03-20T15:00:00Z",
+      "user_id": "user_andre",
+      "user_name": "Andre Raw",
+      "subject": "Ballpark quote",
+      "body_text": "Sharing the quote."
+    }
   ],
   "leads": [
     {
       "id": "lead_hot_reply",
       "display_name": "Camila Fernandes",
       "status_label": "Definitely",
+      "date_created": "2026-04-02T12:00:00Z",
       "description": "Portuguese tasting lead",
       "contacts": [
         {
@@ -31,22 +79,13 @@
           "status_label": "Booked Tasting"
         }
       ],
-      "activities": [
-        {
-          "type": "Email",
-          "direction": "incoming",
-          "status": "sent",
-          "date_created": "2026-04-03T12:00:00Z",
-          "subject": "Olá Andre",
-          "body_text": "Olá Andre, gostaria de confirmar a degustação."
-        }
-      ],
       "tasks": []
     },
     {
       "id": "lead_warm_tasting",
       "display_name": "Michael Stone",
       "status_label": "Probably",
+      "date_created": "2026-04-03T12:00:00Z",
       "description": "Needs tasting invite",
       "contacts": [
         {
@@ -66,22 +105,13 @@
           "status_label": "Setting Tasting Appointment"
         }
       ],
-      "activities": [
-        {
-          "type": "Email",
-          "direction": "outgoing",
-          "status": "sent",
-          "date_created": "2026-04-02T12:00:00Z",
-          "subject": "Checking in",
-          "body_text": "Would you like to book a tasting?"
-        }
-      ],
       "tasks": []
     },
     {
       "id": "lead_cold_roll",
       "display_name": "Laura Pierce",
       "status_label": "Potential",
+      "date_created": "2026-03-01T12:00:00Z",
       "description": "Cold follow-up",
       "contacts": [
         {
@@ -101,30 +131,13 @@
           "status_label": "Quoted"
         }
       ],
-      "activities": [
-        {
-          "type": "Email",
-          "direction": "outgoing",
-          "status": "sent",
-          "date_created": "2026-03-20T15:00:00Z",
-          "subject": "Ballpark quote",
-          "body_text": "Sharing the quote."
-        }
-      ],
-      "tasks": [
-        {
-          "id": "task_roll_me",
-          "lead_id": "lead_cold_roll",
-          "text": "Follow up tomorrow",
-          "date": "2026-03-27",
-          "is_complete": false
-        }
-      ]
+      "tasks": []
     },
     {
       "id": "lead_other_owner",
       "display_name": "Not Andre Lead",
       "status_label": "Definitely",
+      "date_created": "2026-04-03T12:00:00Z",
       "description": "Should be ignored",
       "contacts": [],
       "custom": {

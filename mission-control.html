@@ -225,8 +225,7 @@
     }
 
     .focus-item,
-    .queue-item,
-    .project-card {
+    .queue-item {
       border-radius: 18px;
       padding: 16px;
       border: 1px solid rgba(87, 233, 255, 0.1);
@@ -272,7 +271,6 @@
     }
 
     .badge.crm { color: var(--cyan); }
-    .badge.project { color: var(--amber); }
     .badge.high { color: var(--red); }
     .badge.medium { color: var(--amber); }
     .badge.hot { color: var(--magenta); }
@@ -303,6 +301,12 @@
       gap: 14px;
     }
 
+    .squad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
     .queue-column {
       display: grid;
       gap: 12px;
@@ -316,57 +320,17 @@
       color: var(--cyan);
     }
 
-    .project-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .accountability-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .accountability-card {
-      display: grid;
-      gap: 10px;
-      border-radius: 18px;
-      padding: 16px;
-      border: 1px solid rgba(87, 233, 255, 0.1);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .accountability-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-    }
-
-    .accountability-owner {
-      color: var(--cyan);
-      font-size: 0.84rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .accountability-meta {
-      display: grid;
-      gap: 6px;
-    }
-
-    .accountability-row {
+    .panel-note {
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
+      margin: -4px 0 12px;
     }
 
-    .accountability-row strong {
-      color: var(--ink);
-    }
-
-    .project-card {
-      display: grid;
-      gap: 10px;
+    .squad-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .footer {
@@ -388,7 +352,8 @@
 
       .layout,
       .header,
-      .queue-grid {
+      .queue-grid,
+      .squad-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -422,11 +387,12 @@
       <div class="hero glass">
         <div class="eyebrow">Live Operating System</div>
         <h1 class="hero-title">Mission Control</h1>
-        <p>This page is now built to answer one question first: <strong>what should Andre work next?</strong> It pulls the latest CRM priority snapshot from the Close revenue guardrail and combines it with active project lanes so this can become the daily cockpit.</p>
+        <p>This page is now built to answer one question first: <strong>what should Andre work next right now?</strong> It pulls the latest CRM command snapshot from the Close guardrail and turns it into a call-first, tasting-second daily cockpit.</p>
         <div class="hero-meta">
-          <span class="pill">CRM priorities</span>
-          <span class="pill">Project radar</span>
-          <span class="pill">What to work next</span>
+          <span class="pill">CRM command cockpit</span>
+          <span class="pill">Call-first routing</span>
+          <span class="pill">Morning / evening compare</span>
+          <span class="pill">Comeketo only</span>
         </div>
       </div>
       <aside class="side-panel glass">
@@ -440,7 +406,7 @@
         </div>
         <div class="status-line">
           <div class="status-label">Mission Focus</div>
-          <div class="status-value">Work the hottest CRM moves first, then unblock the highest-priority project lane.</div>
+          <div class="status-value">Reply first, push the right people to a call, then drive the next tasting window without forcing weak context.</div>
         </div>
       </aside>
     </section>
@@ -458,16 +424,59 @@
           <h2>CRM Frontline</h2>
           <div class="queue-grid">
             <div class="queue-column">
-              <h3>Replies Owed</h3>
+              <h3>Replies Owed Now</h3>
               <div class="queue-list" id="replies-list"></div>
             </div>
             <div class="queue-column">
-              <h3>Follow-Ups Due</h3>
-              <div class="queue-list" id="followups-list"></div>
+              <h3>Call Push Queue</h3>
+              <div class="queue-list" id="callpush-list"></div>
             </div>
             <div class="queue-column">
-              <h3>Hot Leads At Risk</h3>
-              <div class="queue-list" id="hot-list"></div>
+              <h3>April 19 Tasting Push</h3>
+              <div class="queue-list" id="tasting-list"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Slack Watch</h2>
+          <p class="panel-note">Ghost mode only. This layer watches inbound, assignments, and mentions so Mission Control can tell you the next move without posting into Slack.</p>
+          <div class="queue-grid">
+            <div class="queue-column">
+              <h3>Reply Now</h3>
+              <div class="queue-list" id="slack-reply-list"></div>
+            </div>
+            <div class="queue-column">
+              <h3>Assigned To Andre</h3>
+              <div class="queue-list" id="slack-assigned-list"></div>
+            </div>
+            <div class="queue-column">
+              <h3>Andre Mentions</h3>
+              <div class="queue-list" id="slack-mentions-list"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel glass">
+          <h2>7-Touch Active Cadence</h2>
+          <div class="queue-list" id="cadence-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Squad Assignments</h2>
+          <p class="panel-note">Raw AI runs the live cockpit, Acerbot handles sandboxed revenue drafting, and LenoRawbot keeps the structure clean enough to trust.</p>
+          <div class="squad-grid">
+            <div class="queue-column">
+              <h3>Raw AI Operator Queue</h3>
+              <div class="queue-list" id="rawai-list"></div>
+            </div>
+            <div class="queue-column">
+              <h3>Acerbot Revenue Work</h3>
+              <div class="queue-list" id="acerbot-list"></div>
+            </div>
+            <div class="queue-column">
+              <h3>LenoRawbot Cleanup &amp; Structure</h3>
+              <div class="queue-list" id="leno-list"></div>
             </div>
           </div>
         </article>
@@ -475,18 +484,43 @@
 
       <div class="stack">
         <article class="panel glass">
-          <h2>Squad Accountability</h2>
-          <div class="accountability-grid" id="accountability-grid"></div>
+          <h2>Recently Assigned to Andre</h2>
+          <div class="queue-list" id="assigned-list"></div>
         </article>
 
         <article class="panel glass">
-          <h2>Project Radar</h2>
-          <div class="project-grid" id="project-grid"></div>
+          <h2>Morning vs Evening</h2>
+          <div class="queue-list" id="comparison-list"></div>
         </article>
 
         <article class="panel glass">
-          <h2>Warm Queue</h2>
-          <div class="queue-list" id="warm-list"></div>
+          <h2>Today’s Call Slots</h2>
+          <div class="queue-list" id="callslots-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>End-of-Day Rollovers</h2>
+          <div class="queue-list" id="rollovers-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Nurture Queue</h2>
+          <div class="queue-list" id="nurture-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Do Not Touch</h2>
+          <div class="queue-list" id="donottouch-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Archive Review</h2>
+          <div class="queue-list" id="archive-list"></div>
+        </article>
+
+        <article class="panel glass">
+          <h2>Comeketo Inbox Watch</h2>
+          <div class="queue-list" id="watch-list"></div>
         </article>
       </div>
     </section>
@@ -564,12 +598,12 @@
     new ParticleSystem(document.getElementById("particles-canvas"));
 
     const scorecards = [
-      { label: "Hot Leads", key: "hot", color: "var(--magenta)" },
-      { label: "Follow-Ups Due", key: "followUpsDueToday", color: "var(--amber)" },
       { label: "Replies Owed", key: "repliesOwedNow", color: "var(--cyan)" },
-      { label: "Drafts Ready", key: "drafted", color: "var(--green)" },
-      { label: "Active Projects", key: "activeProjects", color: "var(--purple)" },
-      { label: "Cold Leads", key: "cold", color: "var(--red)" }
+      { label: "Call Pushes", key: "callPushes", color: "var(--magenta)" },
+      { label: "Tasting Pushes", key: "tastingPushes", color: "var(--amber)" },
+      { label: "Nurture Queue", key: "nurtureQueue", color: "var(--green)" },
+      { label: "Open Call Slots", key: "openCallSlotsToday", color: "var(--purple)" },
+      { label: "Recently Assigned", key: "recentlyAssigned", color: "var(--red)" }
     ];
 
     function fmtDate(value) {
@@ -604,15 +638,12 @@
         <article class="focus-item">
           <div>
             <div class="item-title">${item.title}</div>
-            <div class="item-sub">${item.type === "crm" ? `${item.recommendedAction} · ${item.stage || item.section}` : item.nextAction}</div>
+            <div class="item-sub">${item.recommendedLane || item.recommendedAction} · ${item.stage || item.section}</div>
             <div class="item-meta">
-              ${item.type === "crm"
-                ? `${badge("CRM", "crm")} ${badge(item.statusBucket, item.statusBucket.toLowerCase())} ${badge(`Score ${item.score}`)}`
-                : `${badge("Project", "project")} ${badge(item.priority, item.priority)} ${badge(item.status)}`
-              }
+              ${badge("CRM", "crm")} ${badge(item.statusBucket, item.statusBucket.toLowerCase())} ${badge(`Score ${item.score}`)}
             </div>
           </div>
-          <a class="action-link" href="${item.link}" ${item.type === "crm" ? 'target="_blank" rel="noreferrer"' : ""}>Open</a>
+          ${item.link ? `<a class="action-link" href="${item.link}" target="_blank" rel="noreferrer">Open</a>` : `<span class="badge">Review</span>`}
         </article>
       `).join("");
     }
@@ -626,53 +657,100 @@
       root.innerHTML = entries.map((entry) => `
         <article class="queue-item">
           <div class="item-title">${entry.leadName}</div>
-          <div class="item-sub">${entry.recommendedAction} · ${entry.stage || entry.section}</div>
+          <div class="item-sub">${entry.recommendedLane || entry.recommendedAction} · ${entry.stage || entry.section}</div>
           <div class="item-meta">
             ${badge(entry.statusBucket, entry.statusBucket.toLowerCase())}
             ${badge(`Score ${entry.score}`)}
+            ${entry.assignmentFreshness ? badge(entry.assignmentFreshness) : ""}
+            ${entry.cadenceStep ? badge(entry.cadenceStep) : ""}
+            ${entry.bestCallSlot ? badge(`Best ${entry.bestCallSlot}`) : ""}
             ${entry.nextStepDue ? badge(`Due ${entry.nextStepDue}`) : ""}
           </div>
-          <div style="margin-top:10px;">
-            <a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">Open Close Lead</a>
-          </div>
+          ${entry.whyNow ? `<div class="item-sub" style="margin-top:10px;">Why now: ${entry.whyNow}</div>` : ""}
+          ${entry.reviewNextStep ? `<div class="item-sub" style="margin-top:6px;">Next step: ${entry.reviewNextStep}</div>` : ""}
+          ${entry.link ? `<div style="margin-top:10px;"><a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">${entry.type === "slack" ? "Open Related Lead" : "Open Close Lead"}</a></div>` : ""}
         </article>
       `).join("");
     }
 
-    function renderProjects(projects) {
-      const root = document.getElementById("project-grid");
-      root.innerHTML = projects.map((project) => `
-        <article class="project-card">
-          <div class="item-title">${project.name}</div>
-          <div class="item-sub">${project.nextAction}</div>
+    function renderSquadPanel(id, panel, emptyLabel) {
+      const root = document.getElementById(id);
+      if (!panel || !panel.items?.length) {
+        root.innerHTML = `<article class="queue-item"><div class="item-sub">${emptyLabel}</div></article>`;
+        return;
+      }
+      root.innerHTML = panel.items.map((entry) => `
+        <article class="queue-item">
+          <div class="item-title">${entry.item}</div>
+          <div class="squad-meta">
+            ${badge(panel.environment)}
+            ${badge(entry.status)}
+            ${entry.bestCallSlot ? badge(`Slot ${entry.bestCallSlot}`) : ""}
+          </div>
+          <div class="item-sub">${entry.reason}</div>
+          <div class="item-sub" style="margin-top:8px;">Next move: ${entry.nextMove}</div>
+          <div class="item-sub" style="margin-top:8px;">Owner: ${entry.owner}</div>
+          ${entry.link ? `<div style="margin-top:10px;"><a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">Open Related Lead</a></div>` : ""}
+        </article>
+      `).join("");
+    }
+
+    function renderCallSlots(entries) {
+      const root = document.getElementById("callslots-list");
+      if (!entries.length) {
+        root.innerHTML = `<article class="queue-item"><div class="item-sub">No call slot board available.</div></article>`;
+        return;
+      }
+      root.innerHTML = entries.map((entry) => `
+        <article class="queue-item">
+          <div class="item-title">${entry.slot}</div>
+          <div class="item-sub">${entry.status}${entry.assignedLead ? ` · ${entry.assignedLead}` : ""}</div>
           <div class="item-meta">
-            ${badge(project.lane, "project")}
-            ${badge(project.priority, project.priority)}
-            ${badge(project.status)}
+            ${badge(entry.status)}
+            ${entry.fallbackCandidates?.length ? badge(`Fallback ${entry.fallbackCandidates.length}`) : ""}
           </div>
-          <div style="margin-top:8px;">
-            <a class="action-link" href="${project.link}">Open Project</a>
-          </div>
+          <div class="item-sub" style="margin-top:8px;">${entry.fallbackCandidates?.map((item) => item.leadName).join(" · ") || "No fallback candidates"}</div>
         </article>
       `).join("");
     }
 
-    function renderAccountability(lanes) {
-      const root = document.getElementById("accountability-grid");
-      root.innerHTML = lanes.map((entry) => `
-        <article class="accountability-card">
-          <div class="accountability-top">
-            <div>
-              <div class="item-title">${entry.lane}</div>
-              <div class="accountability-owner">${entry.owner}</div>
-            </div>
-            ${badge(entry.currentStatus, "project")}
-          </div>
-          <div class="accountability-meta">
-            <div class="accountability-row"><strong>Next:</strong> ${entry.nextAction}</div>
-            <div class="accountability-row"><strong>Blocked:</strong> ${entry.blocked}</div>
-            <div class="accountability-row"><strong>Last updated:</strong> ${entry.lastUpdated}</div>
-          </div>
+    function renderComparison(comparison) {
+      const root = document.getElementById("comparison-list");
+      if (!comparison) {
+        root.innerHTML = `<article class="queue-item"><div class="item-sub">Waiting for both same-day morning and evening snapshots to compute deltas.</div></article>`;
+        return;
+      }
+      const items = [
+        { title: "Replied Since Morning", value: comparison.repliedSinceMorning.length, detail: comparison.repliedSinceMorning.map((item) => item.leadName).join(" · ") || "None" },
+        { title: "Moved To Call Lane", value: comparison.movedToCallLane?.length || 0, detail: comparison.movedToCallLane?.map((item) => item.leadName).join(" · ") || "None" },
+        { title: "Moved To Tasting Lane", value: comparison.movedToTastingLane?.length || 0, detail: comparison.movedToTastingLane?.map((item) => item.leadName).join(" · ") || "None" },
+        { title: "Call Slots Filled", value: comparison.callSlotsFilled, detail: `Baseline ${comparison.baseline}` },
+        { title: "Untouched Leads Rolled", value: comparison.untouchedLeadsRolled, detail: comparison.nextMorningPriorities?.map((item) => item.leadName).join(" · ") || "No next-morning priorities yet" },
+      ];
+      root.innerHTML = items.map((entry) => `
+        <article class="queue-item">
+          <div class="item-title">${entry.title}</div>
+          <div class="item-sub">${entry.detail}</div>
+          <div class="item-meta">${badge(String(entry.value))}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderWatchPanel(data) {
+      const root = document.getElementById("watch-list");
+      const nextFocus = data.topFocus[0];
+      const items = [
+        { title: "Next Best Move", detail: nextFocus ? `${nextFocus.leadName} · ${nextFocus.recommendedLane || nextFocus.recommendedAction}` : "No lead surfaced yet." },
+        { title: "Tasting Target", detail: data.tastingTarget || "No tasting target configured." },
+        { title: "Open Call Slots", detail: `${data.summary.openCallSlotsToday ?? 0} call slots are still open today.` },
+        { title: "Slack Watch", detail: `${data.summary.slackReplyNow ?? 0} reply-now · ${data.summary.slackAssignedToAndre ?? 0} assigned to Andre · ${data.summary.slackMentions ?? 0} mentions` },
+        { title: "Guardrail Holds", detail: `${data.summary.doNotTouch ?? 0} leads are held right now. Recent touch: ${data.summary.holdRecentTouch ?? 0} · booked/closed: ${data.summary.bookedOrClosed ?? 0}` },
+        { title: "Review Queue", detail: `Archive review: ${data.summary.archiveReview ?? 0} · weak context: ${data.summary.weakContextReview ?? 0} · not yours: ${data.summary.notYours ?? 0}` },
+      ];
+      root.innerHTML = items.map((entry) => `
+        <article class="queue-item">
+          <div class="item-title">${entry.title}</div>
+          <div class="item-sub">${entry.detail}</div>
         </article>
       `).join("");
     }
@@ -688,11 +766,23 @@
       renderScorecards(data.summary);
       renderFocus(data.topFocus);
       renderQueue("replies-list", data.crm.repliesOwedNow, "No replies owed right now.");
-      renderQueue("followups-list", data.crm.followUpsDueToday.slice(0, 6), "No follow-ups due today.");
-      renderQueue("hot-list", data.crm.hotLeadsAtRisk.slice(0, 6), "No hot leads flagged.");
-      renderQueue("warm-list", data.crm.warmNurtureCandidates.slice(0, 8), "No warm nurture candidates.");
-      renderAccountability(data.squad.lanes);
-      renderProjects(data.projects);
+      renderQueue("callpush-list", data.crm.callPushQueue.slice(0, 8), "No call pushes right now.");
+      renderQueue("tasting-list", data.crm.tastingPushQueue.slice(0, 8), "No tasting pushes right now.");
+      renderQueue("slack-reply-list", data.slack?.replyNow?.slice(0, 8) || [], "No Slack reply-now signals right now.");
+      renderQueue("slack-assigned-list", data.slack?.assignedToAndre?.slice(0, 8) || [], "No fresh Slack assignments to Andre right now.");
+      renderQueue("slack-mentions-list", data.slack?.mentions?.slice(0, 8) || [], "No Andre mentions right now.");
+      renderQueue("cadence-list", data.crm.activeCadence.slice(0, 8), "No active cadence leads.");
+      renderSquadPanel("rawai-list", data.squad?.rawAi, "No Raw AI operator items right now.");
+      renderSquadPanel("acerbot-list", data.squad?.acerbot, "No Acerbot revenue items right now.");
+      renderSquadPanel("leno-list", data.squad?.lenoRawbot, "No LenoRawbot cleanup items right now.");
+      renderQueue("assigned-list", data.crm.recentlyAssigned.slice(0, 8), "No recently assigned Andre leads.");
+      renderComparison(data.comparison);
+      renderCallSlots(data.crm.callSlots);
+      renderQueue("rollovers-list", data.crm.endOfDayRollovers.slice(0, 8), "No rollovers right now.");
+      renderQueue("nurture-list", data.crm.nurtureQueue.slice(0, 8), "No nurture queue right now.");
+      renderQueue("donottouch-list", data.crm.doNotTouch.slice(0, 8), "No do-not-touch leads right now.");
+      renderQueue("archive-list", data.crm.archiveReview.slice(0, 8), "No archive-review leads right now.");
+      renderWatchPanel(data);
     }
 
     boot().catch((error) => {

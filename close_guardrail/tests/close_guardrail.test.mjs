@@ -28,25 +28,35 @@ async function main() {
   const morningRecommendations = buildRecommendations(signals, "morning");
   const camila = morningRecommendations.find((item) => item.leadId === "lead_hot_reply");
   assert.equal(camila.statusBucket, "Hot");
-  assert.equal(camila.communicationStatus, "no_recent_activity");
-  assert.equal(camila.language, "en");
+  assert.equal(camila.communicationStatus, "lead_waiting_on_andre");
+  assert.equal(camila.language, "pt");
   assert.equal(camila.artifactMode, "draft only");
-  assert.equal(camila.recommendedAction, "confirm tasting");
+  assert.equal(camila.recommendedAction, "reply");
+  assert.equal(camila.recommendedLane, "push_to_tasting");
+  assert.match(camila.draftBody, /April 19/i);
 
   const heartbeatRecommendations = buildRecommendations(signals, "heartbeat");
   const michael = heartbeatRecommendations.find((item) => item.leadId === "lead_warm_tasting");
   assert.ok(["Hot", "Warm"].includes(michael.statusBucket));
   assert.equal(michael.recommendedAction, "invite to tasting");
+  assert.equal(michael.recommendedLane, "push_to_tasting");
+  assert.equal(Boolean(michael.assignedRecently), true);
+  assert.equal(Boolean(michael.cadenceActive), false);
 
   const eodRecommendations = buildRecommendations(signals, "eod");
   const laura = eodRecommendations.find((item) => item.leadId === "lead_cold_roll");
-  assert.equal(laura.recommendedAction, "reactivate");
+  assert.equal(laura.recommendedAction, "roll");
+  assert.equal(laura.recommendedLane, "keep_in_nurture");
   assert.equal(nextBusinessDayIso("2026-03-27"), "2026-03-30");
 
   const report = buildReport(morningRecommendations, "morning", "Andre Raw", "user_andre");
   assert.equal(report.summary.total_leads, 3);
   assert.ok("Replies owed now" in report.sections);
-  assert.ok("Tasks rolled to next business day" in report.sections);
+  assert.ok("Today Call Slots" in report.sections);
+  assert.ok("Recently assigned to Andre" in report.sections);
+  assert.equal(report.summary.call_pushes, 0);
+  assert.equal(report.summary.tasting_pushes >= 2, true);
+  assert.equal(report.tasting_target.includes("April"), true);
 
   const quote = buildBallparkQuoteEmail(
     {

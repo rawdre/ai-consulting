@@ -12,6 +12,7 @@ function loadDotEnvClose() {
   const candidates = [
     path.join(process.cwd(), ".env.close"),
     path.join(__dirname, ".env.close"),
+    path.join(__dirname, "..", ".env.close"),
   ];
   for (const candidate of candidates) {
     if (!fsSync.existsSync(candidate)) continue;
@@ -52,10 +53,12 @@ const EMAIL_SIGNATURE_LINES = [
 ];
 const COMEKETO_CALCULATOR_URL = "https://rawdre.github.io/comeketo-menu-landing/#packages";
 const DEFAULT_LEAD_OWNER_CUSTOM_FIELD = process.env.CLOSE_LEAD_OWNER_CUSTOM_FIELD || "00. 🦖 LEAD OWNER";
+const DEFAULT_TASTING_LABEL = process.env.CLOSE_NEXT_TASTING_LABEL || "Sunday, April 19 at 2:00 PM";
+const CALL_SLOT_LABELS = ["10:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM", "7:00 PM"];
 const CHECKPOINT_TIMES = {
   morning: { hour: 9, minute: 0 },
   heartbeat: { hour: 13, minute: 0 },
-  eod: { hour: 18, minute: 30 },
+  eod: { hour: 19, minute: 0 },
 };
 const PORTUGUESE_HINTS = [
   "ola",
@@ -125,6 +128,7 @@ function parseArgs(argv) {
     sendLive: false,
     subject: null,
     body: null,
+    bodyHtml: null,
     quoteTiers: [],
     quoteGuests: null,
     quoteAppetizersPp: 0,
@@ -149,6 +153,7 @@ function parseArgs(argv) {
     else if (current === "--channel") result.channel = argv[++index];
     else if (current === "--subject") result.subject = argv[++index];
     else if (current === "--body") result.body = argv[++index];
+    else if (current === "--body-html") result.bodyHtml = argv[++index];
     else if (current === "--quote-tier") result.quoteTiers.push(argv[++index]);
     else if (current === "--quote-guests") result.quoteGuests = argv[++index];
     else if (current === "--quote-appetizers-pp") result.quoteAppetizersPp = Number(argv[++index]);
@@ -179,6 +184,35 @@ function appendEmailSignature(body) {
   if (!normalized) return EMAIL_SIGNATURE_LINES.join("\n");
   if (/Regards,\s*\nAndre Raw/i.test(normalized)) return normalized;
   return `${normalized}\n\n-----\n${EMAIL_SIGNATURE_LINES.join("\n")}`;
+}
+
+function appendEmailSignatureHtml(bodyHtml) {
+  const normalized = String(bodyHtml || "").trim();
+  if (!normalized) {
+    return `
+      <p>Regards,</p>
+      <p>
+        Andre Raw<br />
+        Catering Event Coordinator<br />
+        📲 C: (978) 235-3791<br />
+        📲 W: (978) 381-1212<br />
+        Facebook | Instagram | Website
+      </p>
+    `.trim();
+  }
+  if (/Andre Raw/i.test(normalized) && /Catering Event Coordinator/i.test(normalized)) return normalized;
+  return `
+    ${normalized}
+    <hr />
+    <p>Regards,</p>
+    <p>
+      Andre Raw<br />
+      Catering Event Coordinator<br />
+      📲 C: (978) 235-3791<br />
+      📲 W: (978) 381-1212<br />
+      Facebook | Instagram | Website
+    </p>
+  `.trim();
 }
 
 function partsInET(date = new Date()) {
@@ -230,6 +264,21 @@ function nextBusinessDayIso(referenceIso) {
 function detectLanguage(...values) {
   const joined = values.filter(Boolean).join(" ").toLowerCase();
   return PORTUGUESE_HINTS.some((token) => joined.includes(token)) ? "pt" : "en";
+}
+
+function formatTastingReference(value) {
+  if (!value) return DEFAULT_TASTING_LABEL;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
 }
 
 async function ensureDir(target) {
@@ -384,8 +433,8 @@ function inferStage(lead) {
 
 function inferPipelineStatus(stage) {
   const lowered = stage.toLowerCase();
-  if (/(won|closed)/.test(lowered)) return "closed";
-  if (/(lost|dead|unqualified|archived)/.test(lowered)) return "stalled";
+  if (/(won|closed|booked \/ deposit|deposit|fully paid|paid in full|job complete)/.test(lowered)) return "closed";
+  if (/(lost|dead|unqualified|archived|not interested|refund)/.test(lowered)) return "stalled";
   if (/(proposal|quote|decision|contract|negotiat)/.test(lowered)) return "high_intent";
   return "active";
 }
@@ -447,7 +496,12 @@ function tastingContext(lead, tastingWindows) {
     "scheduled tasting",
     "booked tasting",
   ].some((token) => blob.includes(token));
-  return { tastingBooked: booked, nextTastingAt: tastingWindows[0] || null };
+  const configured = tastingWindows[0] || process.env.CLOSE_NEXT_TASTING_AT || DEFAULT_TASTING_LABEL;
+  return {
+    tastingBooked: booked,
+    nextTastingAt: configured,
+    nextTastingLabel: formatTastingReference(configured),
+  };
 }
 
 function leadMatchesOwner(lead, ownerName, ownerId) {
@@ -465,8 +519,9 @@ function leadMatchesOwner(lead, ownerName, ownerId) {
 function normalizeActivity(rawActivity, ownerId, ownerName) {
   const incoming = rawActivity.direction === "incoming" || rawActivity.incoming === true;
   const ownerNormalized = normalizeOwnerName(ownerName);
-  let direction = "inbound";
+  let direction = "unknown";
   if (incoming) direction = "inbound";
+  else if (rawActivity.direction === "outgoing" || rawActivity.outgoing === true) direction = "outbound";
   else if (ownerId && rawActivity.user_id === ownerId) direction = "outbound";
   else if (normalizeOwnerName(rawActivity.user_name || rawActivity.created_by_name).includes(ownerNormalized)) direction = "outbound";
   return {
@@ -477,6 +532,155 @@ function normalizeActivity(rawActivity, ownerId, ownerName) {
     subject: rawActivity.subject || rawActivity.status || "",
     body: (rawActivity.body_text || rawActivity.body || rawActivity.snippet || "").trim(),
   };
+}
+
+function extractCadenceNumber(value) {
+  const match = String(value || "").match(/\b(?:day|tp|touch)\s*(\d{1,2})\b/i) || String(value || "").match(/\b(\d{1,2})\b/);
+  return match ? Number(match[1]) : null;
+}
+
+function computeCadenceState(signals, checkpoint) {
+  const cadenceLabel = String(signals.cadenceStep || "").trim();
+  const cadenceNumber = extractCadenceNumber(cadenceLabel);
+  let cadenceStopReason = null;
+  if (!leadMatchesOwner({ custom: { [DEFAULT_LEAD_OWNER_CUSTOM_FIELD]: signals.ownerName }, owner_name: signals.ownerName, user_name: signals.ownerName }, signals.ownerName, signals.ownerId)) {
+    cadenceStopReason = "wrong owner";
+  } else if (signals.touchedToday) cadenceStopReason = "touched today";
+  else if (signals.repliesOwed || signals.hasUnansweredInbound) cadenceStopReason = "replied";
+  else if (classifyOpportunitySignal(signals.opportunityStatus) === "booked_tasting") cadenceStopReason = "tasting booked";
+  else if (/booked call|consultation booked|phone call booked/i.test(String(signals.opportunityStatus || ""))) cadenceStopReason = "call booked";
+  else if (["definitely_not", "probably_not"].includes(classifyLeadHeatSignal(signals.leadStatus)) || signals.pipelineStatus === "closed") cadenceStopReason = "dead/lost/disqualified";
+  else if (!signals.lastActivity && !signals.openTasks.length) cadenceStopReason = "context insufficient";
+  const cadenceActive = Boolean(cadenceLabel) && !cadenceStopReason;
+  let cadenceNextTouch = null;
+  if (cadenceActive) {
+    if (signals.openTasks[0]?.dueDate) cadenceNextTouch = signals.openTasks[0].dueDate;
+    else if (checkpoint === "eod") cadenceNextTouch = nextBusinessDayIso(todayEtIso());
+    else cadenceNextTouch = todayEtIso();
+  }
+  return {
+    cadenceStep: cadenceLabel || null,
+    cadenceStepNumber: cadenceNumber,
+    cadenceActive,
+    cadenceNextTouch,
+    cadenceStopReason,
+  };
+}
+
+function computeAssignmentFreshness(lead, leadTasks, ownerName) {
+  const ownerNormalized = normalizeOwnerName(ownerName);
+  const owned = leadMatchesOwner(lead, ownerName, null);
+  const createdAt = lead.date_created || lead.date_updated || null;
+  const createdDate = createdAt ? new Date(createdAt) : null;
+  const ageDays = createdDate && !Number.isNaN(createdDate.getTime()) ? Math.max(Math.floor((Date.now() - createdDate.getTime()) / 86400000), 0) : null;
+  const recentTask = leadTasks.some((task) => {
+    if (!task.dueDate) return false;
+    const taskDate = new Date(`${task.dueDate}T12:00:00Z`);
+    return !Number.isNaN(taskDate.getTime()) && Math.abs((Date.now() - taskDate.getTime()) / 86400000) <= 5;
+  });
+  const assignedRecently = Boolean(owned && ((ageDays !== null && ageDays <= 5) || recentTask));
+  let freshness = "older";
+  let assignmentReason = "older_owner_context";
+  if (assignedRecently && ageDays !== null && ageDays <= 2) freshness = "new_today_or_yesterday";
+  else if (assignedRecently) freshness = "this_week";
+  if (ageDays !== null && ageDays <= 5) assignmentReason = "recent_lead_created_with_andre_owner";
+  else if (recentTask) assignmentReason = "recent_andre_task_activity";
+  return {
+    assignedRecently,
+    assignmentFreshness: assignedRecently ? freshness : "older",
+    assignmentAgeDays: ageDays,
+    assignmentReason,
+    ownerClearlyAndre: owned || normalizeOwnerName(lead.owner_name || lead.user_name).includes(ownerNormalized),
+  };
+}
+
+function chooseCallSlotCandidates(seed) {
+  const offset = Math.abs(seed || 0) % CALL_SLOT_LABELS.length;
+  const ordered = CALL_SLOT_LABELS.map((_, index) => CALL_SLOT_LABELS[(index + offset) % CALL_SLOT_LABELS.length]);
+  return ordered.slice(0, 3);
+}
+
+function buildCallRouting(signals, score) {
+  const slotCandidates = chooseCallSlotCandidates(score + signals.leadName.length);
+  return {
+    bestCallSlot: slotCandidates[0] || null,
+    secondBestCallSlot: slotCandidates[1] || null,
+    callSlotCandidates: slotCandidates,
+  };
+}
+
+function determineLane(signals, recommendation) {
+  const ownerClear = signals.ownerClearlyAndre;
+  const opportunityHeat = classifyOpportunitySignal(signals.opportunityStatus);
+  const leadHeat = classifyLeadHeatSignal(signals.leadStatus);
+  const dead = ["definitely_not", "probably_not"].includes(leadHeat) || ["closed", "stalled"].includes(signals.pipelineStatus);
+  const weakContext = !signals.lastActivity && !signals.openTasks.length;
+  if (!ownerClear || signals.touchedToday || dead || weakContext) return "do_not_touch";
+  if (recommendation.recommendedAction === "confirm tasting" || signals.tastingBooked || opportunityHeat === "booked_tasting") return "push_to_tasting";
+  if (!signals.tastingBooked && (opportunityHeat === "setting_tasting" || (opportunityHeat === "qualified" && signals.hasRecentEngagement))) return "push_to_tasting";
+  if (signals.repliesOwed && signals.hasRecentEngagement && !signals.tastingBooked && signals.assignedRecently) return "push_to_call";
+  if (
+    signals.assignedRecently &&
+    !signals.repliesOwed &&
+    !signals.hasUnansweredInbound &&
+    (signals.statusBucket === "Hot" || leadHeat === "definitely" || (leadHeat === "probably" && signals.hasRecentEngagement))
+  ) return "push_to_call";
+  if (recommendation.recommendedAction === "follow up" || recommendation.recommendedAction === "reactivate" || signals.cadenceStep) return "keep_in_nurture";
+  return "keep_in_nurture";
+}
+
+function determineHoldBucket(signals, recommendedLane) {
+  const leadHeat = classifyLeadHeatSignal(signals.leadStatus);
+  const deadLead = ["definitely_not", "probably_not"].includes(leadHeat);
+  if (recommendedLane !== "do_not_touch") return "active_work";
+  if (!signals.ownerClearlyAndre) return "not_yours";
+  if (signals.touchedToday) return "hold_recent_touch";
+  if (signals.pipelineStatus === "closed") return "booked_or_closed";
+  if (signals.pipelineStatus === "stalled" || deadLead) return "archive_review";
+  if (!signals.lastActivity && !signals.openTasks.length) return "weak_context_review";
+  return "guardrail_hold";
+}
+
+function determineReviewNextStep(signals, recommendation, recommendedLane, holdBucket) {
+  if (recommendedLane === "push_to_call") return "Review comms, then try to book a call.";
+  if (recommendedLane === "push_to_tasting") return `Review comms, then move toward ${signals.nextTastingLabel || DEFAULT_TASTING_LABEL}.`;
+  if (recommendedLane === "keep_in_nurture") return "Review comms, then pick the next low-pressure follow-up.";
+  if (holdBucket === "hold_recent_touch") return `Hold until ${nextBusinessDayIso(todayEtIso())} unless Andre explicitly overrides.`;
+  if (holdBucket === "booked_or_closed") return "Do not market again; only handle service, payment, or logistics tasks.";
+  if (holdBucket === "archive_review") return "Review history and decide whether to archive or leave dormant.";
+  if (holdBucket === "weak_context_review") return "Open the lead, read the history, and decide whether context is too weak to touch.";
+  if (holdBucket === "not_yours") return "Leave untouched unless ownership is clearly reassigned to Andre.";
+  return recommendation.recommendedAction === "wait" ? "Leave alone for now." : "Review before taking action.";
+}
+
+function buildCallSlotBoard(recommendations) {
+  const board = CALL_SLOT_LABELS.map((slot) => ({
+    slot,
+    status: "open",
+    assignedLead: null,
+    leadId: null,
+    fallbackCandidates: [],
+  }));
+  const slotMap = new Map(board.map((item) => [item.slot, item]));
+  const callLeads = recommendations.filter((item) => item.recommendedLane === "push_to_call");
+  for (const lead of callLeads) {
+    const target = slotMap.get(lead.bestCallSlot);
+    if (target && target.status === "open") {
+      target.status = /booked call/i.test(String(lead.opportunityStatus || "")) ? "booked" : "tentative";
+      target.assignedLead = lead.leadName;
+      target.leadId = lead.leadId;
+    }
+    for (const candidateSlot of lead.callSlotCandidates || []) {
+      const slotEntry = slotMap.get(candidateSlot);
+      if (slotEntry) slotEntry.fallbackCandidates.push({ leadId: lead.leadId, leadName: lead.leadName });
+    }
+  }
+  for (const slot of board) {
+    slot.fallbackCandidates = slot.fallbackCandidates
+      .filter((item, index, items) => items.findIndex((candidate) => candidate.leadId === item.leadId) === index)
+      .slice(0, 4);
+  }
+  return board;
 }
 
 function buildLeadSignals(snapshot, ownerName, ownerId, tastingWindows) {
@@ -531,6 +735,9 @@ function buildLeadSignals(snapshot, ownerName, ownerId, tastingWindows) {
         ),
       }));
     const overdueTasks = leadTasks.filter((task) => task.dueDate && task.dueDate < todayIso);
+    const touchedToday = messageActivities.some(
+      (activity) => activity.direction === "outbound" && String(activity.timestamp || "").slice(0, 10) === todayIso,
+    );
     const lastTouch = lastActivity?.timestamp ? new Date(lastActivity.timestamp) : null;
     const daysSinceTouch = lastTouch ? Math.max(Math.floor((Date.now() - lastTouch.getTime()) / 86400000), 0) : null;
     let unansweredOutboundCount = 0;
@@ -540,18 +747,20 @@ function buildLeadSignals(snapshot, ownerName, ownerId, tastingWindows) {
         if (activity.direction === "inbound") break;
       }
     }
-    const { tastingBooked, nextTastingAt } = tastingContext(lead, tastingWindows);
+    const { tastingBooked, nextTastingAt, nextTastingLabel } = tastingContext(lead, tastingWindows);
     const primaryOpportunity = pickPrimaryOpportunity(lead);
     const leadStatus = cleanStageLabel(lead.status_label || "");
     const opportunityStatus = cleanStageLabel(primaryOpportunity?.status_label || primaryOpportunity?.status_display_name || "");
     const cadenceStep = extractCustomValueByHint(lead, ["7 tp cadence", "7 t cadence", "cadence follow up", "cadence"]);
     const leadOwnerLabel = extractCustomValueByHint(lead, ["lead owner"]) || lead.owner_name || lead.user_name || ownerName;
     const hasUnansweredInbound = recentInboundMessages.some((message) => !message.answered);
+    const assignment = computeAssignmentFreshness(lead, leadTasks, ownerName);
     results.push({
       leadId: lead.id,
       leadName: lead.display_name || lead.name || "Unknown lead",
       ownerId: lead.owner_id || lead.user_id || ownerId || null,
       ownerName: leadOwnerLabel,
+      ownerClearlyAndre: assignment.ownerClearlyAndre,
       stage: inferStage(lead),
       leadStatus,
       opportunityStatus,
@@ -565,8 +774,10 @@ function buildLeadSignals(snapshot, ownerName, ownerId, tastingWindows) {
       overdueTasks,
       tastingBooked,
       nextTastingAt,
+      nextTastingLabel,
       language: detectLanguage(lead.language, lead.locale, lastInbound?.body, lastInbound?.subject),
       daysSinceTouch,
+      touchedToday,
       unansweredOutboundCount,
       repliesOwed: hasUnansweredInbound && Boolean(lastInbound && !recentInboundMessages[0]?.answered),
       hasUnansweredInbound,
@@ -575,6 +786,10 @@ function buildLeadSignals(snapshot, ownerName, ownerId, tastingWindows) {
         Boolean(lastOutbound?.timestamp && (Date.now() - new Date(lastOutbound.timestamp).getTime()) >= 2 * 86400000) ||
         Boolean(daysSinceTouch !== null && daysSinceTouch >= 5 && !tastingBooked),
       hasRecentEngagement: daysSinceTouch !== null && daysSinceTouch <= 3,
+      assignedRecently: assignment.assignedRecently,
+      assignmentFreshness: assignment.assignmentFreshness,
+      assignmentAgeDays: assignment.assignmentAgeDays,
+      assignmentReason: assignment.assignmentReason,
     });
   }
   return results;
@@ -669,6 +884,18 @@ function scoreLead(signals) {
     score -= 12;
     rationale.push("Recent outbound attempts have gone unanswered multiple times.");
   }
+  if (signals.touchedToday) {
+    score -= 30;
+    rationale.push("Lead was already touched today, so it should not be pushed again.");
+  }
+  if (!signals.ownerClearlyAndre) {
+    score -= 40;
+    rationale.push("Owner is not clearly Andre, so this should not be touched.");
+  }
+  if (signals.assignedRecently) {
+    score += 12;
+    rationale.push("Lead appears to have been assigned to Andre recently.");
+  }
   if (
     signals.hasRecentEngagement &&
     !signals.tastingBooked &&
@@ -706,10 +933,32 @@ function recommendedActionFor(signals, statusBucket, checkpoint) {
   return { action: "wait", artifactMode };
 }
 
-function buildDraft(signals, action) {
+function buildDraft(signals, action, lane, callContext = {}) {
   const firstName = signals.leadName.split(" ")[0];
-  const tastingReference = signals.nextTastingAt || "Sunday, March 29 at 2:00 PM";
-  const phoneOrTasting = "Would it be better to jump on a quick call, or should I save you a spot for our tasting on Sunday, March 29 at 2:00 PM?";
+  const tastingReference = signals.nextTastingLabel || formatTastingReference(signals.nextTastingAt);
+  const primarySlot = callContext.bestCallSlot || CALL_SLOT_LABELS[0];
+  const fallbackSlot = callContext.secondBestCallSlot || CALL_SLOT_LABELS[1];
+  const phoneOrTasting = `Would it be better to jump on a quick call at ${primarySlot} or ${fallbackSlot}, or should I save you a spot for our tasting on ${tastingReference}?`;
+  if (lane === "push_to_call") {
+    if (signals.language === "pt") {
+      return {
+        draftSubject: `Ligação rápida para ${signals.leadName}`,
+        draftBody:
+          `Oi ${firstName}, quero te ajudar a ganhar clareza no próximo passo sem complicar.\n\n` +
+          `Faz mais sentido uma ligação rápida às ${primarySlot} ou às ${fallbackSlot}?\n` +
+          `Se para você for melhor, também posso te colocar na degustação de ${tastingReference}.\n\n` +
+          "André",
+      };
+    }
+    return {
+      draftSubject: `Quick call for ${signals.leadName}`,
+      draftBody:
+        `Hi ${firstName}, I want to help you get clear on the next step without making this heavier than it needs to be.\n\n` +
+        `Would a quick call at ${primarySlot} or ${fallbackSlot} work better for you?\n` +
+        `If tasting makes more sense, I can also save you a spot for ${tastingReference}.\n\n` +
+        "Andre",
+    };
+  }
   if (signals.language === "pt") {
     if (action === "reply") {
       return {
@@ -717,7 +966,7 @@ function buildDraft(signals, action) {
         draftBody:
           `Oi ${firstName}, vi suas últimas mensagens e queria responder com clareza.\n\n` +
           "O que está mais importante para você resolver agora?\n" +
-          "Faz mais sentido fazermos uma ligação rápida ou eu separar um lugar para você na degustação de domingo, 29 de março, às 2:00 PM?\n\n" +
+          `Faz mais sentido fazermos uma ligação rápida, ou eu separar um lugar para você na degustação de ${tastingReference}?\n\n` +
           "André",
       };
     }
@@ -735,7 +984,7 @@ function buildDraft(signals, action) {
       return {
         draftSubject: `Confirmar degustação com ${signals.leadName}`,
         draftBody:
-          `Oi ${firstName}, quero confirmar sua presença na degustação de domingo, 29 de março, às 2:00 PM.\n\n` +
+          `Oi ${firstName}, quero confirmar sua presença na degustação de ${tastingReference}.\n\n` +
           "O que você quer sentir ou esclarecer nessa degustação para avançarmos com segurança?\n" +
           "Se preferir, também podemos alinhar isso numa ligação rápida antes.\n\n" +
           "André",
@@ -747,7 +996,7 @@ function buildDraft(signals, action) {
         draftBody:
           `Oi ${firstName}, queria retomar nossa conversa com uma pergunta rápida.\n\n` +
           "O que mudou do seu lado desde a última vez que falamos?\n" +
-          "Faz mais sentido uma ligação rápida ou te convidar para a degustação de domingo, 29 de março, às 2:00 PM?\n\n" +
+          `Faz mais sentido uma ligação rápida ou te convidar para a degustação de ${tastingReference}?\n\n` +
           "André",
       };
     }
@@ -756,7 +1005,7 @@ function buildDraft(signals, action) {
       draftBody:
         `Oi ${firstName}, passando para acompanhar.\n\n` +
         "O que ainda está pendente para você decidir o próximo passo?\n" +
-        "Faz mais sentido uma ligação rápida ou te separar um lugar na degustação de domingo, 29 de março, às 2:00 PM?\n\n" +
+        `Faz mais sentido uma ligação rápida ou te separar um lugar na degustação de ${tastingReference}?\n\n` +
         "André",
     };
   }
@@ -785,7 +1034,7 @@ function buildDraft(signals, action) {
     return {
       draftSubject: `Tasting confirmation for ${signals.leadName}`,
       draftBody:
-        `Hi ${firstName}, I want to confirm your spot for our tasting on Sunday, March 29 at 2:00 PM.\n\n` +
+        `Hi ${firstName}, I want to confirm your spot for our tasting on ${tastingReference}.\n\n` +
         "What do you most want to experience or validate at the tasting so you can feel good about the next step?\n" +
         "If it helps, we can also do a quick call before then.\n\n" +
         "Andre",
@@ -816,7 +1065,14 @@ function buildRecommendations(signalsList, checkpoint) {
     .map((signals) => {
       const { score, statusBucket, rationale, communicationStatus } = scoreLead(signals);
       const { action, artifactMode } = recommendedActionFor(signals, statusBucket, checkpoint);
-      const { draftSubject, draftBody } = buildDraft(signals, action);
+      const signalEnvelope = { ...signals, statusBucket };
+      const cadence = computeCadenceState(signalEnvelope, checkpoint);
+      const callRouting = buildCallRouting(signalEnvelope, score);
+      const laneSignals = { ...signalEnvelope, ...cadence };
+      const recommendedLane = determineLane(laneSignals, { recommendedAction: action, statusBucket });
+      const holdBucket = determineHoldBucket(laneSignals, recommendedLane);
+      const reviewNextStep = determineReviewNextStep(laneSignals, { recommendedAction: action, statusBucket }, recommendedLane, holdBucket);
+      const { draftSubject, draftBody } = buildDraft(laneSignals, action, recommendedLane, callRouting);
       let nextStepDue = null;
       if (action === "roll") nextStepDue = nextBusinessDayIso(todayEtIso());
       else if (signals.openTasks[0]?.dueDate) nextStepDue = signals.openTasks[0].dueDate;
@@ -828,7 +1084,11 @@ function buildRecommendations(signalsList, checkpoint) {
         score,
         communicationStatus,
         recommendedAction: action,
+        recommendedLane,
+        holdBucket,
         rationale,
+        whyNow: rationale[0] || null,
+        reviewNextStep,
         language: signals.language,
         artifactMode,
         draftSubject,
@@ -841,7 +1101,18 @@ function buildRecommendations(signalsList, checkpoint) {
         stage: signals.stage,
         leadStatus: signals.leadStatus,
         opportunityStatus: signals.opportunityStatus,
-        cadenceStep: signals.cadenceStep,
+        cadenceStep: cadence.cadenceStep,
+        cadenceActive: cadence.cadenceActive,
+        cadenceNextTouch: cadence.cadenceNextTouch,
+        cadenceStopReason: cadence.cadenceStopReason,
+        assignmentFreshness: signals.assignmentFreshness,
+        assignmentReason: signals.assignmentReason,
+        assignedRecently: signals.assignedRecently,
+        touchedToday: signals.touchedToday,
+        bestCallSlot: callRouting.bestCallSlot,
+        secondBestCallSlot: callRouting.secondBestCallSlot,
+        callSlotCandidates: callRouting.callSlotCandidates,
+        nextTastingLabel: signals.nextTastingLabel,
         recentInboundMessages: signals.recentInboundMessages,
       };
     })
@@ -1403,6 +1674,7 @@ async function sendMessageForLead(client, args, ownerName, ownerId, outputDir) {
     generated = await generateMessageFromLeadContext(client, lead, ownerName, ownerId, contactChoice.channel, tastingWindows);
   }
   const body = decodeCliText(args.body || generated?.body);
+  const bodyHtml = decodeCliText(args.bodyHtml || null);
   const generatedSubject = ((generated?.subject) || `Message for ${lead.display_name || lead.name}`)
     .replace(/^Reply draft for /i, "Reply to ")
     .replace(/^Follow-up draft for /i, "Follow-up for ")
@@ -1420,6 +1692,7 @@ async function sendMessageForLead(client, args, ownerName, ownerId, outputDir) {
     const sender = chooseEmailSender(await client.getConnectedAccounts(), args.sender);
     if (args.sendLive && !sender) throw new Error("No eligible Close email sender is configured for live email sending.");
     const emailBody = appendEmailSignature(body);
+    const emailBodyHtml = bodyHtml ? appendEmailSignatureHtml(bodyHtml) : null;
     const payload = {
       lead_id: lead.id,
       contact_id: contactChoice.contact.id,
@@ -1428,6 +1701,7 @@ async function sendMessageForLead(client, args, ownerName, ownerId, outputDir) {
       subject,
       body_text: emailBody,
     };
+    if (emailBodyHtml) payload.body_html = emailBodyHtml;
     if (sender) payload.sender = sender;
     const activity = await client.createEmailActivity(payload);
     const result = {
@@ -1440,6 +1714,7 @@ async function sendMessageForLead(client, args, ownerName, ownerId, outputDir) {
       recipient: contactChoice.email,
       subject,
       body: emailBody,
+      body_html: emailBodyHtml,
       activity_id: activity.id,
       status: activity.status,
     };
@@ -1610,6 +1885,19 @@ async function dedupeInboxTasks(client, args, outputDir) {
 function bucketSections(recommendations) {
   const groups = {
     "Replies owed now": [],
+    "Call Push Queue": [],
+    "Tasting Push Queue": [],
+    "Nurture Queue": [],
+    "Do Not Touch": [],
+    "Held - Touched Recently": [],
+    "Booked / Closed Monitor": [],
+    "Archive Review": [],
+    "Weak Context Review": [],
+    "Not Yours": [],
+    "Recently assigned to Andre": [],
+    "7-Touch Active Cadence": [],
+    "Today Call Slots": [],
+    "End-of-Day Rollovers": [],
     "Follow-ups due today": [],
     "Hot leads at risk": [],
     "Warm nurture candidates": [],
@@ -1619,6 +1907,18 @@ function bucketSections(recommendations) {
   };
   for (const item of recommendations) {
     if (item.communicationStatus === "lead_waiting_on_andre") groups["Replies owed now"].push(item);
+    if (item.recommendedLane === "push_to_call") groups["Call Push Queue"].push(item);
+    if (item.recommendedLane === "push_to_tasting") groups["Tasting Push Queue"].push(item);
+    if (item.recommendedLane === "keep_in_nurture") groups["Nurture Queue"].push(item);
+    if (item.recommendedLane === "do_not_touch") groups["Do Not Touch"].push(item);
+    if (item.holdBucket === "hold_recent_touch") groups["Held - Touched Recently"].push(item);
+    if (item.holdBucket === "booked_or_closed") groups["Booked / Closed Monitor"].push(item);
+    if (item.holdBucket === "archive_review") groups["Archive Review"].push(item);
+    if (item.holdBucket === "weak_context_review") groups["Weak Context Review"].push(item);
+    if (item.holdBucket === "not_yours") groups["Not Yours"].push(item);
+    if (item.assignedRecently) groups["Recently assigned to Andre"].push(item);
+    if (item.cadenceActive && item.recommendedLane !== "do_not_touch") groups["7-Touch Active Cadence"].push(item);
+    if (item.recommendedAction === "roll") groups["End-of-Day Rollovers"].push(item);
     if (["follow up", "reply"].includes(item.recommendedAction)) groups["Follow-ups due today"].push(item);
     if (item.statusBucket === "Hot") groups["Hot leads at risk"].push(item);
     if (item.statusBucket === "Warm") groups["Warm nurture candidates"].push(item);
@@ -1630,12 +1930,27 @@ function bucketSections(recommendations) {
 }
 
 function buildReport(recommendations, checkpoint, ownerName, ownerId) {
+  const sections = bucketSections(recommendations);
+  const callSlots = buildCallSlotBoard(recommendations);
+  sections["Today Call Slots"] = callSlots;
+  const tastingTarget = recommendations.find((item) => item.nextTastingLabel)?.nextTastingLabel || DEFAULT_TASTING_LABEL;
   return {
     generated_at: isoNow(),
     checkpoint,
     owner: { name: ownerName, id: ownerId },
     summary: {
       total_leads: recommendations.length,
+      replies_owed_now: sections["Replies owed now"].length,
+      call_pushes: sections["Call Push Queue"].length,
+      tasting_pushes: sections["Tasting Push Queue"].length,
+      nurture_queue: sections["Nurture Queue"].length,
+      hold_recent_touch: sections["Held - Touched Recently"].length,
+      booked_or_closed: sections["Booked / Closed Monitor"].length,
+      archive_review: sections["Archive Review"].length,
+      weak_context_review: sections["Weak Context Review"].length,
+      not_yours: sections["Not Yours"].length,
+      recently_assigned: sections["Recently assigned to Andre"].length,
+      open_call_slots_today: callSlots.filter((slot) => slot.status === "open").length,
       hot: recommendations.filter((item) => item.statusBucket === "Hot").length,
       warm: recommendations.filter((item) => item.statusBucket === "Warm").length,
       cold: recommendations.filter((item) => item.statusBucket === "Cold").length,
@@ -1643,7 +1958,8 @@ function buildReport(recommendations, checkpoint, ownerName, ownerId) {
       rolled: recommendations.filter((item) => item.auditStatus === "rolled").length,
       skipped: recommendations.filter((item) => item.auditStatus === "skipped").length,
     },
-    sections: bucketSections(recommendations),
+    tasting_target: tastingTarget,
+    sections,
     drafts: recommendations.filter((item) => item.recommendedAction !== "wait"),
     all_leads: recommendations,
   };
@@ -1657,6 +1973,12 @@ function renderMarkdown(report) {
     `- Owner: ${report.owner.name}`,
     `- Total leads classified: ${report.summary.total_leads}`,
     `- Hot/Warm/Cold: ${report.summary.hot} / ${report.summary.warm} / ${report.summary.cold}`,
+    `- Replies owed now: ${report.summary.replies_owed_now}`,
+    `- Call pushes: ${report.summary.call_pushes}`,
+    `- Tasting pushes: ${report.summary.tasting_pushes}`,
+    `- Nurture queue: ${report.summary.nurture_queue}`,
+    `- Open call slots today: ${report.summary.open_call_slots_today}`,
+    `- Tasting target: ${report.tasting_target}`,
     "",
   ];
   for (const [section, entries] of Object.entries(report.sections)) {
@@ -1665,10 +1987,20 @@ function renderMarkdown(report) {
       lines.push("- None", "");
       continue;
     }
+    if (section === "Today Call Slots") {
+      for (const entry of entries) {
+        const fallback = entry.fallbackCandidates?.map((item) => item.leadName).join(", ") || "None";
+        lines.push(`- ${entry.slot} | ${entry.status} | ${entry.assignedLead || "Open"} | Fallback: ${fallback}`);
+      }
+      lines.push("");
+      continue;
+    }
     for (const entry of entries) {
       const rationale = entry.rationale.slice(0, 2).join("; ");
       const statusLine = [entry.leadStatus, entry.opportunityStatus].filter(Boolean).join(" | ");
-      lines.push(`- ${entry.leadName} [${entry.statusBucket}, ${entry.score}] -> ${entry.recommendedAction} (${entry.artifactMode}) | ${statusLine} | ${rationale}`);
+      const laneLine = entry.recommendedLane ? ` | lane=${entry.recommendedLane}` : "";
+      const cadenceLine = entry.cadenceActive ? ` | cadence=${entry.cadenceStep}` : entry.cadenceStopReason ? ` | cadence_stop=${entry.cadenceStopReason}` : "";
+      lines.push(`- ${entry.leadName} [${entry.statusBucket}, ${entry.score}] -> ${entry.recommendedAction} (${entry.artifactMode})${laneLine}${cadenceLine} | ${statusLine} | ${rationale}`);
     }
     lines.push("");
   }
@@ -1709,7 +2041,7 @@ async function loadTastingWindows() {
       if (Array.isArray(parsed)) return parsed.map(String);
     } catch {}
   }
-  return [];
+  return [process.env.CLOSE_NEXT_TASTING_AT || DEFAULT_TASTING_LABEL];
 }
 
 async function loadLiveSnapshot(client, ownerName, ownerId) {

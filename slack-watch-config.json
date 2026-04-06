@@ -1,0 +1,79 @@
+{
+  "ghostMode": true,
+  "heartbeatMinutes": 10,
+  "lookbackMinutesOnFirstRun": 180,
+  "workspace": "Comeketo Restaurant & Catering",
+  "andreDisplayName": "Andre Raw",
+  "channels": [
+    {
+      "id": "C094XAFEMLG",
+      "label": "inbound_comms-andre",
+      "priority": "immediate",
+      "kind": "inbound",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C0AQRL7MPS6",
+      "label": "whats-app-messages",
+      "priority": "immediate",
+      "kind": "whatsapp",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C07JLM6KRJL",
+      "label": "crisp-chats",
+      "priority": "immediate",
+      "kind": "crisp",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C06NP9DGHEK",
+      "label": "catering_leads",
+      "priority": "assignment",
+      "kind": "lead_assignment",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C07LZ0FKVKR",
+      "label": "cartering_leads_3rd-party",
+      "priority": "assignment",
+      "kind": "lead_assignment",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C08CNSX9MU2",
+      "label": "catering_leads_high-value",
+      "priority": "assignment",
+      "kind": "lead_assignment_high_value",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C06PCQPU1EV",
+      "label": "catering_calendar_tastings_events",
+      "priority": "watch",
+      "kind": "tasting_calendar",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C07FGC00AKB",
+      "label": "quotes",
+      "priority": "watch",
+      "kind": "quotes",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C08D7GJNJV8",
+      "label": "missed-calls-all",
+      "priority": "watch",
+      "kind": "missed_calls",
+      "policy": "ghost-read"
+    },
+    {
+      "id": "C0A56QSQ8BF",
+      "label": "follow-up-cadence-exceptions",
+      "priority": "watch",
+      "kind": "cadence_exception",
+      "policy": "ghost-read"
+    }
+  ]
+}

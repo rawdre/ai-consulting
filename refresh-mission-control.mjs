@@ -14,6 +14,7 @@ function loadDotEnvClose() {
   const candidates = [
     path.join(process.cwd(), ".env.close"),
     path.join(root, ".env.close"),
+    path.join(root, "..", ".env.close"),
   ];
 
   for (const candidate of candidates) {
@@ -63,10 +64,10 @@ function runNodeScript(scriptPath, args = [], extraEnv = {}) {
   });
 }
 
-async function hasMorningSnapshot(dir) {
+async function hasAnySnapshot(dir) {
   try {
     const entries = await fs.readdir(dir);
-    return entries.some((name) => /^\d{4}-\d{2}-\d{2}-morning\.json$/.test(name));
+    return entries.some((name) => /^\d{4}-\d{2}-\d{2}-(morning|heartbeat|eod)\.json$/.test(name));
   } catch {
     return false;
   }
@@ -78,16 +79,24 @@ async function main() {
   await fs.rm(refreshOutputDir, { recursive: true, force: true });
   await fs.mkdir(refreshOutputDir, { recursive: true });
 
-  const guardrailArgs = ["--checkpoint", "morning", "--output-dir", refreshOutputDir];
+  const guardrailArgs = ["--checkpoint", "auto", "--output-dir", refreshOutputDir];
   if (process.env.MISSION_CONTROL_FORCE_RUN === "1") {
     guardrailArgs.push("--force-run");
   }
 
   await runNodeScript(path.join(root, "close_guardrail", "close_guardrail.mjs"), guardrailArgs);
 
-  if (!(await hasMorningSnapshot(refreshOutputDir))) {
-    process.stdout.write("No morning snapshot produced. This run is outside the checkpoint window.\n");
+  if (!(await hasAnySnapshot(refreshOutputDir))) {
+    process.stdout.write("No checkpoint snapshot produced. This run is outside the active checkpoint window.\n");
     return;
+  }
+
+  if (process.env.SLACK_BOT_TOKEN) {
+    try {
+      await runNodeScript(path.join(root, "slack-watch.mjs"));
+    } catch (error) {
+      process.stdout.write(`Slack watch skipped: ${error.message}\n`);
+    }
   }
 
   await runNodeScript(path.join(root, "build-mission-control-data.mjs"), ["--source-dir", refreshOutputDir]);
