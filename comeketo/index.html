@@ -23,11 +23,17 @@ h1{font-size:62px;line-height:.9;margin:16px 0 12px}
 .card h3{font-size:28px;margin-bottom:8px}
 .card p{color:var(--muted);font-size:14px;line-height:1.75;margin-bottom:14px}
 .card a{display:inline-block;color:#111;text-decoration:none;background:var(--gold);padding:10px 14px;border-radius:999px;font-weight:800;font-size:13px}
+.operations-grid{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:14px}
+.card--primary{background:radial-gradient(circle at top left,rgba(209,162,87,.12),rgba(255,255,255,.02) 48%,rgba(255,255,255,.01) 100%);box-shadow:0 16px 40px rgba(0,0,0,.22)}
+.eyebrow{display:inline-block;margin-bottom:12px;color:#f0cb93;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.pill{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:#f2d29a;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.pill--muted{color:#d6c3a7}
 .subgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 ul{list-style:none;display:grid;gap:10px}
 li{padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);line-height:1.7}
 li a{color:#f2d29a}
-@media (max-width:900px){.grid,.subgrid{grid-template-columns:1fr} h1{font-size:44px}}
+@media (max-width:900px){.grid,.subgrid,.operations-grid{grid-template-columns:1fr} h1{font-size:44px}}
 </style>
 </head>
 <body>
@@ -35,7 +41,34 @@ li a{color:#f2d29a}
     <section class="hero">
       <div class="badge">Dedicated Comeketo Section</div>
       <h1>Comeketo Hub</h1>
-      <p>All food-related work now lives here under one roof: venue pages, presentations, documents, and shared assets. This is the default home for Comeketo work going forward.</p>
+      <p>All food-related work now lives here under one roof: operations, venue pages, presentations, documents, and shared assets. This is the default home for Comeketo work going forward.</p>
+    </section>
+
+    <section class="section" style="margin-bottom:18px;">
+      <h2>Operations</h2>
+      <div class="operations-grid">
+        <article class="card card--primary">
+          <div class="eyebrow">Live operating base</div>
+          <h3>Mission Control</h3>
+          <p>Open the live Close-backed cockpit for replies, calls, tastings, priorities, and squad accountability. This is the fastest way to see what needs attention now.</p>
+          <div class="meta">
+            <span class="pill">CRM cockpit</span>
+            <span class="pill">Live priorities</span>
+            <span class="pill pill--muted">Comeketo first</span>
+          </div>
+          <a href="../mission-control.html">Open Mission Control</a>
+        </article>
+        <article class="card">
+          <h3>Expo Intake</h3>
+          <p>Use the Happily Ever Expo surface as the current intake and partnership work area for expo-related flow and next steps.</p>
+          <a href="venues/happily-ever-expo-comeketo.html">Open Expo Intake</a>
+        </article>
+        <article class="card">
+          <h3>Mind Map</h3>
+          <p>Review the current Comeketo strategy map, action lanes, and decision framing before making page or outreach moves.</p>
+          <a href="mind-map.html">Open Mind Map</a>
+        </article>
+      </div>
     </section>
 
     <section class="section" style="margin-bottom:18px;">
