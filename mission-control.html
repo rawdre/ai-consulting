@@ -621,6 +621,13 @@
       return `<span class="badge ${className}">${label}</span>`;
     }
 
+    function cleanLink(value) {
+      if (!value) return null;
+      const cleaned = String(value).split("|")[0].trim();
+      if (!/^https?:\/\//i.test(cleaned)) return null;
+      return cleaned;
+    }
+
     function renderScorecards(summary) {
       const root = document.getElementById("scorecards");
       root.innerHTML = scorecards.map((card) => `
@@ -643,7 +650,7 @@
               ${badge("CRM", "crm")} ${badge(item.statusBucket, item.statusBucket.toLowerCase())} ${badge(`Score ${item.score}`)}
             </div>
           </div>
-          ${item.link ? `<a class="action-link" href="${item.link}" target="_blank" rel="noreferrer">Open</a>` : `<span class="badge">Review</span>`}
+          ${cleanLink(item.link) ? `<a class="action-link" href="${cleanLink(item.link)}" target="_blank" rel="noreferrer">Open</a>` : `<span class="badge">Review</span>`}
         </article>
       `).join("");
     }
@@ -668,7 +675,7 @@
           </div>
           ${entry.whyNow ? `<div class="item-sub" style="margin-top:10px;">Why now: ${entry.whyNow}</div>` : ""}
           ${entry.reviewNextStep ? `<div class="item-sub" style="margin-top:6px;">Next step: ${entry.reviewNextStep}</div>` : ""}
-          ${entry.link ? `<div style="margin-top:10px;"><a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">${entry.type === "slack" ? "Open Related Lead" : "Open Close Lead"}</a></div>` : ""}
+          ${cleanLink(entry.link) ? `<div style="margin-top:10px;"><a class="action-link" href="${cleanLink(entry.link)}" target="_blank" rel="noreferrer">${entry.type === "slack" ? "Open Related Lead" : "Open Close Lead"}</a></div>` : ""}
         </article>
       `).join("");
     }
@@ -690,7 +697,7 @@
           <div class="item-sub">${entry.reason}</div>
           <div class="item-sub" style="margin-top:8px;">Next move: ${entry.nextMove}</div>
           <div class="item-sub" style="margin-top:8px;">Owner: ${entry.owner}</div>
-          ${entry.link ? `<div style="margin-top:10px;"><a class="action-link" href="${entry.link}" target="_blank" rel="noreferrer">Open Related Lead</a></div>` : ""}
+          ${cleanLink(entry.link) ? `<div style="margin-top:10px;"><a class="action-link" href="${cleanLink(entry.link)}" target="_blank" rel="noreferrer">Open Related Lead</a></div>` : ""}
         </article>
       `).join("");
     }

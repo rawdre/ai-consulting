@@ -15,6 +15,15 @@ function toCloseUrl(leadId) {
   return `https://app.close.com/lead/${leadId}/`;
 }
 
+function sanitizeLink(rawLink) {
+  if (!rawLink) return null;
+  const trimmed = String(rawLink).trim();
+  if (!trimmed) return null;
+  const withoutSlackLabel = trimmed.split("|")[0].trim();
+  if (!/^https?:\/\//i.test(withoutSlackLabel)) return null;
+  return withoutSlackLabel;
+}
+
 function parseSnapshotName(name) {
   const match = name.match(/^(\d{4}-\d{2}-\d{2})-(morning|heartbeat|eod)\.json$/);
   if (!match) return null;
@@ -64,7 +73,7 @@ function mapLead(entry, section) {
     assignmentFreshness: entry.assignmentFreshness || "older",
     bestCallSlot: entry.bestCallSlot || null,
     secondBestCallSlot: entry.secondBestCallSlot || null,
-    link: toCloseUrl(entry.leadId),
+    link: sanitizeLink(entry.link) || toCloseUrl(entry.leadId),
   };
 }
 
@@ -89,7 +98,7 @@ function mapSlackItem(entry, section) {
     assignmentFreshness: null,
     bestCallSlot: null,
     secondBestCallSlot: null,
-    link: entry.link || null,
+    link: sanitizeLink(entry.link),
     channelLabel: entry.channelLabel,
     slackType: entry.type,
     preview: entry.preview || "",
@@ -145,7 +154,7 @@ function toSquadItem(entry, owner, status, nextMove) {
     owner,
     status,
     leadId: entry.leadId,
-    link: entry.link || toCloseUrl(entry.leadId),
+    link: sanitizeLink(entry.link) || toCloseUrl(entry.leadId),
     lane: entry.recommendedLane,
     stage: entry.stage || "",
     bestCallSlot: entry.bestCallSlot || null,
