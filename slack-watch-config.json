@@ -4,6 +4,10 @@
   "lookbackMinutesOnFirstRun": 180,
   "workspace": "Comeketo Restaurant & Catering",
   "andreDisplayName": "Andre Raw",
+  "andreSlackEmoji": ":andre:",
+  "andreSlackUserId": "U095VBX3PV4",
+  "andreDmChannel": "D0AFTLNK6CA",
+  "notifySignalTypes": ["reply_now", "new_lead", "assigned_to_andre", "andre_mentioned", "cadence_exception"],
   "channels": [
     {
       "id": "C094XAFEMLG",

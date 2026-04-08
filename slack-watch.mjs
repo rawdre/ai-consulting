@@ -178,7 +178,10 @@ function mentionsAndre(text, config) {
 function isAssignedToAndre(text, config) {
   const haystack = text.toLowerCase();
   const display = (config.andreDisplayName || "Andre Raw").toLowerCase();
+  const userId = process.env.SLACK_ANDRE_USER_ID;
   return (
+    haystack.includes(":andre:") ||                                          // custom emoji assignment
+    (userId && haystack.includes(`<@${userId.toLowerCase()}>`)) ||           // @André Raw mention
     (haystack.includes("owner") && haystack.includes("andre")) ||
     haystack.includes("01. 😎 andre") ||
     haystack.includes("01. :sunglasses: andre") ||
@@ -193,6 +196,9 @@ function buildNextMove(kind, heartbeatMinutes) {
   }
   if (kind === "whatsapp" || kind === "crisp") {
     return "Only act if Andre is directly pulled in or the thread is escalated into the real inbox lane.";
+  }
+  if (kind === "new_lead") {
+    return `New lead dropped in the rotation. Check if it is your turn and make first contact immediately.`;
   }
   if (kind === "lead_assignment" || kind === "lead_assignment_high_value") {
     return `Start 7-touch cadence review and decide first contact inside ${heartbeatMinutes} minutes.`;
@@ -237,16 +243,45 @@ function buildReason(kind, text) {
   return text.slice(0, 180) || "Slack signal needs review.";
 }
 
+function looksLikeNewLead(text) {
+  const haystack = text.toLowerCase();
+  return (
+    haystack.includes("new lead 2.0") ||
+    haystack.includes("new tasting request") ||
+    haystack.includes("please use slack to assign owner")
+  );
+}
+
+function looksLikeCrispNewLead(text) {
+  const haystack = text.toLowerCase();
+  return (
+    haystack.includes("new crisp.chat") ||
+    (haystack.includes("crisp") && haystack.includes("email"))
+  );
+}
+
 function classifySignal(channel, messageText, config) {
   const directMention = mentionsAndre(messageText, config);
+
+  // #inbound_comms-andre — highest priority, already established communication
   if (channel.kind === "inbound") {
     return looksLikeCloseInbound(messageText) ? "reply_now" : directMention ? "andre_mentioned" : "ignore";
   }
-  if (channel.kind === "whatsapp" || channel.kind === "crisp") {
-    return directMention ? "andre_mentioned" : "ignore";
-  }
+
+  // Lead channels — fire on ANY new lead drop (race to claim) or explicit assignment/mention
   if (channel.kind === "lead_assignment" || channel.kind === "lead_assignment_high_value") {
     if (isAssignedToAndre(messageText, config)) return "assigned_to_andre";
+    if (looksLikeNewLead(messageText)) return "new_lead";
+    return directMention ? "andre_mentioned" : "ignore";
+  }
+
+  // Crisp — surface new lead signals, not just Andre mentions
+  if (channel.kind === "crisp") {
+    if (looksLikeCrispNewLead(messageText)) return "new_lead";
+    return directMention ? "andre_mentioned" : "ignore";
+  }
+
+  if (channel.kind === "whatsapp") {
     return directMention ? "andre_mentioned" : "ignore";
   }
   if (channel.kind === "tasting_calendar") return directMention ? "andre_mentioned" : "ignore";
@@ -319,10 +354,59 @@ async function fetchChannelSignals(channel, config, sinceTs) {
   return signals;
 }
 
+function buildDmText(signal) {
+  const icons = {
+    reply_now: "🔴",
+    assigned_to_andre: "📋",
+    andre_mentioned: "👋",
+    cadence_exception: "⏰",
+    new_lead: "⚡",
+  };
+  const labels = {
+    reply_now: "INBOUND — reply now",
+    assigned_to_andre: "ASSIGNED TO YOU",
+    andre_mentioned: "YOU WERE MENTIONED",
+    cadence_exception: "CADENCE EXCEPTION",
+    new_lead: "NEW LEAD DROPPED — move fast",
+  };
+  const icon = icons[signal.type] || "⚡";
+  const label = labels[signal.type] || signal.type.toUpperCase();
+  const lines = [
+    `${icon} *${label}*`,
+    `Channel: #${signal.channelLabel}`,
+  ];
+  if (signal.item) lines.push(`Lead: ${signal.item}`);
+  if (signal.preview) lines.push(`> ${signal.preview.slice(0, 200)}`);
+  if (signal.link) lines.push(`<${signal.link}|Open in Close →>`);
+  return lines.join("\n");
+}
+
+async function sendDmNotifications(newSignals, config) {
+  const dmChannel = config.andreDmChannel;
+  if (!dmChannel || !newSignals.length) return;
+
+  const allowedTypes = new Set(config.notifySignalTypes || ["reply_now", "assigned_to_andre", "andre_mentioned", "cadence_exception"]);
+  const toNotify = newSignals.filter((s) => allowedTypes.has(s.type));
+  if (!toNotify.length) return;
+
+  for (const signal of toNotify) {
+    try {
+      await slackApi("chat.postMessage", {
+        channel: dmChannel,
+        text: buildDmText(signal),
+        mrkdwn: true,
+      });
+    } catch (error) {
+      console.error(`DM notification failed for signal ${signal.ts}: ${error.message}`);
+    }
+  }
+}
+
 function summarizeSignals(signals, channels) {
   return {
     totalSignals: signals.length,
     replyNow: signals.filter((item) => item.type === "reply_now").length,
+    newLeads: signals.filter((item) => item.type === "new_lead").length,
     assignedToAndre: signals.filter((item) => item.type === "assigned_to_andre").length,
     andreMentions: signals.filter((item) => item.type === "andre_mentioned").length,
     tastingSignals: signals.filter((item) => item.type === "tasting_signal").length,
@@ -340,6 +424,7 @@ async function main() {
 
   await fs.mkdir(path.dirname(args.output), { recursive: true });
   const state = readJson(stateFile, {});
+  const notifiedSet = new Set(state.notifiedTs || []);
   const nowSeconds = Date.now() / 1000;
   const defaultLookback = (config.lookbackMinutesOnFirstRun || 180) * 60;
   const sinceTs = args.forceFullScan
@@ -386,7 +471,7 @@ async function main() {
     heartbeatMinutes: config.heartbeatMinutes || 10,
     workspace: config.workspace || null,
     summary: summarizeSignals(allSignals, config.channels || []),
-    urgent: allSignals.filter((item) => item.type === "reply_now" || item.type === "assigned_to_andre" || item.type === "andre_mentioned").slice(0, 20),
+    urgent: allSignals.filter((item) => ["reply_now", "new_lead", "assigned_to_andre", "andre_mentioned"].includes(item.type)).slice(0, 20),
     replyNow: allSignals.filter((item) => item.type === "reply_now").slice(0, 20),
     assignedToAndre: allSignals.filter((item) => item.type === "assigned_to_andre").slice(0, 20),
     mentions: allSignals.filter((item) => item.type === "andre_mentioned").slice(0, 20),
@@ -396,7 +481,16 @@ async function main() {
   };
 
   await fs.writeFile(args.output, JSON.stringify(payload, null, 2));
-  await fs.writeFile(stateFile, JSON.stringify({ lastRunAt: nowSeconds }, null, 2));
+
+  // Send DM notifications for new signals not yet notified
+  const newSignals = allSignals.filter((s) => !notifiedSet.has(s.ts));
+  await sendDmNotifications(newSignals, config);
+  for (const s of newSignals) notifiedSet.add(s.ts);
+
+  // Keep notifiedTs from growing unbounded — only retain last 500 entries
+  const trimmedNotified = [...notifiedSet].slice(-500);
+
+  await fs.writeFile(stateFile, JSON.stringify({ lastRunAt: nowSeconds, notifiedTs: trimmedNotified }, null, 2));
   process.stdout.write(`${args.output}\n`);
 }
 
