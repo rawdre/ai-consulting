@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAW AI Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FDF6EC;
+      --cream-dark: #F5EBDA;
+      --cream-deep: #EDE0CC;
+      --pink-light: #FDCDD5;
+      --pink: #F4A0AB;
+      --pink-hot: #E8546B;
+      --rose: #D44060;
+      --burgundy: #6B1D32;
+      --maroon: #3D0F1C;
+      --maroon-deep: #2A0A14;
+      --gold: #E8B44C;
+      --gold-light: #F5D88A;
+      --mint: #B8E6D0;
+      --mint-dark: #6BBF96;
+      --sky: #A8D8EA;
+      --lavender: #D4B8E8;
+      --peach: #F8D4B0;
+      --coral: #F0907A;
+      --amber: #E8A838;
+      --red: #D44060;
+      --cyan: #5BA8C8;
+      --green: #6BBF96;
+      --magenta: #E8546B;
+      --purple: #9B72CF;
+      --sidebar-w: 4.2rem;
+      --preview-w: 22rem;
+      --shadow-card: 0 4px 16px rgba(61,15,28,0.08), 0 1px 4px rgba(61,15,28,0.06);
+      --shadow-soft: 0 8px 32px rgba(61,15,28,0.12);
+      --radius-xl: 1.6rem;
+      --radius-lg: 1.2rem;
+      --radius-md: 0.9rem;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--maroon);
+    }
+
+    /* ─── APP SHELL ─── */
+    .app { display: flex; height: 100vh; }
+
+    /* ─── LEFT SIDEBAR ─── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--maroon);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.8rem 0;
+      flex-shrink: 0;
+      z-index: 100;
+      gap: 0.15rem;
+    }
+
+    .sb-logo {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.75rem;
+      background: linear-gradient(135deg, var(--rose), var(--burgundy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    }
+
+    .sb-logo .material-symbols-outlined { font-size: 1.2rem; }
+
+    .sb-divider {
+      width: 1.6rem;
+      height: 1px;
+      background: rgba(253,246,236,0.1);
+      margin: 0.4rem 0;
+    }
+
+    .sb-btn {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.85rem;
+      border: none;
+      background: transparent;
+      color: rgba(253,246,236,0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      cursor: pointer;
+      transition: all 160ms ease;
+      position: relative;
+    }
+
+    .sb-btn:hover { background: rgba(253,246,236,0.07); color: var(--cream); }
+
+    .sb-btn.active {
+      background: rgba(253,246,236,0.1);
+      color: var(--cream);
+    }
+
+    .sb-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 1.4rem;
+      border-radius: 0 3px 3px 0;
+      background: var(--pink-hot);
+      box-shadow: 0 0 8px rgba(232,84,107,0.5);
+    }
+
+    .sb-btn .material-symbols-outlined { font-size: 1.2rem; }
+
+    .sb-btn .sb-label {
+      font-size: 0.45rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .sb-spacer { flex: 1; }
+
+    .sb-bottom-btn {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.65rem;
+      border: 1px solid rgba(253,246,236,0.1);
+      background: transparent;
+      color: rgba(253,246,236,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 160ms ease;
+      margin-top: 0.3rem;
+    }
+
+    .sb-bottom-btn:hover { background: rgba(253,246,236,0.07); color: var(--cream); }
+    .sb-bottom-btn .material-symbols-outlined { font-size: 1rem; }
+
+    /* ─── MAIN AREA ─── */
+    .main-area {
+      flex: 1;
+      display: flex;
+      min-width: 0;
+    }
+
+    .content-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Top bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.3rem;
+      flex-shrink: 0;
+      background: var(--cream-dark);
+    }
+
+    .topbar-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--maroon);
+    }
+
+    .topbar-pills {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .t-pill {
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--cream-dark);
+      color: var(--burgundy);
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all 160ms ease;
+    }
+
+    .t-pill:hover { background: var(--pink-light); }
+    .t-pill.active { background: var(--burgundy); color: var(--cream); }
+
+    /* Stage */
+    .stage {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      margin: 0 0.6rem 0.6rem 0.6rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, var(--pink-light) 0%, var(--cream-dark) 35%, var(--cream) 100%);
+      border: 2px solid rgba(107,29,50,0.06);
+    }
+
+    .stage-bars {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 0.8rem);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .stage-bar { height: 0.35rem; border-radius: 0 0 var(--radius-xl) var(--radius-xl); margin: 0 auto; }
+    .stage-bar:nth-child(1) { width: 100%; background: var(--pink); }
+    .stage-bar:nth-child(2) { width: calc(100% - 1rem); background: var(--rose); }
+    .stage-bar:nth-child(3) { width: calc(100% - 2rem); background: var(--burgundy); }
+
+    .stage-scroll {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 1.8rem 1.8rem 2rem;
+      z-index: 2;
+      scrollbar-width: thin;
+      scrollbar-color: var(--pink) transparent;
+    }
+
+    .stage-scroll::-webkit-scrollbar { width: 5px; }
+    .stage-scroll::-webkit-scrollbar-track { background: transparent; }
+    .stage-scroll::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 9999px; }
+
+    /* ─── PREVIEW PANEL ─── */
+    .preview-panel {
+      width: var(--preview-w);
+      background: var(--cream-dark);
+      border-left: 1.5px solid rgba(107,29,50,0.06);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .preview-header {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(107,29,50,0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .preview-header .material-symbols-outlined { font-size: 0.9rem; color: var(--burgundy); opacity: 0.4; }
+    .preview-header span:last-child { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--burgundy); opacity: 0.4; }
+
+    .preview-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--pink-light) transparent;
+    }
+
+    .preview-body::-webkit-scrollbar { width: 4px; }
+    .preview-body::-webkit-scrollbar-track { background: transparent; }
+    .preview-body::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 9999px; }
+
+    .preview-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      opacity: 0.3;
+    }
+
+    .preview-empty .material-symbols-outlined { font-size: 2.5rem; color: var(--burgundy); margin-bottom: 0.6rem; }
+    .preview-empty p { font-size: 0.78rem; color: var(--burgundy); }
+
+    /* Preview fields */
+    .pv-title { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.15rem; color: var(--maroon-deep); letter-spacing: -0.02em; }
+    .pv-sub { font-size: 0.75rem; color: var(--burgundy); opacity: 0.5; margin-top: 0.15rem; }
+    .pv-divider { height: 1px; background: rgba(107,29,50,0.06); margin: 0.8rem 0; }
+    .pv-field { display: flex; justify-content: space-between; padding: 0.4rem 0; font-size: 0.75rem; }
+    .pv-field-label { color: var(--burgundy); opacity: 0.6; }
+    .pv-field-value { font-weight: 600; color: var(--maroon-deep); }
+    .pv-section-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--burgundy); opacity: 0.4; margin-top: 0.6rem; margin-bottom: 0.3rem; }
+    .pv-tag { padding: 0.15rem 0.45rem; border-radius: 9999px; font-size: 0.58rem; font-weight: 600; background: var(--cream-dark); color: var(--burgundy); border: 1px solid rgba(107,29,50,0.05); }
+    .pv-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.3rem; }
+    .pv-icon { width: 3.2rem; height: 3.2rem; border-radius: 0.85rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.7rem; }
+    .pv-icon .material-symbols-outlined { font-size: 1.5rem; }
+
+    /* ─── VIEW SYSTEM ─── */
+    .view { display: none; animation: fadeIn 250ms ease; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* View headers */
+    .vh { text-align: center; margin-bottom: 1.5rem; }
+    .vh .label { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.7rem; border-radius: 9999px; background: var(--burgundy); color: var(--cream); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .vh .label .material-symbols-outlined { font-size: 0.75rem; }
+    .vh h2 { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2rem; letter-spacing: -0.04em; color: var(--maroon-deep); margin-top: 0.6rem; }
+    .vh p { margin-top: 0.3rem; color: var(--burgundy); opacity: 0.5; font-size: 0.82rem; }
+
+    /* ─── HERO ─── */
+    .hero-block {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      border: 2px solid rgba(107,29,50,0.05);
+      box-shadow: var(--shadow-card);
+      padding: 1.6rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pink), var(--rose), var(--burgundy));
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 9999px;
+      background: var(--burgundy);
+      color: var(--cream);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.03em;
+      color: var(--maroon-deep);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title-accent {
+      background: linear-gradient(90deg, var(--rose), var(--pink-hot), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 0.82rem;
+      color: var(--burgundy);
+      opacity: 0.6;
+      line-height: 1.6;
+      max-width: 42rem;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.8rem;
+    }
+
+    .hero-pill {
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      background: var(--cream-dark);
+      color: var(--burgundy);
+      border: 1px solid rgba(107,29,50,0.08);
+    }
+
+    .hero-pill-link {
+      text-decoration: none;
+      transition: all 160ms ease;
+    }
+
+    .hero-pill-link:hover {
+      background: var(--pink-light);
+      border-color: rgba(107,29,50,0.16);
+      transform: translateY(-1px);
+    }
+
+    /* ─── STATUS STRIP ─── */
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .status-card {
+      padding: 0.8rem 1rem;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      border: 1.5px solid rgba(107,29,50,0.05);
+      box-shadow: var(--shadow-card);
+    }
+
+    .status-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      opacity: 0.45;
+      margin-bottom: 0.25rem;
+    }
+
+    .status-value {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--maroon-deep);
+      line-height: 1.4;
+    }
+
+    /* ─── SCORECARDS ─── */
+    .scorecards {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.55rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .scorecard {
+      padding: 1rem;
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      border: 2px solid rgba(107,29,50,0.05);
+      box-shadow: var(--shadow-card);
+      transition: all 180ms ease;
+      cursor: default;
+    }
+
+    .scorecard:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); border-color: var(--pink); }
+
+    .scorecard-title {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      opacity: 0.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .scorecard-value {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .scorecard-foot {
+      font-size: 0.62rem;
+      color: var(--burgundy);
+      opacity: 0.35;
+    }
+
+    /* ─── PANEL / SECTION BLOCKS ─── */
+    .panel-block {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      border: 2px solid rgba(107,29,50,0.05);
+      box-shadow: var(--shadow-card);
+      padding: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .panel-block h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--maroon-deep);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .panel-note {
+      font-size: 0.72rem;
+      color: var(--burgundy);
+      opacity: 0.5;
+      margin-bottom: 0.7rem;
+      line-height: 1.5;
+    }
+
+    /* ─── LAYOUT GRID ─── */
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 0.8rem;
+    }
+
+    .stack { display: grid; gap: 0.8rem; align-content: start; }
+
+    /* ─── QUEUE GRID ─── */
+    .queue-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }
+
+    .queue-column { display: grid; gap: 0.5rem; align-content: start; }
+
+    .queue-column h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--maroon-deep);
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--pink-light);
+    }
+
+    /* ─── FOCUS / QUEUE ITEMS ─── */
+    .focus-item,
+    .queue-item {
+      border-radius: var(--radius-md);
+      padding: 0.8rem;
+      border: 1.5px solid rgba(107,29,50,0.05);
+      background: var(--cream-dark);
+      transition: all 180ms ease;
+    }
+
+    .focus-item:hover,
+    .queue-item:hover {
+      border-color: var(--pink);
+      box-shadow: var(--shadow-card);
+    }
+
+    .focus-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.6rem;
+      align-items: start;
+    }
+
+    .item-title {
+      font-family: 'Fraunces', serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--maroon-deep);
+      margin-bottom: 0.3rem;
+    }
+
+    .item-sub {
+      color: var(--burgundy);
+      opacity: 0.55;
+      font-size: 0.72rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .item-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    /* ─── BADGES ─── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.3rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(107,29,50,0.08);
+      background: var(--cream);
+      color: var(--burgundy);
+    }
+
+    .badge.crm { color: var(--rose); border-color: rgba(212,64,96,0.2); background: rgba(212,64,96,0.06); }
+    .badge.high { color: var(--red); border-color: rgba(212,64,96,0.2); background: rgba(212,64,96,0.06); }
+    .badge.medium { color: var(--amber); border-color: rgba(232,168,56,0.2); background: rgba(232,168,56,0.06); }
+    .badge.hot { color: var(--pink-hot); border-color: rgba(232,84,107,0.2); background: rgba(232,84,107,0.06); }
+    .badge.warm { color: var(--green); border-color: rgba(107,191,150,0.2); background: rgba(107,191,150,0.06); }
+
+    /* ─── ACTION LINK ─── */
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 1.8rem;
+      padding: 0 0.7rem;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(107,29,50,0.1);
+      background: var(--cream);
+      color: var(--maroon-deep);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.68rem;
+      white-space: nowrap;
+      transition: all 160ms ease;
+    }
+
+    .action-link:hover {
+      background: var(--pink-light);
+      border-color: var(--pink);
+    }
+
+    /* ─── SQUAD META ─── */
+    .squad-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ─── FOOTER ─── */
+    .mc-footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.68rem;
+      color: var(--burgundy);
+      opacity: 0.4;
+    }
+
+    .mc-footer a { color: var(--rose); text-decoration: none; font-weight: 600; }
+    .mc-footer a:hover { color: var(--pink-hot); }
+
+    /* ─── BUILDER / LATTICE ─── */
+    #latticeCanvas {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      cursor: grab;
+    }
+    #latticeCanvas:active { cursor: grabbing; }
+
+    .lattice-hud {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .hud-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 9999px;
+      background: rgba(42,10,20,0.75);
+      backdrop-filter: blur(8px);
+      color: var(--cream);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hud-pill .dot {
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 50%;
+    }
+
+    .lattice-legend {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      z-index: 5;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: rgba(42,10,20,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .legend-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .builder-hidden { display: none !important; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1200px) {
+      .scorecards { grid-template-columns: repeat(3, 1fr); }
+      .layout-grid, .queue-grid { grid-template-columns: 1fr; }
+      .status-strip { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .preview-panel { display: none; }
+      .scorecards { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar { width: 3rem; }
+      .sb-btn .sb-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- LEFT SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-logo"><span class="material-symbols-outlined">rocket_launch</span></div>
+    <div class="sb-divider"></div>
+    <button class="sb-btn active" data-view="dashboard"><span class="material-symbols-outlined">dashboard</span><span class="sb-label">Dash</span></button>
+    <button class="sb-btn" data-view="crm"><span class="material-symbols-outlined">contact_phone</span><span class="sb-label">CRM</span></button>
+    <button class="sb-btn" data-view="slack"><span class="material-symbols-outlined">chat</span><span class="sb-label">Slack</span></button>
+    <button class="sb-btn" data-view="squad"><span class="material-symbols-outlined">groups</span><span class="sb-label">Squad</span></button>
+    <button class="sb-btn" data-view="cadence"><span class="material-symbols-outlined">timeline</span><span class="sb-label">Cadence</span></button>
+    <button class="sb-btn" data-view="slots"><span class="material-symbols-outlined">event</span><span class="sb-label">Slots</span></button>
+    <button class="sb-btn" data-view="watch"><span class="material-symbols-outlined">visibility</span><span class="sb-label">Watch</span></button>
+    <div class="sb-spacer"></div>
+    <button class="sb-bottom-btn"><span class="material-symbols-outlined">search</span></button>
+    <button class="sb-bottom-btn"><span class="material-symbols-outlined">tune</span></button>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="content-panel">
+      <div class="topbar">
+        <div class="topbar-title">Mission Control</div>
+        <div class="topbar-pills">
+          <button class="t-pill active" data-tmode="cockpit">Cockpit</button>
+          <button class="t-pill" data-tmode="builder">Builder</button>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-bars"><div class="stage-bar"></div><div class="stage-bar"></div><div class="stage-bar"></div></div>
+        <div class="stage-scroll" id="stageScroll"></div>
+        <!-- LATTICE CANVAS (builder mode) -->
+        <canvas id="latticeCanvas" class="builder-hidden"></canvas>
+        <div class="lattice-hud builder-hidden" id="latticeHud">
+          <div class="hud-pill"><div class="dot" style="background:var(--pink-hot)"></div> CRM Gravity Lattice</div>
+          <div class="hud-pill" id="hudNodeCount">Nodes: 0</div>
+          <div class="hud-pill" id="hudEnergy">System Energy: 0</div>
+        </div>
+        <div class="lattice-legend builder-hidden" id="latticeLegend">
+          <div class="legend-item"><div class="legend-dot" style="background:#D44060"></div> Focus</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#E8B44C"></div> Call Push</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#6BBF96"></div> Tasting</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#A8D8EA"></div> Nurture</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#D4B8E8"></div> Cadence</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#F0907A"></div> Reply</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-header">
+        <span class="material-symbols-outlined">info</span>
+        <span>Lead Preview</span>
+      </div>
+      <div class="preview-body" id="previewBody">
+        <div class="preview-empty">
+          <span class="material-symbols-outlined">mouse</span>
+          <p>Hover over any lead to preview details here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// GLOBALS
+// ═══════════════════════════════════════
+const stageScroll = document.getElementById('stageScroll');
+const previewBody = document.getElementById('previewBody');
+let currentView = 'dashboard';
+let missionData = null;
+
+const scorecardsConfig = [
+  { label: "Replies Owed", key: "repliesOwedNow", color: "var(--rose)", icon: "reply" },
+  { label: "Call Pushes", key: "callPushes", color: "var(--pink-hot)", icon: "call" },
+  { label: "Tasting Pushes", key: "tastingPushes", color: "var(--gold)", icon: "local_bar" },
+  { label: "Nurture Queue", key: "nurtureQueue", color: "var(--green)", icon: "spa" },
+  { label: "Open Call Slots", key: "openCallSlotsToday", color: "var(--purple)", icon: "event_available" },
+  { label: "Recently Assigned", key: "recentlyAssigned", color: "var(--coral)", icon: "person_add" }
+];
+
+// ─── HELPERS ───
+function fmtDate(value) {
+  if (!value) return "No date";
+  return new Date(value).toLocaleString("pt-BR", {
+    year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit"
+  });
+}
+
+function badge(label, className = "") {
+  return `<span class="badge ${className}">${label}</span>`;
+}
+
+function cleanLink(value) {
+  if (!value) return null;
+  const cleaned = String(value).split("|")[0].trim();
+  if (!/^https?:\/\//i.test(cleaned)) return null;
+  return cleaned;
+}
+
+function setPreview(html) { previewBody.innerHTML = html; }
+function clearPreview() {
+  previewBody.innerHTML = '<div class="preview-empty"><span class="material-symbols-outlined">mouse</span><p>Hover over any lead to preview details here</p></div>';
+}
+
+function showLeadPreview(item) {
+  if (!item) return;
+  setPreview(`
+    <div class="pv-title">${item.title || item.leadName || 'Lead'}</div>
+    <div class="pv-sub">${item.recommendedLane || item.recommendedAction || ''}</div>
+    <div class="pv-divider"></div>
+    ${item.stage ? `<div class="pv-field"><span class="pv-field-label">Stage</span><span class="pv-field-value">${item.stage}</span></div>` : ''}
+    ${item.section ? `<div class="pv-field"><span class="pv-field-label">Section</span><span class="pv-field-value">${item.section}</span></div>` : ''}
+    ${item.statusBucket ? `<div class="pv-field"><span class="pv-field-label">Status</span><span class="pv-field-value">${item.statusBucket}</span></div>` : ''}
+    ${item.score !== undefined ? `<div class="pv-field"><span class="pv-field-label">Score</span><span class="pv-field-value">${item.score}</span></div>` : ''}
+    ${item.assignmentFreshness ? `<div class="pv-field"><span class="pv-field-label">Freshness</span><span class="pv-field-value">${item.assignmentFreshness}</span></div>` : ''}
+    ${item.cadenceStep ? `<div class="pv-field"><span class="pv-field-label">Cadence Step</span><span class="pv-field-value">${item.cadenceStep}</span></div>` : ''}
+    ${item.bestCallSlot ? `<div class="pv-field"><span class="pv-field-label">Best Slot</span><span class="pv-field-value">${item.bestCallSlot}</span></div>` : ''}
+    ${item.nextStepDue ? `<div class="pv-field"><span class="pv-field-label">Due</span><span class="pv-field-value">${item.nextStepDue}</span></div>` : ''}
+    ${item.whyNow ? `<div class="pv-divider"></div><div class="pv-section-label">Why Now</div><p style="font-size:0.73rem;line-height:1.5;color:var(--maroon);opacity:0.7;">${item.whyNow}</p>` : ''}
+    ${item.reviewNextStep ? `<div class="pv-divider"></div><div class="pv-section-label">Next Step</div><p style="font-size:0.73rem;line-height:1.5;color:var(--maroon);opacity:0.7;">${item.reviewNextStep}</p>` : ''}
+    ${cleanLink(item.link) ? `<div class="pv-divider"></div><a class="action-link" href="${cleanLink(item.link)}" target="_blank" rel="noreferrer" style="font-size:0.72rem;">Open in Close →</a>` : ''}
+  `);
+}
+
+// ─── RENDER HELPERS ───
+function renderFocusItem(item) {
+  return `
+    <article class="focus-item" onmouseenter='showLeadPreview(${JSON.stringify(item).replace(/'/g, "&#39;")})' onmouseleave="clearPreview()">
+      <div>
+        <div class="item-title">${item.title || item.leadName}</div>
+        <div class="item-sub">${item.recommendedLane || item.recommendedAction || ''} · ${item.stage || item.section || ''}</div>
+        <div class="item-meta">
+          ${badge("CRM", "crm")} ${badge(item.statusBucket || '', (item.statusBucket || '').toLowerCase())} ${badge(`Score ${item.score || 0}`)}
+        </div>
+      </div>
+      ${cleanLink(item.link) ? `<a class="action-link" href="${cleanLink(item.link)}" target="_blank" rel="noreferrer">Open</a>` : `<span class="badge">Review</span>`}
+    </article>
+  `;
+}
+
+function renderQueueItems(entries, emptyLabel) {
+  if (!entries || !entries.length) return `<article class="queue-item"><div class="item-sub">${emptyLabel}</div></article>`;
+  return entries.map(entry => `
+    <article class="queue-item" onmouseenter='showLeadPreview(${JSON.stringify(entry).replace(/'/g, "&#39;")})' onmouseleave="clearPreview()">
+      <div class="item-title">${entry.leadName || entry.title || ''}</div>
+      <div class="item-sub">${entry.recommendedLane || entry.recommendedAction || ''} · ${entry.stage || entry.section || ''}</div>
+      <div class="item-meta">
+        ${badge(entry.statusBucket || '', (entry.statusBucket || '').toLowerCase())}
+        ${badge(`Score ${entry.score || 0}`)}
+        ${entry.assignmentFreshness ? badge(entry.assignmentFreshness) : ""}
+        ${entry.cadenceStep ? badge(entry.cadenceStep) : ""}
+        ${entry.bestCallSlot ? badge(`Best ${entry.bestCallSlot}`) : ""}
+        ${entry.nextStepDue ? badge(`Due ${entry.nextStepDue}`) : ""}
+      </div>
+      ${entry.whyNow ? `<div class="item-sub" style="margin-top:0.4rem;">Why now: ${entry.whyNow}</div>` : ""}
+      ${entry.reviewNextStep ? `<div class="item-sub" style="margin-top:0.2rem;">Next step: ${entry.reviewNextStep}</div>` : ""}
+      ${cleanLink(entry.link) ? `<div style="margin-top:0.5rem;"><a class="action-link" href="${cleanLink(entry.link)}" target="_blank" rel="noreferrer">${entry.type === "slack" ? "Open Related Lead" : "Open Close Lead"}</a></div>` : ""}
+    </article>
+  `).join("");
+}
+
+function renderSquadItems(panel, emptyLabel) {
+  if (!panel || !panel.items?.length) return `<article class="queue-item"><div class="item-sub">${emptyLabel}</div></article>`;
+  return panel.items.map(entry => `
+    <article class="queue-item">
+      <div class="item-title">${entry.item}</div>
+      <div class="squad-meta">
+        ${badge(panel.environment)} ${badge(entry.status)}
+        ${entry.bestCallSlot ? badge(`Slot ${entry.bestCallSlot}`) : ""}
+      </div>
+      <div class="item-sub">${entry.reason}</div>
+      <div class="item-sub" style="margin-top:0.3rem;">Next move: ${entry.nextMove}</div>
+      <div class="item-sub" style="margin-top:0.3rem;">Owner: ${entry.owner}</div>
+      ${cleanLink(entry.link) ? `<div style="margin-top:0.5rem;"><a class="action-link" href="${cleanLink(entry.link)}" target="_blank" rel="noreferrer">Open Related Lead</a></div>` : ""}
+    </article>
+  `).join("");
+}
+
+function runAgent(agentId) {
+  fetch(`/api/agents/${agentId}/run`, { method: 'POST' })
+    .then(async (response) => {
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.output || payload.error || 'Agent run failed.');
+      await boot();
+      return payload;
+    })
+    .then((payload) => {
+      const summary = payload?.runtime?.summary || `${agentId} ran successfully.`;
+      window.alert(summary);
+    })
+    .catch((error) => {
+      window.alert(error.message || `Unable to run ${agentId}.`);
+    });
+}
+
+function renderAgentPanel(agentId, panel, emptyLabel) {
+  if (!panel) return `<article class="queue-item"><div class="item-sub">${emptyLabel}</div></article>`;
+  const runtime = panel.runtime || null;
+  const runnable = ['inbox-reader', 'cadence-sender', 'tasting-closer'].includes(agentId);
+  return `
+    <article class="queue-item">
+      <div class="item-title">${panel.title}</div>
+      <div class="item-sub">${panel.focus || ""}</div>
+      <div class="item-meta">
+        ${badge(panel.environment || "Hosted")}
+        ${badge(runtime?.status || panel.autonomy || "idle")}
+        ${badge(`Queue ${panel.queueSize || 0}`)}
+      </div>
+      <div class="item-sub" style="margin-top:0.35rem;">Owns: ${panel.owns || "Unassigned lane"}</div>
+      <div class="item-sub" style="margin-top:0.2rem;">Trigger: ${panel.trigger || "Manual"}</div>
+      <div class="item-sub" style="margin-top:0.2rem;">${runtime?.summary || panel.handoff || emptyLabel}</div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.6rem;">
+        ${runnable ? `<button class="action-link" type="button" onclick="runAgent('${agentId}')">Run Lane</button>` : `<span class="hero-pill">Assisted only</span>`}
+        ${runtime?.last_run_at ? `<span class="hero-pill">Last run ${fmtDate(runtime.last_run_at)}</span>` : ""}
+      </div>
+      <div style="margin-top:0.7rem;">
+        ${renderSquadItems(panel, emptyLabel)}
+      </div>
+    </article>
+  `;
+}
+
+// ═══════════════════════════════════════
+// VIEWS
+// ═══════════════════════════════════════
+function showView(viewId) {
+  currentView = viewId;
+  clearPreview();
+  stageScroll.scrollTop = 0;
+  document.querySelectorAll('.sb-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`.sb-btn[data-view="${viewId}"]`);
+  if (btn) btn.classList.add('active');
+
+  const renderers = {
+    dashboard: renderDashboard,
+    crm: renderCRM,
+    slack: renderSlack,
+    squad: renderSquad,
+    cadence: renderCadence,
+    slots: renderSlots,
+    watch: renderWatch,
+  };
+  if (renderers[viewId]) renderers[viewId]();
+}
+
+function renderDashboard() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  stageScroll.innerHTML = `
+    <div class="hero-block">
+      <div class="hero-eyebrow"><span class="material-symbols-outlined" style="font-size:0.7rem;">satellite_alt</span> Live Operating System</div>
+      <div class="hero-title"><span class="hero-title-accent">Mission Control</span></div>
+      <p class="hero-desc">What should Andre work next right now? Pulls the latest CRM command snapshot from the Close guardrail and turns it into a call-first, tasting-second daily cockpit.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">CRM command cockpit</span>
+        <span class="hero-pill">Call-first routing</span>
+        <span class="hero-pill">Morning / evening compare</span>
+        <span class="hero-pill">Comeketo only</span>
+        <a class="hero-pill hero-pill-link" href="/oracle-enrichment-dossier.html" target="_blank" rel="noreferrer">Intelligence Dossier</a>
+        <a class="hero-pill hero-pill-link" href="/mission-control-andre1.html" target="_blank" rel="noreferrer">Andre Intel Page</a>
+        <button class="hero-pill hero-pill-link" type="button" onclick="runAgent('inbox-reader')">Run Inbox Reader</button>
+        <button class="hero-pill hero-pill-link" type="button" onclick="runAgent('cadence-sender')">Run Cadence Sender</button>
+        <button class="hero-pill hero-pill-link" type="button" onclick="runAgent('tasting-closer')">Run Tasting Closer</button>
+      </div>
+    </div>
+
+    <div class="status-strip">
+      <div class="status-card">
+        <div class="status-label">Latest CRM Sync</div>
+        <div class="status-value">${fmtDate(d.generated_at)}</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Data Source</div>
+        <div class="status-value">${d.source_file} · ${d.checkpoint}</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Mission Focus</div>
+        <div class="status-value">${d.missionFocus || "Reply first, push the right people to a call, then drive the next tasting window without forcing weak context."}</div>
+      </div>
+    </div>
+
+    <div class="scorecards">
+      ${scorecardsConfig.map(card => `
+        <article class="scorecard">
+          <div class="scorecard-title">${card.label}</div>
+          <div class="scorecard-value" style="color:${card.color}">${d.summary[card.key] ?? 0}</div>
+          <div class="scorecard-foot">Live snapshot</div>
+        </article>
+      `).join("")}
+    </div>
+
+    <div class="panel-block">
+      <h2>What To Work Next</h2>
+      <div style="display:grid;gap:0.5rem;">
+        ${d.topFocus.map(item => renderFocusItem(item)).join("")}
+      </div>
+    </div>
+
+    <div class="layout-grid">
+      <div class="stack">
+        <div class="panel-block">
+          <h2>Morning vs Evening</h2>
+          ${renderComparison(d.comparison)}
+        </div>
+      </div>
+      <div class="stack">
+        <div class="panel-block">
+          <h2>Comeketo Inbox Watch</h2>
+          ${renderWatchItems(d)}
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-footer">
+      Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank" rel="noreferrer">Raw AI Business Solutions</a>
+    </div>
+  `;
+}
+
+function renderCRM() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">contact_phone</span> CRM</span><h2>CRM Frontline</h2><p>Replies, call pushes, tasting pushes — the active pipeline.</p></div>
+    <div class="queue-grid">
+      <div class="queue-column">
+        <h3>Replies Owed Now</h3>
+        ${renderQueueItems(d.crm.repliesOwedNow, "No replies owed right now.")}
+      </div>
+      <div class="queue-column">
+        <h3>Call Push Queue</h3>
+        ${renderQueueItems(d.crm.callPushQueue?.slice(0, 8), "No call pushes right now.")}
+      </div>
+      <div class="queue-column">
+        <h3>Tasting Push</h3>
+        ${renderQueueItems(d.crm.tastingPushQueue?.slice(0, 8), "No tasting pushes right now.")}
+      </div>
+    </div>
+    <div style="margin-top:1rem;"></div>
+    <div class="layout-grid">
+      <div class="stack">
+        <div class="panel-block">
+          <h2>Recently Assigned to Andre</h2>
+          ${renderQueueItems(d.crm.recentlyAssigned?.slice(0, 8), "No recently assigned Andre leads.")}
+        </div>
+        <div class="panel-block">
+          <h2>End-of-Day Rollovers</h2>
+          ${renderQueueItems(d.crm.endOfDayRollovers?.slice(0, 8), "No rollovers right now.")}
+        </div>
+      </div>
+      <div class="stack">
+        <div class="panel-block">
+          <h2>Nurture Queue</h2>
+          ${renderQueueItems(d.crm.nurtureQueue?.slice(0, 8), "No nurture queue right now.")}
+        </div>
+        <div class="panel-block">
+          <h2>Do Not Touch</h2>
+          ${renderQueueItems(d.crm.doNotTouch?.slice(0, 8), "No do-not-touch leads right now.")}
+        </div>
+        <div class="panel-block">
+          <h2>Archive Review</h2>
+          ${renderQueueItems(d.crm.archiveReview?.slice(0, 8), "No archive-review leads right now.")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderSlack() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">chat</span> Slack</span><h2>Slack Watch</h2><p>Ghost mode only. Watches inbound, assignments, and mentions without posting.</p></div>
+    <div class="queue-grid">
+      <div class="queue-column">
+        <h3>Reply Now</h3>
+        ${renderQueueItems(d.slack?.replyNow?.slice(0, 8) || [], "No Slack reply-now signals.")}
+      </div>
+      <div class="queue-column">
+        <h3>Assigned To Andre</h3>
+        ${renderQueueItems(d.slack?.assignedToAndre?.slice(0, 8) || [], "No fresh Slack assignments.")}
+      </div>
+      <div class="queue-column">
+        <h3>Andre Mentions</h3>
+        ${renderQueueItems(d.slack?.mentions?.slice(0, 8) || [], "No Andre mentions.")}
+      </div>
+    </div>
+  `;
+}
+
+function renderSquad() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">groups</span> Squad</span><h2>Agent Control Plane</h2><p>Hosted control surface for the lanes that read, draft, and move Andre-owned leads.</p></div>
+    <div class="queue-grid">
+      <div class="queue-column">${renderAgentPanel('inbox-reader', d.squad?.inboxReader, "No inbox work waiting.")}</div>
+      <div class="queue-column">${renderAgentPanel('cadence-sender', d.squad?.cadenceSender, "No cadence work waiting.")}</div>
+      <div class="queue-column">${renderAgentPanel('tasting-closer', d.squad?.tastingCloser, "No tasting work waiting.")}</div>
+    </div>
+    <div style="margin-top:1rem;"></div>
+    <div class="queue-grid">
+      <div class="queue-column">${renderAgentPanel('call-booker', d.squad?.callBooker, "Call Booker is still assisted only.")}</div>
+      <div class="queue-column">${renderAgentPanel('dormant-reviewer', d.squad?.dormantReviewer, "No dormant review items.")}</div>
+      <div class="queue-column">${renderAgentPanel('hold-watcher', d.squad?.holdWatcher, "No hold watcher items.")}</div>
+    </div>
+  `;
+}
+
+function renderCadence() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  const c = d.crm?.cadenceControl || {};
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">timeline</span> Cadence</span><h2>7-Day Andre Cadence</h2><p>Starts only after Close confirms owner = Andre, then advances from call-first to tasting-aware follow-up.</p></div>
+    <div class="scorecards" style="margin-bottom:1rem;">
+      <article class="scorecard"><div class="scorecard-title">Touch 1</div><div class="scorecard-value" style="color:#ef8354">${c.summary?.touch1 ?? 0}</div><div class="scorecard-foot">First NEPQ email</div></article>
+      <article class="scorecard"><div class="scorecard-title">Touch 2</div><div class="scorecard-value" style="color:#d4b8e8">${c.summary?.touch2 ?? 0}</div><div class="scorecard-foot">Phone + tasting</div></article>
+      <article class="scorecard"><div class="scorecard-title">Waiting</div><div class="scorecard-value" style="color:#80cfa9">${c.summary?.waiting ?? 0}</div><div class="scorecard-foot">Reply already owed</div></article>
+      <article class="scorecard"><div class="scorecard-title">Pre-Tasting Call</div><div class="scorecard-value" style="color:#f4b942">${c.summary?.preTastingCall ?? 0}</div><div class="scorecard-foot">Must set expectations</div></article>
+    </div>
+    <div class="queue-grid">
+      <div class="queue-column">
+        <h3>Touch 1 · Phone First</h3>
+        ${renderQueueItems(c.touch1?.slice(0, 8), "No first-touch leads right now.")}
+      </div>
+      <div class="queue-column">
+        <h3>Touch 2 · Phone + Tasting</h3>
+        ${renderQueueItems(c.touch2?.slice(0, 8), "No second-touch leads right now.")}
+      </div>
+      <div class="queue-column">
+        <h3>Waiting / Booked</h3>
+        ${renderQueueItems([...(c.waiting || []).slice(0,4), ...(c.callBooked || []).slice(0,2), ...(c.preTastingCall || []).slice(0,2)], "Nothing waiting on a reply or booking.")}
+      </div>
+    </div>
+    <div style="margin-top:1rem;display:grid;gap:0.5rem;">
+      ${renderQueueItems(c.followUp?.slice(0, 8), "No deeper cadence follow-ups right now.")}
+    </div>
+  `;
+}
+
+function renderSlots() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  const entries = d.crm.callSlots || [];
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">event</span> Slots</span><h2>Today's Call Slots</h2><p>Schedule and fallback board for today's call windows.</p></div>
+    <div style="display:grid;gap:0.5rem;">
+      ${!entries.length ? `<article class="queue-item"><div class="item-sub">No call slot board available.</div></article>` :
+        entries.map(entry => `
+          <article class="queue-item">
+            <div class="item-title">${entry.slot}</div>
+            <div class="item-sub">${entry.status}${entry.assignedLead ? ` · ${entry.assignedLead}` : ""}</div>
+            <div class="item-meta">
+              ${badge(entry.status)}
+              ${entry.fallbackCandidates?.length ? badge(`Fallback ${entry.fallbackCandidates.length}`) : ""}
+            </div>
+            <div class="item-sub" style="margin-top:0.3rem;">${entry.fallbackCandidates?.map(i => i.leadName).join(" · ") || "No fallback candidates"}</div>
+          </article>
+        `).join("")}
+    </div>
+  `;
+}
+
+function renderWatch() {
+  const d = missionData;
+  if (!d) { stageScroll.innerHTML = renderLoading(); return; }
+  stageScroll.innerHTML = `
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">visibility</span> Watch</span><h2>Comeketo Inbox Watch</h2><p>High-level command signals and guardrail holds.</p></div>
+    <div style="display:grid;gap:0.5rem;">
+      ${renderWatchItems(d)}
+    </div>
+  `;
+}
+
+function renderComparison(comparison) {
+  if (!comparison) return `<article class="queue-item"><div class="item-sub">Waiting for both same-day morning and evening snapshots.</div></article>`;
+  const items = [
+    { title: "Replied Since Morning", value: comparison.repliedSinceMorning?.length || 0, detail: comparison.repliedSinceMorning?.map(i => i.leadName).join(" · ") || "None" },
+    { title: "Moved To Call Lane", value: comparison.movedToCallLane?.length || 0, detail: comparison.movedToCallLane?.map(i => i.leadName).join(" · ") || "None" },
+    { title: "Moved To Tasting Lane", value: comparison.movedToTastingLane?.length || 0, detail: comparison.movedToTastingLane?.map(i => i.leadName).join(" · ") || "None" },
+    { title: "Call Slots Filled", value: comparison.callSlotsFilled ?? 0, detail: `Baseline ${comparison.baseline ?? 0}` },
+    { title: "Untouched Leads Rolled", value: comparison.untouchedLeadsRolled ?? 0, detail: comparison.nextMorningPriorities?.map(i => i.leadName).join(" · ") || "No next-morning priorities" },
+  ];
+  return items.map(entry => `
+    <article class="queue-item">
+      <div class="item-title">${entry.title}</div>
+      <div class="item-sub">${entry.detail}</div>
+      <div class="item-meta">${badge(String(entry.value))}</div>
+    </article>
+  `).join("");
+}
+
+function renderWatchItems(data) {
+  const nextFocus = data.topFocus?.[0];
+  const items = [
+    { title: "Next Best Move", detail: nextFocus ? `${nextFocus.leadName || nextFocus.title} · ${nextFocus.recommendedLane || nextFocus.recommendedAction}` : "No lead surfaced yet." },
+    { title: "Tasting Target", detail: data.tastingTarget || "No tasting target configured." },
+    { title: "Open Call Slots", detail: `${data.summary?.openCallSlotsToday ?? 0} call slots still open today.` },
+    { title: "Slack Watch", detail: `${data.summary?.slackReplyNow ?? 0} reply-now · ${data.summary?.slackAssignedToAndre ?? 0} assigned to Andre · ${data.summary?.slackMentions ?? 0} mentions` },
+    { title: "Guardrail Holds", detail: `${data.summary?.doNotTouch ?? 0} leads held. Recent touch: ${data.summary?.holdRecentTouch ?? 0} · booked/closed: ${data.summary?.bookedOrClosed ?? 0}` },
+    { title: "Review Queue", detail: `Archive review: ${data.summary?.archiveReview ?? 0} · weak context: ${data.summary?.weakContextReview ?? 0} · not yours: ${data.summary?.notYours ?? 0}` },
+  ];
+  return items.map(entry => `
+    <article class="queue-item">
+      <div class="item-title">${entry.title}</div>
+      <div class="item-sub">${entry.detail}</div>
+    </article>
+  `).join("");
+}
+
+function renderLoading() {
+  return `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;">
+      <div class="hero-block" style="max-width:28rem;">
+        <div class="hero-eyebrow"><span class="material-symbols-outlined" style="font-size:0.7rem;">satellite_alt</span> Live Operating System</div>
+        <div class="hero-title"><span class="hero-title-accent">Mission Control</span></div>
+        <p class="hero-desc" style="margin-top:0.6rem;">Loading CRM data from <code style="background:var(--cream-dark);padding:0.1rem 0.3rem;border-radius:0.3rem;font-size:0.75rem;">mission-control-data/latest.json</code></p>
+        <p class="hero-desc" style="margin-top:0.4rem;font-size:0.72rem;">If this persists, the data file may not be accessible. Check the console for details.</p>
+      </div>
+    </div>
+  `;
+}
+
+// ─── SIDEBAR NAV ───
+document.querySelectorAll('.sb-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    exitBuilder();
+    document.querySelectorAll('.t-pill').forEach(x => x.classList.remove('active'));
+    document.querySelector('.t-pill[data-tmode="cockpit"]').classList.add('active');
+    showView(btn.dataset.view);
+  });
+});
+
+// ─── MODE PILLS ───
+let currentMode = 'cockpit';
+const canvas = document.getElementById('latticeCanvas');
+const ctx = canvas.getContext('2d');
+const latticeHud = document.getElementById('latticeHud');
+const latticeLegend = document.getElementById('latticeLegend');
+const hudNodeCount = document.getElementById('hudNodeCount');
+const hudEnergy = document.getElementById('hudEnergy');
+
+document.querySelectorAll('.t-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.t-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    const mode = p.dataset.tmode;
+    if (mode === 'builder') {
+      enterBuilder();
+    } else {
+      exitBuilder();
+      showView(currentView);
+    }
+  });
+});
+
+function enterBuilder() {
+  currentMode = 'builder';
+  document.getElementById('stageScroll').classList.add('builder-hidden');
+  document.querySelector('.stage-bars').classList.add('builder-hidden');
+  canvas.classList.remove('builder-hidden');
+  latticeHud.classList.remove('builder-hidden');
+  latticeLegend.classList.remove('builder-hidden');
+  resizeCanvas();
+  if (!latticeRunning) startLattice();
+}
+
+function exitBuilder() {
+  currentMode = 'cockpit';
+  document.getElementById('stageScroll').classList.remove('builder-hidden');
+  document.querySelector('.stage-bars').classList.remove('builder-hidden');
+  canvas.classList.add('builder-hidden');
+  latticeHud.classList.add('builder-hidden');
+  latticeLegend.classList.add('builder-hidden');
+  latticeRunning = false;
+}
+
+// ═══════════════════════════════════════
+// CRM GRAVITY LATTICE (Builder Mode)
+// ═══════════════════════════════════════
+const COLORS = {
+  focus: '#D44060',
+  call: '#E8B44C',
+  tasting: '#6BBF96',
+  nurture: '#A8D8EA',
+  cadence: '#D4B8E8',
+  reply: '#F0907A',
+  slot: '#E8546B',
+  squad: '#F5D88A',
+};
+
+let latticeNodes = [];
+let latticeEdges = [];
+let latticeRunning = false;
+let simTime = 0;
+let hoveredNode = null;
+let dragNode = null;
+
+function buildCRMLatticeNodes() {
+  const nodes = [];
+  const d = missionData;
+  if (!d) return nodes;
+
+  // Top focus leads — high mass
+  (d.topFocus || []).forEach((item, i) => {
+    nodes.push({ id: `focus-${i}`, name: item.title || item.leadName || `Focus ${i+1}`, type: 'focus',
+      mass: 4 + (item.score || 0) * 0.3, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  // Call pushes
+  (d.crm?.callPushQueue || []).slice(0, 6).forEach((item, i) => {
+    nodes.push({ id: `call-${i}`, name: item.leadName || `Call ${i+1}`, type: 'call',
+      mass: 2 + (item.score || 0) * 0.2, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  // Tasting pushes
+  (d.crm?.tastingPushQueue || []).slice(0, 6).forEach((item, i) => {
+    nodes.push({ id: `tasting-${i}`, name: item.leadName || `Tasting ${i+1}`, type: 'tasting',
+      mass: 2 + (item.score || 0) * 0.2, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  // Replies owed
+  (d.crm?.repliesOwedNow || []).slice(0, 4).forEach((item, i) => {
+    nodes.push({ id: `reply-${i}`, name: item.leadName || `Reply ${i+1}`, type: 'reply',
+      mass: 3 + (item.score || 0) * 0.25, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  // Nurture
+  (d.crm?.nurtureQueue || []).slice(0, 4).forEach((item, i) => {
+    nodes.push({ id: `nurture-${i}`, name: item.leadName || `Nurture ${i+1}`, type: 'nurture',
+      mass: 1.5, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  // Active cadence
+  (d.crm?.activeCadence || []).slice(0, 4).forEach((item, i) => {
+    nodes.push({ id: `cadence-${i}`, name: item.leadName || `Cadence ${i+1}`, type: 'cadence',
+      mass: 2, connections: 0, x: 0, y: 0, vx: 0, vy: 0, orbitPhase: Math.random() * Math.PI * 2 });
+  });
+
+  return nodes;
+}
+
+function buildCRMLatticeEdges(nodes) {
+  const edges = [];
+  // Connect focus nodes to everything
+  const focusNodes = nodes.filter(n => n.type === 'focus');
+  const otherNodes = nodes.filter(n => n.type !== 'focus');
+  focusNodes.forEach(f => {
+    otherNodes.forEach(o => {
+      if (Math.random() < 0.4) {
+        edges.push({ from: nodes.indexOf(f), to: nodes.indexOf(o), strength: 1 + Math.random() * 2 });
+        f.connections++;
+        o.connections++;
+      }
+    });
+  });
+
+  // Some random edges
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (Math.random() < 0.08 && !edges.find(e => (e.from === i && e.to === j) || (e.from === j && e.to === i))) {
+        edges.push({ from: i, to: j, strength: 0.5 + Math.random() });
+        nodes[i].connections++;
+        nodes[j].connections++;
+      }
+    }
+  }
+
+  return edges;
+}
+
+function resizeCanvas() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  // Scatter nodes
+  latticeNodes.forEach(n => {
+    if (n.x === 0 && n.y === 0) {
+      n.x = 60 + Math.random() * (canvas.width - 120);
+      n.y = 60 + Math.random() * (canvas.height - 120);
+    }
+  });
+}
+
+function getRadius(n) {
+  return Math.max(6, 4 + n.mass * 2.5 + n.connections * 0.5);
+}
+
+function startLattice() {
+  latticeNodes = buildCRMLatticeNodes();
+  latticeEdges = buildCRMLatticeEdges(latticeNodes);
+  resizeCanvas();
+  hudNodeCount.textContent = `Nodes: ${latticeNodes.length}`;
+  latticeRunning = true;
+  requestAnimationFrame(tickLattice);
+}
+
+function tickLattice() {
+  if (!latticeRunning) return;
+  simTime += 0.016;
+
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+
+  // Physics
+  for (const n of latticeNodes) {
+    n.vx *= 0.92;
+    n.vy *= 0.92;
+    // Center gravity
+    const dx = cx - n.x, dy = cy - n.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    n.vx += (dx / dist) * 0.08;
+    n.vy += (dy / dist) * 0.08;
+  }
+
+  // Repulsion
+  for (let i = 0; i < latticeNodes.length; i++) {
+    for (let j = i + 1; j < latticeNodes.length; j++) {
+      const a = latticeNodes[i], b = latticeNodes[j];
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const force = Math.min(200 / (dist * dist), 2);
+      const fx = (dx / dist) * force;
+      const fy = (dy / dist) * force;
+      a.vx -= fx; a.vy -= fy;
+      b.vx += fx; b.vy += fy;
+    }
+  }
+
+  // Edge attraction
+  for (const e of latticeEdges) {
+    const a = latticeNodes[e.from], b = latticeNodes[e.to];
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const ideal = 80 + (a.mass + b.mass) * 8;
+    const force = (dist - ideal) * 0.003 * e.strength;
+    const fx = (dx / dist) * force;
+    const fy = (dy / dist) * force;
+    a.vx += fx; a.vy += fy;
+    b.vx -= fx; b.vy -= fy;
+  }
+
+  // Integrate
+  let totalEnergy = 0;
+  for (const n of latticeNodes) {
+    if (n === dragNode) continue;
+    n.x += n.vx;
+    n.y += n.vy;
+    n.x = Math.max(30, Math.min(W - 30, n.x));
+    n.y = Math.max(30, Math.min(H - 30, n.y));
+    totalEnergy += n.vx * n.vx + n.vy * n.vy;
+  }
+
+  hudEnergy.textContent = `Energy: ${totalEnergy.toFixed(1)}`;
+  drawLattice();
+  requestAnimationFrame(tickLattice);
+}
+
+function drawLattice() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Edges
+  for (const e of latticeEdges) {
+    const a = latticeNodes[e.from], b = latticeNodes[e.to];
+    const isHl = hoveredNode && (a === hoveredNode || b === hoveredNode);
+    if (isHl) continue;
+    const alpha = 0.06 + e.strength * 0.04;
+    ctx.strokeStyle = `rgba(61,15,28,${Math.min(alpha, 0.2)})`;
+    ctx.lineWidth = 0.5 + e.strength * 0.3;
+    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const curv = Math.min(dist * 0.1, 18);
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.quadraticCurveTo(mx + (-dy / dist) * curv, my + (dx / dist) * curv, b.x, b.y);
+    ctx.stroke();
+  }
+
+  // Highlighted edges
+  if (hoveredNode) {
+    for (const e of latticeEdges) {
+      const a = latticeNodes[e.from], b = latticeNodes[e.to];
+      if (a !== hoveredNode && b !== hoveredNode) continue;
+      ctx.strokeStyle = (COLORS[hoveredNode.type] || '#D44060') + 'A0';
+      ctx.lineWidth = 1.5 + e.strength * 0.5;
+      ctx.shadowColor = (COLORS[hoveredNode.type] || '#D44060') + '40';
+      ctx.shadowBlur = 6;
+      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const curv = Math.min(dist * 0.1, 18);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.quadraticCurveTo(mx + (-dy / dist) * curv, my + (dx / dist) * curv, b.x, b.y);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  // Nodes
+  for (const n of latticeNodes) {
+    const r = getRadius(n);
+    const color = COLORS[n.type] || '#D44060';
+    const isHovered = n === hoveredNode;
+
+    // Glow
+    if (isHovered || n.mass > 3) {
+      const pulse = n.mass > 3 ? 1 + Math.sin(simTime * 2 + n.orbitPhase) * 0.15 : 1;
+      const glowR = (r + (isHovered ? 14 : 8)) * pulse;
+      const glowGrad = ctx.createRadialGradient(n.x, n.y, r * 0.5, n.x, n.y, glowR);
+      glowGrad.addColorStop(0, color + (isHovered ? '35' : '20'));
+      glowGrad.addColorStop(1, color + '00');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Shadow
+    ctx.fillStyle = 'rgba(42,10,20,0.08)';
+    ctx.beginPath();
+    ctx.arc(n.x, n.y + 2, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Body gradient
+    const bodyGrad = ctx.createRadialGradient(n.x - r * 0.25, n.y - r * 0.3, r * 0.1, n.x, n.y, r);
+    bodyGrad.addColorStop(0, lighten(color, 30));
+    bodyGrad.addColorStop(0.7, color);
+    bodyGrad.addColorStop(1, darken(color, 20));
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Border
+    ctx.strokeStyle = isHovered ? '#FDF6EC' : darken(color, 15);
+    ctx.lineWidth = isHovered ? 2.5 : 1.2;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Specular
+    ctx.fillStyle = 'rgba(253,246,236,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(n.x - r * 0.2, n.y - r * 0.25, r * 0.35, r * 0.2, -0.4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Label
+    ctx.fillStyle = isHovered ? '#2A0A14' : 'rgba(42,10,20,0.6)';
+    ctx.font = `${isHovered ? '600' : '500'} ${isHovered ? '11' : '9'}px 'DM Sans', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    const label = n.name.length > 20 ? n.name.slice(0, 18) + '…' : n.name;
+    ctx.fillText(label, n.x, n.y + r + 5);
+  }
+}
+
+// Color helpers
+function lighten(hex, pct) {
+  const c = hexRgb(hex); if (!c) return hex;
+  return `rgb(${Math.min(255,c.r+pct)},${Math.min(255,c.g+pct)},${Math.min(255,c.b+pct)})`;
+}
+function darken(hex, pct) {
+  const c = hexRgb(hex); if (!c) return hex;
+  return `rgb(${Math.max(0,c.r-pct)},${Math.max(0,c.g-pct)},${Math.max(0,c.b-pct)})`;
+}
+function hexRgb(hex) {
+  hex = hex.replace('#','');
+  if (hex.length !== 6) return null;
+  return { r: parseInt(hex.substr(0,2),16), g: parseInt(hex.substr(2,2),16), b: parseInt(hex.substr(4,2),16) };
+}
+
+// ─── CANVAS INTERACTION ───
+function getCanvasPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+function findNode(pos) {
+  for (let i = latticeNodes.length - 1; i >= 0; i--) {
+    const n = latticeNodes[i];
+    const r = getRadius(n);
+    const dx = pos.x - n.x, dy = pos.y - n.y;
+    if (dx * dx + dy * dy < (r + 4) * (r + 4)) return n;
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown', e => {
+  const n = findNode(getCanvasPos(e));
+  if (n) { dragNode = n; n.vx = 0; n.vy = 0; }
+});
+
+canvas.addEventListener('mousemove', e => {
+  const pos = getCanvasPos(e);
+  if (dragNode) { dragNode.x = pos.x; dragNode.y = pos.y; dragNode.vx = 0; dragNode.vy = 0; }
+  const n = findNode(pos);
+  if (n !== hoveredNode) {
+    hoveredNode = n;
+    if (n) {
+      const connEdges = latticeEdges.filter(e2 => latticeNodes[e2.from] === n || latticeNodes[e2.to] === n);
+      const connNames = connEdges.map(e2 => {
+        const other = latticeNodes[e2.from] === n ? latticeNodes[e2.to] : latticeNodes[e2.from];
+        return other.name;
+      });
+      setPreview(`
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
+          <div style="width:1.8rem;height:1.8rem;border-radius:50%;background:${COLORS[n.type] || '#D44060'};display:flex;align-items:center;justify-content:center;">
+            <span style="color:var(--cream);font-size:0.7rem;font-weight:800;">${n.connections}</span>
+          </div>
+          <div>
+            <div class="pv-title">${n.name}</div>
+            <div class="pv-sub">${n.type}</div>
+          </div>
+        </div>
+        <div class="pv-divider"></div>
+        <div class="pv-field"><span class="pv-field-label">Mass</span><span class="pv-field-value">${n.mass.toFixed(1)}</span></div>
+        <div class="pv-field"><span class="pv-field-label">Connections</span><span class="pv-field-value">${connEdges.length}</span></div>
+        <div class="pv-field"><span class="pv-field-label">Gravity Pull</span><span class="pv-field-value">${(n.mass * n.connections * 0.4).toFixed(1)}</span></div>
+        <div class="pv-divider"></div>
+        <div class="pv-section-label">Connected To</div>
+        <div class="pv-tags">${connNames.map(c => `<span class="pv-tag">${c}</span>`).join('')}</div>
+      `);
+    } else {
+      clearPreview();
+    }
+  }
+});
+
+canvas.addEventListener('mouseup', () => { dragNode = null; });
+canvas.addEventListener('mouseleave', () => { dragNode = null; hoveredNode = null; clearPreview(); });
+window.addEventListener('resize', () => { if (currentMode === 'builder') resizeCanvas(); });
+
+// ═══════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════
+async function boot() {
+  try {
+    const response = await fetch("mission-control-data/latest.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Mission Control data could not be loaded.");
+    missionData = await response.json();
+  } catch (error) {
+    console.warn("Data load failed:", error.message);
+    // Use demo data so the UI is not blank
+    missionData = {
+      generated_at: new Date().toISOString(),
+      source_file: "demo-mode",
+      checkpoint: "no-data",
+      summary: { repliesOwedNow: 3, callPushes: 5, tastingPushes: 2, nurtureQueue: 12, openCallSlotsToday: 4, recentlyAssigned: 7, slackReplyNow: 1, slackAssignedToAndre: 2, slackMentions: 0, doNotTouch: 3, holdRecentTouch: 1, bookedOrClosed: 2, archiveReview: 4, weakContextReview: 1, notYours: 0 },
+      topFocus: [
+        { title: "Bay Area Corp Catering", leadName: "Bay Area Corp", recommendedLane: "Call Push", stage: "Qualified", statusBucket: "Hot", score: 8, link: null, whyNow: "Replied to tasting invite, high engagement signals", reviewNextStep: "Schedule discovery call" },
+        { title: "SF Wedding Planner Group", leadName: "SF Wedding Planners", recommendedLane: "Tasting Push", stage: "Nurture", statusBucket: "Warm", score: 6, link: null, whyNow: "Multiple opens on last email sequence", reviewNextStep: "Send tasting calendar link" },
+        { title: "Tech Campus Lunch Program", leadName: "TechCo Lunches", recommendedLane: "Reply First", stage: "Discovery", statusBucket: "Medium", score: 7, link: null, whyNow: "Awaiting response to menu options sent 2 days ago", reviewNextStep: "Follow up on menu preferences" },
+      ],
+      crm: {
+        repliesOwedNow: [
+          { leadName: "Downtown Event Co", recommendedAction: "Reply with availability", stage: "Proposal", statusBucket: "Hot", score: 9 },
+          { leadName: "Marina Catering Inquiry", recommendedAction: "Send menu options", stage: "Discovery", statusBucket: "Warm", score: 5 },
+        ],
+        callPushQueue: [
+          { leadName: "Corporate Wellness Inc", recommendedLane: "Discovery Call", stage: "Qualified", statusBucket: "Hot", score: 8, bestCallSlot: "10am-11am" },
+          { leadName: "Nonprofit Gala Committee", recommendedLane: "Follow-up Call", stage: "Nurture", statusBucket: "Medium", score: 6 },
+        ],
+        tastingPushQueue: [
+          { leadName: "Palo Alto Weddings", recommendedLane: "Tasting Invite", stage: "Qualified", statusBucket: "Warm", score: 7 },
+        ],
+        activeCadence: [
+          { leadName: "SoMa Office Mgr", recommendedAction: "Step 3 — value prop email", stage: "Cadence", statusBucket: "Medium", score: 5, cadenceStep: "Step 3/7" },
+        ],
+        recentlyAssigned: [
+          { leadName: "New Lead — Castro Bakery", recommendedAction: "Initial outreach", stage: "New", statusBucket: "Medium", score: 4, assignmentFreshness: "Today" },
+        ],
+        callSlots: [
+          { slot: "9:00 AM", status: "Open", assignedLead: null, fallbackCandidates: [{ leadName: "Corporate Wellness Inc" }] },
+          { slot: "10:30 AM", status: "Booked", assignedLead: "Downtown Event Co", fallbackCandidates: [] },
+          { slot: "2:00 PM", status: "Open", assignedLead: null, fallbackCandidates: [{ leadName: "Nonprofit Gala" }, { leadName: "Tech Campus" }] },
+        ],
+        endOfDayRollovers: [],
+        nurtureQueue: [
+          { leadName: "Richmond District Caterer", recommendedAction: "Nurture drip", stage: "Long-term", statusBucket: "Warm", score: 3 },
+        ],
+        doNotTouch: [
+          { leadName: "Booked Client — Sunset Events", recommendedAction: "Hold", stage: "Closed-Won", statusBucket: "Hot", score: 10 },
+        ],
+        archiveReview: [],
+      },
+      slack: {
+        replyNow: [{ leadName: "Slack: #catering-leads", recommendedAction: "Check new lead post", stage: "Slack", statusBucket: "Medium", score: 4 }],
+        assignedToAndre: [],
+        mentions: [],
+      },
+      squad: {
+        rawAi: { environment: "Production", items: [{ item: "Update scoring model", status: "In Progress", reason: "Recalibrate lead scoring weights", nextMove: "Run backtest on last 30 days", owner: "Raw AI", bestCallSlot: null }] },
+        acerbot: { environment: "Sandbox", items: [] },
+        lenoRawbot: { environment: "Maintenance", items: [] },
+      },
+      comparison: null,
+      tastingTarget: "April 19th Tasting Window",
+    };
+  }
+  showView('dashboard');
+}
+
+boot();
+</script>
+</body>
+</html>

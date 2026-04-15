@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DEFAULT_BALLPARK_TEMPLATE_PATH = path.join(__dirname, "templates", "comeketo-ballpark-template.html");
 
 function loadDotEnvClose() {
   const candidates = [
@@ -54,6 +55,10 @@ const EMAIL_SIGNATURE_LINES = [
 const COMEKETO_CALCULATOR_URL = "https://rawdre.github.io/comeketo-menu-landing/#packages";
 const DEFAULT_LEAD_OWNER_CUSTOM_FIELD = process.env.CLOSE_LEAD_OWNER_CUSTOM_FIELD || "00. 🦖 LEAD OWNER";
 const DEFAULT_TASTING_LABEL = process.env.CLOSE_NEXT_TASTING_LABEL || "Sunday, April 19 at 2:00 PM";
+const DEFAULT_TASTING_LOCATION = process.env.CLOSE_TASTING_LOCATION || "199 Main St, Fitchburg, MA 01420";
+const DEFAULT_TASTING_REGISTRATION_URL = process.env.CLOSE_TASTING_REGISTRATION_URL || "https://form.jotform.com/260145767354461";
+const DEFAULT_TASTING_PREVIEW_URL = process.env.CLOSE_TASTING_PREVIEW_URL || "https://drive.google.com/file/d/1V2glKcSbQUtDes3Cuk7Q4bFPiazU1NwT/view";
+const DEFAULT_TASTING_CODE = process.env.CLOSE_TASTING_CODE || "ANDRE";
 const CALL_SLOT_LABELS = ["10:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM", "7:00 PM"];
 const CHECKPOINT_TIMES = {
   morning: { hour: 9, minute: 0 },
@@ -135,6 +140,7 @@ function parseArgs(argv) {
     quoteServiceStyle: "buffet",
     quoteDate: null,
     quoteEventType: null,
+    quoteNextStep: "tasting",
     quoteTone: "default",
     sender: process.env.CLOSE_GUARDRAIL_EMAIL_SENDER || null,
     localPhone: process.env.CLOSE_GUARDRAIL_SMS_LOCAL_PHONE || null,
@@ -160,6 +166,7 @@ function parseArgs(argv) {
     else if (current === "--quote-service-style") result.quoteServiceStyle = argv[++index];
     else if (current === "--quote-date") result.quoteDate = argv[++index];
     else if (current === "--quote-event-type") result.quoteEventType = argv[++index];
+    else if (current === "--quote-next-step") result.quoteNextStep = argv[++index];
     else if (current === "--quote-tone") result.quoteTone = argv[++index];
     else if (current === "--sender") result.sender = argv[++index];
     else if (current === "--local-phone") result.localPhone = argv[++index];
@@ -213,6 +220,15 @@ function appendEmailSignatureHtml(bodyHtml) {
       Facebook | Instagram | Website
     </p>
   `.trim();
+}
+
+function textBodyToHtml(body) {
+  const normalized = String(body || "").trim();
+  if (!normalized) return "";
+  return normalized
+    .split(/\n\s*\n/)
+    .map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br />")}</p>`)
+    .join("\n");
 }
 
 function partsInET(date = new Date()) {
@@ -1223,7 +1239,93 @@ function signatureHtml() {
   return `<p style="margin:18px 0 0;">Regards,<br>Andre Raw<br>\u200b\u200bCatering Event Coordinator<br>📲 C: (978) 235-3791<br>📲 W: (978) 381-1212<br>Facebook | Instagram | Website</p>`;
 }
 
-function buildBallparkQuoteHtml({ firstName, introLine, quoteTone, serviceStyle, tiers, quoteDetails }) {
+let cachedBallparkTemplate = null;
+
+function getBallparkTemplateHtml() {
+  if (cachedBallparkTemplate !== null) return cachedBallparkTemplate;
+  try {
+    cachedBallparkTemplate = fsSync.readFileSync(DEFAULT_BALLPARK_TEMPLATE_PATH, "utf8");
+  } catch {
+    cachedBallparkTemplate = "";
+  }
+  return cachedBallparkTemplate;
+}
+
+function renderSimpleTemplate(template, values) {
+  return String(template || "").replace(/\{\{([a-z0-9_]+)\}\}/gi, (_, key) => values[key] ?? "");
+}
+
+function splitTastingLabel(label) {
+  const raw = String(label || DEFAULT_TASTING_LABEL).trim();
+  const match = raw.match(/^(.*)\s+at\s+(.+)$/i);
+  if (!match) {
+    return {
+      dateLabel: raw,
+      timeLabel: "2:00 PM",
+    };
+  }
+  return {
+    dateLabel: match[1].trim(),
+    timeLabel: match[2].trim(),
+  };
+}
+
+function buildTastingInviteBlockHtml(label = DEFAULT_TASTING_LABEL) {
+  const tasting = splitTastingLabel(label);
+  return `
+    <div style="margin:28px 0 0;padding:22px 24px;border-radius:24px;background:linear-gradient(180deg,#fff7ed 0%,#fff1f2 100%);border:1px solid #fed7aa;">
+      <p style="margin:0 0 10px;font-size:24px;font-weight:800;color:#7c2d12;">🍽️ Come Taste It First</p>
+      <p style="margin:0 0 14px;color:#7c2d12;">If tasting makes more sense, I can save you a spot so you can experience the food before deciding from a distance.</p>
+      <p style="margin:0 0 14px;color:#431407;line-height:1.6;">
+        <strong>Date:</strong> ${escapeHtml(tasting.dateLabel)}<br />
+        <strong>Location:</strong> ${escapeHtml(DEFAULT_TASTING_LOCATION)}<br />
+        <strong>Time:</strong> ${escapeHtml(tasting.timeLabel)}<br />
+        <strong>Code:</strong> ${escapeHtml(DEFAULT_TASTING_CODE)}
+      </p>
+      <p style="margin:0 0 16px;color:#7c2d12;">Seats are limited, so if you want in, reserve early.</p>
+      <div style="margin:0 0 16px;">
+        <a href="${escapeHtml(DEFAULT_TASTING_PREVIEW_URL)}" style="display:inline-block;padding:12px 18px;background:#f59e0b;color:#ffffff;text-decoration:none;border-radius:999px;font-weight:700;margin:0 10px 10px 0;">Tasting Preview</a>
+        <a href="${escapeHtml(DEFAULT_TASTING_REGISTRATION_URL)}" style="display:inline-block;padding:12px 18px;background:#111827;color:#ffffff;text-decoration:none;border-radius:999px;font-weight:700;margin:0 10px 10px 0;">Tasting Registration</a>
+      </div>
+      <p style="margin:0;color:#7c2d12;">The last tasting was a blast, and I would rather let them experience it than guess from a distance.</p>
+    </div>
+  `.trim();
+}
+
+function buildLockDateBlockHtml() {
+  return `
+    <div style="margin:28px 0 0;padding:22px 24px;border-radius:24px;background:linear-gradient(180deg,#eff6ff 0%,#eef2ff 100%);border:1px solid #c7d2fe;">
+      <p style="margin:0 0 10px;font-size:24px;font-weight:800;color:#312e81;">📅 Lock Your Date First</p>
+      <p style="margin:0 0 14px;color:#3730a3;">Because this event is farther out, the strongest next move may be to secure the date before the window you want disappears.</p>
+      <p style="margin:0 0 14px;color:#312e81;line-height:1.6;">
+        If you already feel good about the direction, we can use a quick call to tighten the menu and service path and talk through what it takes to hold the date cleanly.
+      </p>
+      <p style="margin:0;color:#4338ca;">If that feels like the better move, reply and I can help you map out the simplest way to lock it in.</p>
+    </div>
+  `.trim();
+}
+
+function shouldAttachRichTastingBlock({ channel, body, subject, generated }) {
+  if (channel !== "email") return false;
+  const combined = `${subject || ""}\n${body || ""}\n${generated?.body || ""}\n${generated?.recommendation?.recommendedAction || ""}`.toLowerCase();
+  return combined.includes("tasting")
+    || combined.includes("degusta")
+    || combined.includes("april 19")
+    || combined.includes("sunday, april 19")
+    || generated?.recommendation?.recommendedAction === "invite to tasting"
+    || generated?.recommendation?.recommendedLane === "push_to_tasting";
+}
+
+function buildRichMessageHtml({ body, tastingLabel }) {
+  return `
+    <div style="font-family:Arial, Helvetica, sans-serif;color:#222;line-height:1.6;max-width:720px;">
+      ${textBodyToHtml(body)}
+      ${buildTastingInviteBlockHtml(tastingLabel)}
+    </div>
+  `.trim();
+}
+
+function buildBallparkQuoteHtmlLegacy({ firstName, introLine, quoteTone, serviceStyle, tiers, quoteDetails }) {
   const optionIcons = ["🔥", "🍽️", "🌟", "✨"];
   const optionNames = ["Brazilian BBQ (Churrasco)", "Deluxe Churrasco", "Custom Option", "Option"];
   const optionTaglines = [
@@ -1299,6 +1401,93 @@ function buildBallparkQuoteHtml({ firstName, introLine, quoteTone, serviceStyle,
   </div>`;
 }
 
+function buildBallparkQuoteHtml(context) {
+  const { firstName, introLine, quoteTone, tiers, quoteDetails, eventType, eventDate, quoteNextStep } = context;
+  const template = getBallparkTemplateHtml();
+  const firstGuestCount = [...new Set(quoteDetails.map((detail) => detail.guests))];
+  if (!template || tiers.length < 2 || quoteDetails.length < 2 || firstGuestCount.length !== 1) {
+    return buildBallparkQuoteHtmlLegacy(context);
+  }
+
+  const [optionOne, optionTwo] = quoteDetails;
+  const isPt = quoteTone === "pt" || quoteTone === "portuguese" || quoteTone === "pt-br";
+  const probeQuestion = isPt
+    ? "Só para eu entender melhor, hoje o que você mais está tentando esclarecer é orçamento, direção do menu ou estilo de serviço?"
+    : quoteTone === "fun"
+      ? "Just so I understand where you are at — are you still in the planning phase, or has the direction changed on your end?"
+      : "Just so I understand where things stand, are you mostly trying to get clarity on budget, menu direction, or service style right now?";
+  const closingQuestion = isPt
+    ? `Qual dessas opções fica mais perto do que você imagina para o seu ${String(eventType || "evento").toLowerCase()}?`
+    : quoteTone === "fun"
+      ? `Which option feels more like your vibe for the ${String(eventType || "event").toLowerCase()}?`
+      : `Which option feels closer to what you want for the ${String(eventType || "event").toLowerCase()}?`;
+  const callPrompt = isPt
+    ? "Se for mais fácil, também podemos fazer uma ligação rápida às 10:00 AM, 11:00 AM ou 1:00 PM."
+    : quoteTone === "fun"
+      ? "If it helps to make this easier, we could also jump on a quick call at 10:00 AM, 11:00 AM, or 1:00 PM."
+      : "If it helps, we could also jump on a quick call at 10:00 AM, 11:00 AM, or 1:00 PM.";
+
+  const rendered = renderSimpleTemplate(template, {
+    first_name: escapeHtml(firstName),
+    event_date: escapeHtml(eventDate || "your event"),
+    event_type: escapeHtml(String(eventType || "event").toLowerCase()),
+    probe_question: escapeHtml(probeQuestion),
+    guest_count: escapeHtml(String(firstGuestCount[0])),
+    calculator_url: escapeHtml(COMEKETO_CALCULATOR_URL),
+    option_1_description: escapeHtml(optionOne.tier.description),
+    option_1_price: escapeHtml(Number(optionOne.tier.pricePerPerson).toFixed(2)),
+    option_1_food_total: escapeHtml(formatMoney(optionOne.foodSubtotal)),
+    option_1_appetizers_total: escapeHtml(formatMoney(optionOne.appetizerSubtotal)),
+    option_1_tax_total: escapeHtml(formatMoney(optionOne.tax)),
+    option_1_admin_total: escapeHtml(formatMoney(optionOne.admin)),
+    option_1_service_charge_total: escapeHtml(formatMoney(optionOne.serviceCharge)),
+    option_1_ballpark_total: escapeHtml(`~${formatMoney(optionOne.total)}`),
+    option_2_description: escapeHtml(optionTwo.tier.description),
+    option_2_price: escapeHtml(Number(optionTwo.tier.pricePerPerson).toFixed(2)),
+    option_2_food_total: escapeHtml(formatMoney(optionTwo.foodSubtotal)),
+    option_2_appetizers_total: escapeHtml(formatMoney(optionTwo.appetizerSubtotal)),
+    option_2_tax_total: escapeHtml(formatMoney(optionTwo.tax)),
+    option_2_admin_total: escapeHtml(formatMoney(optionTwo.admin)),
+    option_2_service_charge_total: escapeHtml(formatMoney(optionTwo.serviceCharge)),
+    option_2_ballpark_total: escapeHtml(`~${formatMoney(optionTwo.total)}`),
+    default_steak: "Top Sirloin",
+    default_chicken: "Chicken Wrapped in Bacon",
+    closing_question: escapeHtml(closingQuestion),
+    call_prompt: escapeHtml(callPrompt),
+    next_step_block: quoteNextStep === "lock-date"
+      ? buildLockDateBlockHtml()
+      : buildTastingInviteBlockHtml(DEFAULT_TASTING_LABEL),
+  });
+  if (!isPt) return rendered;
+  return rendered
+    .replace("Hi ", "Oi ")
+    .replace("🔥 Explore the Full Menu Calculator", "🔥 Explorar o Calculador de Menu")
+    .replace("🔥 Option 1 — Brazilian BBQ (Churrasco)", "🔥 Opção 1 — Churrasco")
+    .replace("On-site grilling with our team — the real deal! &nbsp;|&nbsp; ", "Churrasco feito no local pela nossa equipe &nbsp;|&nbsp; ")
+    .replace("Food ($", "Comida ($")
+    .replace(" guests)", " convidados)")
+    .replace("Appetizers", "Aperitivos")
+    .replace("MA Tax (7%)", "Taxa MA (7%)")
+    .replace("Service, Fuel &amp; Admin (24%)", "Serviço, combustível e administrativo (24%)")
+    .replace("Service Charge (over 50 guests at $3/pp)", "Taxa de serviço (acima de 50 convidados a $3/pessoa)")
+    .replace("Ballpark Total", "Total estimado")
+    .replace("🍽️ Option 2 — Deluxe Churrasco", "🍽️ Opção 2 — Deluxe Churrasco")
+    .replace("One extra protein, fuller spread &nbsp;|&nbsp; ", "Uma proteína extra, menu mais completo &nbsp;|&nbsp; ")
+    .replace("🌟 Make It Your Own!", "🌟 Personalize do seu jeito")
+    .replace("available to add on", "disponíveis como adicional")
+    .replace("Complimentary cookies are included too. Ask me how to get this.", "Os cookies cortesia também estão incluídos 🍪 Pergunte como conseguir isso.")
+    .replace("These are ballpark numbers so I can point you in the right direction without leading you the wrong way before we lock in your final guest count, menu, and service details 😊", "Esses valores são uma referência inicial para te apontar a direção certa antes de fecharmos contagem final, cardápio e detalhes do serviço 😊")
+    .replace("🍽️ Come Taste It First — You're Invited!", "🍽️ Vem provar antes — você está convidada")
+    .replace("Free. No commitment. Just great food and a chance to make this real.", "Sem compromisso. Só comida boa e a chance de deixar isso mais real.")
+    .replace("Date:", "Data:")
+    .replace("Location:", "Local:")
+    .replace("Time:", "Horário:")
+    .replace("Registration Code:", "Código de inscrição:")
+    .replace("Reserve Your Spot →", "Reservar minha vaga →")
+    .replace("Regards,", "Atenciosamente,")
+    .replace("Catering Event Coordinator", "Coordenador de Eventos");
+}
+
 function buildBallparkQuoteEmail(lead, options = {}) {
   const firstName = (lead.display_name || "there").split(" ")[0];
   const inferredRange = parseGuestRangeFromLead(lead);
@@ -1307,22 +1496,40 @@ function buildBallparkQuoteEmail(lead, options = {}) {
   const eventDate = options.quoteDate || parseEventDateFromLead(lead);
   const appetizerPp = Number(options.quoteAppetizersPp || 0);
   const serviceStyle = options.quoteServiceStyle || "buffet";
+  const quoteNextStep = String(options.quoteNextStep || "tasting").toLowerCase();
   const quoteTone = String(options.quoteTone || "default").toLowerCase();
+  const isPt = quoteTone === "pt" || quoteTone === "portuguese" || quoteTone === "pt-br";
   const tiers = (options.quoteTiers || []).map(parseQuoteTier);
   if (!tiers.length) {
     throw new Error("Quote mode requires at least one --quote-tier using Name|price|description.");
   }
 
-  const introLine = quoteTone === "fun"
+  const introLine = isPt
     ? eventDate
-      ? `I put together a fun ballpark for your ${eventType.toLowerCase()} on ${eventDate} ${eventType.toLowerCase() === "birthday" ? "🎉" : "✨"}`
-      : `I put together a fun ballpark for your ${eventType.toLowerCase()} ✨`
-    : eventDate
-      ? `Thanks again for reaching out about your ${eventType.toLowerCase()} on ${eventDate}.`
-      : `Thanks again for reaching out about your ${eventType.toLowerCase()}.`;
+      ? `Obrigado por me passar os detalhes do seu ${eventType.toLowerCase()} no dia ${eventDate}.`
+      : `Obrigado por me passar os detalhes do seu ${eventType.toLowerCase()}.`
+    : quoteTone === "fun"
+      ? eventDate
+        ? `I put together a fun ballpark for your ${eventType.toLowerCase()} on ${eventDate} ${eventType.toLowerCase() === "birthday" ? "🎉" : "✨"}`
+        : `I put together a fun ballpark for your ${eventType.toLowerCase()} ✨`
+      : eventDate
+        ? `Thanks again for reaching out about your ${eventType.toLowerCase()} on ${eventDate}.`
+        : `Thanks again for reaching out about your ${eventType.toLowerCase()}.`;
 
-  const lines = quoteTone === "fun"
+  const lines = isPt
     ? [
+        `Oi ${firstName},`,
+        "",
+        introLine,
+        "Com base no que você me passou até agora, montei abaixo um ballpark inicial da Comeketo Catering para você já ter uma noção real de investimento.",
+        "Usei o nosso calculador de comida da Comeketo como ponto de partida para manter esses números alinhados com a mesma lógica de preço que usamos internamente.",
+        `Você também pode explorar aqui: Calculador Interativo de Menu e Preços da Comeketo\n${COMEKETO_CALCULATOR_URL}`,
+        "",
+        "Esses valores ainda são de referência, para te apontar a direção certa antes de fecharmos contagem final, menu e detalhes de serviço.",
+        "",
+      ]
+    : quoteTone === "fun"
+      ? [
         `Hi ${firstName}!`,
         "",
         introLine,
@@ -1389,17 +1596,27 @@ function buildBallparkQuoteEmail(lead, options = {}) {
     }
   }
 
-  if (quoteTone === "fun") {
+  if (isPt) {
+    lines.push("Nas carnes, nosso steak padrão é Top Sirloin e o frango padrão é Chicken Wrapped in Bacon.");
+    lines.push("Complimentary cookies are included too 🍪 Ask me how to get this.");
+    lines.push("");
+    lines.push("Só para eu entender melhor: hoje você se vê mais precisando esclarecer orçamento, cardápio ou formato de serviço?");
+    lines.push("Se for mais fácil, também podemos fazer uma ligação rápida às 10:00 AM, 11:00 AM ou 1:00 PM.");
+    lines.push("Se fizer mais sentido, também posso te colocar no nosso próximo tasting no domingo, 19 de abril, às 2:00 PM, para você sentir melhor a comida e a proposta antes de decidir.");
+    lines.push("Qual dessas opções faz mais sentido para o que você tem em mente agora?");
+  } else if (quoteTone === "fun") {
     lines.push("For the meats, our default steak is Top Sirloin and our default chicken is Chicken Wrapped in Bacon 🔥");
     lines.push("Complimentary cookies are included too 🍪");
     lines.push("");
     lines.push("Which option feels more like your vibe for the event?");
+    lines.push("If it helps to make this easier, we could also jump on a quick call at 10:00 AM, 11:00 AM, or 1:00 PM.");
     lines.push("Once you tell me where you think the guest count will land and which tier feels right, I can tighten this ballpark into the best next version for you 😊");
   } else {
     lines.push("For the meats, our default steak is Top Sirloin and our default chicken is Chicken Wrapped in Bacon.");
     lines.push("Complimentary cookies are included.");
     lines.push("");
     lines.push("Which option feels closer to what you want for the event?");
+    lines.push("If it helps, we could also jump on a quick call at 10:00 AM, 11:00 AM, or 1:00 PM.");
     lines.push("Once you tell me the guest count you expect to land on and which direction feels right, I can tighten this ballpark into the right next version for you.");
   }
   lines.push("");
@@ -1408,14 +1625,17 @@ function buildBallparkQuoteEmail(lead, options = {}) {
     firstName,
     introLine,
     quoteTone,
+    quoteNextStep,
     serviceStyle,
     tiers,
     quoteDetails,
+    eventType,
+    eventDate,
   });
 
   const subjectDate = eventDate ? ` for ${eventDate}` : "";
   return {
-    subject: options.subject || (quoteTone === "fun" ? `Fun ballpark quote${subjectDate} 🎉` : `Ballpark quote${subjectDate}`),
+    subject: options.subject || (isPt ? `Ballpark para o seu evento${subjectDate ? ` em ${eventDate}` : ""}` : quoteTone === "fun" ? `Fun ballpark quote${subjectDate} 🎉` : `Ballpark quote${subjectDate}`),
     body,
     bodyHtml,
     tiers,
@@ -1692,7 +1912,20 @@ async function sendMessageForLead(client, args, ownerName, ownerId, outputDir) {
     const sender = chooseEmailSender(await client.getConnectedAccounts(), args.sender);
     if (args.sendLive && !sender) throw new Error("No eligible Close email sender is configured for live email sending.");
     const emailBody = appendEmailSignature(body);
-    const emailBodyHtml = bodyHtml ? appendEmailSignatureHtml(bodyHtml) : null;
+    const tastingLabel = generated?.signal?.nextTastingLabel || generated?.signal?.nextTastingAt || DEFAULT_TASTING_LABEL;
+    const autoHtml = !bodyHtml && shouldAttachRichTastingBlock({
+      channel: contactChoice.channel,
+      body: emailBody,
+      subject,
+      generated,
+    })
+      ? buildRichMessageHtml({ body: emailBody, tastingLabel })
+      : null;
+    const emailBodyHtml = bodyHtml
+      ? appendEmailSignatureHtml(bodyHtml)
+      : autoHtml
+        ? appendEmailSignatureHtml(autoHtml)
+        : null;
     const payload = {
       lead_id: lead.id,
       contact_id: contactChoice.contact.id,

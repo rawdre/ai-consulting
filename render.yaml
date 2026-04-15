@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mission-control-andre
+    runtime: docker
+    plan: starter
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: MC_PORT
+        value: "10000"

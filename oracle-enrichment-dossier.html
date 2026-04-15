@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oracle Enrichment Dossier — Comeketo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cream:#FDF6EC;--cream-dark:#F5EBDA;--cream-deep:#EDE0CC;--pink-light:#FDCDD5;--pink:#F4A0AB;--pink-hot:#E8546B;--rose:#D44060;--burgundy:#6B1D32;--maroon:#3D0F1C;--maroon-deep:#2A0A14;--gold:#E8B44C;--gold-light:#F5D88A;--mint:#B8E6D0;--mint-dark:#6BBF96;--sky:#A8D8EA;--lavender:#D4B8E8;--peach:#F8D4B0;--coral:#F0907A;--shadow-card:0 4px 16px rgba(61,15,28,0.08),0 1px 4px rgba(61,15,28,0.06);--shadow-soft:0 8px 32px rgba(61,15,28,0.12);--radius-xl:1.6rem;--radius-lg:1.2rem;--radius-md:0.9rem}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--maroon)}
+    .app{display:flex;height:100vh}
+
+    /* SIDEBAR */
+    .sidebar{width:4.2rem;background:var(--maroon);display:flex;flex-direction:column;align-items:center;padding:0.8rem 0;flex-shrink:0;z-index:100;gap:0.15rem}
+    .sb-logo{width:2.5rem;height:2.5rem;border-radius:0.75rem;background:linear-gradient(135deg,var(--rose),var(--burgundy));display:flex;align-items:center;justify-content:center;color:var(--cream);margin-bottom:0.8rem;box-shadow:0 3px 12px rgba(0,0,0,0.25)}
+    .sb-logo .material-symbols-outlined{font-size:1.2rem}
+    .sb-divider{width:1.6rem;height:1px;background:rgba(253,246,236,0.1);margin:0.4rem 0}
+    .sb-btn{width:3rem;height:3rem;border-radius:0.85rem;border:none;background:transparent;color:rgba(253,246,236,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.15rem;cursor:pointer;transition:all 160ms ease;position:relative}
+    .sb-btn:hover{background:rgba(253,246,236,0.07);color:var(--cream)}
+    .sb-btn.active{background:rgba(253,246,236,0.1);color:var(--cream)}
+    .sb-btn.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:1.4rem;border-radius:0 3px 3px 0;background:var(--pink-hot);box-shadow:0 0 8px rgba(232,84,107,0.5)}
+    .sb-btn .material-symbols-outlined{font-size:1.2rem}
+    .sb-btn .sb-label{font-size:0.45rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+    .sb-spacer{flex:1}
+
+    /* MAIN */
+    .main-area{flex:1;display:flex;min-width:0}
+    .content-panel{flex:1;display:flex;flex-direction:column;min-width:0}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1.3rem;flex-shrink:0;background:var(--cream-dark)}
+    .topbar-title{font-family:'Fraunces',serif;font-weight:800;font-size:1.15rem;color:var(--maroon)}
+    .topbar-right{display:flex;align-items:center;gap:0.5rem}
+    .topbar-stat{font-size:0.6rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:9999px;background:var(--burgundy);color:var(--cream);letter-spacing:0.05em;text-transform:uppercase}
+
+    /* STAGE */
+    .stage{flex:1;position:relative;overflow:hidden;margin:0 0.6rem 0.6rem 0.6rem;border-radius:var(--radius-xl);background:linear-gradient(180deg,var(--pink-light) 0%,var(--cream-dark) 35%,var(--cream) 100%);border:2px solid rgba(107,29,50,0.06)}
+    .stage-bars{position:absolute;top:0;left:50%;transform:translateX(-50%);width:calc(100% - 0.8rem);z-index:1;pointer-events:none}
+    .stage-bar{height:0.35rem;border-radius:0 0 var(--radius-xl) var(--radius-xl);margin:0 auto}
+    .stage-bar:nth-child(1){width:100%;background:var(--pink)}
+    .stage-bar:nth-child(2){width:calc(100% - 1rem);background:var(--rose)}
+    .stage-bar:nth-child(3){width:calc(100% - 2rem);background:var(--burgundy)}
+    .stage-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:1.8rem;z-index:2;scrollbar-width:thin;scrollbar-color:var(--pink) transparent}
+    .stage-scroll::-webkit-scrollbar{width:5px}
+    .stage-scroll::-webkit-scrollbar-track{background:transparent}
+    .stage-scroll::-webkit-scrollbar-thumb{background:var(--pink);border-radius:9999px}
+
+    /* PREVIEW */
+    .preview-panel{width:24rem;background:var(--cream-dark);border-left:1.5px solid rgba(107,29,50,0.06);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+    .preview-header{padding:0.7rem 1rem;border-bottom:1px solid rgba(107,29,50,0.05);display:flex;align-items:center;gap:0.4rem;flex-shrink:0}
+    .preview-header .material-symbols-outlined{font-size:0.9rem;color:var(--burgundy);opacity:0.4}
+    .preview-header span:last-child{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--burgundy);opacity:0.4}
+    .preview-body{flex:1;overflow-y:auto;padding:1rem;scrollbar-width:thin;scrollbar-color:var(--pink-light) transparent}
+    .preview-body::-webkit-scrollbar{width:4px}
+    .preview-body::-webkit-scrollbar-track{background:transparent}
+    .preview-body::-webkit-scrollbar-thumb{background:var(--pink-light);border-radius:9999px}
+    .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;opacity:0.3}
+    .preview-empty .material-symbols-outlined{font-size:2.5rem;color:var(--burgundy);margin-bottom:0.6rem}
+    .preview-empty p{font-size:0.78rem;color:var(--burgundy)}
+
+    /* PREVIEW FIELDS */
+    .pv-title{font-family:'Fraunces',serif;font-weight:800;font-size:1.15rem;color:var(--maroon-deep)}
+    .pv-sub{font-size:0.72rem;color:var(--burgundy);opacity:0.5;margin-top:0.1rem}
+    .pv-divider{height:1px;background:rgba(107,29,50,0.06);margin:0.7rem 0}
+    .pv-field{display:flex;justify-content:space-between;padding:0.35rem 0;font-size:0.72rem}
+    .pv-field-label{color:var(--burgundy);opacity:0.6}
+    .pv-field-value{font-weight:600;color:var(--maroon-deep);text-align:right;max-width:55%}
+    .pv-section-label{font-size:0.55rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--burgundy);opacity:0.4;margin-top:0.5rem;margin-bottom:0.25rem}
+    .pv-text{font-size:0.72rem;line-height:1.55;color:var(--maroon);opacity:0.75}
+    .pv-script{font-size:0.7rem;line-height:1.55;color:var(--maroon-deep);background:var(--cream);padding:0.6rem 0.8rem;border-radius:0.6rem;border:1px solid rgba(107,29,50,0.06);margin-top:0.3rem;font-style:italic}
+    .pv-tag{padding:0.15rem 0.4rem;border-radius:9999px;font-size:0.55rem;font-weight:600;background:var(--cream);color:var(--burgundy);border:1px solid rgba(107,29,50,0.05);display:inline-block;margin:0.1rem}
+
+    /* VIEW HEADERS */
+    .vh{text-align:center;margin-bottom:1.5rem}
+    .vh .label{display:inline-flex;align-items:center;gap:0.3rem;padding:0.25rem 0.7rem;border-radius:9999px;background:var(--burgundy);color:var(--cream);font-size:0.58rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+    .vh .label .material-symbols-outlined{font-size:0.75rem}
+    .vh h2{font-family:'Fraunces',serif;font-weight:900;font-size:2rem;letter-spacing:-0.04em;color:var(--maroon-deep);margin-top:0.6rem}
+    .vh p{margin-top:0.3rem;color:var(--burgundy);opacity:0.5;font-size:0.82rem}
+
+    /* HERO */
+    .hero-block{background:var(--cream);border-radius:var(--radius-lg);border:2px solid rgba(107,29,50,0.05);box-shadow:var(--shadow-card);padding:1.6rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+    .hero-block::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--pink),var(--rose),var(--burgundy))}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:0.3rem;padding:0.25rem 0.7rem;border-radius:9999px;background:var(--burgundy);color:var(--cream);font-size:0.58rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.8rem}
+    .hero-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.6rem,3.5vw,2.4rem);letter-spacing:-0.03em;color:var(--maroon-deep);line-height:1.1;margin-bottom:0.5rem}
+    .hero-title-accent{background:linear-gradient(90deg,var(--rose),var(--pink-hot),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{font-size:0.8rem;color:var(--burgundy);opacity:0.6;line-height:1.6}
+
+    /* TIER HEADERS */
+    .tier-header{display:flex;align-items:center;gap:0.6rem;margin:1.5rem 0 0.8rem;padding-bottom:0.5rem;border-bottom:2px solid var(--pink-light)}
+    .tier-icon{width:2.4rem;height:2.4rem;border-radius:0.7rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tier-icon .material-symbols-outlined{font-size:1.2rem}
+    .tier-info h3{font-family:'Fraunces',serif;font-weight:800;font-size:1.1rem;color:var(--maroon-deep)}
+    .tier-info p{font-size:0.68rem;color:var(--burgundy);opacity:0.5}
+
+    /* DOSSIER CARDS */
+    .dossier-card{background:var(--cream);border-radius:var(--radius-lg);border:2px solid rgba(107,29,50,0.05);box-shadow:var(--shadow-card);padding:1.1rem;margin-bottom:0.6rem;cursor:pointer;transition:all 180ms ease;position:relative;overflow:hidden}
+    .dossier-card:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft);border-color:var(--pink)}
+    .dossier-card.tier-fire{border-left:4px solid var(--rose)}
+    .dossier-card.tier-whale{border-left:4px solid var(--gold)}
+    .dossier-card.tier-giant{border-left:4px solid var(--pink-hot)}
+    .dossier-card.tier-radar{border-left:4px solid var(--sky)}
+    .dossier-card.tier-intel{border-left:4px solid var(--lavender)}
+    .dossier-card.tier-venue{border-left:4px solid var(--mint-dark)}
+
+    .dc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.6rem;margin-bottom:0.4rem}
+    .dc-name{font-family:'Fraunces',serif;font-weight:800;font-size:1rem;color:var(--maroon-deep)}
+    .dc-value{font-family:'Fraunces',serif;font-weight:800;font-size:1.05rem;color:var(--rose);white-space:nowrap}
+    .dc-status{font-size:0.68rem;color:var(--burgundy);opacity:0.55;margin-bottom:0.4rem}
+    .dc-profile{font-size:0.72rem;color:var(--maroon);opacity:0.7;line-height:1.5;margin-bottom:0.4rem}
+    .dc-angle{font-size:0.7rem;line-height:1.5;color:var(--burgundy);opacity:0.75;padding:0.5rem 0.7rem;background:var(--cream-dark);border-radius:0.6rem;border-left:3px solid var(--gold)}
+    .dc-tags{display:flex;flex-wrap:wrap;gap:0.2rem;margin-top:0.4rem}
+    .dc-tag{padding:0.12rem 0.35rem;border-radius:9999px;font-size:0.5rem;font-weight:600;letter-spacing:0.03em;border:1px solid rgba(107,29,50,0.08);background:var(--cream-dark)}
+    .dc-tag.t-urgent{background:rgba(212,64,96,0.1);color:var(--rose);border-color:rgba(212,64,96,0.2)}
+    .dc-tag.t-b2b{background:rgba(232,180,76,0.1);color:#8B6914;border-color:rgba(232,180,76,0.2)}
+    .dc-tag.t-venue{background:rgba(107,191,150,0.1);color:#2D6B4A;border-color:rgba(107,191,150,0.2)}
+    .dc-tag.t-whale{background:rgba(212,64,96,0.06);color:var(--burgundy);border-color:rgba(107,29,50,0.12)}
+
+    /* STATS */
+    .stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(7rem,1fr));gap:0.4rem;margin-bottom:1rem}
+    .stat-box{padding:0.6rem 0.8rem;background:var(--cream);border-radius:var(--radius-md);border:1.5px solid rgba(107,29,50,0.05);box-shadow:var(--shadow-card);text-align:center}
+    .stat-num{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;line-height:1}
+    .stat-lbl{font-size:0.5rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--burgundy);opacity:0.45;margin-top:0.15rem}
+
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:1100px){.preview-panel{display:none}}
+    @media(max-width:600px){.sidebar{width:3rem}.sb-btn .sb-label{display:none}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <nav class="sidebar">
+    <div class="sb-logo"><span class="material-symbols-outlined">psychology</span></div>
+    <div class="sb-divider"></div>
+    <button class="sb-btn active" data-view="overview"><span class="material-symbols-outlined">hub</span><span class="sb-label">Intel</span></button>
+    <button class="sb-btn" data-view="immediate"><span class="material-symbols-outlined">local_fire_department</span><span class="sb-label">Close</span></button>
+    <button class="sb-btn" data-view="whale"><span class="material-symbols-outlined">corporate_fare</span><span class="sb-label">B2B</span></button>
+    <button class="sb-btn" data-view="giant"><span class="material-symbols-outlined">diamond</span><span class="sb-label">Giant</span></button>
+    <button class="sb-btn" data-view="newintel"><span class="material-symbols-outlined">bolt</span><span class="sb-label">New</span></button>
+    <button class="sb-btn" data-view="venue"><span class="material-symbols-outlined">castle</span><span class="sb-label">Venue</span></button>
+    <div class="sb-spacer"></div>
+  </nav>
+
+  <div class="main-area">
+    <div class="content-panel">
+      <div class="topbar">
+        <div class="topbar-title">Oracle Enrichment Dossier</div>
+        <div class="topbar-right">
+          <span class="topbar-stat">13 Leads Profiled</span>
+          <span class="topbar-stat" style="background:var(--rose)">$85K+ Pipeline</span>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-bars"><div class="stage-bar"></div><div class="stage-bar"></div><div class="stage-bar"></div></div>
+        <div class="stage-scroll" id="stageScroll"></div>
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-header"><span class="material-symbols-outlined">fingerprint</span><span>Intel Preview</span></div>
+      <div class="preview-body" id="previewBody">
+        <div class="preview-empty"><span class="material-symbols-outlined">psychology</span><p>Hover over any lead to see their full intelligence profile</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const stageScroll = document.getElementById('stageScroll');
+const previewBody = document.getElementById('previewBody');
+
+const LEADS = [
+  {
+    id:1, name:"Cheryl Rank", value:"$3,326", tier:"immediate", tierLabel:"Immediate Conversion",
+    status:"Tasting Completed · Unconverted", location:"Marlborough, MA", email:"cherylrank@comcast.net",
+    profile:"Prominent Registered Nurse (RN) and former Area Nurse Manager overseeing senior living communities across MA, NH, and CT. Worked locally at New Horizons at Marlborough. Awarded the statewide 'Care and Wellness Excellence Award' by the Massachusetts Assisted Living Association.",
+    angle:"The Respect Protocol — As a regional healthcare director, her calendar is brutal and she evaluates everyone on their 'duty of care.' Do not use sales-y pressure.",
+    script:`"Cheryl, I know as a regional healthcare director you do not have time to chase vendors. I want to take this completely off your plate so you know your event has the same level of care you give your patients."`,
+    tags:["RN","Healthcare Director","Award Winner","Marlborough"],
+    priority:"urgent", eventType:"TBD", guests:"TBD", venue:"TBD",
+    moveType:"Day 1 Post-Tasting Call", strategicValue:"Referral network into senior living facility events across 3 states"
+  },
+  {
+    id:2, name:"Julia Soares", value:"$7,183", tier:"immediate", tierLabel:"Immediate Conversion",
+    status:"Deposit 35% · Split across two opportunities", location:"Chelsea, MA (02150)",
+    profile:"Publicly linked to academic/registration records at Bunker Hill Community College (BHCC) in Boston, adjacent to her Chelsea zip code. Likely a student or young professional juggling multiple responsibilities.",
+    angle:"She has split deposit opportunities ($5.4k and $1.6k). Simplify the consolidation of her quotes into one clean package to reduce decision friction.",
+    script:`"Julia, I want to make this easy for you — I consolidated both quotes into one clean package so you only have one number to think about. Can we lock this in today?"`,
+    tags:["BHCC","Chelsea","Wedding","Split Deposits"],
+    priority:"high", eventType:"Wedding", guests:"51-75", venue:"Chelsea area",
+    moveType:"Consolidation Call", strategicValue:"Young professional — potential long-term client for future life events"
+  },
+  {
+    id:3, name:"Jennifer Allard", value:"$1,736", tier:"whale", tierLabel:"Whale B2B",
+    status:"Job Complete · Need Review + B2B Pipeline", location:"Cape Cod, MA",
+    company:"Mainsail Events and Marketing",
+    profile:"Owner and Principal Planner of Mainsail Events and Marketing on Cape Cod. Previously spent 13 years at the Chatham Bars Inn orchestrating massive, ultra-high-end coastal weddings. Currently runs major community galas.",
+    angle:"Vendor Ascendancy — Andre cannot treat this like a normal 'please leave a review' email. This is a multi-six-figure B2B pipeline. Focus the review request around professional reliability, then pivot to becoming her preferred caterer for Cape/South Shore events.",
+    script:`"Jennifer, given your background at Chatham Bars Inn and Mainsail, your standard for vendor execution is the absolute ceiling. We'd love a review from your perspective as an industry expert."`,
+    tags:["Event Planner","Cape Cod","Chatham Bars Inn","B2B Pipeline","Multi-6-Figure"],
+    priority:"high", eventType:"B2B Partnership", guests:"Varies", venue:"Cape Cod / South Shore",
+    moveType:"Review → B2B Pivot", strategicValue:"Preferred vendor status for Cape/South Shore luxury wedding market"
+  },
+  {
+    id:4, name:"Jonathan Garland", value:"$1,840", tier:"whale", tierLabel:"Whale B2B",
+    status:"Job Complete · Castle Island Event", location:"Boston, MA",
+    company:"J. Garland Enterprises",
+    profile:"Founder of J. Garland Enterprises — a prominent architecture, real estate development, and consulting firm in Boston (jgarlandenterprises.com).",
+    angle:"Corporate Pivot — What was a $1,800 social event at Castle Island needs to be converted into a recurring corporate catering account for architecture firm luncheons, ribbon-cuttings, and developer meetings.",
+    script:`"Jonathan, we loved doing the Castle Island event. I wanted to ask — does J. Garland Enterprises ever bring in food for Friday lunches, client meetings, or ribbon-cuttings? I'd love to set something recurring up."`,
+    tags:["Architecture","Real Estate Dev","Corporate Catering","Recurring Revenue"],
+    priority:"high", eventType:"Corporate Recurring", guests:"15-40", venue:"J. Garland offices",
+    moveType:"Review → Corporate Pivot", strategicValue:"Recurring corporate account + developer network referrals"
+  },
+  {
+    id:5, name:"Dalcione Reis", value:"$17,060", tier:"giant", tierLabel:"The Giant",
+    status:"Deposit 35% · Highest Active Pipeline Deal", location:"Lawrence, MA",
+    venue:"The Vault Function Hall (238 Essex St, Lawrence)",
+    profile:"The Vault Function Hall is an upscale, high-capacity venue in Lawrence known for massive weddings and community galas. A $17k catering bill means immense guest count or incredibly high service level (full staff, premium proteins, passed apps).",
+    angle:"You don't let $17k deals sit un-milestoned. She has paid her 35%. Execute Milestone Scheduling protocol TODAY. At this scale, Dalcione is likely panicking about logistics. The call should be an 'Execution Mapping' call where the 50% payment is a natural step in securing the event's runway.",
+    script:`"Dalcione, I want to make sure every detail of your event at The Vault is mapped out perfectly. Let's walk through the timeline together — when we confirm the next milestone, I'll lock in your full staff and premium menu so nothing gets left to chance."`,
+    tags:["$17K","Vault Function Hall","Wedding","Premium Service","Milestone Scheduling"],
+    priority:"urgent", eventType:"Wedding", guests:"160+", venue:"The Vault Function Hall",
+    moveType:"Execution Mapping Call", strategicValue:"Largest active deal — flawless execution opens The Vault as recurring venue"
+  },
+  {
+    id:6, name:"Abbi Hewes", value:"$4,390", tier:"radar", tierLabel:"B2B Radar",
+    status:"Deposit Stage · Event Planner", location:"Bliss Farm",
+    company:"withahweddingsandevents",
+    profile:"Operates @withahweddingsandevents at Bliss Farm. This is another event planner like Jennifer Allard — a B2B pipeline opportunity disguised as a single event.",
+    angle:"Send her a 'Partner Introduction' packet immediately while closing her $4,390 deposit. Position Comeketo as her go-to catering partner for all Bliss Farm events.",
+    script:`"Abbi, I put together a partner introduction packet for you — everything from our menu flexibility to how we handle farm venue logistics. I think we could be a great fit for your Bliss Farm events beyond just this one."`,
+    tags:["Event Planner","Bliss Farm","B2B","Partner Packet"],
+    priority:"high", eventType:"Wedding/Events", guests:"Varies", venue:"Bliss Farm",
+    moveType:"Partner Intro + Deposit Close", strategicValue:"Farm venue preferred vendor pipeline"
+  },
+  {
+    id:7, name:"Roberta (ETS Equipment)", value:"$22,185 LTV", tier:"radar", tierLabel:"B2B Radar",
+    status:"$11K Open Opportunity · $22K Lifetime Revenue", location:"MA",
+    company:"ETS Equipment",
+    profile:"ETS rents heavy equipment. They are feeding massive crews. $22,185 in lifetime revenue with an open $11k opportunity.",
+    angle:"Andre should call Roberta to set up a recurring crew-meal contract rather than one-off event approvals. Heavy equipment crews eat daily — this is a recurring revenue goldmine.",
+    script:`"Roberta, we've done over $22K together and I know your crews need to eat every day. What if we set up a standing weekly order so you never have to think about crew meals again? I can give you a preferred rate."`,
+    tags:["Heavy Equipment","$22K LTV","Crew Meals","Recurring Revenue","B2B"],
+    priority:"high", eventType:"Recurring Crew Meals", guests:"20-50 daily", venue:"Job sites",
+    moveType:"Recurring Contract Pitch", strategicValue:"$50K+/year recurring corporate account potential"
+  },
+  {
+    id:8, name:"Isabel Fernandez & Bruno Zimny", value:"$3,913", tier:"newintel", tierLabel:"New Intelligence",
+    status:"Paid 50% · Planner: Bruno Zimny", location:"MA",
+    company:"Zimny Magazine / Luz Production",
+    profile:"Bruno Zimny is the CEO of Zimny Magazine (focused entirely on the Brazilian community in New England) and founder of Luz Production. He judges high-profile events like Miss Brasil USA Massachusetts. He is an absolute powerhouse in the exact demographic Comeketo targets.",
+    angle:"Andre must treat Bruno like royalty. The goal is not just closing Isabel's final payment — it's positioning Comeketo as the exclusive caterer for Luz Production's upcoming events and Zimny Magazine galas.",
+    script:`"Bruno, working with you on Isabel's event has been incredible. I know Luz Production and Zimny Magazine run some of the biggest events in the Brazilian community here — I'd love to talk about becoming your exclusive catering partner for those."`,
+    tags:["Zimny Magazine","Luz Production","Brazilian Community","Miss Brasil","Media Power"],
+    priority:"urgent", eventType:"Wedding + B2B", guests:"70", venue:"TBD",
+    moveType:"VIP Treatment + B2B Pitch", strategicValue:"Gateway to entire Brazilian community event market in New England"
+  },
+  {
+    id:9, name:"Kristina Kozak", value:"TBD", tier:"newintel", tierLabel:"New Intelligence",
+    status:"Dead Silent · No Response", location:"Needham, MA",
+    profile:"Board Certified Behavior Analyst (BCBA) working in public schools and Needham Youth & Family Services. Like Meghan Pingeton, fundamentally overworked and mentally drained managing community crises.",
+    angle:"Do NOT rely on aggressive 'Ninja text' without softening the delivery. Frame the recovery text playfully but empathetically.",
+    script:`"Hey Kristina, I know your schedule as a BCBA is probably frantic right now. Just wanted to see if you gave up on us catering the event so I can close out my files."`,
+    tags:["BCBA","Schools","Mental Health","Recovery","Soft Touch"],
+    priority:"medium", eventType:"TBD", guests:"TBD", venue:"TBD",
+    moveType:"Empathetic Recovery Text", strategicValue:"Nonprofit/education referral network if recovered"
+  },
+  {
+    id:10, name:"Andreia DePina Moore", value:"$788", tier:"newintel", tierLabel:"New Intelligence",
+    status:"Booked for Tasting", location:"Roxbury/Dorchester, Boston (02119)",
+    profile:"Heavily active in Cape Verdean and local Boston community groups on Facebook. Attended Roxbury Community College and Jeremiah E. Burke High School. Actively posting in marriage/wedding discussion groups online.",
+    angle:"Confirm tasting by referencing local Boston cultural ties. Since she's actively posting in wedding groups, sending behind-the-scenes food prep photos on Facebook Messenger is a highly effective secondary touchpoint if she doesn't answer the phone.",
+    script:`"Andreia, I wanted to send you a sneak peek of what we're prepping for tastings this week — I think you're going to love the flavors. See you soon!"`,
+    tags:["Cape Verdean","Roxbury","Facebook Active","Wedding Groups","Anniversary"],
+    priority:"high", eventType:"Anniversary", guests:"25", venue:"TBD",
+    moveType:"Cultural Connection + FB Messenger", strategicValue:"Cape Verdean community word-of-mouth network"
+  },
+  {
+    id:11, name:"Lazaro Silva", value:"TBD", tier:"newintel", tierLabel:"New Intelligence",
+    status:"Attended Tasting · Unconverted", location:"Keene, NH",
+    email:"lazemilywedding2017@gmail.com",
+    profile:"The email implies a wedding that happened in 2017. This is either a vow renewal, an anniversary celebration, or a massive life milestone happening nearly a decade later.",
+    angle:"Powerful conversational leverage. Start the 5-day cadence immediately and explicitly reference the anniversary nature of the event in the subject line.",
+    script:`"Lazaro, celebrating almost a decade of marriage is such a beautiful milestone. We'd love to make this anniversary event as special as the original day. Ready to lock in your menu?"`,
+    tags:["Vow Renewal","2017 Wedding","NH","Anniversary","5-Day Cadence"],
+    priority:"high", eventType:"Anniversary/Vow Renewal", guests:"100", venue:"Keene, NH",
+    moveType:"Anniversary Leverage + 5-Day Cadence", strategicValue:"Cross-border NH market expansion"
+  },
+  {
+    id:12, name:"Layza Souza Reis & Matheus", value:"$14,369", tier:"venue", tierLabel:"Venue Expansion",
+    status:"Fully Paid · THE BIGGEST DISCOVERY", location:"95 Blake Corner Rd, Phillipston, MA",
+    venue:"Mansão Hacienda / The Hacienda Venue",
+    profile:"The single biggest discovery on the board. The 95 Blake Corner Road address is not just a residential house. Public real estate and town zoning records indicate this 7-14 acre property featuring a 6,000+ sq. ft. mansion is actively being converted into a dedicated wedding venue known as 'The Hacienda' or 'Mansão Hacienda.'",
+    angle:"Layza and Matheus aren't just a bride and groom — they are venue owners inaugurating a massive new event space. Andre must perform absolute flawless execution on this $14k event because Comeketo needs to become the EXCLUSIVE, PREFERRED caterer for Mansão Hacienda for all future weddings hosted there.",
+    script:`"Layza, I know The Hacienda is going to be one of the most beautiful venues in the state. We want to make sure the food at your inauguration event sets the standard for every wedding that follows. Let's talk about what a long-term partnership could look like."`,
+    tags:["VENUE OWNER","Mansão Hacienda","6,000 sqft","7-14 Acres","Exclusive Caterer","Phillipston"],
+    priority:"urgent", eventType:"Venue Inauguration", guests:"160", venue:"Mansão Hacienda",
+    moveType:"Flawless Execution → Exclusive Partnership", strategicValue:"PREFERRED CATERER for entire new wedding venue — recurring multi-year revenue stream"
+  },
+  {
+    id:13, name:"Joeliza Cuevas", value:"$5,910", tier:"venue", tierLabel:"Venue Expansion",
+    status:"Job Complete · The Enchantment Room", location:"Salem, NH",
+    venue:"The Enchantment Room",
+    profile:"The Enchantment Room is a highly-rated modern, industrial-chic venue on the MA/NH border. Perfect for cross-border event catering.",
+    angle:"Pivot the review request into an introduction to the venue managers at The Enchantment Room to get Comeketo on their preferred vendor sheet for cross-border events.",
+    script:`"Joeliza, we had such a great time at The Enchantment Room. Would you be open to introducing us to the venue managers there? We'd love to be on their preferred vendor list for future events."`,
+    tags:["Enchantment Room","Salem NH","Preferred Vendor","Cross-Border","Industrial Chic"],
+    priority:"high", eventType:"Venue Intro", guests:"Varies", venue:"The Enchantment Room",
+    moveType:"Review → Venue Introduction", strategicValue:"Preferred vendor at MA/NH border venue"
+  }
+];
+
+function clearPreview(){previewBody.innerHTML='<div class="preview-empty"><span class="material-symbols-outlined">psychology</span><p>Hover over any lead to see their full intelligence profile</p></div>'}
+
+function showPreview(lead){
+  previewBody.innerHTML=`
+    <div class="pv-title">${lead.name}</div>
+    <div class="pv-sub">${lead.tierLabel}</div>
+    <div class="pv-divider"></div>
+    <div class="pv-field"><span class="pv-field-label">Value</span><span class="pv-field-value" style="color:var(--rose);font-weight:800">${lead.value}</span></div>
+    <div class="pv-field"><span class="pv-field-label">Status</span><span class="pv-field-value">${lead.status}</span></div>
+    <div class="pv-field"><span class="pv-field-label">Priority</span><span class="pv-field-value">${lead.priority.toUpperCase()}</span></div>
+    <div class="pv-field"><span class="pv-field-label">Event Type</span><span class="pv-field-value">${lead.eventType}</span></div>
+    <div class="pv-field"><span class="pv-field-label">Guests</span><span class="pv-field-value">${lead.guests}</span></div>
+    <div class="pv-field"><span class="pv-field-label">Location</span><span class="pv-field-value">${lead.location}</span></div>
+    ${lead.venue?`<div class="pv-field"><span class="pv-field-label">Venue</span><span class="pv-field-value">${lead.venue}</span></div>`:''}
+    ${lead.company?`<div class="pv-field"><span class="pv-field-label">Company</span><span class="pv-field-value">${lead.company}</span></div>`:''}
+    ${lead.email?`<div class="pv-field"><span class="pv-field-label">Email</span><span class="pv-field-value" style="font-size:0.62rem">${lead.email}</span></div>`:''}
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Oracle Profile</div>
+    <p class="pv-text">${lead.profile}</p>
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Tactical Angle</div>
+    <p class="pv-text">${lead.angle}</p>
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Andre's Script</div>
+    <div class="pv-script">${lead.script}</div>
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Move Type</div>
+    <p class="pv-text" style="font-weight:600">${lead.moveType}</p>
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Strategic Value</div>
+    <p class="pv-text" style="color:var(--rose);font-weight:600">${lead.strategicValue}</p>
+    <div class="pv-divider"></div>
+    <div class="pv-section-label">Tags</div>
+    <div style="display:flex;flex-wrap:wrap;gap:0.15rem;margin-top:0.2rem">${lead.tags.map(t=>`<span class="pv-tag">${t}</span>`).join('')}</div>
+  `;
+}
+
+function dossierCard(lead){
+  const tierClass={immediate:'tier-fire',whale:'tier-whale',giant:'tier-giant',radar:'tier-radar',newintel:'tier-intel',venue:'tier-venue'}[lead.tier]||'';
+  return `<div class="dossier-card ${tierClass}" onmouseenter='showPreview(LEADS[${LEADS.indexOf(lead)}])' onmouseleave="clearPreview()">
+    <div class="dc-top"><div class="dc-name">${lead.name}</div><div class="dc-value">${lead.value}</div></div>
+    <div class="dc-status">${lead.status}${lead.company?' · '+lead.company:''}${lead.location?' · '+lead.location:''}</div>
+    <div class="dc-profile">${lead.profile.substring(0,140)}${lead.profile.length>140?'...':''}</div>
+    <div class="dc-angle">${lead.angle.substring(0,160)}${lead.angle.length>160?'...':''}</div>
+    <div class="dc-tags">
+      <span class="dc-tag ${lead.priority==='urgent'?'t-urgent':lead.priority==='high'?'t-b2b':''}">${lead.priority.toUpperCase()}</span>
+      ${lead.company?'<span class="dc-tag t-b2b">B2B</span>':''}
+      ${lead.tier==='venue'?'<span class="dc-tag t-venue">VENUE</span>':''}
+      ${lead.tags.slice(0,3).map(t=>`<span class="dc-tag">${t}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+function showView(viewId){
+  clearPreview();stageScroll.scrollTop=0;
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.querySelector(`.sb-btn[data-view="${viewId}"]`);if(btn)btn.classList.add('active');
+  const r={overview:renderOverview,immediate:renderTier.bind(null,'immediate','local_fire_department','Immediate Conversion','Tasting-stage deals ready to close NOW.','var(--rose)'),whale:renderTier.bind(null,'whale','corporate_fare','Whale B2B Accounts','Completed jobs hiding multi-six-figure B2B pipelines.','var(--gold)'),giant:renderTier.bind(null,'giant','diamond','The Giant','$17K+ deal — highest active pipeline value.','var(--pink-hot)'),newintel:renderTier.bind(null,'newintel','bolt','New Intelligence','Freshly enriched leads with deep OSINT profiles.','var(--lavender)'),venue:renderTier.bind(null,'venue','castle','Venue & B2B Expansion','Completed jobs that unlock venue partnerships and recurring revenue.','var(--mint-dark)')};
+  if(r[viewId])r[viewId]();
+}
+
+function renderOverview(){
+  const totalValue=LEADS.reduce((s,l)=>{const v=parseFloat((l.value||'').replace(/[$,K]/g,''));return s+(isNaN(v)?0:v)},0);
+  stageScroll.innerHTML=`
+    <div class="hero-block">
+      <div class="hero-eyebrow"><span class="material-symbols-outlined" style="font-size:0.7rem">psychology</span> Oracle Enrichment Engine</div>
+      <div class="hero-title"><span class="hero-title-accent">Intelligence Dossier</span></div>
+      <p class="hero-desc">13 leads profiled through deep OSINT enrichment. Each profile includes the person's real-world background, the exact tactical angle for Andre's approach, a word-for-word script, and the strategic value beyond the immediate deal. Hover any card to see the full intelligence packet.</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--rose)">13</div><div class="stat-lbl">Leads Profiled</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--pink-hot)">$17K</div><div class="stat-lbl">Largest Deal</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--gold)">$22K</div><div class="stat-lbl">Top B2B LTV</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--mint-dark)">3</div><div class="stat-lbl">Venue Intros</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lavender)">4</div><div class="stat-lbl">B2B Pipelines</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--coral)">3</div><div class="stat-lbl">Urgent</div></div>
+    </div>
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(212,64,96,0.1)"><span class="material-symbols-outlined" style="color:var(--rose)">local_fire_department</span></div><div class="tier-info"><h3>Immediate Conversion</h3><p>Tasting-stage deals ready to close with the right approach</p></div></div>
+    ${LEADS.filter(l=>l.tier==='immediate').map(dossierCard).join('')}
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(232,180,76,0.1)"><span class="material-symbols-outlined" style="color:var(--gold)">corporate_fare</span></div><div class="tier-info"><h3>Whale B2B Accounts</h3><p>Completed jobs hiding multi-six-figure partnership pipelines</p></div></div>
+    ${LEADS.filter(l=>l.tier==='whale').map(dossierCard).join('')}
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(232,84,107,0.1)"><span class="material-symbols-outlined" style="color:var(--pink-hot)">diamond</span></div><div class="tier-info"><h3>The Giant in the Room</h3><p>$17,060 — Highest active pipeline deal</p></div></div>
+    ${LEADS.filter(l=>l.tier==='giant').map(dossierCard).join('')}
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(168,216,234,0.15)"><span class="material-symbols-outlined" style="color:var(--sky)">radar</span></div><div class="tier-info"><h3>B2B Radar — Immediate Outreach</h3><p>Event planners and corporate accounts ready for partnership pitches</p></div></div>
+    ${LEADS.filter(l=>l.tier==='radar').map(dossierCard).join('')}
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(212,184,232,0.12)"><span class="material-symbols-outlined" style="color:var(--lavender)">bolt</span></div><div class="tier-info"><h3>New Intelligence</h3><p>Freshly enriched leads with deep community and professional profiles</p></div></div>
+    ${LEADS.filter(l=>l.tier==='newintel').map(dossierCard).join('')}
+
+    <div class="tier-header"><div class="tier-icon" style="background:rgba(107,191,150,0.12)"><span class="material-symbols-outlined" style="color:var(--mint-dark)">castle</span></div><div class="tier-info"><h3>Venue & B2B Expansion</h3><p>Completed jobs that unlock venue partnerships and recurring revenue streams</p></div></div>
+    ${LEADS.filter(l=>l.tier==='venue').map(dossierCard).join('')}
+
+    <div style="text-align:center;padding:1.5rem;font-size:0.68rem;color:var(--burgundy);opacity:0.4">
+      Powered by <a href="https://rawdre.github.io/ai-consulting/" target="_blank" rel="noreferrer" style="color:var(--rose);text-decoration:none;font-weight:600">Raw AI Business Solutions</a> · Oracle Enrichment Engine
+    </div>
+  `;
+}
+
+function renderTier(tier,icon,title,desc,color){
+  const leads=LEADS.filter(l=>l.tier===tier);
+  stageScroll.innerHTML=`
+    <div class="vh"><span class="label"><span class="material-symbols-outlined">${icon}</span> ${title}</span><h2>${title}</h2><p>${desc}</p></div>
+    ${leads.map(l=>`
+      <div class="dossier-card ${({immediate:'tier-fire',whale:'tier-whale',giant:'tier-giant',radar:'tier-radar',newintel:'tier-intel',venue:'tier-venue'})[l.tier]||''}" onmouseenter='showPreview(LEADS[${LEADS.indexOf(l)}])' onmouseleave="clearPreview()">
+        <div class="dc-top"><div class="dc-name">${l.name}</div><div class="dc-value">${l.value}</div></div>
+        <div class="dc-status">${l.status}${l.company?' · '+l.company:''}${l.location?' · '+l.location:''}</div>
+        <div class="dc-profile">${l.profile}</div>
+        <div style="margin-top:0.6rem"></div>
+        <div class="dc-angle" style="border-left-color:${color}">${l.angle}</div>
+        <div style="margin-top:0.6rem;padding:0.5rem 0.7rem;background:var(--cream-dark);border-radius:0.6rem;border:1px solid rgba(107,29,50,0.05)">
+          <div style="font-size:0.55rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--burgundy);opacity:0.4;margin-bottom:0.3rem">Andre's Script</div>
+          <div style="font-size:0.72rem;line-height:1.55;color:var(--maroon-deep);font-style:italic">${l.script}</div>
+        </div>
+        <div style="margin-top:0.5rem;display:flex;gap:0.6rem;font-size:0.68rem">
+          <div><span style="color:var(--burgundy);opacity:0.5">Move:</span> <strong>${l.moveType}</strong></div>
+        </div>
+        <div style="margin-top:0.3rem;font-size:0.68rem;color:var(--rose);font-weight:600">${l.strategicValue}</div>
+        <div class="dc-tags">
+          <span class="dc-tag ${l.priority==='urgent'?'t-urgent':l.priority==='high'?'t-b2b':''}">${l.priority.toUpperCase()}</span>
+          ${l.tags.map(t=>`<span class="dc-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+document.querySelectorAll('.sb-btn').forEach(btn=>{btn.addEventListener('click',()=>showView(btn.dataset.view))});
+showView('overview');
+</script>
+</body>
+</html>
