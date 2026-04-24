@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agrobil Agropecuária | Banho & Tosa em Grande Colorado - Brasília DF</title>
-    <meta name="description" content="Pet shop completo em Grande Colorado, Sobradinho II. Banho, tosa, rações premium, medicamentos e acessórios. Avaliação 5.0 no Google. Agende pelo WhatsApp!">
+    <title>Agrobil Agropecuária | Banho & Tosa no Grande Colorado, Vacinas e Produtos Pet</title>
+    <meta name="description" content="Banho e tosa no Grande Colorado com agendamento rápido pelo WhatsApp. Pet shop com rações, acessórios, medicamentos e vacinas em datas específicas. Veja como chegar e fale com a Agrobil agora.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -225,6 +225,7 @@
                 gap: 1rem;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
+            .hero-booking-strip { grid-template-columns: 1fr 1fr; }
         }
 
         /* ===== HERO ===== */
@@ -241,12 +242,11 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255,102,0,0.3) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,215,0,0.2) 0%, transparent 50%),
-                radial-gradient(ellipse 70% 70% at 50% 80%, rgba(255,102,0,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 40% at 10% 90%, rgba(255,140,0,0.2) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 50% at 90% 70%, rgba(180,60,0,0.15) 0%, transparent 50%),
-                linear-gradient(160deg, #1a1a1a 0%, #0d0d0d 30%, #1a0a00 60%, #0d0d0d 100%);
+                linear-gradient(115deg, rgba(14, 10, 8, 0.88) 0%, rgba(18, 12, 9, 0.76) 35%, rgba(35, 18, 10, 0.72) 100%),
+                radial-gradient(circle at 18% 22%, rgba(255, 151, 71, 0.28) 0%, transparent 30%),
+                radial-gradient(circle at 82% 16%, rgba(255, 215, 0, 0.18) 0%, transparent 24%),
+                radial-gradient(circle at 68% 72%, rgba(255, 102, 0, 0.18) 0%, transparent 28%),
+                url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=2200&q=80') center center / cover no-repeat;
             z-index: 0;
         }
         .hero-bg::after {
@@ -254,16 +254,51 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle 300px at 30% 40%, rgba(255,102,0,0.08) 0%, transparent 100%),
-                radial-gradient(circle 200px at 70% 60%, rgba(255,215,0,0.06) 0%, transparent 100%);
+                radial-gradient(circle 320px at 24% 36%, rgba(255,255,255,0.08) 0%, transparent 100%),
+                radial-gradient(circle 260px at 78% 20%, rgba(255,215,0,0.08) 0%, transparent 100%),
+                linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.28));
             animation: gradient-shift 12s ease-in-out infinite;
             background-size: 200% 200%;
         }
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 980px;
             text-align: center;
+        }
+        .hero-booking-strip {
+            margin: 2rem auto 0;
+            max-width: 960px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            padding: 14px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255,255,255,0.14);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.18);
+        }
+        .hero-booking-card {
+            background: rgba(14,14,14,0.28);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 16px 14px;
+            text-align: left;
+            color: #fff;
+        }
+        .hero-booking-card strong {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .hero-booking-card span {
+            display: block;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.76);
+            line-height: 1.45;
         }
         .hero-badge {
             display: inline-flex;
@@ -409,6 +444,9 @@
             .hero-float-3 { bottom: 15%; left: 5%; }
             .hero-float-4 { bottom: 18%; right: 5%; }
             .hero-float-5 { display: none; }
+        }
+        @media (max-width: 560px) {
+            .hero-booking-strip { grid-template-columns: 1fr; }
         }
 
         /* ===== SECTION COMMON ===== */
@@ -1012,26 +1050,44 @@
 
     <div class="hero-content">
         <div class="hero-badge">
-            <span>🏆</span> Pet Shop #1 no Grande Colorado
+            <span>🏆</span> Banho & tosa com cara premium no Grande Colorado
         </div>
         <h1>
-            <span class="light">Seu Pet Merece</span><br>
-            <span class="gradient-text">o Melhor Cuidado</span>
+            <span class="light">Agende o cuidado do seu pet</span><br>
+            <span class="gradient-text">em poucos toques no WhatsApp</span>
         </h1>
         <p class="hero-subtitle">
-            Rações · Medicamentos · Acessórios · Banho & Tosa · Jardinagem<br>
-            Tudo para o seu pet e jardim em um só lugar.
+            Banho & tosa, vacinas em datas específicas, rações, acessórios e atendimento pertinho dos condomínios da região.<br>
+            Tudo pensado para facilitar a rotina de quem mora perto e quer praticidade com carinho de verdade.
         </p>
         <div class="hero-stats">
             <div class="hero-stat"><span>⭐</span> 5.0 no Google</div>
-            <div class="hero-stat"><span>💬</span> 25+ Avaliações</div>
+            <div class="hero-stat"><span>💬</span> Agendamento direto no WhatsApp</div>
             <div class="hero-stat"><span>📍</span> Grande Colorado</div>
         </div>
         <div class="hero-actions">
-            <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20banho%20e%20tosa" target="_blank" class="btn-primary-hero">
-                ✂️ Agendar Banho & Tosa
+            <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Quero%20agendar%20banho%20ou%20tosa%20na%20Agrobil" target="_blank" class="btn-primary-hero">
+                ✂️ Agendar agora no WhatsApp
             </a>
-            <a href="#servicos" class="btn-secondary-hero">Ver Serviços ↓</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=SH+Grande+Colorado+Condom%C3%ADnio+Solar+de+Atenas+Sobradinho+II+Bras%C3%ADlia+DF" target="_blank" class="btn-secondary-hero">📍 Ver localização</a>
+        </div>
+        <div class="hero-booking-strip">
+            <div class="hero-booking-card">
+                <strong>🛁 Banho & tosa</strong>
+                <span>Agende rápido, sem complicação, direto no WhatsApp.</span>
+            </div>
+            <div class="hero-booking-card">
+                <strong>🏢 Perto dos condomínios</strong>
+                <span>Ideal para quem mora no Grande Colorado e arredores.</span>
+            </div>
+            <div class="hero-booking-card">
+                <strong>💉 Vacinas em datas específicas</strong>
+                <span>Consulte com a gente para saber quando vai ter.</span>
+            </div>
+            <div class="hero-booking-card">
+                <strong>🛍️ Produtos do dia a dia</strong>
+                <span>Ração, acessórios, medicamentos e itens pet em um só lugar.</span>
+            </div>
         </div>
     </div>
 </section>
@@ -1067,11 +1123,49 @@
             </div>
             <div class="bento-card animate-on-scroll" style="grid-column: 1 / -1;">
                 <span class="card-emoji">🐾</span>
-                <h3>Produtos & Acessórios</h3>
-                <div class="price">Preços acessíveis</div>
-                <p>Rações premium das melhores marcas, medicamentos veterinários, brinquedos, coleiras, caminhas e tudo para o seu jardim. Loja completa para seu pet e seu lar!</p>
+                <h3>Loja Pet & itens do dia a dia</h3>
+                <div class="price">Consulte no WhatsApp</div>
+                <p>Rações para cachorro e gato, medicamentos, brinquedos, coleiras, areia, acessórios e produtos para a rotina do seu pet. Se precisar de algo específico, fale com a Agrobil no WhatsApp e confirme disponibilidade.</p>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="servicos section-pad" id="produtos" style="background:#fff6ef;">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Também temos na loja</span>
+        <h2 class="section-heading animate-on-scroll">
+            Produtos para a rotina <span>do seu pet</span>
+        </h2>
+        <p class="animate-on-scroll" style="color:#666; max-width:680px; margin:0 auto 24px;">
+            Além do banho e tosa, a Agrobil também atende quem precisa resolver o básico do dia a dia pet perto de casa.
+        </p>
+    </div>
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-card animate-on-scroll"><span class="trust-icon">🐶</span><h4>Ração para cães</h4><p>Marcas e opções para diferentes portes e fases da vida.</p></div>
+            <div class="trust-card animate-on-scroll"><span class="trust-icon">🐈</span><h4>Ração para gatos</h4><p>Alimentação prática para manter seu gato bem cuidado.</p></div>
+            <div class="trust-card animate-on-scroll"><span class="trust-icon">🦴</span><h4>Petiscos e acessórios</h4><p>Coleiras, brinquedos, itens de passeio e cuidados do dia a dia.</p></div>
+            <div class="trust-card animate-on-scroll"><span class="trust-icon">💊</span><h4>Medicamentos e apoio</h4><p>Consulte com a loja para saber a disponibilidade e orientação.</p></div>
+        </div>
+        <div class="text-center" style="margin-top:24px;">
+            <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Quero%20consultar%20produtos%20dispon%C3%ADveis%20na%20Agrobil" target="_blank" class="btn-primary-hero">🛍️ Consultar produtos no WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<!-- VACINAS -->
+<section class="trust-section section-pad" id="vacinas" style="background:#111111; color:#fff;">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Vacinas e check-up</span>
+        <h2 class="section-heading animate-on-scroll">
+            Tem vacina por aqui <span>de vez em quando</span>
+        </h2>
+        <p class="animate-on-scroll" style="color:rgba(255,255,255,0.72); max-width:720px; margin:0 auto 24px;">
+            Trabalhamos com vacinas em períodos específicos. Quando quiser confirmar datas, disponibilidade ou orientação, chama a Agrobil no WhatsApp e fala com a equipe.
+        </p>
+        <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Quero%20saber%20sobre%20vacinas%20e%20disponibilidade%20na%20Agrobil" target="_blank" class="btn-primary-hero">💉 Consultar vacinas no WhatsApp</a>
     </div>
 </section>
 
@@ -1116,8 +1210,8 @@
         <h2 class="section-heading animate-on-scroll">
             Agendamento <span>Online</span>
         </h2>
-        <p class="animate-on-scroll" style="color:#666; max-width:500px; margin:0 auto;">
-            Preencha os dados abaixo e envie direto pelo WhatsApp. Simples e rápido!
+        <p class="animate-on-scroll" style="color:#666; max-width:640px; margin:0 auto;">
+            Esse é o ponto principal do site: agendar rápido, sem enrolação, direto no WhatsApp da loja. Preencha os dados e a mensagem já sai pronta.
         </p>
     </div>
     <div class="container">
@@ -1165,20 +1259,35 @@
                             <option value="Banho Completo">🛁 Banho Completo</option>
                             <option value="Tosa Profissional">✂️ Tosa Profissional</option>
                             <option value="Banho + Tosa">🛁✂️ Banho + Tosa (Combo)</option>
+                            <option value="Consulta sobre vacinas">💉 Consulta sobre vacinas</option>
+                            <option value="Consulta de produtos">🛍️ Consulta de produtos</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="prefDate">📅 Data Preferida</label>
-                    <input type="date" id="prefDate" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prefDate">📅 Data Preferida</label>
+                        <input type="date" id="prefDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prefTime">⏰ Melhor horário</label>
+                        <select id="prefTime" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Manhã">Manhã</option>
+                            <option value="Horário de almoço">Horário de almoço</option>
+                            <option value="Tarde">Tarde</option>
+                            <option value="Fim do dia">Fim do dia</option>
+                            <option value="A combinar">A combinar</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" class="btn-submit">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-                    Enviar pelo WhatsApp
+                    Enviar e abrir WhatsApp
                 </button>
             </form>
             <div class="response-badge">
-                <span>⚡</span> Resposta em até 30 minutos
+                <span>⚡</span> Quanto mais simples, mais rápido: tudo vai direto para o WhatsApp da loja.
             </div>
         </div>
     </div>
@@ -1355,10 +1464,15 @@
                         Domingo: Fechado
                     </div>
                 </div>
-                <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" class="btn-whatsapp-loc">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-                    Fale pelo WhatsApp
-                </a>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+                    <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Agrobil%20e%20quero%20agendar%20ou%20tirar%20uma%20d%C3%BAvida" target="_blank" class="btn-whatsapp-loc">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                        Falar no WhatsApp
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=SH+Grande+Colorado+Condom%C3%ADnio+Solar+de+Atenas+Sobradinho+II+Bras%C3%ADlia+DF" target="_blank" class="btn-whatsapp-loc" style="background:linear-gradient(135deg,#ffffff,#fff2df); color:#111;">
+                        📍 Abrir no Google Maps
+                    </a>
+                </div>
             </div>
             <div class="loc-map animate-on-scroll">
                 <iframe 
@@ -1452,10 +1566,11 @@
         const size = document.getElementById('petSize').value;
         const service = document.getElementById('service').value;
         const date = document.getElementById('prefDate').value;
+        const time = document.getElementById('prefTime').value;
 
         const formattedDate = date ? new Date(date + 'T12:00:00').toLocaleDateString('pt-BR') : 'A combinar';
 
-        const msg = `🐾 *Agendamento Agrobil*%0A👤 Nome: ${encodeURIComponent(owner)}%0A🐕 Pet: ${encodeURIComponent(petName)} (${encodeURIComponent(petType)}, porte ${encodeURIComponent(size)})%0A✂️ Serviço: ${encodeURIComponent(service)}%0A📅 Data: ${encodeURIComponent(formattedDate)}%0A📱 Tel: ${encodeURIComponent(phone)}`;
+        const msg = `🐾 *Agendamento Agrobil*%0A👤 Nome: ${encodeURIComponent(owner)}%0A🐕 Pet: ${encodeURIComponent(petName)} (${encodeURIComponent(petType)}, porte ${encodeURIComponent(size)})%0A✂️ Serviço: ${encodeURIComponent(service)}%0A📅 Data: ${encodeURIComponent(formattedDate)}%0A⏰ Horário: ${encodeURIComponent(time || 'A combinar')}%0A📱 Tel: ${encodeURIComponent(phone)}%0A%0AQuero confirmar disponibilidade.`;
 
         window.open(`https://wa.me/5561992895220?text=${msg}`, '_blank');
         return false;
