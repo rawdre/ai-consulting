@@ -685,6 +685,109 @@
             .form-card { padding: 1.75rem 1.25rem; }
         }
 
+        /* ===== PROMO ===== */
+        .promo-section {
+            background: linear-gradient(180deg, #fff7ef 0%, #fff1dc 100%);
+        }
+        .promo-card {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 2.5rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,244,223,0.96));
+            border: 1px solid rgba(255,166,66,0.18);
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: 0 24px 70px rgba(181, 92, 16, 0.12);
+            overflow: hidden;
+        }
+        .promo-art {
+            border-radius: 22px;
+            overflow: hidden;
+            background: #f6e2c5;
+            min-height: 100%;
+        }
+        .promo-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .promo-copy {
+            text-align: left;
+            color: #2a1809;
+        }
+        .promo-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ff8c2b, #ffb347);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.4px;
+            margin-bottom: 1rem;
+        }
+        .promo-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.02;
+            margin-bottom: 1rem;
+            color: #1f1208;
+        }
+        .promo-title span {
+            color: #ff7a00;
+        }
+        .promo-price {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #2a1707, #503117);
+            color: #ffe2a8;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            box-shadow: 0 16px 40px rgba(42, 23, 7, 0.18);
+        }
+        .promo-list {
+            list-style: none;
+            display: grid;
+            gap: 0.7rem;
+            margin: 1rem 0 1.4rem;
+            color: #5b3a1a;
+        }
+        .promo-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+        }
+        .promo-list li::before {
+            content: '✔';
+            color: #ff8a00;
+            font-weight: 800;
+            margin-top: 0.05rem;
+        }
+        .promo-meta {
+            font-size: 0.95rem;
+            color: #70461f;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+        }
+        .promo-actions {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 900px) {
+            .promo-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ===== REVIEWS ===== */
         .reviews {
             background: linear-gradient(180deg, #f0f0f0, #fafafa);
@@ -1205,6 +1308,47 @@
                 <span class="trust-icon">📍</span>
                 <h4>Grande Colorado</h4>
                 <p>referência na região há anos</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROMO -->
+<section class="promo-section section-pad" id="promocao">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Promoção da semana</span>
+        <h2 class="section-heading animate-on-scroll">
+            Oferta bonita pra trazer <span>tráfego e venda</span>
+        </h2>
+        <p class="animate-on-scroll" style="color:#6d4a24; max-width:760px; margin:0 auto;">
+            Além do banho e tosa, a Agrobil também pode puxar venda recorrente com promoção simples e forte de produto pet.
+        </p>
+    </div>
+    <div class="container">
+        <div class="promo-card animate-on-scroll">
+            <div class="promo-art">
+                <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=1200&q=80" alt="Sachês premium para cães e gatos em destaque na Agrobil">
+            </div>
+            <div class="promo-copy">
+                <div class="promo-pill">🔥 Promoção imperdível</div>
+                <h3 class="promo-title">Sachês Optimum Premium <span>4 por R$ 10,00</span></h3>
+                <p style="font-size:1.02rem; color:#5c3816; line-height:1.7;">
+                    Uma oferta simples, visual e fácil de divulgar no WhatsApp, status e criativos locais para trazer movimento imediato pra loja.
+                </p>
+                <div class="promo-price">🥩🍗 Oferta atual: 4 sachês por apenas R$ 10,00</div>
+                <ul class="promo-list">
+                    <li>Alimento premium de alta qualidade para cães e gatos</li>
+                    <li>Sem corantes e aromatizantes artificiais</li>
+                    <li>Boa oferta para estoque rápido e compra por impulso</li>
+                </ul>
+                <div class="promo-meta">
+                    📍 Grande Colorado, Área Comercial Solar de Atenas, loja 14, ao lado da Drogasil.<br>
+                    🚨 Promoção por tempo limitado, ideal para campanha de clique no WhatsApp.
+                </div>
+                <div class="promo-actions">
+                    <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vi%20a%20promo%C3%A7%C3%A3o%20dos%20sach%C3%AAs%20Optimum%20e%20quero%20saber%20se%20ainda%20tem" target="_blank" class="btn-primary-hero">🛍️ Chamar no WhatsApp</a>
+                    <a href="#agendar" class="btn-secondary-hero" style="color:#7a4307; background:rgba(255,153,51,0.08);">✂️ Ver banho & tosa</a>
+                </div>
             </div>
         </div>
     </div>
