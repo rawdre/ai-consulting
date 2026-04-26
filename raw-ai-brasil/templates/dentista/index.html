@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinica Sorriso Prime | Dentista em Aguas Claras - Brasilia DF</title>
+<meta name="description" content="Clinica odontologica em Aguas Claras com avaliacao humanizada, clareamento, ortodontia, implantes e urgencia. Agende sua consulta pelo WhatsApp.">
+<meta property="og:title" content="Clinica Sorriso Prime | Dentista em Aguas Claras">
+<meta property="og:description" content="Odontologia moderna, atendimento acolhedor e agendamento rapido pelo WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f8fc;
+  --paper: #ffffff;
+  --ink: #15314b;
+  --muted: #5f7488;
+  --line: rgba(21,49,75,0.10);
+  --mint: #3dcfb7;
+  --mint-deep: #169f89;
+  --sky: #dff6ff;
+  --navy: #0f2740;
+  --gold: #d8b36b;
+  --shadow: 0 24px 80px rgba(15,39,64,0.12);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(61,207,183,0.18), transparent 30%),
+    radial-gradient(circle at 85% 20%, rgba(216,179,107,0.16), transparent 20%),
+    linear-gradient(180deg, #f8fbff 0%, #eff6fb 100%);
+  color: var(--ink);
+  line-height: 1.6;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(18px);
+  background: rgba(245,248,252,0.86);
+  border-bottom: 1px solid rgba(21,49,75,0.08);
+}
+.topbar-inner {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--mint), #7de5d5);
+  display: grid;
+  place-items: center;
+  color: #083028;
+  font-size: 1.25rem;
+  box-shadow: 0 12px 30px rgba(61,207,183,0.28);
+}
+.brand-copy strong {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.brand-copy span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.nav a {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.nav a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(15,39,64,0.18);
+}
+
+.hero {
+  padding: 72px 0 48px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 34px;
+  align-items: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(61,207,183,0.14);
+  color: var(--mint-deep);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 0.95;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.hero h1 span {
+  color: var(--mint-deep);
+}
+.hero p {
+  max-width: 620px;
+  font-size: 1.08rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--mint), #78e4d1);
+  color: #083028;
+  box-shadow: 0 16px 36px rgba(61,207,183,0.28);
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.72);
+  color: var(--navy);
+  border: 1px solid rgba(15,39,64,0.10);
+}
+.hero-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero-note {
+  background: rgba(255,255,255,0.76);
+  border: 1px solid rgba(21,49,75,0.08);
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.hero-card {
+  position: relative;
+  min-height: 560px;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.96), rgba(223,246,255,0.9)),
+    linear-gradient(135deg, #e8f8f4, #ffffff);
+  border: 1px solid rgba(21,49,75,0.08);
+  border-radius: 34px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(61,207,183,0.24);
+}
+.chair {
+  position: absolute;
+  right: 28px;
+  top: 28px;
+  width: 180px;
+  aspect-ratio: 1;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(15,39,64,0.96), rgba(61,207,183,0.72));
+  box-shadow: 0 18px 40px rgba(15,39,64,0.18);
+}
+.chair::before,
+.chair::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+}
+.chair::before {
+  width: 70px;
+  height: 70px;
+  left: 30px;
+  top: 26px;
+}
+.chair::after {
+  width: 96px;
+  height: 34px;
+  left: 42px;
+  bottom: 34px;
+}
+.floating-panel {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  display: grid;
+  gap: 16px;
+}
+.mini-card {
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(15,39,64,0.08);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 14px 30px rgba(15,39,64,0.08);
+}
+.mini-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.mini-card p {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.mini-stat {
+  background: rgba(15,39,64,0.95);
+  color: #fff;
+  border-radius: 20px;
+  padding: 18px 16px;
+}
+.mini-stat strong {
+  display: block;
+  font-size: 1.55rem;
+  color: var(--gold);
+}
+.mini-stat span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.74);
+}
+
+.section {
+  padding: 42px 0 82px;
+}
+.section-head {
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+.kicker {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--mint-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+.section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.section-head p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.service-card {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(15,39,64,0.05);
+}
+.service-card .icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, rgba(61,207,183,0.18), rgba(216,179,107,0.22));
+}
+.service-card h3 {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+.service-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 24px;
+}
+.about-card,
+.journey-card {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: 0 16px 40px rgba(15,39,64,0.06);
+}
+.about-card p,
+.journey-card p {
+  color: var(--muted);
+}
+.bullet-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+.bullet {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.bullet-mark {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(61,207,183,0.16);
+  color: var(--mint-deep);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
+  gap: 18px;
+}
+.review-highlight,
+.review-card {
+  background: rgba(255,255,255,0.84);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 28px;
+}
+.review-highlight {
+  background: linear-gradient(160deg, rgba(15,39,64,0.97), rgba(25,71,106,0.95));
+  color: #fff;
+}
+.review-highlight strong {
+  display: block;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.review-card p,
+.review-highlight p {
+  font-size: 0.96rem;
+}
+.review-card span,
+.review-highlight span {
+  display: block;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  opacity: 0.72;
+}
+
+.contact-card {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  background: linear-gradient(140deg, rgba(255,255,255,0.9), rgba(223,246,255,0.72));
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+.contact-info {
+  display: grid;
+  gap: 16px;
+}
+.contact-item {
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid rgba(21,49,75,0.08);
+  border-radius: 20px;
+}
+.contact-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.contact-item p {
+  color: var(--muted);
+}
+.map-box {
+  min-height: 100%;
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(15,39,64,0.08), rgba(15,39,64,0.02)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 24px, rgba(21,49,75,0.05) 24px, rgba(21,49,75,0.05) 25px),
+    repeating-linear-gradient(90deg, transparent 0, transparent 24px, rgba(21,49,75,0.05) 24px, rgba(21,49,75,0.05) 25px);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.map-pin {
+  position: absolute;
+  right: 24%;
+  top: 36%;
+  width: 84px;
+  height: 84px;
+  background: linear-gradient(135deg, var(--mint), var(--mint-deep));
+  clip-path: path("M42 0C18.8 0 0 18.8 0 42c0 28.9 42 78 42 78s42-49.1 42-78C84 18.8 65.2 0 42 0Zm0 59a17 17 0 1 1 0-34 17 17 0 0 1 0 34Z");
+  filter: drop-shadow(0 18px 24px rgba(22,159,137,0.34));
+}
+.map-label {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 20px;
+  padding: 18px 20px;
+  max-width: 260px;
+}
+.map-label strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.map-label p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25D366;
+  color: #fff;
+  font-size: 1.5rem;
+  box-shadow: 0 18px 34px rgba(37,211,102,0.35);
+  z-index: 1200;
+}
+
+footer {
+  padding: 28px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .about-grid,
+  .contact-card,
+  .reviews {
+    grid-template-columns: 1fr;
+  }
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .topbar-inner {
+    min-height: auto;
+    padding: 18px 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero {
+    padding-top: 40px;
+  }
+  .hero-card {
+    min-height: 500px;
+  }
+  .mini-grid,
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+  .container {
+    width: min(100% - 24px, 1180px);
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">+</div>
+      <div class="brand-copy">
+        <strong>Clinica Sorriso Prime</strong>
+        <span>Odontologia premium em Aguas Claras</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#especialidades">Especialidades</a>
+      <a href="#clinica">A Clinica</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#contato" class="nav-cta">Agendar Avaliacao</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Atendimento com hora marcada</div>
+        <h1>Sorriso bonito, <span>plano claro</span> e atendimento humano.</h1>
+        <p>Template de site para clinicas odontologicas que precisam transmitir confianca, explicar tratamentos e converter visitas em agendamentos no WhatsApp.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://wa.me/5561998229223?text=Ol%C3%A1%21%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cl%C3%ADnica%20Sorriso%20Prime.">Agendar pelo WhatsApp</a>
+          <a class="btn btn-secondary" href="#especialidades">Ver Tratamentos</a>
+        </div>
+        <div class="hero-notes">
+          <div class="hero-note">Avaliacao inicial individualizada</div>
+          <div class="hero-note">Ortodontia, implantes e estetica</div>
+          <div class="hero-note">Atendimento em Aguas Claras</div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="chair"></div>
+        <div class="floating-panel">
+          <div class="mini-card">
+            <strong>Primeira impressao de confianca</strong>
+            <p>Visual limpo, sofisticado e com cara de clinica organizada. O template foi pensado para consultorios que precisam vender seguranca e acolhimento, nao promocao barata.</p>
+          </div>
+          <div class="mini-grid">
+            <div class="mini-stat">
+              <strong>4.9</strong>
+              <span>Avaliacao media</span>
+            </div>
+            <div class="mini-stat">
+              <strong>+12</strong>
+              <span>Anos de experiencia</span>
+            </div>
+            <div class="mini-stat">
+              <strong>24h</strong>
+              <span>Resposta no WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="especialidades">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Especialidades</span>
+        <h2>Tratamentos que o paciente entende</h2>
+        <p>Em vez de uma lista fria, o site organiza os servicos de forma clara para o visitante entender o problema, a solucao e o proximo passo.</p>
+      </div>
+      <div class="service-grid">
+        <article class="service-card">
+          <div class="icon">✦</div>
+          <h3>Clareamento Dental</h3>
+          <p>Explica expectativa real, tempo de tratamento e indicacoes sem prometer milagre.</p>
+        </article>
+        <article class="service-card">
+          <div class="icon">◎</div>
+          <h3>Ortodontia</h3>
+          <p>Espaco para alinhadores ou aparelho tradicional, com copy que reduz objecao de prazo.</p>
+        </article>
+        <article class="service-card">
+          <div class="icon">◆</div>
+          <h3>Implantes</h3>
+          <p>Area dedicada para confianca clinica, reabilitacao oral e agendamento de avaliacao.</p>
+        </article>
+        <article class="service-card">
+          <div class="icon">◌</div>
+          <h3>Urgencia</h3>
+          <p>Bloco util para dor, restauracao, canal ou encaixe rapido via WhatsApp.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="clinica">
+    <div class="container about-grid">
+      <div class="about-card">
+        <span class="kicker">A clinica</span>
+        <h2>Ambiente que acalma antes mesmo da consulta</h2>
+        <p>Este template foi desenhado para clinicas de bairro nobre ou consultorios premium que precisam parecer organizados, elegantes e confiaveis no primeiro clique.</p>
+        <div class="bullet-list">
+          <div class="bullet">
+            <div class="bullet-mark">1</div>
+            <div>
+              <strong>Mensagem clara</strong>
+              <p>Quem atende, onde atende e quais tratamentos principais ficam visiveis logo no topo.</p>
+            </div>
+          </div>
+          <div class="bullet">
+            <div class="bullet-mark">2</div>
+            <div>
+              <strong>Foco em conversao</strong>
+              <p>Botao fixo de WhatsApp e repeticao de CTA sem parecer agressivo.</p>
+            </div>
+          </div>
+          <div class="bullet">
+            <div class="bullet-mark">3</div>
+            <div>
+              <strong>SEO local</strong>
+              <p>Estrutura pronta para bairro, cidade, especialidade e autoridade local.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-card">
+        <span class="kicker">Jornada do paciente</span>
+        <h2>Do clique ao agendamento</h2>
+        <div class="bullet-list">
+          <div class="bullet">
+            <div class="bullet-mark">A</div>
+            <div>
+              <strong>Chega pelo Google ou Instagram</strong>
+              <p>Encontra uma pagina profissional em vez de depender so de perfil social.</p>
+            </div>
+          </div>
+          <div class="bullet">
+            <div class="bullet-mark">B</div>
+            <div>
+              <strong>Entende o tratamento</strong>
+              <p>Linguagem simples, sem excesso tecnico e sem visual de clinica generica.</p>
+            </div>
+          </div>
+          <div class="bullet">
+            <div class="bullet-mark">C</div>
+            <div>
+              <strong>Agenda pelo WhatsApp</strong>
+              <p>Com texto pronto, reduzindo atrito para quem precisa marcar consulta rapido.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="depoimentos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Prova social</span>
+        <h2>Depoimentos que passam credibilidade</h2>
+        <p>Clinica sem prova social parece arriscada. Este bloco existe para reduzir medo, nao para encher linguiça.</p>
+      </div>
+      <div class="reviews">
+        <div class="review-highlight">
+          <strong>4.9</strong>
+          <p>"Atendimento pontual, ambiente impecavel e explicacao clara do tratamento. Me senti segura do inicio ao fim."</p>
+          <span>Mais de 120 avaliacoes no Google</span>
+        </div>
+        <div class="review-card">
+          <p>"Eu tinha receio de implante, mas a consulta foi muito didatica. O site ja me passou profissionalismo antes mesmo da visita."</p>
+          <span>Paciente de Aguas Claras</span>
+        </div>
+        <div class="review-card">
+          <p>"Consegui marcar pelo WhatsApp em poucos minutos. A clinica foi direta, educada e o atendimento foi excelente."</p>
+          <span>Paciente do Park Sul</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contato">
+    <div class="container">
+      <div class="contact-card">
+        <div class="contact-info">
+          <div>
+            <span class="kicker">Contato</span>
+            <h2>Agende sua avaliacao</h2>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp</strong>
+            <p>(61) 99822-9223</p>
+          </div>
+          <div class="contact-item">
+            <strong>Endereco</strong>
+            <p>Rua das Acacias, 120 - Aguas Claras, Brasilia DF</p>
+          </div>
+          <div class="contact-item">
+            <strong>Horario</strong>
+            <p>Segunda a sexta, 8h as 19h. Sabado, 8h as 13h.</p>
+          </div>
+          <a class="btn btn-primary" href="https://wa.me/5561998229223?text=Ol%C3%A1%21%20Quero%20agendar%20uma%20consulta%20na%20Cl%C3%ADnica%20Sorriso%20Prime.">Quero agendar agora</a>
+        </div>
+
+        <div class="map-box">
+          <div class="map-pin" aria-hidden="true"></div>
+          <div class="map-label">
+            <strong>Ponto estrategico</strong>
+            <p>O bloco do mapa pode virar embed real do Google Maps ou seguir como layout de venda para personalizacao rapida.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Template de demonstracao para nicho odontologico criado pela Raw AI Brasil.</p>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/5561998229223?text=Ol%C3%A1%21%20Vi%20o%20template%20de%20dentista%20e%20quero%20um%20site%20assim." aria-label="Falar no WhatsApp">W</a>
+</body>
+</html>

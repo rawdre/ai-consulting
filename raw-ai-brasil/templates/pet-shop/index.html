@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrobil Agropecuária | Banho & Tosa em Grande Colorado - Brasília DF</title>
+    <meta name="description" content="Pet shop completo em Grande Colorado, Sobradinho II. Banho, tosa, rações premium, medicamentos e acessórios. Avaliação 5.0 no Google. Agende pelo WhatsApp!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: #1a1a1a;
+            background: #fafafa;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; font-family: inherit; }
+
+        /* ===== NOISE TEXTURE OVERLAY ===== */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; line-height: 1.1; }
+        .section-tag {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #FF6600;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+        .section-heading {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        .section-heading span { font-weight: 300; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(8deg); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-6deg); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-25px) rotate(12deg) scale(1.05); }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes border-dance {
+            0% { --angle: 0deg; }
+            100% { --angle: 360deg; }
+        }
+        @keyframes paw-float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-on-scroll.visible:nth-child(2) { transition-delay: 0.1s; }
+        .animate-on-scroll.visible:nth-child(3) { transition-delay: 0.2s; }
+        .animate-on-scroll.visible:nth-child(4) { transition-delay: 0.3s; }
+
+        /* ===== FLOATING PAWS BACKGROUND ===== */
+        .floating-paws {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .floating-paw {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: paw-float linear infinite;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(26, 26, 26, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.7rem 1.5rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #FF6600, #FFD700);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .nav-logo .logo-sub {
+            font-size: 0.65rem;
+            font-weight: 400;
+            opacity: 0.7;
+            display: block;
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover { color: #FFD700; }
+        .nav-cta {
+            background: linear-gradient(135deg, #FF6600, #e55a00);
+            color: #fff !important;
+            padding: 0.55rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
+            color: #fff !important;
+        }
+        .nav-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            padding: 5px;
+        }
+        .nav-mobile-toggle span {
+            width: 24px; height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-mobile-toggle { display: flex; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: rgba(26, 26, 26, 0.97);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 1.5rem 4rem;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255,102,0,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,215,0,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse 70% 70% at 50% 80%, rgba(255,102,0,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 10% 90%, rgba(255,140,0,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 50% at 90% 70%, rgba(180,60,0,0.15) 0%, transparent 50%),
+                linear-gradient(160deg, #1a1a1a 0%, #0d0d0d 30%, #1a0a00 60%, #0d0d0d 100%);
+            z-index: 0;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle 300px at 30% 40%, rgba(255,102,0,0.08) 0%, transparent 100%),
+                radial-gradient(circle 200px at 70% 60%, rgba(255,215,0,0.06) 0%, transparent 100%);
+            animation: gradient-shift 12s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .hero-badge .emoji-inline {
+            width: 20px; height: 20px;
+            vertical-align: middle;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            line-height: 1.05;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #FF6600 0%, #FFD700 50%, #FF8C00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero h1 .light { font-weight: 300; }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .hero-stat .emoji-inline { width: 18px; height: 18px; }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        /* Animated gradient border button */
+        .btn-primary-hero {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #FF6600, #e55a00);
+            border-radius: 60px;
+            z-index: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+            letter-spacing: 0.3px;
+        }
+        .btn-primary-hero::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 63px;
+            background: conic-gradient(from var(--angle, 0deg), #FF6600, #FFD700, #FF8C00, #FF6600);
+            z-index: -1;
+            animation: border-dance 3s linear infinite;
+        }
+        .btn-primary-hero::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: 59px;
+            background: linear-gradient(135deg, #FF6600, #e55a00);
+            z-index: -1;
+        }
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        .btn-primary-hero:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 40px rgba(255, 102, 0, 0.5);
+        }
+        .btn-secondary-hero {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: color 0.3s;
+        }
+        .btn-secondary-hero:hover { color: #FFD700; }
+        .hero-floating {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero-floating img, .hero-floating .emoji-float {
+            width: 60px; height: 60px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        .hero-float-1 { top: 15%; left: 8%; animation: float1 6s ease-in-out infinite; }
+        .hero-float-2 { top: 20%; right: 8%; animation: float2 7s ease-in-out infinite 0.5s; }
+        .hero-float-3 { bottom: 20%; left: 12%; animation: float3 8s ease-in-out infinite 1s; }
+        .hero-float-4 { bottom: 25%; right: 10%; animation: float1 5.5s ease-in-out infinite 1.5s; }
+        .hero-float-5 { top: 50%; left: 3%; animation: float2 9s ease-in-out infinite 2s; }
+
+        @media (max-width: 768px) {
+            .hero-floating img, .hero-floating .emoji-float { width: 40px; height: 40px; }
+            .hero-float-1 { top: 10%; left: 3%; }
+            .hero-float-2 { top: 12%; right: 3%; }
+            .hero-float-3 { bottom: 15%; left: 5%; }
+            .hero-float-4 { bottom: 18%; right: 5%; }
+            .hero-float-5 { display: none; }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section { position: relative; z-index: 1; }
+        .section-pad { padding: 5rem 1.5rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .text-center { text-align: center; }
+
+        /* ===== SERVIÇOS ===== */
+        .servicos { background: #fafafa; }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+        .bento-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,102,0,0.1);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6600, #FFD700);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .bento-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255,102,0,0.12), 0 8px 20px rgba(0,0,0,0.06);
+            border-color: rgba(255,102,0,0.25);
+        }
+        .bento-card:hover::before { opacity: 1; }
+        .bento-card.featured {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(255,102,0,0.08), rgba(255,215,0,0.06));
+            border-color: rgba(255,102,0,0.2);
+        }
+        .bento-card .card-emoji {
+            font-size: 48px;
+            margin-bottom: 1rem;
+            display: block;
+            line-height: 1;
+        }
+        .bento-card .card-emoji img {
+            width: 56px; height: 56px;
+            display: inline-block;
+        }
+        .bento-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        .bento-card .price {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FF6600;
+            margin-bottom: 0.75rem;
+        }
+        .bento-card p {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .combo-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: linear-gradient(135deg, #FF6600, #FFD700);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        @media (max-width: 600px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.featured { grid-column: 1; }
+        }
+
+        /* ===== POR QUE NOS ESCOLHER ===== */
+        .trust-section {
+            background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .trust-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-radius: 16px;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .trust-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        }
+        .trust-card .trust-icon {
+            font-size: 40px;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .trust-card .trust-icon img { width: 48px; height: 48px; margin: 0 auto; }
+        .trust-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+        .trust-card p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        @media (max-width: 768px) {
+            .trust-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== AGENDAMENTO ===== */
+        .agendamento {
+            background:
+                radial-gradient(ellipse 60% 50% at 30% 50%, rgba(255,102,0,0.06) 0%, transparent 60%),
+                #fafafa;
+        }
+        .form-card {
+            max-width: 680px;
+            margin: 3rem auto 0;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,102,0,0.12);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.04);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.3px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            background: rgba(255,255,255,0.8);
+            color: #1a1a1a;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF6600;
+            box-shadow: 0 0 0 3px rgba(255,102,0,0.1);
+        }
+        .form-group input::placeholder { color: #aaa; }
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FF6600, #e55a00);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 14px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,102,0,0.35);
+        }
+        .response-badge {
+            text-align: center;
+            margin-top: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+        .response-badge .emoji-inline { width: 18px; height: 18px; }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-card { padding: 1.75rem 1.25rem; }
+        }
+
+        /* ===== REVIEWS ===== */
+        .reviews {
+            background: linear-gradient(180deg, #f0f0f0, #fafafa);
+        }
+        .reviews-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .google-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .google-badge .g-logo {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: conic-gradient(from -45deg, #4285f4, #34a853, #fbbc05, #ea4335, #4285f4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .stars-display {
+            color: #FFD700;
+            letter-spacing: 2px;
+            font-size: 1rem;
+        }
+        .reviews-scroll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        .review-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+        }
+        .review-top {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .review-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .review-meta { flex: 1; }
+        .review-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1a1a1a;
+        }
+        .review-time {
+            font-size: 0.75rem;
+            color: #999;
+        }
+        .review-stars {
+            color: #FFD700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .review-text {
+            font-size: 0.88rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        @media (max-width: 900px) {
+            .reviews-scroll {
+                grid-template-columns: 1fr;
+                overflow-x: auto;
+                display: flex;
+                gap: 1rem;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 1rem;
+            }
+            .review-card {
+                min-width: 300px;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+        }
+
+        /* ===== GALERIA ===== */
+        .galeria { background: #fafafa; }
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .galeria-item {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,102,0,0.06), rgba(255,215,0,0.04));
+            border: 1px solid rgba(255,102,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .galeria-item:hover {
+            transform: scale(1.06);
+            box-shadow: 0 15px 40px rgba(255,102,0,0.15);
+        }
+        .galeria-item .g-emoji {
+            font-size: 52px;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        .galeria-item:hover .g-emoji { transform: scale(1.15) rotate(5deg); }
+        .galeria-item .g-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 768px) {
+            .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== LOCALIZAÇÃO ===== */
+        .localizacao {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .loc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        .loc-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .loc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .loc-item .loc-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 32px;
+            text-align: center;
+        }
+        .loc-item .loc-text {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.6;
+        }
+        .loc-item .loc-text strong {
+            color: #fff;
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 0.15rem;
+        }
+        .btn-whatsapp-loc {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #25D366;
+            color: #fff;
+            padding: 0.9rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-whatsapp-loc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+        }
+        .loc-map {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.08);
+            height: 350px;
+        }
+        .loc-map iframe {
+            width: 100%; height: 100%;
+            border: none;
+            filter: brightness(0.85) contrast(1.1);
+        }
+        @media (max-width: 768px) {
+            .loc-grid { grid-template-columns: 1fr; }
+            .loc-map { height: 280px; }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #111;
+            color: rgba(255,255,255,0.5);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+        .footer-tagline {
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.4);
+        }
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-social-link {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .footer-social-link:hover {
+            background: rgba(255,102,0,0.2);
+            transform: translateY(-3px);
+        }
+        .footer-credit {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .footer-credit a {
+            color: #FF6600;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .footer-credit a:hover { color: #FFD700; }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.55);
+        }
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: #25D366;
+            opacity: 0.6;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .whatsapp-float svg {
+            width: 32px; height: 32px;
+            fill: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f0f0; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF6600; }
+    </style>
+</head>
+<body>
+
+<!-- Noise Texture Overlay -->
+<svg class="noise-overlay" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+
+<!-- Floating Paws Background -->
+<div class="floating-paws" id="floatingPaws"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="#" class="nav-logo">
+            <div class="logo-icon">🐾</div>
+            <div>
+                Agrobil
+                <span class="logo-sub">Agropecuária</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#agendar">Agendar</a></li>
+            <li><a href="#avaliacoes">Avaliações</a></li>
+            <li><a href="#localizacao">Local</a></li>
+            <li><a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Agrobil" target="_blank" class="nav-cta">WhatsApp</a></li>
+        </ul>
+        <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    
+    <div class="hero-floating hero-float-1"><span class="emoji-float" style="font-size:56px">🐕</span></div>
+    <div class="hero-floating hero-float-2"><span class="emoji-float" style="font-size:52px">🐈</span></div>
+    <div class="hero-floating hero-float-3"><span class="emoji-float" style="font-size:44px">🦴</span></div>
+    <div class="hero-floating hero-float-4"><span class="emoji-float" style="font-size:48px">✨</span></div>
+    <div class="hero-floating hero-float-5"><span class="emoji-float" style="font-size:40px">🐾</span></div>
+
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span>🏆</span> Pet Shop #1 no Grande Colorado
+        </div>
+        <h1>
+            <span class="light">Seu Pet Merece</span><br>
+            <span class="gradient-text">o Melhor Cuidado</span>
+        </h1>
+        <p class="hero-subtitle">
+            Rações · Medicamentos · Acessórios · Banho & Tosa · Jardinagem<br>
+            Tudo para o seu pet e jardim em um só lugar.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat"><span>⭐</span> 5.0 no Google</div>
+            <div class="hero-stat"><span>💬</span> 25+ Avaliações</div>
+            <div class="hero-stat"><span>📍</span> Grande Colorado</div>
+        </div>
+        <div class="hero-actions">
+            <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20banho%20e%20tosa" target="_blank" class="btn-primary-hero">
+                ✂️ Agendar Banho & Tosa
+            </a>
+            <a href="#servicos" class="btn-secondary-hero">Ver Serviços ↓</a>
+        </div>
+    </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos section-pad" id="servicos">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Nossos Serviços</span>
+        <h2 class="section-heading animate-on-scroll">
+            Cuidado <span>completo</span> para o seu pet
+        </h2>
+    </div>
+    <div class="container">
+        <div class="bento-grid">
+            <div class="bento-card animate-on-scroll">
+                <span class="card-emoji">🛁</span>
+                <h3>Banho Completo</h3>
+                <div class="price">A partir de R$35</div>
+                <p>Banho com produtos premium, secagem completa, perfume e laço ou bandana. Seu pet sai cheiroso e feliz!</p>
+            </div>
+            <div class="bento-card animate-on-scroll">
+                <span class="card-emoji">✂️</span>
+                <h3>Tosa Profissional</h3>
+                <div class="price">A partir de R$45</div>
+                <p>Tosa higiênica ou na tesoura, feita com paciência e carinho por profissionais experientes.</p>
+            </div>
+            <div class="bento-card featured animate-on-scroll">
+                <span class="combo-badge">⭐ Mais Popular</span>
+                <span class="card-emoji">🛁✂️</span>
+                <h3>Banho + Tosa Completa</h3>
+                <div class="price">A partir de R$65</div>
+                <p>O combo mais pedido! Banho completo + tosa profissional com desconto especial. Seu pet fica impecável da cabeça à patinha. Inclui limpeza de ouvido, corte de unha e hidratação.</p>
+            </div>
+            <div class="bento-card animate-on-scroll" style="grid-column: 1 / -1;">
+                <span class="card-emoji">🐾</span>
+                <h3>Produtos & Acessórios</h3>
+                <div class="price">Preços acessíveis</div>
+                <p>Rações premium das melhores marcas, medicamentos veterinários, brinquedos, coleiras, caminhas e tudo para o seu jardim. Loja completa para seu pet e seu lar!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POR QUE NOS ESCOLHER -->
+<section class="trust-section section-pad">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Diferenciais</span>
+        <h2 class="section-heading animate-on-scroll">
+            Por que <span>nos escolher</span>?
+        </h2>
+    </div>
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-card animate-on-scroll">
+                <span class="trust-icon">🏆</span>
+                <h4>+15 Anos</h4>
+                <p>de experiência no mercado pet</p>
+            </div>
+            <div class="trust-card animate-on-scroll">
+                <span class="trust-icon">🐕</span>
+                <h4>Cuidado com Amor</h4>
+                <p>cada pet é tratado como nosso</p>
+            </div>
+            <div class="trust-card animate-on-scroll">
+                <span class="trust-icon">⭐</span>
+                <h4>5.0 no Google</h4>
+                <p>avaliação máxima dos clientes</p>
+            </div>
+            <div class="trust-card animate-on-scroll">
+                <span class="trust-icon">📍</span>
+                <h4>Grande Colorado</h4>
+                <p>referência na região há anos</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section class="agendamento section-pad" id="agendar">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Agende Agora</span>
+        <h2 class="section-heading animate-on-scroll">
+            Agendamento <span>Online</span>
+        </h2>
+        <p class="animate-on-scroll" style="color:#666; max-width:500px; margin:0 auto;">
+            Preencha os dados abaixo e envie direto pelo WhatsApp. Simples e rápido!
+        </p>
+    </div>
+    <div class="container">
+        <div class="form-card animate-on-scroll">
+            <form id="bookingForm" onsubmit="return handleBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ownerName">👤 Seu Nome</label>
+                        <input type="text" id="ownerName" placeholder="Maria da Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerPhone">📱 Telefone</label>
+                        <input type="tel" id="ownerPhone" placeholder="(61) 99999-9999" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petName">🐾 Nome do Pet</label>
+                        <input type="text" id="petName" placeholder="Rex, Luna, Thor..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="petType">🐕 Tipo</label>
+                        <select id="petType" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Cachorro">🐕 Cachorro</option>
+                            <option value="Gato">🐈 Gato</option>
+                            <option value="Outro">🐾 Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petSize">📏 Porte</label>
+                        <select id="petSize" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="P">P — Pequeno</option>
+                            <option value="M">M — Médio</option>
+                            <option value="G">G — Grande</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">✂️ Serviço</label>
+                        <select id="service" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Banho Completo">🛁 Banho Completo</option>
+                            <option value="Tosa Profissional">✂️ Tosa Profissional</option>
+                            <option value="Banho + Tosa">🛁✂️ Banho + Tosa (Combo)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prefDate">📅 Data Preferida</label>
+                    <input type="date" id="prefDate" required>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    Enviar pelo WhatsApp
+                </button>
+            </form>
+            <div class="response-badge">
+                <span>⚡</span> Resposta em até 30 minutos
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GOOGLE REVIEWS -->
+<section class="reviews section-pad" id="avaliacoes">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Avaliações</span>
+        <h2 class="section-heading animate-on-scroll">
+            O Que Nossos Clientes <span>Dizem</span>
+        </h2>
+        <div class="reviews-header animate-on-scroll">
+            <div class="google-badge">
+                <div class="g-logo">G</div>
+                <span class="stars-display">★★★★★</span>
+                <strong>5.0</strong>
+                <span style="color:#999;font-weight:400">· 25 avaliações</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="reviews-scroll">
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">M</div>
+                    <div class="review-meta">
+                        <div class="review-name">Maria Souza</div>
+                        <div class="review-time">2 meses atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Melhor pet shop da região! Levei minha Luna pra tosa e ela voltou linda. Atendimento super carinhoso, nota 10!</p>
+            </div>
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #3498db, #2980b9);">C</div>
+                    <div class="review-meta">
+                        <div class="review-name">Carlos Eduardo</div>
+                        <div class="review-time">3 meses atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Sempre compro as rações aqui. Preço justo e produtos de qualidade. O pessoal conhece os bichinhos pelo nome!</p>
+            </div>
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">A</div>
+                    <div class="review-meta">
+                        <div class="review-name">Ana Paula R.</div>
+                        <div class="review-time">1 mês atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Meu Thor fica lindo depois do banho e tosa! Profissionais muito cuidadosos e pacientes. Recomendo demais.</p>
+            </div>
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #27ae60, #229954);">R</div>
+                    <div class="review-meta">
+                        <div class="review-name">Roberto Lima</div>
+                        <div class="review-time">4 meses atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Atendimento excelente! Além de pet shop, tem tudo pra jardinagem também. Loja completa aqui no Grande Colorado.</p>
+            </div>
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #e67e22, #d35400);">J</div>
+                    <div class="review-meta">
+                        <div class="review-name">Juliana Mendes</div>
+                        <div class="review-time">2 semanas atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Trouxe minha gatinha pro banho pela primeira vez e amei o resultado. Ela voltou cheirosa e bem cuidada. Preço super acessível!</p>
+            </div>
+            <div class="review-card animate-on-scroll">
+                <div class="review-top">
+                    <div class="review-avatar" style="background: linear-gradient(135deg, #1abc9c, #16a085);">P</div>
+                    <div class="review-meta">
+                        <div class="review-name">Pedro Henrique</div>
+                        <div class="review-time">5 meses atrás</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Equipe maravilhosa! Meu cachorro é muito nervoso e eles trataram ele com muita paciência e carinho. Virei cliente fiel.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria section-pad" id="galeria">
+    <div class="container text-center">
+        <span class="section-tag animate-on-scroll">Galeria</span>
+        <h2 class="section-heading animate-on-scroll">
+            Nossos Clientes <span>Felizes</span> 📸
+        </h2>
+    </div>
+    <div class="container">
+        <div class="galeria-grid">
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐕</span>
+                <span class="g-label">Rex — Golden</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐩</span>
+                <span class="g-label">Luna — Poodle</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐈</span>
+                <span class="g-label">Mimi — Persa</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐕‍🦺</span>
+                <span class="g-label">Thor — Schnauzer</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐈‍⬛</span>
+                <span class="g-label">Pantera — SRD</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐶</span>
+                <span class="g-label">Bob — Shih Tzu</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🐾</span>
+                <span class="g-label">Mel — Yorkshire</span>
+            </div>
+            <div class="galeria-item animate-on-scroll">
+                <span class="g-emoji">🦮</span>
+                <span class="g-label">Zeus — Labrador</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="localizacao section-pad" id="localizacao">
+    <div class="container">
+        <div class="text-center">
+            <span class="section-tag animate-on-scroll" style="color: #FFD700;">Localização</span>
+            <h2 class="section-heading animate-on-scroll" style="color: #fff;">
+                Venha nos <span>visitar</span>
+            </h2>
+        </div>
+        <div class="loc-grid">
+            <div class="loc-info animate-on-scroll">
+                <h3>📍 Onde Estamos</h3>
+                <div class="loc-item">
+                    <span class="loc-icon">🗺️</span>
+                    <div class="loc-text">
+                        <strong>Endereço</strong>
+                        SH Grande Colorado, Cond. Solar de Atenas<br>
+                        Sobradinho II, Brasília - DF<br>
+                        CEP 73105-903
+                    </div>
+                </div>
+                <div class="loc-item">
+                    <span class="loc-icon">📞</span>
+                    <div class="loc-text">
+                        <strong>Telefone / WhatsApp</strong>
+                        (61) 99289-5220
+                    </div>
+                </div>
+                <div class="loc-item">
+                    <span class="loc-icon">🕐</span>
+                    <div class="loc-text">
+                        <strong>Horário de Funcionamento</strong>
+                        Seg a Sex: 08:00 — 18:00<br>
+                        Sábado: 08:00 — 13:00<br>
+                        Domingo: Fechado
+                    </div>
+                </div>
+                <a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" class="btn-whatsapp-loc">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    Fale pelo WhatsApp
+                </a>
+            </div>
+            <div class="loc-map animate-on-scroll">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.6!2d-47.86!3d-15.62!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDM3JzEyLjAiUyA0N8KwNTEnMzYuMCJX!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Localização Agrobil no Google Maps"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-logo">Agrobil — Agropecuária</div>
+    <p class="footer-tagline">rações · medicamentos · acessórios · jardinagem</p>
+    <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social-link" aria-label="Facebook">👤</a>
+        <a href="https://wa.me/5561992895220" target="_blank" class="footer-social-link" aria-label="WhatsApp">💬</a>
+    </div>
+    <p class="footer-credit">
+        © 2025 Agrobil. Todos os direitos reservados.<br>
+        Site desenvolvido por <a href="https://rawdre.github.io/ai-consulting/" target="_blank">Raw AI Business Solutions</a>
+    </p>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/5561992895220?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Agrobil" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.702-1.362A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.67-6.065-1.822l-.424-.286-3.032.878.814-2.98-.31-.453A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+</a>
+
+<script>
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== MOBILE MENU =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== INTERSECTION OBSERVER (Scroll Animations) =====
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                entry.target.style.transitionDelay = `${index * 0.08}s`;
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // ===== FLOATING PAWS =====
+    const pawContainer = document.getElementById('floatingPaws');
+    const pawEmojis = ['🐾', '🦴', '❤️', '✨', '⭐'];
+    function createPaw() {
+        const paw = document.createElement('span');
+        paw.className = 'floating-paw';
+        paw.textContent = pawEmojis[Math.floor(Math.random() * pawEmojis.length)];
+        paw.style.left = Math.random() * 100 + '%';
+        paw.style.animationDuration = (15 + Math.random() * 20) + 's';
+        paw.style.fontSize = (14 + Math.random() * 14) + 'px';
+        pawContainer.appendChild(paw);
+        setTimeout(() => paw.remove(), 35000);
+    }
+    setInterval(createPaw, 3000);
+    for (let i = 0; i < 5; i++) setTimeout(createPaw, i * 600);
+
+    // ===== BOOKING FORM → WHATSAPP =====
+    function handleBooking(e) {
+        e.preventDefault();
+        const owner = document.getElementById('ownerName').value.trim();
+        const phone = document.getElementById('ownerPhone').value.trim();
+        const petName = document.getElementById('petName').value.trim();
+        const petType = document.getElementById('petType').value;
+        const size = document.getElementById('petSize').value;
+        const service = document.getElementById('service').value;
+        const date = document.getElementById('prefDate').value;
+
+        const formattedDate = date ? new Date(date + 'T12:00:00').toLocaleDateString('pt-BR') : 'A combinar';
+
+        const msg = `🐾 *Agendamento Agrobil*%0A👤 Nome: ${encodeURIComponent(owner)}%0A🐕 Pet: ${encodeURIComponent(petName)} (${encodeURIComponent(petType)}, porte ${encodeURIComponent(size)})%0A✂️ Serviço: ${encodeURIComponent(service)}%0A📅 Data: ${encodeURIComponent(formattedDate)}%0A📱 Tel: ${encodeURIComponent(phone)}`;
+
+        window.open(`https://wa.me/5561992895220?text=${msg}`, '_blank');
+        return false;
+    }
+
+    // ===== SET MIN DATE =====
+    const dateInput = document.getElementById('prefDate');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
+
+    // ===== SMOOTH PARALLAX ON HERO =====
+    window.addEventListener('scroll', () => {
+        const hero = document.querySelector('.hero-bg');
+        if (hero) {
+            const scrolled = window.scrollY;
+            hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+        }
+    });
+
+    // ===== ANIMATED BORDER (CSS @property fallback) =====
+    if (!CSS.supports || !CSS.supports('syntax', '"<angle>"')) {
+        // Fallback: animate border via JS for browsers without @property
+        let angle = 0;
+        const heroBtn = document.querySelector('.btn-primary-hero');
+        if (heroBtn) {
+            function animateBorder() {
+                angle = (angle + 2) % 360;
+                heroBtn.style.setProperty('--angle', angle + 'deg');
+                requestAnimationFrame(animateBorder);
+            }
+            animateBorder();
+        }
+    }
+</script>
+
+</body>
+</html>

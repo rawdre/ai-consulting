@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raw AI Business Solutions — AI Agents for Your Business</title>
-<meta name="description" content="AI agents that answer your leads 24/7, follow up like your best salesperson, and manage your entire pipeline. Free AI audit for your business.">
-<meta property="og:title" content="Raw AI Business Solutions — AI Agents for Your Business">
-<meta property="og:description" content="AI agents that answer your leads 24/7, follow up like your best salesperson, and manage your entire pipeline.">
+<title>Raw AI Business Solutions — Funcionário IA para o Seu Negócio</title>
+<meta name="description" content="Agentes de IA que respondem seus leads 24/7, fazem follow-up como seu melhor vendedor e gerenciam seu pipeline. Diagnóstico IA grátis para o seu negócio.">
+<meta property="og:title" content="Raw AI Business Solutions — Funcionário IA para o Seu Negócio">
+<meta property="og:description" content="Agentes de IA que respondem seus leads 24/7, fazem follow-up como seu melhor vendedor e gerenciam seu pipeline.">
 <meta property="og:image" content="https://rawdre.github.io/ai-consulting/icon-512.png">
 <meta property="og:url" content="https://rawdre.github.io/ai-consulting/">
 <meta property="og:type" content="website">
@@ -375,9 +375,10 @@ footer a{color:var(--accent)}
       <a href="#features" data-en="What I Do" data-pt="O Que Eu Faço">What I Do</a>
       <a href="#services" data-en="Services" data-pt="Serviços">Services</a>
       <a href="#proof" data-en="Results" data-pt="Resultados">Results</a>
+      <a href="raw-ai-brasil/" data-en="RAW AI Brasil" data-pt="RAW AI Brasil">RAW AI Brasil</a>
       <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
       <span class="lang-toggle-wrap">
-        <button class="lang-toggle" id="langBtn" onclick="toggleLang()">🌐 <span id="langLabel">PT-BR</span></button>
+        <button class="lang-toggle" id="langBtn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span></button>
       </span>
     </div>
     <button class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -399,6 +400,7 @@ footer a{color:var(--accent)}
         <a href="tool-school/" class="btn btn-secondary" data-en="🎓 Tool School" data-pt="🎓 Tool School">🎓 Tool School</a>
         <a href="about-andre.html" class="btn btn-secondary" data-en="👤 About Andre" data-pt="👤 Sobre o Andre">👤 About Andre</a>
         <a href="#current-work" class="btn btn-secondary" data-en="🗂️ Current Work" data-pt="🗂️ Trabalhos em Andamento">🗂️ Current Work</a>
+        <a href="raw-ai-brasil/" class="btn btn-secondary" data-en="🇧🇷 RAW AI Brasil" data-pt="🇧🇷 RAW AI Brasil">🇧🇷 RAW AI Brasil</a>
       </div>
     </div>
   </div>
@@ -887,6 +889,13 @@ footer a{color:var(--accent)}
     <div class="section-subtitle reveal" data-en="A clean snapshot of live demos, client pages, and active builds inside the Raw AI ecosystem." data-pt="Um retrato limpo dos demos, páginas de clientes e builds ativos dentro do ecossistema Raw AI.">A clean snapshot of live demos, client pages, and active builds inside the Raw AI ecosystem.</div>
     <div class="current-work-grid">
       <div class="current-work-card reveal">
+        <div class="current-work-tag">🇧🇷 Local Growth</div>
+        <h3>RAW AI Brasil</h3>
+        <p data-en="Central workspace for the Brazil local-business website push: one landing page, four niche templates, and the active lead-building pipeline for the first 50 prospects." data-pt="Workspace central da frente Raw AI Brasil: uma landing comercial, quatro templates por nicho e a pipeline ativa de prospecção para os primeiros 50 leads.">Central workspace for the Brazil local-business website push: one landing page, four niche templates, and the active lead-building pipeline for the first 50 prospects.</p>
+        <a href="raw-ai-brasil/" class="btn btn-secondary btn-sm" data-en="Open RAW AI Brasil →" data-pt="Abrir RAW AI Brasil →">Open RAW AI Brasil →</a>
+      </div>
+
+      <div class="current-work-card reveal">
         <div class="current-work-tag">🔥 Active Client Work</div>
         <h3>Comeketo</h3>
         <p data-en="Central home for the whole Comeketo cluster: Christalight, Happily Ever Expo, the luxury venue magazine, presentations, documents, and the food-related work built so far." data-pt="Casa central de todo o conjunto da Comeketo: Christalight, Happily Ever Expo, revista luxury venue, apresentações, documentos e todo o trabalho relacionado a comida construído até agora.">Central home for the whole Comeketo cluster: Christalight, Happily Ever Expo, the luxury venue magazine, presentations, documents, and the food-related work built so far.</p>
@@ -1028,9 +1037,8 @@ footer a{color:var(--accent)}
 
 <script>
 // Language Toggle
-let currentLang = 'en';
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'pt' : 'en';
+let currentLang = 'pt';
+function applyLang() {
   document.getElementById('langLabel').textContent = currentLang === 'en' ? 'PT-BR' : 'EN';
   document.documentElement.lang = currentLang === 'en' ? 'en' : 'pt-BR';
   document.querySelectorAll('[data-en]').forEach(el => {
@@ -1055,6 +1063,10 @@ function toggleLang() {
   // Update form progress label
   afUpdateProgress();
 }
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'pt' : 'en';
+  applyLang();
+}
 
 // Scroll Reveal
 const observer = new IntersectionObserver((entries) => {
@@ -1066,6 +1078,8 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
 });
+
+applyLang();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
