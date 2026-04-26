@@ -375,7 +375,7 @@ footer a{color:var(--accent)}
       <a href="#features" data-en="What I Do" data-pt="O Que Eu Faço">What I Do</a>
       <a href="#services" data-en="Services" data-pt="Serviços">Services</a>
       <a href="#proof" data-en="Results" data-pt="Resultados">Results</a>
-      <a href="raw-ai-brasil/" data-en="RAW AI Brasil" data-pt="RAW AI Brasil">RAW AI Brasil</a>
+      <a href="raw-ai-brasil/" data-en="RAW AI Brasil" data-pt="RAW AI Brasil" onclick="return guardProtectedRoute(event, 'raw-ai-brasil/', 'RAW AI Brasil')">RAW AI Brasil</a>
       <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
       <span class="lang-toggle-wrap">
         <button class="lang-toggle" id="langBtn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span></button>
@@ -396,11 +396,10 @@ footer a{color:var(--accent)}
       <p data-en="I build AI agents that answer your leads at 3 AM, follow up like your best salesperson, and manage your entire pipeline — so you can focus on what matters." data-pt="Eu crio agentes de IA que respondem seus leads às 3 da manhã, fazem follow-up como seu melhor vendedor, e gerenciam todo seu pipeline — pra você focar no que importa.">I build AI agents that answer your leads at 3 AM, follow up like your best salesperson, and manage your entire pipeline — so you can focus on what matters.</p>
       <div class="hero-ctas">
         <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="💬 Talk to André on WhatsApp" data-pt="💬 Fale com André no WhatsApp">💬 Talk to André on WhatsApp</a>
-        <a href="mailto:rawandre@gmail.com" class="btn btn-secondary" data-en="📧 Send an Email" data-pt="📧 Enviar um Email">📧 Send an Email</a>
-        <a href="tool-school/" class="btn btn-secondary" data-en="🎓 Tool School" data-pt="🎓 Tool School">🎓 Tool School</a>
-        <a href="about-andre.html" class="btn btn-secondary" data-en="👤 About Andre" data-pt="👤 Sobre o Andre">👤 About Andre</a>
+        <a href="tool-school/" class="btn btn-secondary" data-en="🔒 Tool School" data-pt="🔒 Tool School" onclick="return guardProtectedRoute(event, 'tool-school/', 'Tool School')">🔒 Tool School</a>
+        <a href="about-andre.html" class="btn btn-secondary" data-en="🔒 About Andre" data-pt="🔒 Sobre o Andre" onclick="return guardProtectedRoute(event, 'about-andre.html', 'About Andre')">🔒 About Andre</a>
         <a href="#current-work" class="btn btn-secondary" data-en="🗂️ Current Work" data-pt="🗂️ Trabalhos em Andamento">🗂️ Current Work</a>
-        <a href="raw-ai-brasil/" class="btn btn-secondary" data-en="🇧🇷 RAW AI Brasil" data-pt="🇧🇷 RAW AI Brasil">🇧🇷 RAW AI Brasil</a>
+        <a href="raw-ai-brasil/" class="btn btn-secondary" data-en="🔒 RAW AI Brasil" data-pt="🔒 RAW AI Brasil" onclick="return guardProtectedRoute(event, 'raw-ai-brasil/', 'RAW AI Brasil')">🔒 RAW AI Brasil</a>
       </div>
     </div>
   </div>
@@ -892,7 +891,7 @@ footer a{color:var(--accent)}
         <div class="current-work-tag">🇧🇷 Local Growth</div>
         <h3>RAW AI Brasil</h3>
         <p data-en="Central workspace for the Brazil local-business website push: one landing page, four niche templates, and the active lead-building pipeline for the first 50 prospects." data-pt="Workspace central da frente Raw AI Brasil: uma landing comercial, quatro templates por nicho e a pipeline ativa de prospecção para os primeiros 50 leads.">Central workspace for the Brazil local-business website push: one landing page, four niche templates, and the active lead-building pipeline for the first 50 prospects.</p>
-        <a href="raw-ai-brasil/" class="btn btn-secondary btn-sm" data-en="Open RAW AI Brasil →" data-pt="Abrir RAW AI Brasil →">Open RAW AI Brasil →</a>
+        <a href="raw-ai-brasil/" class="btn btn-secondary btn-sm" data-en="Open RAW AI Brasil →" data-pt="Abrir RAW AI Brasil →" onclick="return guardProtectedRoute(event, 'raw-ai-brasil/', 'RAW AI Brasil')">Open RAW AI Brasil →</a>
       </div>
 
       <div class="current-work-card reveal">
@@ -905,13 +904,13 @@ footer a{color:var(--accent)}
         <div class="current-work-tag">🎓 AI Course</div>
         <h3>Tool School</h3>
         <p data-en="A live Raw AI course space for showing AI projects, tools, and practical implementation ideas so visitors can see that training and education are part of the ecosystem too." data-pt="Um espaço de curso da Raw AI para mostrar projetos de IA, ferramentas e ideias práticas de implementação, deixando claro que treinamento e educação também fazem parte do ecossistema.">A live Raw AI course space for showing AI projects, tools, and practical implementation ideas so visitors can see that training and education are part of the ecosystem too.</p>
-        <a href="tool-school/" class="btn btn-secondary btn-sm" data-en="Open Tool School →" data-pt="Abrir Tool School →">Open Tool School →</a>
+        <a href="tool-school/" class="btn btn-secondary btn-sm" data-en="Open Tool School →" data-pt="Abrir Tool School →" onclick="return guardProtectedRoute(event, 'tool-school/', 'Tool School')">Open Tool School →</a>
       </div>
       <div class="current-work-card reveal">
         <div class="current-work-tag">👤 Operator Profile</div>
         <h3>About Andre</h3>
         <p data-en="English-first profile page for the operator behind Raw AI, with a PT-BR toggle and the same visual system used across the main site." data-pt="Página de perfil em inglês para o operador por trás da Raw AI, com alternância PT-BR e o mesmo sistema visual usado no site principal.">English-first profile page for the operator behind Raw AI, with a PT-BR toggle and the same visual system used across the main site.</p>
-        <a href="about-andre.html" class="btn btn-secondary btn-sm" data-en="Open About Andre →" data-pt="Abrir Sobre o Andre →">Open About Andre →</a>
+        <a href="about-andre.html" class="btn btn-secondary btn-sm" data-en="Open About Andre →" data-pt="Abrir Sobre o Andre →" onclick="return guardProtectedRoute(event, 'about-andre.html', 'About Andre')">Open About Andre →</a>
       </div>
       <div class="current-work-card reveal">
         <div class="current-work-tag">🏠 Real Estate</div>
@@ -1015,7 +1014,6 @@ footer a{color:var(--accent)}
       <p data-en="Book your free AI audit today. I'll show you exactly what's possible — no fluff, no BS, just results." data-pt="Agende seu diagnóstico IA grátis hoje. Eu te mostro exatamente o que é possível — sem enrolação, sem papo furado, só resultados.">Book your free AI audit today. I'll show you exactly what's possible — no fluff, no BS, just results.</p>
       <div class="hero-ctas">
         <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20to%20learn%20about%20AI%20for%20my%20business" target="_blank" class="btn btn-primary" data-en="💬 Talk to André on WhatsApp" data-pt="💬 Fale com André no WhatsApp">💬 Talk to André on WhatsApp</a>
-        <a href="mailto:rawandre@gmail.com" class="btn btn-secondary" data-en="📧 Send an Email" data-pt="📧 Enviar um Email">📧 Send an Email</a>
         <a href="#current-work" class="btn btn-secondary" data-en="🗂️ Current Work" data-pt="🗂️ Trabalhos em Andamento">🗂️ Current Work</a>
       </div>
     </div>
@@ -1036,6 +1034,40 @@ footer a{color:var(--accent)}
 </a>
 
 <script>
+// Lightweight protected routes for static hosting
+const PROTECTED_ROUTE_PASSWORD = 'RawAiBrasil2026';
+const PROTECTED_ROUTE_SESSION_KEY = 'raw_ai_protected_access_ok';
+
+function hasProtectedAccess() {
+  try {
+    return sessionStorage.getItem(PROTECTED_ROUTE_SESSION_KEY) === '1';
+  } catch (e) {
+    return false;
+  }
+}
+
+function unlockProtectedAccess() {
+  try {
+    sessionStorage.setItem(PROTECTED_ROUTE_SESSION_KEY, '1');
+  } catch (e) {}
+}
+
+function guardProtectedRoute(event, href, label) {
+  if (event) event.preventDefault();
+  if (!hasProtectedAccess()) {
+    const entered = window.prompt('Digite a senha para acessar ' + label + ':');
+    if (entered !== PROTECTED_ROUTE_PASSWORD) {
+      if (entered !== null) {
+        alert('Senha incorreta.');
+      }
+      return false;
+    }
+    unlockProtectedAccess();
+  }
+  window.location.href = href;
+  return false;
+}
+
 // Language Toggle
 let currentLang = 'pt';
 function applyLang() {
