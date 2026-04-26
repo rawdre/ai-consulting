@@ -1,18 +1,8 @@
-const PROTECTED_ROUTE_PASSWORD = 'RawAiBrasil2026';
-const PROTECTED_ROUTE_SESSION_KEY = 'raw_ai_protected_access_ok';
+const PROTECTED_ROUTE_PASSWORD = '1990471Raw';
 
 (function protectPage() {
-  let allowed = false;
-  try {
-    allowed = sessionStorage.getItem(PROTECTED_ROUTE_SESSION_KEY) === '1';
-  } catch (e) {}
-  if (allowed) return;
-
   const entered = window.prompt('Digite a senha para acessar esta área protegida:');
   if (entered === PROTECTED_ROUTE_PASSWORD) {
-    try {
-      sessionStorage.setItem(PROTECTED_ROUTE_SESSION_KEY, '1');
-    } catch (e) {}
     return;
   }
 

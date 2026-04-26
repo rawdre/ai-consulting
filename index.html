@@ -1035,34 +1035,16 @@ footer a{color:var(--accent)}
 
 <script>
 // Lightweight protected routes for static hosting
-const PROTECTED_ROUTE_PASSWORD = 'RawAiBrasil2026';
-const PROTECTED_ROUTE_SESSION_KEY = 'raw_ai_protected_access_ok';
-
-function hasProtectedAccess() {
-  try {
-    return sessionStorage.getItem(PROTECTED_ROUTE_SESSION_KEY) === '1';
-  } catch (e) {
-    return false;
-  }
-}
-
-function unlockProtectedAccess() {
-  try {
-    sessionStorage.setItem(PROTECTED_ROUTE_SESSION_KEY, '1');
-  } catch (e) {}
-}
+const PROTECTED_ROUTE_PASSWORD = '1990471Raw';
 
 function guardProtectedRoute(event, href, label) {
   if (event) event.preventDefault();
-  if (!hasProtectedAccess()) {
-    const entered = window.prompt('Digite a senha para acessar ' + label + ':');
-    if (entered !== PROTECTED_ROUTE_PASSWORD) {
-      if (entered !== null) {
-        alert('Senha incorreta.');
-      }
-      return false;
+  const entered = window.prompt('Digite a senha para acessar ' + label + ':');
+  if (entered !== PROTECTED_ROUTE_PASSWORD) {
+    if (entered !== null) {
+      alert('Senha incorreta.');
     }
-    unlockProtectedAccess();
+    return false;
   }
   window.location.href = href;
   return false;
