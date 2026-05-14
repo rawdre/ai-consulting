@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="192x192" href="../../icon-192.png">
+<link rel="apple-touch-icon" href="../../icon-192.png">
+<title>Comeketo Catering — Tray Menu (Italian · Mexican · American)</title>
+<meta name="description" content="Comeketo Catering by the tray. Mexican, Italian & American trays with small (~10 people) and large (~20 people) pricing. Drop-off and full-service available.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg:#080808;--bg2:#0d0d0d;--panel:#131313;--panel2:#171717;
+  --ink:#f5efe4;--muted:#b7a389;--dim:#8a7964;
+  --gold:#d1a257;--gold-soft:#f0cb93;--gold-deep:#a8833c;
+  --line:rgba(209,162,87,.18);--line-soft:rgba(209,162,87,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{
+  font-family:'Manrope',sans-serif;
+  background:
+    radial-gradient(ellipse at 18% 8%,rgba(209,162,87,.10) 0%,transparent 42%),
+    radial-gradient(ellipse at 82% 18%,rgba(209,162,87,.06) 0%,transparent 38%),
+    linear-gradient(180deg,#060606 0%,#0d0d0d 60%,#080808 100%);
+  color:var(--ink);
+  min-height:100vh;
+  padding:28px 18px 60px;
+  line-height:1.6;
+}
+.wrap{max-width:1180px;margin:0 auto}
+a{color:var(--gold-soft);text-decoration:none;transition:color .2s}
+a:hover{color:#fff5e4}
+
+/* HEADER */
+.topbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:6px 4px 22px}
+.crumbs{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim)}
+.crumbs a{color:var(--gold-soft);font-weight:700}
+.crumbs span{color:#5a4d3a}
+.backlink{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--gold-soft);font-size:12px;font-weight:700;letter-spacing:.6px;
+}
+.backlink:hover{border-color:var(--gold);background:rgba(209,162,87,.08)}
+
+/* HERO */
+.hero{
+  position:relative;overflow:hidden;
+  padding:46px 38px 38px;margin-bottom:18px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01)),
+    radial-gradient(circle at top left,rgba(209,162,87,.10),transparent 55%);
+  border:1px solid var(--line);border-radius:28px;
+  display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:center;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 60%,rgba(209,162,87,.04));
+  pointer-events:none;
+}
+.hero-visual{
+  position:relative;border-radius:24px;overflow:hidden;
+  border:1px solid var(--line);
+  background:#000;
+  aspect-ratio:1/1;
+  box-shadow:0 22px 60px rgba(0,0,0,.45),0 0 0 1px rgba(209,162,87,.08) inset;
+}
+.hero-visual img{
+  display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 12s ease;
+}
+.hero:hover .hero-visual img{transform:scale(1.04)}
+.hero-visual::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 70%,rgba(0,0,0,.35));
+  pointer-events:none;
+}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:22px}
+  .hero-visual{order:-1;max-width:480px;margin:0 auto}
+}
+.badge{
+  display:inline-block;padding:8px 14px;border-radius:999px;
+  background:rgba(209,162,87,.11);color:var(--gold-soft);
+  font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:clamp(38px,5.6vw,66px);line-height:.95;
+  margin:18px 0 14px;font-weight:600;letter-spacing:-.5px;
+}
+h1 .accent{color:var(--gold);font-style:italic;font-weight:500}
+.lede{max-width:780px;color:#d0bea6;line-height:1.85;font-size:15.5px}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 13px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--gold-soft);font-size:11.5px;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;
+}
+.pill.muted{color:#d6c3a7;background:transparent}
+
+/* INFO BAR */
+.infobar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  margin-bottom:18px;
+}
+.infocard{
+  background:var(--panel2);border:1px solid var(--line);border-radius:18px;
+  padding:18px 18px 16px;
+}
+.infocard .k{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px}
+.infocard .v{font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1.2;color:#fff5e4}
+.infocard .sub{margin-top:5px;font-size:12.5px;color:var(--muted)}
+
+/* CATEGORY NAV */
+.catnav{
+  position:sticky;top:14px;z-index:30;
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:10px;border-radius:18px;
+  background:rgba(10,10,10,.86);backdrop-filter:blur(14px);
+  border:1px solid var(--line);
+  margin-bottom:22px;
+}
+.catnav a{
+  padding:9px 14px;border-radius:999px;
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  color:#d6c3a7;border:1px solid transparent;
+}
+.catnav a:hover{background:rgba(209,162,87,.08);border-color:var(--line-soft);color:#fff5e4}
+
+/* SECTION */
+.section{
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  border:1px solid var(--line);border-radius:28px;
+  padding:30px;margin-bottom:18px;scroll-margin-top:90px;
+}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.section h2{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:clamp(28px,3.4vw,42px);line-height:1.05;font-weight:600;
+}
+.section .desc{color:var(--muted);font-size:14px;max-width:520px;line-height:1.7}
+.col-head{
+  display:flex;gap:18px;align-items:center;
+  font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--gold-soft);
+}
+.col-head .ch{
+  min-width:80px;text-align:right;
+  padding:6px 0;border-bottom:1px solid var(--line-soft);
+}
+
+/* MENU TABLE (rows) */
+.rows{display:grid;gap:8px}
+.row{
+  display:grid;grid-template-columns:1fr 100px 100px;gap:18px;
+  align-items:center;
+  padding:14px 18px;border-radius:14px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+  transition:border-color .2s,background .2s;
+}
+.row:hover{border-color:var(--line);background:#1b1b1b}
+.row .name{font-weight:600;color:#fff5e4;font-size:15px;line-height:1.4}
+.row .note{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:var(--muted);line-height:1.55}
+.row .p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;color:var(--gold-soft);text-align:right;font-weight:600;
+}
+.row .p .unit{display:block;font-size:10px;color:var(--dim);font-weight:700;font-family:'Manrope',sans-serif;letter-spacing:1.2px;text-transform:uppercase;margin-top:2px}
+
+/* BAR SUBHEAD */
+.subhead{
+  margin:8px 0 10px;padding:14px 18px;
+  border-radius:14px;
+  background:rgba(209,162,87,.06);border:1px solid var(--line);
+}
+.subhead .t{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:22px;line-height:1.1;margin-bottom:4px;font-weight:600}
+.subhead .d{color:var(--muted);font-size:13px;line-height:1.65}
+
+/* DRESSINGS GRID */
+.dressings{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;
+  padding:16px;border-radius:18px;
+  background:rgba(0,0,0,.18);border:1px dashed var(--line-soft);
+}
+.dressing{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line-soft);
+}
+.dressing .n{font-weight:600;color:#fff5e4}
+.dressing .v{font-family:'Cormorant Garamond',serif;color:var(--gold-soft);font-size:18px;font-weight:600}
+.dressing .v small{display:inline;font-size:10px;color:var(--dim);font-weight:700;font-family:'Manrope',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-left:4px}
+
+/* ADD-ONS */
+.addons{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.addon{
+  padding:20px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(209,162,87,.05),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+}
+.addon .thumb{
+  position:relative;border-radius:14px;overflow:hidden;
+  margin:-4px 0 14px;border:1px solid var(--line-soft);
+  aspect-ratio:16/10;background:#0a0a0a;
+}
+.addon .thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.addon .thumb::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.4));
+  pointer-events:none;
+}
+.addon h4{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:22px;font-weight:600;margin-bottom:6px}
+.addon p{color:var(--muted);font-size:13.5px;line-height:1.7;margin-bottom:12px}
+.addon .price-line{font-family:'Cormorant Garamond',serif;color:var(--gold-soft);font-size:18px;font-weight:600;margin-top:auto}
+.addon .price-line small{display:block;font-family:'Manrope',sans-serif;font-size:11px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-top:2px}
+
+/* TERMS */
+.terms{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;
+}
+.term{
+  padding:18px;border-radius:14px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+}
+.term .n{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:32px;line-height:1;margin-bottom:6px;font-weight:600}
+.term p{color:var(--muted);font-size:13.5px;line-height:1.65}
+
+/* CTA FOOTER */
+.footer-cta{
+  margin-top:18px;padding:30px;
+  background:radial-gradient(circle at top left,rgba(209,162,87,.14),rgba(255,255,255,.02) 55%);
+  border:1px solid var(--line);border-radius:28px;
+  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+}
+.footer-cta h3{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:32px;font-weight:600;margin-bottom:6px}
+.footer-cta p{color:var(--muted);font-size:14px;max-width:520px;line-height:1.7}
+.cta-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 22px;border-radius:999px;
+  font-weight:800;font-size:13px;letter-spacing:.4px;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+}
+.btn-primary{background:var(--gold);color:#171109;box-shadow:0 14px 32px rgba(209,162,87,.18)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 18px 38px rgba(209,162,87,.28)}
+.btn-secondary{border:1px solid var(--line);color:var(--gold-soft);background:rgba(255,255,255,.02)}
+.btn-secondary:hover{border-color:var(--gold);background:rgba(209,162,87,.06);color:#fff5e4}
+
+footer.foot{
+  text-align:center;padding:30px 6px 4px;color:var(--dim);font-size:12px;letter-spacing:.4px;
+}
+footer.foot a{color:var(--gold-soft)}
+
+/* RESPONSIVE */
+@media (max-width:900px){
+  .infobar{grid-template-columns:repeat(2,1fr)}
+  .addons,.terms{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr auto auto;gap:12px}
+  .row .p{font-size:18px;min-width:72px}
+  .col-head{font-size:9.5px}
+  .col-head .ch{min-width:72px}
+  h1{font-size:42px}
+  .hero{padding:32px 22px 28px}
+  .section{padding:22px}
+  .footer-cta{padding:24px}
+}
+@media (max-width:560px){
+  .crumbs{font-size:11px}
+  .section-head h2{font-size:26px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="crumbs">
+      <a href="../index.html">Comeketo Hub</a>
+      <span>›</span>
+      <span>Menus</span>
+      <span>›</span>
+      <span style="color:var(--ink)">Tray Menu</span>
+    </div>
+    <a class="backlink" href="../index.html">← Back to Hub</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <span class="badge">Catering by the Tray</span>
+      <h1>Italian · Mexican · <span class="accent">American</span><br>Tray Menu</h1>
+      <p class="lede">Bring Comeketo Catering home to a party with friends or to your next work event. Ordering by the tray is easy — small trays feed roughly <strong style="color:var(--gold-soft)">10 people</strong>, large trays roughly <strong style="color:var(--gold-soft)">20 people</strong>, unless otherwise noted. All items are à la carte, and our staff is happy to help you plan the perfect spread.</p>
+      <div class="meta-row">
+        <span class="pill">199 Main Street, Fitchburg MA</span>
+        <span class="pill muted">Open 7 Days · 10AM – 6PM</span>
+        <span class="pill muted">(978) 381-1212</span>
+        <span class="pill muted">admin@comeketocatering.com</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/image1.png" alt="Comeketo Catering — Mexican, Italian, American — One Epic Event Menu" loading="eager">
+    </div>
+  </section>
+
+  <!-- INFO BAR -->
+  <div class="infobar">
+    <div class="infocard">
+      <div class="k">Small Tray</div>
+      <div class="v">~10 people</div>
+      <div class="sub">Great for small offices, gatherings, family dinners.</div>
+    </div>
+    <div class="infocard">
+      <div class="k">Large Tray</div>
+      <div class="v">~20 people</div>
+      <div class="sub">Built for parties, work events, larger crowds.</div>
+    </div>
+    <div class="infocard">
+      <div class="k">Ordering</div>
+      <div class="v">À la carte</div>
+      <div class="sub">Mix and match across sections to build a full meal.</div>
+    </div>
+    <div class="infocard">
+      <div class="k">Packaging</div>
+      <div class="v">Sealed Aluminum</div>
+      <div class="sub">Upgrade to wire chafers & sternos in the add-ons.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY NAV -->
+  <nav class="catnav" aria-label="Menu categories">
+    <a href="#appetizers">Appetizers</a>
+    <a href="#salads">Salads</a>
+    <a href="#sides">Sides & Pasta</a>
+    <a href="#seafood">Seafood</a>
+    <a href="#beef-pork">Beef & Pork</a>
+    <a href="#chicken">Chicken</a>
+    <a href="#tacos">Tacos · Fajitas · Enchiladas</a>
+    <a href="#addons">Add-Ons</a>
+    <a href="#terms">Terms</a>
+  </nav>
+
+  <!-- APPETIZERS -->
+  <section class="section" id="appetizers">
+    <div class="section-head">
+      <div>
+        <h2>Appetizers</h2>
+        <p class="desc">Crowd-pleasing starters built for sharing — from dips and platters to handheld bites and warm classics.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">7-Layer Dip<span class="note">Beans, guac, sour cream, cheese, tomatoes, olives, green onions — served with chips.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Boneless Buffalo Wings<span class="note">3 wings per person.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Bruschetta</div><div class="p">$35<span class="unit">small</span></div><div class="p">$65<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Buffalo Chicken Dip<span class="note">Served with pita chips, celery sticks & carrot sticks.</span></div><div class="p">$35<span class="unit">small</span></div><div class="p">$65<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Wings<span class="note">3 wings per person — Buffalo, BBQ, or Garlic Herb.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Cheese & Cracker Platter</div><div class="p">$45<span class="unit">small</span></div><div class="p">$90<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken or Beef Taquitos</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chips & Trio of Salsas<span class="note">Salsa Roja, Salsa Verde, Pico de Gallo.</span></div><div class="p">$55<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Crab Cakes</div><div class="p">$70<span class="unit">small</span></div><div class="p">$140<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Cold Vegetable Platter (Crudité)</div><div class="p">$45<span class="unit">small</span></div><div class="p">$90<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Deli Platter<span class="note">Meats, cheese, lettuce, tomatoes, rolls.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Finger Rolls<span class="note">Chicken salad, ham salad, tuna salad, or egg salad.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Garlic Shrimp<span class="note">Approximately 5 pieces per person.</span></div><div class="p">$75<span class="unit">small</span></div><div class="p">$140<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Shrimp Cocktail<span class="note">Approximately 5 pieces per person.</span></div><div class="p">$75<span class="unit">small</span></div><div class="p">$140<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Hummus Dip with Pita Chips</div><div class="p">$45<span class="unit">small</span></div><div class="p">$90<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Italian Meatballs</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Italian Sausage (Mild)</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Jalapeño Poppers</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Mozzarella Sticks</div><div class="p">$50<span class="unit">small</span></div><div class="p">$98<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Mini Empanadas<span class="note">Beef, Chicken, or Cheese.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Scallops Wrapped in Bacon</div><div class="p">$85<span class="unit">small</span></div><div class="p">$160<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Spanakopita Cups</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Stuffed Mushrooms<span class="note">Mushroom stems, garlic, onion, Japanese panko, fresh herbs, shredded parmesan — stuffed in the cap.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Spinach & Artichoke Dip with Pita</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Swedish Meatballs</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+    </div>
+  </section>
+
+  <!-- SALADS -->
+  <section class="section" id="salads">
+    <div class="section-head">
+      <div>
+        <h2>Salads</h2>
+        <p class="desc">Fresh classics from the garden to the antipasto plate, plus our pints and quarts of house-style dressings.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">Antipasto</div><div class="p">$60<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Broccoli Salad</div><div class="p">$50<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Caesar Salad</div><div class="p">$50<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Garden Salad</div><div class="p">$45<span class="unit">small</span></div><div class="p">$79<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Fresh Fruit Platter</div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Homemade Potato Salad</div><div class="p">$45<span class="unit">small</span></div><div class="p">$75<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Pasta Salad (Tri-Color)</div><div class="p">$50<span class="unit">small</span></div><div class="p">$99<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Taco Salad</div><div class="p">$55<span class="unit">small</span></div><div class="p">$105<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Traditional Pico de Gallo<span class="note">Chunky tomato, onion, cilantro & jalapeño mix.</span></div><div class="p">$45<span class="unit">small</span></div><div class="p">$79<span class="unit">large</span></div></div>
+    </div>
+
+    <div class="subhead" style="margin-top:20px;">
+      <div class="t">Dressings</div>
+      <div class="d">Sold by the pint or quart, made in-house.</div>
+    </div>
+    <div class="dressings">
+      <div class="dressing"><span class="n">Balsamic Vinaigrette</span><span class="v">$12 <small>pt</small> · $22 <small>qt</small></span></div>
+      <div class="dressing"><span class="n">Caesar</span><span class="v">$12 <small>pt</small> · $22 <small>qt</small></span></div>
+      <div class="dressing"><span class="n">Italian</span><span class="v">$12 <small>pt</small> · $22 <small>qt</small></span></div>
+      <div class="dressing"><span class="n">Ranch</span><span class="v">$12 <small>pt</small> · $22 <small>qt</small></span></div>
+    </div>
+  </section>
+
+  <!-- SIDES & PASTA -->
+  <section class="section" id="sides">
+    <div class="section-head">
+      <div>
+        <h2>Sides & Pasta</h2>
+        <p class="desc">From baked ziti and lasagnas to potatoes, rice, beans, and seasonal vegetables — the foundations of a full spread.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">Baked Ziti</div><div class="p">$50<span class="unit">small</span></div><div class="p">$97<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Beef Stroganoff over Egg Noodles</div><div class="p">$50<span class="unit">small</span></div><div class="p">$97<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Black Beans</div><div class="p">$25<span class="unit">small</span></div><div class="p">$45<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Bread & Butter Rolls</div><div class="p">$15<span class="unit">small</span></div><div class="p">$25<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Cheese Ravioli</div><div class="p">$50<span class="unit">small</span></div><div class="p">$97<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Broccoli Alfredo over Penne</div><div class="p">$90<span class="unit">small</span></div><div class="p">$155<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Eggplant Parmesan over Penne</div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Garlic Mashed Potato</div><div class="p">$45<span class="unit">small</span></div><div class="p">$90<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Loaded Garlic Mashed Potato<span class="note">Bacon, chives & cheddar.</span></div><div class="p">$53<span class="unit">small</span></div><div class="p">$102<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Fried Yuca</div><div class="p">$35<span class="unit">small</span></div><div class="p">$65<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Glazed Sweet Potatoes</div><div class="p">$50<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Guacamole<span class="note">Served with chips.</span></div><div class="p">$33<span class="unit">small</span></div><div class="p">$60<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Lasagna — Cheese</div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Lasagna — Vegetable</div><div class="p">$70<span class="unit">small</span></div><div class="p">$115<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Lasagna — Meat (Bolognese)</div><div class="p">$75<span class="unit">small</span></div><div class="p">$125<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Macaroni & Cheese</div><div class="p">$45<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Pasta Primavera<span class="note">Marinara or Garlic & Oil.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Refried Beans</div><div class="p">$35<span class="unit">small</span></div><div class="p">$65<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Roasted Potatoes</div><div class="p">$48<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Scalloped Potatoes</div><div class="p">$48<span class="unit">small</span></div><div class="p">$95<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Rice — Plain</div><div class="p">$30<span class="unit">small</span></div><div class="p">$55<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Rice — Primavera or Pilaf</div><div class="p">$35<span class="unit">small</span></div><div class="p">$70<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Rice — Mexican</div><div class="p">$35<span class="unit">small</span></div><div class="p">$70<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Stuffed Shells</div><div class="p">$50<span class="unit">small</span></div><div class="p">$99<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Vegetables<span class="note">Carrots (savory, tarragon, or glazed), sautéed green beans, steamed asparagus, summer squash & zucchini, broccoli & cauliflower.</span></div><div class="p">$47<span class="unit">small</span></div><div class="p">$90<span class="unit">large</span></div></div>
+    </div>
+  </section>
+
+  <!-- SEAFOOD -->
+  <section class="section" id="seafood">
+    <div class="section-head">
+      <div>
+        <h2>Seafood</h2>
+        <p class="desc">Baked, glazed and stuffed — coastal favorites including lobster mac, shrimp pasta, and our signature stuffed cod.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">Baked Haddock</div><div class="p">$85<span class="unit">small</span></div><div class="p">$170<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Baked Stuffed Seafood<span class="note">Cod, shrimp & bay scallops sprinkled with white wine, covered in herb-butter bread crumbs, baked golden brown.</span></div><div class="p">$120<span class="unit">small</span></div><div class="p">$210<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Lobster Mac & Cheese</div><div class="p">$110<span class="unit">small</span></div><div class="p">$190<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Shrimp Enchiladas</div><div class="p">$110<span class="unit">small</span></div><div class="p">$190<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Shrimp with Penne Pasta<span class="note">Scampi or Marinara.</span></div><div class="p">$110<span class="unit">small</span></div><div class="p">$190<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Salmon<span class="note">Glazed with a sweet teriyaki sauce.</span></div><div class="p">$85<span class="unit">small</span></div><div class="p">$170<span class="unit">large</span></div></div>
+    </div>
+  </section>
+
+  <!-- BEEF & PORK -->
+  <section class="section" id="beef-pork">
+    <div class="section-head">
+      <div>
+        <h2>Beef & Pork</h2>
+        <p class="desc">Hearty centerpieces — from al pastor pork and BBQ ribs to filet medallions, carne asada, and burger bars.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">Al Pastor Pork Medallions<span class="note">Sliced pork loin marinated in pineapple, achiote, and chilies.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Build-Your-Own Burger Bar<span class="note">4 oz flame-grilled patties, toasted buns, and a spread of classic toppings so guests can build their perfect burger.</span></div><div class="p">$75<span class="unit">small</span></div><div class="p">$140<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Beef Short Ribs</div><div class="p">$80<span class="unit">small</span></div><div class="p">$150<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">BBQ Pork Ribs</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Beef or Chicken Fajitas<span class="note">Make your own — corn or flour tortillas, sautéed onions and peppers, salsa, guacamole, sour cream.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Garlic Steak Medallions</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Carne Asada Steak Tips<span class="note">Marinated grilled steak bites with charred onions and peppers.</span></div><div class="p">$140<span class="unit">small</span></div><div class="p">$260<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Filet Mignon Medallions</div><div class="p">$165<span class="unit">small</span></div><div class="p">$330<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Pork Loin with Garlic Butter</div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Italian Sausage, Peppers & Onions<span class="note">With roasted potatoes or penne pasta.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+    </div>
+  </section>
+
+  <!-- CHICKEN -->
+  <section class="section" id="chicken">
+    <div class="section-head">
+      <div>
+        <h2>Chicken</h2>
+        <p class="desc">Versatile and reliable — from a half chicken and stuffed breasts to piccata, marsala, carbonara, cordon bleu, and tenders.<br><em style="color:var(--gold-soft);font-style:normal;font-size:12px;letter-spacing:.5px;display:inline-block;margin-top:6px;">* Served with penne pasta.</em></p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">½ Chicken<span class="note">Deboned and marinated in an array of herbs and spices.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Boneless Stuffed Chicken<span class="note">Choose ham & Swiss, spinach & feta, stuffing, or herb butter.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken & Rice (Arroz con Pollo)</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Enchilada Casserole<span class="note">Layers of pulled chicken, corn tortillas, and cheese in red or green sauce.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Wrapped with Bacon</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Piccata *</div><div class="p">$75<span class="unit">small</span></div><div class="p">$125<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Marsala *</div><div class="p">$80<span class="unit">small</span></div><div class="p">$135<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Alfredo or Pesto *</div><div class="p">$80<span class="unit">small</span></div><div class="p">$135<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">… with Broccoli or Primavera *</div><div class="p">$90<span class="unit">small</span></div><div class="p">$155<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Cordon Bleu *</div><div class="p">$90<span class="unit">small</span></div><div class="p">$160<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Carbonara *<span class="note">Alfredo sauce with bacon & peas.</span></div><div class="p">$90<span class="unit">small</span></div><div class="p">$160<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Chicken Tenders</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+    </div>
+  </section>
+
+  <!-- TACOS / FAJITAS / ENCHILADAS -->
+  <section class="section" id="tacos">
+    <div class="section-head">
+      <div>
+        <h2>Tacos · Fajitas · Enchiladas</h2>
+        <p class="desc">Three Mexican-style build-out bars with the right fixings, and a tray-by-the-piece enchilada offering for both intimate and large gatherings.</p>
+      </div>
+      <div class="col-head">
+        <span class="ch">Small</span>
+        <span class="ch">Large</span>
+      </div>
+    </div>
+
+    <div class="subhead">
+      <div class="t">Taco Bar</div>
+      <div class="d">Build-your-own at an average of 2–3 tacos per person. Includes soft tortillas (flour or corn), pico de gallo, shredded cheese, tomatillo sauce (medium) and lettuce.</div>
+    </div>
+    <div class="rows" style="margin-bottom:18px;">
+      <div class="row"><div class="name">Beef or Chicken</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">"Birria" Beef Brisket</div><div class="p">$90<span class="unit">small</span></div><div class="p">$175<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">"Tinga" Shredded Chipotle Chicken</div><div class="p">$85<span class="unit">small</span></div><div class="p">$165<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">"Carnitas" Slow-Roasted Pork</div><div class="p">$90<span class="unit">small</span></div><div class="p">$175<span class="unit">large</span></div></div>
+    </div>
+
+    <div class="subhead">
+      <div class="t">Fajita Bar</div>
+      <div class="d">Grilled onions and peppers with your choice of protein. Served with pico de gallo, sour cream, lettuce, and tortillas.</div>
+    </div>
+    <div class="rows" style="margin-bottom:18px;">
+      <div class="row"><div class="name">Beef or Chicken</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Shrimp</div><div class="p">$90<span class="unit">small</span></div><div class="p">$175<span class="unit">large</span></div></div>
+      <div class="row"><div class="name">Veggie</div><div class="p">$60<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
+    </div>
+
+    <div class="subhead">
+      <div class="t">Enchilada Tray</div>
+      <div class="d">Topped with Mexican cheese blend, pico de gallo, crema and curtido. Sold by the piece — 12 pieces (small) or 24 pieces (large).</div>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="name">"Birria" Beef Brisket</div><div class="p">$65<span class="unit">12 pc</span></div><div class="p">$130<span class="unit">24 pc</span></div></div>
+      <div class="row"><div class="name">"Tinga" Shredded Chipotle Chicken</div><div class="p">$90<span class="unit">12 pc</span></div><div class="p">$175<span class="unit">24 pc</span></div></div>
+      <div class="row"><div class="name">"Carnitas" Slow-Roasted Pork</div><div class="p">$65<span class="unit">12 pc</span></div><div class="p">$130<span class="unit">24 pc</span></div></div>
+    </div>
+  </section>
+
+  <!-- ADD-ONS -->
+  <section class="section" id="addons">
+    <div class="section-head">
+      <div>
+        <h2>Add-Ons</h2>
+        <p class="desc">Optional upgrades for the trays — keep food hot, deliver to the door, or have us fully set up the buffet for you.</p>
+      </div>
+    </div>
+    <div class="addons">
+      <div class="addon">
+        <div class="thumb"><img src="assets/image2.png" alt="Wire chafer with aluminum trays and sterno fuel cans"></div>
+        <h4>Wire Chafers & Sternos</h4>
+        <p>Without this upgrade, your food is provided in sealed aluminum trays. Wire chafers and sternos keep everything hot for your guests.</p>
+        <div class="price-line">+5% of order total<small>or $25 minimum</small></div>
+      </div>
+      <div class="addon">
+        <h4>Delivery</h4>
+        <p>Delivery charges are calculated by distance from Fitchburg, MA — both ways. Friendly hand-off to your door or venue.</p>
+        <div class="price-line">$1.50 / mile (both ways)<small>or $25 minimum</small></div>
+      </div>
+      <div class="addon">
+        <h4>Setup Service</h4>
+        <p>We will completely set up your buffet so you don't have to. Tables dressed, trays warmed, ready to serve when guests arrive.</p>
+        <div class="price-line">+5% of order total<small>or $25 minimum</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section class="section" id="terms">
+    <div class="section-head">
+      <div>
+        <h2>For All Catering</h2>
+        <p class="desc">A few simple expectations to keep every event smooth on both sides.</p>
+      </div>
+    </div>
+    <div class="terms">
+      <div class="term">
+        <div class="n">01</div>
+        <p>Non-refundable deposit required to confirm and reserve every catering order.</p>
+      </div>
+      <div class="term">
+        <div class="n">02</div>
+        <p>7% Massachusetts meals tax applies to all catering orders.</p>
+      </div>
+      <div class="term">
+        <div class="n">03</div>
+        <p>All orders come with high-end disposable plates and tableware. China, linens and other rentals are priced separately.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="footer-cta">
+    <div>
+      <h3>Ready to plan your tray order?</h3>
+      <p>Our staff is happy to help you build the menu. Call, text, or email and we'll walk you through pairings, headcount, and the right mix of trays for your event.</p>
+    </div>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="tel:+19783811212">📞 Call (978) 381-1212</a>
+      <a class="btn btn-secondary" href="mailto:admin@comeketocatering.com">✉ Email Us</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    Comeketo Catering · 199 Main Street, Fitchburg MA 01420 · <a href="https://comeketocatering.com">comeketocatering.com</a> · Tray menu by Raw AI
+  </footer>
+</div>
+</body>
+</html>
