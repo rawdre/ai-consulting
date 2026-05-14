@@ -346,10 +346,29 @@ footer.foot a{color:var(--gold-soft)}
   transition:background .2s,border-color .2s;
 }
 .quote-modal-close:hover{background:rgba(209,162,87,.12);border-color:var(--gold)}
-.quote-modal-iframe{flex:1;min-height:0;background:#fff}
+.quote-modal-iframe{flex:1;min-height:0;background:#f6f0ff;position:relative}
 .quote-modal-iframe iframe{
-  width:100%;height:100%;border:0;display:block;
+  width:100%;height:100%;border:0;display:block;background:#f6f0ff;
 }
+.quote-modal-loading{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:#0e0e0e;color:var(--gold-soft);
+  font-size:13px;letter-spacing:.5px;
+  pointer-events:none;transition:opacity .35s ease;
+}
+.quote-modal.loaded .quote-modal-loading{opacity:0}
+.quote-modal-spinner{
+  width:42px;height:42px;border-radius:50%;
+  border:3px solid rgba(209,162,87,.18);
+  border-top-color:var(--gold);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.quote-modal-fallback{
+  font-size:12px;color:var(--muted);
+  margin-top:4px;pointer-events:auto;
+}
+.quote-modal-fallback a{color:var(--gold-soft);font-weight:700;text-decoration:underline}
 @media (max-width:560px){
   .quote-modal{padding:0}
   .quote-modal-body{width:100%;height:100vh;height:100dvh;border-radius:0;border:0}
@@ -785,18 +804,44 @@ footer.foot a{color:var(--gold-soft)}
       <button class="quote-modal-close" type="button" onclick="closeQuoteModal()" aria-label="Close">×</button>
     </div>
     <div class="quote-modal-iframe">
-      <iframe id="quoteModalFrame" title="Get a Catering Quote" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="auto"></iframe>
+      <div class="quote-modal-loading" id="quoteModalLoading">
+        <div class="quote-modal-spinner" aria-hidden="true"></div>
+        <div>Loading the catering quote form…</div>
+        <div class="quote-modal-fallback">Not loading? <a href="https://form.jotform.com/250033691686056" target="_blank" rel="noopener">Open in a new tab</a></div>
+      </div>
+      <iframe
+        id="JotFormIFrame-250033691686056"
+        title="Get a Quote from Comeketo Catering"
+        allow="geolocation; microphone; camera; fullscreen; payment"
+        allowtransparency="true"
+        scrolling="auto"
+        frameborder="0"
+      ></iframe>
     </div>
   </div>
 </div>
+<script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
 <script>
 (function(){
   var FORM_URL = 'https://form.jotform.com/250033691686056';
   var modal = document.getElementById('quoteModal');
-  var frame = document.getElementById('quoteModalFrame');
+  var frame = document.getElementById('JotFormIFrame-250033691686056');
   var loaded = false;
+
+  frame.addEventListener('load', function(){
+    if (frame.src && frame.src.indexOf('about:blank') === -1) {
+      modal.classList.add('loaded');
+    }
+  });
+
   window.openQuoteModal = function(){
-    if(!loaded){ frame.src = FORM_URL; loaded = true; }
+    if(!loaded){
+      frame.src = FORM_URL;
+      loaded = true;
+      if (window.jotformEmbedHandler) {
+        try { window.jotformEmbedHandler("iframe[id='JotFormIFrame-250033691686056']", "https://form.jotform.com"); } catch(e) {}
+      }
+    }
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
