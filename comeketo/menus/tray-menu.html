@@ -274,18 +274,102 @@ footer.foot{
 }
 footer.foot a{color:var(--gold-soft)}
 
+/* QUOTE BUTTON + DIVIDER */
+.quote-cta-row{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin:20px auto 4px;
+}
+.quote-cta-row::before,.quote-cta-row::after{
+  content:"";flex:1;max-width:160px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 60%,transparent);
+}
+.quote-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),#e6c082);
+  color:#171109;font-weight:800;font-size:13px;
+  letter-spacing:.8px;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;border:0;
+  font-family:'Manrope',sans-serif;
+  box-shadow:0 14px 30px rgba(209,162,87,.18);
+  transition:transform .2s,box-shadow .2s;
+  white-space:nowrap;
+}
+.quote-btn:hover{transform:translateY(-1px);box-shadow:0 18px 40px rgba(209,162,87,.32);color:#171109}
+.quote-btn .arr{font-size:14px;line-height:1;transition:transform .2s;display:inline-block}
+.quote-btn:hover .arr{transform:translateX(3px)}
+
+/* QUOTE MODAL */
+.quote-modal{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+.quote-modal.open{display:flex}
+.quote-modal::before{
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.quote-modal-body{
+  position:relative;z-index:1;
+  width:min(740px,100%);
+  height:min(90vh,920px);
+  background:#0e0e0e;
+  border:1px solid var(--line);
+  border-radius:24px;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(209,162,87,.18) inset;
+  display:flex;flex-direction:column;
+  animation:modalIn .25s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.quote-modal-header{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:18px 22px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(209,162,87,.06),transparent);
+  flex-shrink:0;
+}
+.quote-modal-header h3{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:24px;line-height:1.1;font-weight:600;margin:0;
+}
+.quote-modal-header .sub{
+  color:var(--muted);font-size:11px;margin-top:3px;
+  letter-spacing:1.2px;text-transform:uppercase;font-weight:700;
+}
+.quote-modal-close{
+  width:38px;height:38px;border-radius:999px;flex-shrink:0;
+  background:rgba(255,255,255,.06);
+  color:#fff5e4;border:1px solid var(--line);
+  cursor:pointer;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;
+}
+.quote-modal-close:hover{background:rgba(209,162,87,.12);border-color:var(--gold)}
+.quote-modal-iframe{flex:1;min-height:0;background:#fff}
+.quote-modal-iframe iframe{
+  width:100%;height:100%;border:0;display:block;
+}
+@media (max-width:560px){
+  .quote-modal{padding:0}
+  .quote-modal-body{width:100%;height:100vh;height:100dvh;border-radius:0;border:0}
+}
+
 /* RESPONSIVE */
 @media (max-width:900px){
   .infobar{grid-template-columns:repeat(2,1fr)}
   .addons,.terms{grid-template-columns:1fr}
   .row{grid-template-columns:1fr auto auto;gap:12px}
   .row .p{font-size:18px;min-width:72px}
-  .col-head{font-size:9.5px}
+  .col-head{font-size:9.5px;width:auto}
   .col-head .ch{min-width:72px}
+  .section-head{flex-direction:column;align-items:stretch;gap:10px}
+  .section-head .col-head{align-self:flex-end;padding-right:18px}
   h1{font-size:42px}
   .hero{padding:32px 22px 28px}
   .section{padding:22px}
   .footer-cta{padding:24px}
+  .quote-cta-row::before,.quote-cta-row::after{max-width:60px}
 }
 @media (max-width:560px){
   .crumbs{font-size:11px}
@@ -306,7 +390,7 @@ footer.foot a{color:var(--gold-soft)}
         <span class="b-section">Tray Menu · IT · MX · USA</span>
       </span>
     </a>
-    <a class="backlink" href="https://rawdre.github.io/comeketo-menu-landing/#packages">← Back to Calculator</a>
+    <button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button>
   </div>
 
   <!-- HERO -->
@@ -405,6 +489,8 @@ footer.foot a{color:var(--gold-soft)}
     </div>
   </section>
 
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
+
   <!-- SALADS -->
   <section class="section" id="salads">
     <div class="section-head">
@@ -440,6 +526,8 @@ footer.foot a{color:var(--gold-soft)}
       <div class="dressing"><span class="n">Ranch</span><span class="v">$12 <small>pt</small> · $22 <small>qt</small></span></div>
     </div>
   </section>
+
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
 
   <!-- SIDES & PASTA -->
   <section class="section" id="sides">
@@ -482,6 +570,8 @@ footer.foot a{color:var(--gold-soft)}
     </div>
   </section>
 
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
+
   <!-- SEAFOOD -->
   <section class="section" id="seafood">
     <div class="section-head">
@@ -503,6 +593,8 @@ footer.foot a{color:var(--gold-soft)}
       <div class="row"><div class="name">Salmon<span class="note">Glazed with a sweet teriyaki sauce.</span></div><div class="p">$85<span class="unit">small</span></div><div class="p">$170<span class="unit">large</span></div></div>
     </div>
   </section>
+
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
 
   <!-- BEEF & PORK -->
   <section class="section" id="beef-pork">
@@ -529,6 +621,8 @@ footer.foot a{color:var(--gold-soft)}
       <div class="row"><div class="name">Italian Sausage, Peppers & Onions<span class="note">With roasted potatoes or penne pasta.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
     </div>
   </section>
+
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
 
   <!-- CHICKEN -->
   <section class="section" id="chicken">
@@ -557,6 +651,8 @@ footer.foot a{color:var(--gold-soft)}
       <div class="row"><div class="name">Chicken Tenders</div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
     </div>
   </section>
+
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
 
   <!-- TACOS / FAJITAS / ENCHILADAS -->
   <section class="section" id="tacos">
@@ -603,6 +699,8 @@ footer.foot a{color:var(--gold-soft)}
     </div>
   </section>
 
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
+
   <!-- ADD-ONS -->
   <section class="section" id="addons">
     <div class="section-head">
@@ -631,6 +729,8 @@ footer.foot a{color:var(--gold-soft)}
     </div>
   </section>
 
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
+
   <!-- TERMS -->
   <section class="section" id="terms">
     <div class="section-head">
@@ -655,6 +755,8 @@ footer.foot a{color:var(--gold-soft)}
     </div>
   </section>
 
+  <div class="quote-cta-row"><button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button></div>
+
   <!-- CTA FOOTER -->
   <section class="footer-cta">
     <div>
@@ -663,7 +765,7 @@ footer.foot a{color:var(--gold-soft)}
     </div>
     <div class="cta-buttons">
       <a class="btn btn-primary" href="tel:+19783811212">📞 Call (978) 381-1212</a>
-      <a class="btn btn-secondary" href="mailto:team@comeketocatering.com">✉ Email Us</a>
+      <button class="btn btn-secondary" type="button" onclick="openQuoteModal()">→ Get a Quote Here</button>
     </div>
   </section>
 
@@ -671,5 +773,46 @@ footer.foot a{color:var(--gold-soft)}
     Comeketo Catering · 199 Main Street, Fitchburg MA 01420 · <a href="https://comeketocatering.com">comeketocatering.com</a> · Tray menu by Raw AI
   </footer>
 </div>
+
+<!-- QUOTE MODAL -->
+<div class="quote-modal" id="quoteModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quoteModalTitle">
+  <div class="quote-modal-body">
+    <div class="quote-modal-header">
+      <div>
+        <h3 id="quoteModalTitle">Get a Catering Quote</h3>
+        <div class="sub">Comeketo Catering · Tray Menu</div>
+      </div>
+      <button class="quote-modal-close" type="button" onclick="closeQuoteModal()" aria-label="Close">×</button>
+    </div>
+    <div class="quote-modal-iframe">
+      <iframe id="quoteModalFrame" title="Get a Catering Quote" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="auto"></iframe>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var FORM_URL = 'https://form.jotform.com/250033691686056';
+  var modal = document.getElementById('quoteModal');
+  var frame = document.getElementById('quoteModalFrame');
+  var loaded = false;
+  window.openQuoteModal = function(){
+    if(!loaded){ frame.src = FORM_URL; loaded = true; }
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeQuoteModal = function(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  };
+  modal.addEventListener('click', function(e){
+    if(e.target === modal) closeQuoteModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeQuoteModal();
+  });
+})();
+</script>
 </body>
 </html>
