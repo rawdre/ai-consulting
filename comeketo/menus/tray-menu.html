@@ -34,9 +34,27 @@ a:hover{color:#fff5e4}
 
 /* HEADER */
 .topbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:6px 4px 22px}
-.crumbs{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim)}
-.crumbs a{color:var(--gold-soft);font-weight:700}
-.crumbs span{color:#5a4d3a}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand-logo{
+  width:60px;height:60px;border-radius:50%;
+  background:#000;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px rgba(0,0,0,.45),0 0 0 1px rgba(209,162,87,.32) inset;
+  flex-shrink:0;overflow:hidden;
+}
+.brand-logo img{width:100%;height:100%;object-fit:cover;display:block}
+.brand-text{display:flex;flex-direction:column;gap:2px;line-height:1.1}
+.brand-text .b-eyebrow{
+  font-size:9.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--gold-soft);
+}
+.brand-text .b-name{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:22px;font-weight:600;letter-spacing:.2px;
+}
+.brand-text .b-section{
+  font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--dim);
+}
 .backlink{
   display:inline-flex;align-items:center;gap:8px;
   padding:9px 14px;border-radius:999px;
@@ -280,14 +298,15 @@ footer.foot a{color:var(--gold-soft)}
 
   <!-- TOP BAR -->
   <div class="topbar">
-    <div class="crumbs">
-      <a href="../index.html">Comeketo Hub</a>
-      <span>›</span>
-      <span>Menus</span>
-      <span>›</span>
-      <span style="color:var(--ink)">Tray Menu</span>
-    </div>
-    <a class="backlink" href="../index.html">← Back to Hub</a>
+    <a class="brand" href="https://rawdre.github.io/comeketo-menu-landing/#packages">
+      <span class="brand-logo"><img src="assets/comeketo-logo.png" alt="Comeketo Catering"></span>
+      <span class="brand-text">
+        <span class="b-eyebrow">Since 2009</span>
+        <span class="b-name">Comeketo Catering</span>
+        <span class="b-section">Tray Menu · IT · MX · USA</span>
+      </span>
+    </a>
+    <a class="backlink" href="https://rawdre.github.io/comeketo-menu-landing/#packages">← Back to Calculator</a>
   </div>
 
   <!-- HERO -->
@@ -300,7 +319,7 @@ footer.foot a{color:var(--gold-soft)}
         <span class="pill">199 Main Street, Fitchburg MA</span>
         <span class="pill muted">Open 7 Days · 10AM – 6PM</span>
         <span class="pill muted">(978) 381-1212</span>
-        <span class="pill muted">admin@comeketocatering.com</span>
+        <span class="pill muted">team@comeketocatering.com</span>
       </div>
     </div>
     <div class="hero-visual">
@@ -644,7 +663,7 @@ footer.foot a{color:var(--gold-soft)}
     </div>
     <div class="cta-buttons">
       <a class="btn btn-primary" href="tel:+19783811212">📞 Call (978) 381-1212</a>
-      <a class="btn btn-secondary" href="mailto:admin@comeketocatering.com">✉ Email Us</a>
+      <a class="btn btn-secondary" href="mailto:team@comeketocatering.com">✉ Email Us</a>
     </div>
   </section>
 
