@@ -372,29 +372,199 @@ footer.foot a{color:var(--gold-soft)}
   transition:background .2s,border-color .2s;
 }
 .quote-modal-close:hover{background:rgba(209,162,87,.12);border-color:var(--gold)}
-.quote-modal-iframe{flex:1;min-height:0;background:#f6f0ff;position:relative;overflow:hidden;-webkit-overflow-scrolling:touch}
-.quote-modal-iframe iframe{
-  width:100%!important;height:100%!important;min-height:100%;border:0;display:block;background:#f6f0ff;
+.quote-modal-body-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:22px}
+.quote-modal-foot{
+  flex-shrink:0;padding:14px 18px;
+  border-top:1px solid var(--line);
+  background:linear-gradient(0deg,rgba(209,162,87,.05),transparent);
+  display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
 }
-.quote-modal-loading{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  background:#0e0e0e;color:var(--gold-soft);
-  font-size:13px;letter-spacing:.5px;
-  pointer-events:none;transition:opacity .35s ease;
+.quote-modal-foot .total{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:20px;font-weight:600;
 }
-.quote-modal.loaded .quote-modal-loading{opacity:0}
-.quote-modal-spinner{
-  width:42px;height:42px;border-radius:50%;
-  border:3px solid rgba(209,162,87,.18);
-  border-top-color:var(--gold);
-  animation:spin 1s linear infinite;
+.quote-modal-foot .total small{display:block;font-family:'Manrope',sans-serif;font-size:10px;color:var(--dim);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-top:2px}
+.quote-modal-foot .foot-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-builder{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 20px;border-radius:999px;cursor:pointer;
+  font-weight:800;font-size:13px;letter-spacing:.4px;
+  transition:transform .15s,box-shadow .2s,background .2s;
+  border:1px solid transparent;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
-.quote-modal-fallback{
-  font-size:12px;color:var(--muted);
-  margin-top:4px;pointer-events:auto;
+.btn-builder.primary{background:var(--gold);color:#171109;box-shadow:0 12px 28px rgba(209,162,87,.18)}
+.btn-builder.primary:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgba(209,162,87,.28)}
+.btn-builder.primary:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-builder.ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--gold-soft)}
+.btn-builder.ghost:hover{border-color:var(--gold);background:rgba(209,162,87,.08);color:#fff5e4}
+
+/* INLINE QUANTITY STEPPER (in menu rows) */
+.row .p{position:relative;cursor:pointer;user-select:none}
+.row .p.has-stepper{cursor:default}
+.row .p .price-label{display:block}
+.qty-stepper{
+  display:none;align-items:center;justify-content:flex-end;gap:6px;
+  margin-bottom:4px;
 }
-.quote-modal-fallback a{color:var(--gold-soft);font-weight:700;text-decoration:underline}
+.row .p.has-stepper .qty-stepper{display:flex}
+.row .p.has-stepper .price-label .unit{opacity:.6}
+.row .p.has-stepper .price-label{font-size:14px;line-height:1.1}
+.qty-btn{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(209,162,87,.10);
+  border:1px solid var(--line);
+  color:var(--gold-soft);
+  font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;line-height:1;
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s,border-color .15s,transform .1s;
+  padding:0;
+}
+.qty-btn:hover{background:rgba(209,162,87,.22);border-color:var(--gold)}
+.qty-btn:active{transform:scale(.92)}
+.qty-num{
+  min-width:22px;text-align:center;
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;
+  color:#fff5e4;
+}
+.row .p .add-hint{
+  display:block;font-family:'Manrope',sans-serif;font-size:9.5px;
+  color:var(--gold-soft);font-weight:800;letter-spacing:1.4px;
+  text-transform:uppercase;margin-top:3px;opacity:.6;
+}
+.row .p:hover .add-hint{opacity:1}
+.row .p.has-stepper .add-hint{display:none}
+
+/* FLOATING CART PILL */
+.cart-pill{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120%);
+  z-index:990;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 20px 12px 16px;border-radius:999px;
+  background:linear-gradient(180deg,#171109,#0a0604);
+  border:1px solid var(--gold-deep);
+  box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 0 1px rgba(209,162,87,.32) inset;
+  color:#fff5e4;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),background .2s;
+  max-width:calc(100% - 28px);
+}
+.cart-pill.visible{transform:translateX(-50%) translateY(0)}
+.cart-pill:hover{background:linear-gradient(180deg,#1f1611,#100805)}
+.cart-pill .pill-icon{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--gold);color:#171109;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;
+  box-shadow:0 0 0 2px rgba(209,162,87,.25);
+}
+.cart-pill .pill-text{display:flex;flex-direction:column;line-height:1.15}
+.cart-pill .pill-text .top{font-size:13px;color:#fff5e4;font-weight:800}
+.cart-pill .pill-text .bot{font-size:11px;color:var(--gold-soft);font-weight:700;letter-spacing:.4px}
+.cart-pill .pill-arrow{font-size:14px;color:var(--gold-soft);margin-left:4px}
+
+/* BUILDER STEPS */
+.builder-step{display:none}
+.builder-step.active{display:block}
+.builder-empty{
+  text-align:center;padding:30px 10px;color:var(--muted);
+}
+.builder-empty h4{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:22px;margin-bottom:8px;font-weight:600;
+}
+.builder-empty p{font-size:13.5px;line-height:1.7}
+.builder-empty .empty-icon{font-size:42px;margin-bottom:10px;opacity:.5}
+.builder-line{
+  display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;
+  padding:12px 14px;border-radius:12px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+  margin-bottom:8px;
+}
+.builder-line .li-name{font-weight:600;color:#fff5e4;font-size:14px;line-height:1.35}
+.builder-line .li-meta{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px;letter-spacing:.3px}
+.builder-line .li-qty{display:flex;align-items:center;gap:6px}
+.builder-line .li-total{
+  font-family:'Cormorant Garamond',serif;color:var(--gold-soft);
+  font-size:18px;font-weight:600;min-width:62px;text-align:right;
+}
+.builder-disclaimer{
+  margin-top:12px;padding:12px 14px;border-radius:12px;
+  background:rgba(209,162,87,.06);border:1px solid var(--line-soft);
+  color:var(--muted);font-size:12px;line-height:1.65;
+}
+.builder-disclaimer strong{color:var(--gold-soft);font-weight:800;letter-spacing:.4px}
+
+/* BUILDER FORM (contact + event) */
+.builder-form{display:grid;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{
+  font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--gold-soft);
+}
+.field label .req{color:#ff8e8e;margin-left:3px}
+.field input,.field textarea,.field select{
+  width:100%;padding:12px 14px;border-radius:10px;
+  background:#0a0a0a;border:1px solid var(--line);
+  color:#fff5e4;font-family:'Manrope',sans-serif;font-size:14px;
+  outline:none;transition:border-color .15s,background .15s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);background:#111}
+.field textarea{resize:vertical;min-height:80px;line-height:1.5}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.field .err{color:#ff8e8e;font-size:11.5px;font-weight:600;letter-spacing:.3px}
+@media (max-width:560px){
+  .field-row,.field-row-3{grid-template-columns:1fr}
+}
+
+.builder-addons{
+  display:grid;gap:8px;
+  padding:14px;border-radius:12px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+}
+.builder-addons .addon-row{
+  display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+  padding:8px;border-radius:8px;transition:background .15s;
+}
+.builder-addons .addon-row:hover{background:rgba(209,162,87,.05)}
+.builder-addons input[type=checkbox]{
+  width:20px;height:20px;flex-shrink:0;margin-top:1px;
+  accent-color:var(--gold);cursor:pointer;
+}
+.builder-addons .addon-info{flex:1}
+.builder-addons .addon-info .n{color:#fff5e4;font-weight:700;font-size:13.5px}
+.builder-addons .addon-info .d{color:var(--muted);font-size:12px;line-height:1.5;margin-top:2px}
+
+.builder-success{
+  text-align:center;padding:30px 10px;
+}
+.builder-success .check{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(91,200,127,.12);border:2px solid #5bc87f;
+  color:#5bc87f;display:flex;align-items:center;justify-content:center;
+  font-size:32px;font-weight:800;margin:0 auto 16px;
+}
+.builder-success h4{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:28px;margin-bottom:8px;font-weight:600;
+}
+.builder-success p{color:var(--muted);font-size:14px;line-height:1.7;max-width:380px;margin:0 auto}
+
+.builder-error{
+  margin-top:10px;padding:12px 14px;border-radius:10px;
+  background:rgba(255,142,142,.08);border:1px solid rgba(255,142,142,.4);
+  color:#ffb0b0;font-size:13px;line-height:1.5;
+}
+
+/* Adjust price column on small screens so steppers fit */
+@media (max-width:560px){
+  .row{grid-template-columns:1fr 88px 88px;gap:10px;padding:12px 14px}
+  .qty-btn{width:24px;height:24px;font-size:15px}
+  .qty-stepper{gap:4px}
+  .cart-pill{padding:10px 16px 10px 12px}
+  .cart-pill .pill-icon{width:28px;height:28px;font-size:13px}
+  .cart-pill .pill-text .top{font-size:12.5px}
+  .cart-pill .pill-text .bot{font-size:10.5px}
+}
 @media (max-width:820px){
   .quote-modal{padding:0}
   .quote-modal-body{width:100%;max-width:100%;height:100vh;height:100dvh;max-height:100dvh;border-radius:0;border:0}
@@ -839,65 +1009,515 @@ footer.foot a{color:var(--gold-soft)}
   </footer>
 </div>
 
-<!-- QUOTE MODAL -->
+<!-- FLOATING CART PILL -->
+<button class="cart-pill" id="cartPill" type="button" aria-label="View your order" hidden>
+  <span class="pill-icon" id="cartPillCount">0</span>
+  <span class="pill-text">
+    <span class="top" id="cartPillTop">View Order</span>
+    <span class="bot" id="cartPillBot">Estimate $0</span>
+  </span>
+  <span class="pill-arrow">→</span>
+</button>
+
+<!-- ORDER BUILDER MODAL -->
 <div class="quote-modal" id="quoteModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quoteModalTitle">
   <div class="quote-modal-body">
     <div class="quote-modal-header">
       <div>
-        <h3 id="quoteModalTitle">Get a Catering Quote</h3>
-        <div class="sub">Comeketo Catering · Tray Menu</div>
+        <h3 id="quoteModalTitle">Your Order</h3>
+        <div class="sub" id="quoteModalSub">Comeketo Catering · Tray Menu</div>
       </div>
       <button class="quote-modal-close" type="button" onclick="closeQuoteModal()" aria-label="Close">×</button>
     </div>
-    <div class="quote-modal-iframe">
-      <div class="quote-modal-loading" id="quoteModalLoading">
-        <div class="quote-modal-spinner" aria-hidden="true"></div>
-        <div>Loading the catering quote form…</div>
-        <div class="quote-modal-fallback">Not loading? <a href="https://form.jotform.com/250033691686056" target="_blank" rel="noopener">Open in a new tab</a></div>
+
+    <div class="quote-modal-body-scroll">
+      <!-- STEP 1: REVIEW CART -->
+      <div class="builder-step active" data-step="review" id="builderStepReview">
+        <div id="builderEmpty" class="builder-empty" hidden>
+          <div class="empty-icon">🍽️</div>
+          <h4>Your order is empty</h4>
+          <p>Tap any price on the menu to start building your order. We'll keep your selections saved so you can come back any time.</p>
+        </div>
+        <div id="builderLines"></div>
+        <div class="builder-disclaimer" id="builderDisclaimer">
+          <strong>This is an estimate.</strong> Final pricing includes 7% MA meals tax, delivery (calculated by distance), and optional add-ons. Our team will send you a final quote within one business day.
+        </div>
       </div>
-      <iframe
-        id="JotFormIFrame-250033691686056"
-        title="Get a Quote from Comeketo Catering"
-        allow="geolocation; microphone; camera; fullscreen; payment"
-        allowtransparency="true"
-        scrolling="auto"
-        frameborder="0"
-      ></iframe>
+
+      <!-- STEP 2: DETAILS -->
+      <div class="builder-step" data-step="details" id="builderStepDetails">
+        <form class="builder-form" id="builderForm" novalidate>
+          <div class="field">
+            <label for="bfName">Full name <span class="req">*</span></label>
+            <input id="bfName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="bfEmail">Email <span class="req">*</span></label>
+              <input id="bfEmail" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="bfPhone">Phone <span class="req">*</span></label>
+              <input id="bfPhone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+          </div>
+          <div class="field-row-3">
+            <div class="field">
+              <label for="bfDate">Event date <span class="req">*</span></label>
+              <input id="bfDate" name="date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="bfTime">Time</label>
+              <input id="bfTime" name="time" type="time">
+            </div>
+            <div class="field">
+              <label for="bfGuests">Guests <span class="req">*</span></label>
+              <input id="bfGuests" name="guests" type="number" min="1" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="bfZip">Zip code (event location)</label>
+            <input id="bfZip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="10">
+          </div>
+
+          <div class="builder-addons" aria-labelledby="bfAddonsLabel">
+            <label id="bfAddonsLabel" style="font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:2px">Optional add-ons</label>
+            <label class="addon-row">
+              <input type="checkbox" name="addons" value="Wire chafers & sternos">
+              <span class="addon-info"><span class="n">Wire chafers & sternos</span><span class="d">Keep food hot for guests (+5% of order, $25 min)</span></span>
+            </label>
+            <label class="addon-row">
+              <input type="checkbox" name="addons" value="Delivery">
+              <span class="addon-info"><span class="n">Delivery</span><span class="d">$1.50/mile from Fitchburg, both ways ($25 min)</span></span>
+            </label>
+            <label class="addon-row">
+              <input type="checkbox" name="addons" value="Full setup service">
+              <span class="addon-info"><span class="n">Full setup service</span><span class="d">We set up the buffet so you don't have to (+5%, $25 min)</span></span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label for="bfNotes">Notes — dietary, allergies, special requests</label>
+            <textarea id="bfNotes" name="notes" rows="3" placeholder="e.g. 2 vegetarians, no peanuts, drop off at side entrance"></textarea>
+          </div>
+          <div class="builder-error" id="builderError" hidden></div>
+        </form>
+      </div>
+
+      <!-- STEP 3: SUCCESS -->
+      <div class="builder-step" data-step="success" id="builderStepSuccess">
+        <div class="builder-success">
+          <div class="check">✓</div>
+          <h4>Order received!</h4>
+          <p>Thanks <span id="successName">there</span>. We got your selection — Andre or one of our managers will reach out within one business day with your final quote. If you need us sooner, call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-modal-foot" id="builderFoot">
+      <div class="total">
+        <span id="footTotal">$0</span>
+        <small id="footTotalLabel">Estimated subtotal</small>
+      </div>
+      <div class="foot-actions">
+        <button class="btn-builder ghost" type="button" id="builderBackBtn" hidden>← Back</button>
+        <button class="btn-builder ghost" type="button" id="builderKeepBrowsingBtn">Keep browsing</button>
+        <button class="btn-builder primary" type="button" id="builderNextBtn" disabled>Continue →</button>
+      </div>
     </div>
   </div>
 </div>
+
 <script>
+/* MENU ORDER BUILDER */
 (function(){
-  var FORM_URL = 'https://form.jotform.com/250033691686056';
-  var modal = document.getElementById('quoteModal');
-  var frame = document.getElementById('JotFormIFrame-250033691686056');
-  var loaded = false;
+  // ===== CONFIG =====
+  // After deploying comeketo-quote-api to Vercel, set this to its production URL.
+  var QUOTE_API_URL = 'https://comeketo-quote-api.vercel.app/api/quote';
+  var STORAGE_KEY = 'comeketo_tray_cart_v1';
 
-  frame.addEventListener('load', function(){
-    if (frame.src && frame.src.indexOf('about:blank') === -1) {
-      modal.classList.add('loaded');
-    }
-  });
+  // ===== STATE =====
+  var cart = {}; // { itemKey: { id, name, size, sizeLabel, unit, qty, section } }
+  var step = 'review';
+  var menuIndex = {}; // itemKey -> dom price cell
 
-  window.openQuoteModal = function(){
-    if(!loaded){
-      frame.src = FORM_URL;
-      loaded = true;
+  function slug(s){
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+  }
+
+  function loadCart(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){ cart = JSON.parse(raw) || {}; }
+    }catch(e){ cart = {}; }
+  }
+  function saveCart(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); }catch(e){}
+  }
+
+  function totals(){
+    var qty = 0, subtotal = 0;
+    Object.keys(cart).forEach(function(k){
+      var it = cart[k];
+      qty += it.qty;
+      subtotal += it.qty * it.unit;
+    });
+    return { qty: qty, subtotal: subtotal };
+  }
+
+  function money(n){ return '$' + (n || 0).toLocaleString('en-US'); }
+
+  // ===== SCAN MENU + INJECT STEPPERS =====
+  function buildMenuIndex(){
+    var sections = document.querySelectorAll('section.section');
+    sections.forEach(function(sec){
+      var sectionId = sec.id || 'sec';
+      var rows = sec.querySelectorAll('.rows .row');
+      rows.forEach(function(row, idx){
+        var nameEl = row.querySelector('.name');
+        if(!nameEl) return;
+        // Clone to grab name text only (strip out .note span)
+        var clone = nameEl.cloneNode(true);
+        var note = clone.querySelector('.note'); if(note) note.remove();
+        var name = (clone.textContent || '').trim();
+        if(!name) return;
+        var prices = row.querySelectorAll('.p');
+        if(prices.length < 2) return;
+        var baseId = sectionId + '-' + slug(name) + '-' + idx;
+        ['small','large'].forEach(function(size, i){
+          var cell = prices[i]; if(!cell) return;
+          var priceText = (cell.textContent || '').trim();
+          var match = priceText.match(/\$\s*([\d,.]+)/);
+          if(!match) return;
+          var unitPrice = parseFloat(match[1].replace(/,/g,'')) || 0;
+          var unitEl = cell.querySelector('.unit');
+          var sizeLabel = unitEl ? (unitEl.textContent || '').trim() : size;
+          var itemKey = baseId + '-' + size;
+
+          // Replace cell content: stepper (hidden by default) + price label
+          cell.innerHTML =
+            '<div class="qty-stepper">' +
+              '<button type="button" class="qty-btn qty-minus" aria-label="Remove one">−</button>' +
+              '<span class="qty-num">0</span>' +
+              '<button type="button" class="qty-btn qty-plus" aria-label="Add one">+</button>' +
+            '</div>' +
+            '<span class="price-label">$' + unitPrice + '<span class="unit">' + sizeLabel + '</span></span>' +
+            '<span class="add-hint">Tap to add</span>';
+
+          cell.dataset.itemKey = itemKey;
+          cell.dataset.itemName = name;
+          cell.dataset.itemSize = size;
+          cell.dataset.itemSizeLabel = sizeLabel;
+          cell.dataset.itemUnit = unitPrice;
+          cell.dataset.itemSection = sectionId;
+          menuIndex[itemKey] = cell;
+
+          // tap on cell anywhere (when qty=0) -> add 1
+          cell.addEventListener('click', function(ev){
+            // ignore clicks on the +/- buttons (they handle themselves)
+            if (ev.target.closest('.qty-btn')) return;
+            var k = cell.dataset.itemKey;
+            if(!cart[k]){
+              addToCart(cell);
+            }
+          });
+          cell.querySelector('.qty-plus').addEventListener('click', function(ev){
+            ev.stopPropagation();
+            addToCart(cell);
+          });
+          cell.querySelector('.qty-minus').addEventListener('click', function(ev){
+            ev.stopPropagation();
+            removeFromCart(cell.dataset.itemKey);
+          });
+        });
+      });
+    });
+  }
+
+  function addToCart(cell){
+    var key = cell.dataset.itemKey;
+    if(!cart[key]){
+      cart[key] = {
+        id: key,
+        name: cell.dataset.itemName,
+        size: cell.dataset.itemSize,
+        sizeLabel: cell.dataset.itemSizeLabel,
+        unit: parseFloat(cell.dataset.itemUnit) || 0,
+        qty: 0,
+        section: cell.dataset.itemSection,
+      };
     }
+    cart[key].qty += 1;
+    saveCart();
+    syncCell(key);
+    renderPill();
+    renderReview();
+  }
+  function removeFromCart(key){
+    if(!cart[key]) return;
+    cart[key].qty -= 1;
+    if(cart[key].qty <= 0) delete cart[key];
+    saveCart();
+    syncCell(key);
+    renderPill();
+    renderReview();
+  }
+  function syncCell(key){
+    var cell = menuIndex[key]; if(!cell) return;
+    var it = cart[key];
+    if(it && it.qty > 0){
+      cell.classList.add('has-stepper');
+      cell.querySelector('.qty-num').textContent = it.qty;
+    } else {
+      cell.classList.remove('has-stepper');
+      var n = cell.querySelector('.qty-num'); if(n) n.textContent = '0';
+    }
+  }
+  function syncAllCells(){
+    Object.keys(menuIndex).forEach(syncCell);
+  }
+
+  // ===== FLOATING PILL =====
+  var pill = null, pillCount = null, pillTop = null, pillBot = null;
+  function renderPill(){
+    if(!pill) return;
+    var t = totals();
+    if(t.qty === 0){
+      pill.classList.remove('visible');
+      pill.setAttribute('hidden','');
+      return;
+    }
+    pill.removeAttribute('hidden');
+    requestAnimationFrame(function(){ pill.classList.add('visible'); });
+    pillCount.textContent = t.qty;
+    pillTop.textContent = 'View Order · ' + t.qty + (t.qty === 1 ? ' item' : ' items');
+    pillBot.textContent = 'Estimate ' + money(t.subtotal);
+  }
+
+  // ===== MODAL =====
+  var modal = null;
+  function setStep(s){
+    step = s;
+    document.querySelectorAll('.builder-step').forEach(function(el){
+      el.classList.toggle('active', el.dataset.step === s);
+    });
+    var foot = document.getElementById('builderFoot');
+    var backBtn = document.getElementById('builderBackBtn');
+    var keepBtn = document.getElementById('builderKeepBrowsingBtn');
+    var nextBtn = document.getElementById('builderNextBtn');
+    var sub = document.getElementById('quoteModalSub');
+    var title = document.getElementById('quoteModalTitle');
+    var totalLabel = document.getElementById('footTotalLabel');
+
+    if(s === 'review'){
+      title.textContent = 'Your Order';
+      sub.textContent = 'Comeketo Catering · Tray Menu';
+      backBtn.hidden = true;
+      keepBtn.hidden = false;
+      nextBtn.textContent = 'Continue →';
+      nextBtn.disabled = totals().qty === 0;
+      foot.style.display = '';
+      totalLabel.textContent = 'Estimated subtotal';
+    } else if(s === 'details'){
+      title.textContent = 'Your Details';
+      sub.textContent = 'Step 2 of 2 · Contact + event';
+      backBtn.hidden = false;
+      keepBtn.hidden = true;
+      nextBtn.textContent = 'Send to Comeketo →';
+      nextBtn.disabled = false;
+      foot.style.display = '';
+      totalLabel.textContent = 'Estimated subtotal';
+    } else if(s === 'success'){
+      title.textContent = 'All set!';
+      sub.textContent = 'We received your order';
+      foot.style.display = 'none';
+    }
+  }
+
+  function renderReview(){
+    var lines = document.getElementById('builderLines');
+    var empty = document.getElementById('builderEmpty');
+    var disclaimer = document.getElementById('builderDisclaimer');
+    var t = totals();
+    document.getElementById('footTotal').textContent = money(t.subtotal);
+
+    if(t.qty === 0){
+      lines.innerHTML = '';
+      empty.hidden = false;
+      disclaimer.style.display = 'none';
+      if(step === 'review'){
+        document.getElementById('builderNextBtn').disabled = true;
+      }
+      return;
+    }
+    empty.hidden = true;
+    disclaimer.style.display = '';
+    if(step === 'review'){
+      document.getElementById('builderNextBtn').disabled = false;
+    }
+
+    var html = '';
+    Object.keys(cart).forEach(function(k){
+      var it = cart[k];
+      var lineTotal = it.qty * it.unit;
+      html +=
+        '<div class="builder-line" data-key="' + k + '">' +
+          '<div>' +
+            '<div class="li-name">' + escapeHtml(it.name) + '</div>' +
+            '<div class="li-meta">' + escapeHtml(it.sizeLabel) + ' · ' + money(it.unit) + ' each</div>' +
+          '</div>' +
+          '<div class="li-qty">' +
+            '<button type="button" class="qty-btn" data-act="dec" aria-label="Remove">−</button>' +
+            '<span class="qty-num">' + it.qty + '</span>' +
+            '<button type="button" class="qty-btn" data-act="inc" aria-label="Add">+</button>' +
+          '</div>' +
+          '<div class="li-total">' + money(lineTotal) + '</div>' +
+        '</div>';
+    });
+    lines.innerHTML = html;
+    lines.querySelectorAll('.builder-line').forEach(function(row){
+      var key = row.dataset.key;
+      row.querySelector('[data-act=inc]').addEventListener('click', function(){
+        var cell = menuIndex[key]; if(cell) addToCart(cell);
+      });
+      row.querySelector('[data-act=dec]').addEventListener('click', function(){
+        removeFromCart(key);
+      });
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  function openModal(){
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
-  };
-  window.closeQuoteModal = function(){
+    setStep('review');
+    renderReview();
+  }
+  function closeModal(){
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
-  };
-  modal.addEventListener('click', function(e){
-    if(e.target === modal) closeQuoteModal();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && modal.classList.contains('open')) closeQuoteModal();
+  }
+  window.openQuoteModal = openModal;
+  window.closeQuoteModal = closeModal;
+
+  function showError(msg){
+    var el = document.getElementById('builderError');
+    if(!el) return;
+    if(!msg){ el.hidden = true; el.textContent = ''; return; }
+    el.hidden = false; el.textContent = msg;
+  }
+
+  async function submitOrder(){
+    showError('');
+    var name = document.getElementById('bfName').value.trim();
+    var email = document.getElementById('bfEmail').value.trim();
+    var phone = document.getElementById('bfPhone').value.trim();
+    var date = document.getElementById('bfDate').value.trim();
+    var time = document.getElementById('bfTime').value.trim();
+    var guests = document.getElementById('bfGuests').value.trim();
+    var zip = document.getElementById('bfZip').value.trim();
+    var notesField = document.getElementById('bfNotes').value.trim();
+    var addons = Array.prototype.map.call(
+      document.querySelectorAll('input[name=addons]:checked'),
+      function(el){ return el.value; }
+    );
+
+    if(!name){ showError('Please enter your name.'); return; }
+    if(!email || !/.+@.+\..+/.test(email)){ showError('Please enter a valid email.'); return; }
+    if(!phone){ showError('Please enter your phone number.'); return; }
+    if(!date){ showError('Please pick an event date.'); return; }
+    if(!guests){ showError('Please enter a guest count.'); return; }
+
+    var items = Object.keys(cart).map(function(k){
+      var it = cart[k];
+      return { id: it.id, name: it.name, size: it.size, sizeLabel: it.sizeLabel, qty: it.qty, unitPrice: it.unit };
+    });
+    var t = totals();
+    var combinedNotes = notesField;
+    if(addons.length){
+      combinedNotes = 'Interested in add-ons: ' + addons.join(', ') + (combinedNotes ? '\n\n' + combinedNotes : '');
+    }
+
+    var nextBtn = document.getElementById('builderNextBtn');
+    var prevLabel = nextBtn.textContent;
+    nextBtn.disabled = true;
+    nextBtn.textContent = 'Sending…';
+
+    try{
+      var r = await fetch(QUOTE_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contact: { name: name, email: email, phone: phone, zip: zip },
+          event: { date: date, time: time, guests: guests },
+          items: items,
+          subtotal: t.subtotal,
+          notes: combinedNotes,
+        }),
+      });
+      var data = await r.json().catch(function(){ return {}; });
+      if(!r.ok || !data.ok){
+        throw new Error(data.error || ('HTTP ' + r.status));
+      }
+      document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
+      setStep('success');
+      // Clear cart on success
+      cart = {};
+      saveCart();
+      syncAllCells();
+      renderPill();
+    }catch(err){
+      nextBtn.disabled = false;
+      nextBtn.textContent = prevLabel;
+      showError('Sorry — we couldn\'t send your order: ' + err.message + '. Please call (978) 381-1212 or email team@comeketocatering.com.');
+    }
+  }
+
+  // ===== BOOTSTRAP =====
+  document.addEventListener('DOMContentLoaded', function(){
+    modal = document.getElementById('quoteModal');
+    pill = document.getElementById('cartPill');
+    pillCount = document.getElementById('cartPillCount');
+    pillTop = document.getElementById('cartPillTop');
+    pillBot = document.getElementById('cartPillBot');
+
+    buildMenuIndex();
+    loadCart();
+    syncAllCells();
+    renderPill();
+
+    pill.addEventListener('click', openModal);
+
+    document.getElementById('builderKeepBrowsingBtn').addEventListener('click', closeModal);
+    document.getElementById('builderBackBtn').addEventListener('click', function(){
+      setStep('review');
+      renderReview();
+    });
+    document.getElementById('builderNextBtn').addEventListener('click', function(){
+      if(step === 'review'){
+        setStep('details');
+        // pre-fill date min = today
+        var d = document.getElementById('bfDate');
+        var today = new Date().toISOString().slice(0,10);
+        if(!d.min) d.min = today;
+      } else if(step === 'details'){
+        submitOrder();
+      }
+    });
+
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
   });
 })();
 </script>
