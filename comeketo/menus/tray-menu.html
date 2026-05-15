@@ -493,6 +493,51 @@ footer.foot a{color:var(--gold-soft)}
 }
 .builder-disclaimer strong{color:var(--gold-soft);font-weight:800;letter-spacing:.4px}
 
+.builder-totalbox{
+  margin-top:14px;padding:14px 16px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(209,162,87,.10),rgba(209,162,87,.02));
+  border:1px solid var(--line);
+}
+.builder-totalbox-row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  padding:4px 0;
+}
+.builder-totalbox-row .lbl{
+  font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--muted);
+}
+.builder-totalbox-row .lbl small{font-size:9.5px;font-weight:700;letter-spacing:.8px;color:var(--dim);margin-left:4px;text-transform:none}
+.builder-totalbox-row .val{
+  font-family:'Manrope',sans-serif;color:#fff5e4;font-weight:800;font-size:16px;
+}
+.builder-totalbox-row.total{
+  margin-top:6px;padding-top:10px;
+  border-top:1px solid var(--line-soft);
+}
+.builder-totalbox-row.total .lbl{color:var(--gold-soft);font-size:12px}
+.builder-totalbox-row.total .val{
+  font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:30px;font-weight:600;line-height:1;
+}
+
+.builder-orderpeek{
+  margin-bottom:16px;padding:12px 14px;border-radius:12px;
+  background:rgba(209,162,87,.06);border:1px solid var(--line);
+}
+.builder-orderpeek .peek-line{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.builder-orderpeek .peek-lbl{
+  font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--gold-soft);
+}
+.builder-orderpeek .peek-val{
+  color:var(--muted);font-size:13px;
+}
+.builder-orderpeek .peek-val strong{
+  color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;
+  margin-left:4px;
+}
+
 /* BUILDER FORM (contact + event) */
 .builder-form{display:grid;gap:14px}
 .field{display:flex;flex-direction:column;gap:6px}
@@ -531,8 +576,8 @@ footer.foot a{color:var(--gold-soft)}
   accent-color:var(--gold);cursor:pointer;
 }
 .builder-addons .addon-info{flex:1}
-.builder-addons .addon-info .n{color:#fff5e4;font-weight:700;font-size:13.5px}
-.builder-addons .addon-info .d{color:var(--muted);font-size:12px;line-height:1.5;margin-top:2px}
+.builder-addons .addon-info .n{display:block;color:#fff5e4;font-weight:700;font-size:13.5px;line-height:1.3}
+.builder-addons .addon-info .d{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:3px}
 
 .builder-success{
   text-align:center;padding:30px 10px;
@@ -1039,6 +1084,16 @@ footer.foot a{color:var(--gold-soft)}
           <p>Tap any price on the menu to start building your order. We'll keep your selections saved so you can come back any time.</p>
         </div>
         <div id="builderLines"></div>
+        <div id="builderTotalBox" class="builder-totalbox" hidden>
+          <div class="builder-totalbox-row">
+            <span class="lbl">Items</span>
+            <span class="val" id="builderItemsCount">0</span>
+          </div>
+          <div class="builder-totalbox-row total">
+            <span class="lbl">Order Total <small>(estimate)</small></span>
+            <span class="val" id="builderReviewTotal">$0</span>
+          </div>
+        </div>
         <div id="builderClearWrap" style="text-align:center;margin:14px 0 4px" hidden>
           <button type="button" id="builderClearBtn" class="btn-builder ghost" style="padding:8px 16px;font-size:12px">🗑 Empty cart &amp; start over</button>
         </div>
@@ -1049,6 +1104,12 @@ footer.foot a{color:var(--gold-soft)}
 
       <!-- STEP 2: DETAILS -->
       <div class="builder-step" data-step="details" id="builderStepDetails">
+        <div class="builder-orderpeek" id="builderOrderPeek">
+          <div class="peek-line">
+            <span class="peek-lbl">Your order</span>
+            <span class="peek-val"><span id="peekItems">0 items</span> · Total <strong id="peekTotal">$0</strong></span>
+          </div>
+        </div>
         <form class="builder-form" id="builderForm" novalidate>
           <div class="field">
             <label for="bfName">Full name <span class="req">*</span></label>
@@ -1197,7 +1258,13 @@ footer.foot a{color:var(--gold-soft)}
         var baseId = sectionId + '-' + slug(name) + '-' + idx;
         ['small','large'].forEach(function(size, i){
           var cell = prices[i]; if(!cell) return;
-          var priceText = (cell.textContent || '').trim();
+          // Parse the price WITHOUT the .unit span — otherwise units like
+          // "12 pieces" get their digits glued to the price ("$65" + "12 pieces"
+          // = "$6512"). Clone, drop the unit, then read textContent.
+          var priceClone = cell.cloneNode(true);
+          var unitClone = priceClone.querySelector('.unit');
+          if(unitClone) unitClone.remove();
+          var priceText = (priceClone.textContent || '').trim();
           var match = priceText.match(/\$\s*([\d,.]+)/);
           if(!match) return;
           var unitPrice = parseFloat(match[1].replace(/,/g,'')) || 0;
@@ -1350,14 +1417,25 @@ footer.foot a{color:var(--gold-soft)}
     var empty = document.getElementById('builderEmpty');
     var disclaimer = document.getElementById('builderDisclaimer');
     var clearWrap = document.getElementById('builderClearWrap');
+    var totalBox = document.getElementById('builderTotalBox');
     var t = totals();
     document.getElementById('footTotal').textContent = money(t.subtotal);
+    // also update the in-review total box + the details-step peek
+    var revTotal = document.getElementById('builderReviewTotal');
+    var itemsCount = document.getElementById('builderItemsCount');
+    if(revTotal) revTotal.textContent = money(t.subtotal);
+    if(itemsCount) itemsCount.textContent = t.qty;
+    var peekItems = document.getElementById('peekItems');
+    var peekTotal = document.getElementById('peekTotal');
+    if(peekItems) peekItems.textContent = t.qty + (t.qty === 1 ? ' item' : ' items');
+    if(peekTotal) peekTotal.textContent = money(t.subtotal);
 
     if(t.qty === 0){
       lines.innerHTML = '';
       empty.hidden = false;
       disclaimer.style.display = 'none';
       if(clearWrap) clearWrap.hidden = true;
+      if(totalBox) totalBox.hidden = true;
       if(step === 'review'){
         document.getElementById('builderNextBtn').disabled = true;
       }
@@ -1366,6 +1444,7 @@ footer.foot a{color:var(--gold-soft)}
     empty.hidden = true;
     disclaimer.style.display = '';
     if(clearWrap) clearWrap.hidden = false;
+    if(totalBox) totalBox.hidden = false;
     if(step === 'review'){
       document.getElementById('builderNextBtn').disabled = false;
     }
@@ -1607,6 +1686,18 @@ footer.foot a{color:var(--gold-soft)}
 
     buildMenuIndex();
     loadCart();
+    // Heal cart entries against the live menu: update unit prices to current
+    // values and drop any item whose id no longer exists. This fixes carts
+    // saved before the price-parsing bug above was fixed.
+    Object.keys(cart).forEach(function(k){
+      var cell = menuIndex[k];
+      if(!cell){ delete cart[k]; return; }
+      var live = parseFloat(cell.dataset.itemUnit) || 0;
+      if(live > 0 && cart[k].unit !== live) cart[k].unit = live;
+      // also refresh the size label in case it changed (e.g. "pc" -> "pieces")
+      cart[k].sizeLabel = cell.dataset.itemSizeLabel || cart[k].sizeLabel;
+    });
+    saveCart();
     syncAllCells();
     renderPill();
 
@@ -1627,6 +1718,7 @@ footer.foot a{color:var(--gold-soft)}
     document.getElementById('builderNextBtn').addEventListener('click', function(){
       if(step === 'review'){
         setStep('details');
+        renderReview(); // updates peek banner total on the details step
         // pre-fill date min = today
         var d = document.getElementById('bfDate');
         var today = new Date().toISOString().slice(0,10);
