@@ -1537,15 +1537,28 @@ footer.foot a{color:var(--gold-soft)}
     nextBtn.disabled = true;
     nextBtn.textContent = 'Sending…';
 
+    // Build form-encoded body. URLSearchParams sends as
+    // application/x-www-form-urlencoded which is a "simple" CORS request
+    // (no preflight) and Zapier Catch Hooks parse every field as a top-level
+    // key. Arrays/objects get JSON.stringify'd so they survive transport.
+    var params = new URLSearchParams();
+    Object.keys(payload).forEach(function(k){
+      var v = payload[k];
+      if(v === null || v === undefined) return;
+      if(typeof v === 'object'){
+        params.append(k, JSON.stringify(v));
+      } else {
+        params.append(k, String(v));
+      }
+    });
+
     try{
       var r = await fetch(ZAPIER_WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: params,
       });
-      // Zapier typically returns { status: "success", ... }
       var data = await r.json().catch(function(){ return {}; });
-      var ok = r.ok && (!data.status || data.status === 'success');
+      var ok = r.ok && (data.status === 'success' || !data.status);
       if(!ok){
         throw new Error(data.error || ('HTTP ' + r.status));
       }
