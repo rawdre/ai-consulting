@@ -1132,8 +1132,11 @@ footer.foot a{color:var(--gold-soft)}
 /* MENU ORDER BUILDER */
 (function(){
   // ===== CONFIG =====
-  // After deploying comeketo-quote-api to Vercel, set this to its production URL.
-  var QUOTE_API_URL = 'https://comeketo-quote-api.vercel.app/api/quote';
+  // For now, submissions go straight to team@comeketocatering.com via FormSubmit.co
+  // (free, no backend). First submission triggers a one-time activation email that
+  // must be confirmed in the inbox; after that every submission arrives directly.
+  // Later we can swap this back to the Close-CRM Vercel endpoint.
+  var FORMSUBMIT_URL = 'https://formsubmit.co/ajax/team@comeketocatering.com';
   var STORAGE_KEY = 'comeketo_tray_cart_v1';
 
   // ===== STATE =====
@@ -1435,15 +1438,45 @@ footer.foot a{color:var(--gold-soft)}
     if(!date){ showError('Please pick an event date.'); return; }
     if(!guests){ showError('Please enter a guest count.'); return; }
 
-    var items = Object.keys(cart).map(function(k){
-      var it = cart[k];
-      return { id: it.id, name: it.name, size: it.size, sizeLabel: it.sizeLabel, qty: it.qty, unitPrice: it.unit };
-    });
     var t = totals();
-    var combinedNotes = notesField;
-    if(addons.length){
-      combinedNotes = 'Interested in add-ons: ' + addons.join(', ') + (combinedNotes ? '\n\n' + combinedNotes : '');
-    }
+
+    // Format the cart as a readable text block for the email body
+    var orderLines = Object.keys(cart).map(function(k){
+      var it = cart[k];
+      var lineTotal = it.qty * it.unit;
+      return '  ' + it.qty + ' x ' + it.name + ' (' + it.sizeLabel + ') — $' + it.unit + ' each = $' + lineTotal;
+    });
+    var orderSummary =
+      orderLines.join('\n') +
+      '\n\n  ESTIMATED SUBTOTAL: $' + t.subtotal +
+      '\n  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)';
+
+    var addonsText = addons.length ? addons.join(', ') : '(none selected)';
+
+    var subject =
+      'New Tray Menu Order — ' + name +
+      ' · $' + t.subtotal + ' est' +
+      (date ? ' · ' + date : '');
+
+    // Build the FormSubmit payload — top-level keys render as a table in the email
+    var payload = {
+      _subject: subject,
+      _replyto: email,
+      _template: 'table',
+      _captcha: 'false',
+      Customer_Name: name,
+      Email: email,
+      Phone: phone,
+      Event_Date: date,
+      Event_Time: time || '(not specified)',
+      Guests: guests,
+      Zip_Code: zip || '(not provided)',
+      Estimated_Subtotal: '$' + t.subtotal,
+      Order_Items: orderSummary,
+      Add_Ons_Interested_In: addonsText,
+      Notes: notesField || '(none)',
+      Source: 'Tray Menu Builder · rawdre.github.io',
+    };
 
     var nextBtn = document.getElementById('builderNextBtn');
     var prevLabel = nextBtn.textContent;
@@ -1451,20 +1484,16 @@ footer.foot a{color:var(--gold-soft)}
     nextBtn.textContent = 'Sending…';
 
     try{
-      var r = await fetch(QUOTE_API_URL, {
+      var r = await fetch(FORMSUBMIT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contact: { name: name, email: email, phone: phone, zip: zip },
-          event: { date: date, time: time, guests: guests },
-          items: items,
-          subtotal: t.subtotal,
-          notes: combinedNotes,
-        }),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
       });
       var data = await r.json().catch(function(){ return {}; });
-      if(!r.ok || !data.ok){
-        throw new Error(data.error || ('HTTP ' + r.status));
+      // FormSubmit returns { success: "true" } as a string
+      var ok = r.ok && (data.success === 'true' || data.success === true);
+      if(!ok){
+        throw new Error(data.message || ('HTTP ' + r.status));
       }
       document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
       setStep('success');
