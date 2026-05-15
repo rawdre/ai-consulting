@@ -1061,13 +1061,13 @@ footer.foot a{color:var(--gold-soft)}
             </div>
             <div class="field">
               <label for="bfPhone">Phone <span class="req">*</span></label>
-              <input id="bfPhone" name="phone" type="tel" autocomplete="tel" required>
+              <input id="bfPhone" name="phone" type="tel" autocomplete="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10 digits, no spaces" required>
             </div>
           </div>
           <div class="field-row-3">
             <div class="field">
               <label for="bfDate">Event date <span class="req">*</span></label>
-              <input id="bfDate" name="date" type="date" required>
+              <input id="bfDate" name="date" type="date" lang="en-US" required>
             </div>
             <div class="field">
               <label for="bfTime">Time</label>
@@ -1080,7 +1080,7 @@ footer.foot a{color:var(--gold-soft)}
           </div>
           <div class="field">
             <label for="bfZip">Zip code (event location)</label>
-            <input id="bfZip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="10">
+            <input id="bfZip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="5 digits">
           </div>
 
           <div class="builder-addons" aria-labelledby="bfAddonsLabel">
@@ -1445,9 +1445,15 @@ footer.foot a{color:var(--gold-soft)}
 
     if(!name){ showError('Please enter your name.'); return; }
     if(!email || !/.+@.+\..+/.test(email)){ showError('Please enter a valid email.'); return; }
-    if(!phone){ showError('Please enter your phone number.'); return; }
+    if(!phone || !/^\d{10}$/.test(phone)){ showError('Please enter a 10-digit phone number.'); return; }
     if(!date){ showError('Please pick an event date.'); return; }
     if(!guests){ showError('Please enter a guest count.'); return; }
+    if(zip && !/^\d{5}$/.test(zip)){ showError('Zip code must be 5 digits.'); return; }
+
+    // Convert YYYY-MM-DD (the HTML date-input value) to US MM/DD/YYYY
+    var dateUS = date;
+    var dateParts = date.split('-');
+    if(dateParts.length === 3) dateUS = dateParts[1] + '/' + dateParts[2] + '/' + dateParts[0];
 
     var t = totals();
 
@@ -1474,7 +1480,7 @@ footer.foot a{color:var(--gold-soft)}
     var subject =
       'New Tray Menu Order — ' + name +
       ' · $' + t.subtotal + ' est' +
-      (date ? ' · ' + date : '');
+      (dateUS ? ' · ' + dateUS : '');
 
     // Webhook payload — flat top-level fields so Zapier maps them easily,
     // plus a structured items[] array for any downstream processing.
@@ -1485,7 +1491,8 @@ footer.foot a{color:var(--gold-soft)}
       customer_name: name,
       email: email,
       phone: phone,
-      event_date: date,
+      event_date: dateUS,
+      event_date_iso: date,
       event_time: time || '',
       guests: guests,
       zip_code: zip || '',
@@ -1511,7 +1518,7 @@ footer.foot a{color:var(--gold-soft)}
       'Phone: ' + phone + '\n' +
       'Zip:   ' + (zip || '(not provided)') + '\n\n' +
       '=== EVENT ===\n' +
-      'Date:   ' + date + '\n' +
+      'Date:   ' + dateUS + '\n' +
       'Time:   ' + (time || '(not specified)') + '\n' +
       'Guests: ' + guests + '\n\n' +
       '=== ORDER (estimate) ===\n' +
@@ -1628,6 +1635,23 @@ footer.foot a{color:var(--gold-soft)}
         submitOrder();
       }
     });
+
+    // Phone: strip non-digits, cap at 10
+    var phoneEl = document.getElementById('bfPhone');
+    if(phoneEl){
+      phoneEl.addEventListener('input', function(e){
+        var d = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if(e.target.value !== d) e.target.value = d;
+      });
+    }
+    // Zip: strip non-digits, cap at 5
+    var zipEl = document.getElementById('bfZip');
+    if(zipEl){
+      zipEl.addEventListener('input', function(e){
+        var d = e.target.value.replace(/\D/g, '').slice(0, 5);
+        if(e.target.value !== d) e.target.value = d;
+      });
+    }
 
     modal.addEventListener('click', function(e){
       if(e.target === modal) closeModal();
