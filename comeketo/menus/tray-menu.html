@@ -915,9 +915,9 @@ footer.foot a{color:var(--gold-soft)}
       <div class="d">Topped with Mexican cheese blend, pico de gallo, crema and curtido. Sold by the piece — 12 pieces (small) or 24 pieces (large).</div>
     </div>
     <div class="rows">
-      <div class="row"><div class="name">"Birria" Beef Brisket</div><div class="p">$65<span class="unit">12 pc</span></div><div class="p">$130<span class="unit">24 pc</span></div></div>
-      <div class="row"><div class="name">"Tinga" Shredded Chipotle Chicken</div><div class="p">$90<span class="unit">12 pc</span></div><div class="p">$175<span class="unit">24 pc</span></div></div>
-      <div class="row"><div class="name">"Carnitas" Slow-Roasted Pork</div><div class="p">$65<span class="unit">12 pc</span></div><div class="p">$130<span class="unit">24 pc</span></div></div>
+      <div class="row"><div class="name">"Birria" Beef Brisket</div><div class="p">$65<span class="unit">12 pieces</span></div><div class="p">$130<span class="unit">24 pieces</span></div></div>
+      <div class="row"><div class="name">"Tinga" Shredded Chipotle Chicken</div><div class="p">$90<span class="unit">12 pieces</span></div><div class="p">$175<span class="unit">24 pieces</span></div></div>
+      <div class="row"><div class="name">"Carnitas" Slow-Roasted Pork</div><div class="p">$65<span class="unit">12 pieces</span></div><div class="p">$130<span class="unit">24 pieces</span></div></div>
     </div>
   </section>
 
@@ -1039,6 +1039,9 @@ footer.foot a{color:var(--gold-soft)}
           <p>Tap any price on the menu to start building your order. We'll keep your selections saved so you can come back any time.</p>
         </div>
         <div id="builderLines"></div>
+        <div id="builderClearWrap" style="text-align:center;margin:14px 0 4px" hidden>
+          <button type="button" id="builderClearBtn" class="btn-builder ghost" style="padding:8px 16px;font-size:12px">🗑 Empty cart &amp; start over</button>
+        </div>
         <div class="builder-disclaimer" id="builderDisclaimer">
           <strong>This is an estimate.</strong> Final pricing includes 7% MA meals tax, delivery (calculated by distance), and optional add-ons. Our team will send you a final quote within one business day.
         </div>
@@ -1108,16 +1111,13 @@ footer.foot a{color:var(--gold-soft)}
       <div class="builder-step" data-step="success" id="builderStepSuccess">
         <div class="builder-success">
           <div class="check">✓</div>
-          <h4>One last tap, <span id="successName">there</span>!</h4>
-          <p>Your email app should have opened with your order ready to go — <strong style="color:var(--gold-soft)">just press Send</strong> and it lands with our team. We'll reply within one business day with your final quote.</p>
+          <h4>Order received, <span id="successName">there</span>!</h4>
+          <p>Thanks — your order is in our hands. Andre or one of our managers will reach out within one business day with your final quote. If you need us sooner, call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.</p>
           <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;align-items:center">
-            <a id="successMailtoBtn" class="btn-builder primary" style="text-decoration:none;cursor:pointer" target="_self" href="#">Open email app again</a>
-            <button id="successCopyBtn" class="btn-builder ghost" type="button">Copy order details to clipboard</button>
+            <a id="successMailtoBtn" class="btn-builder ghost" style="text-decoration:none;cursor:pointer;font-size:12px;padding:10px 18px" target="_self" href="#">📧 Email yourself a copy</a>
+            <button id="successCopyBtn" class="btn-builder ghost" type="button" style="font-size:12px;padding:10px 18px">Copy order details</button>
             <span id="successCopyStatus" style="font-size:11.5px;color:var(--gold-soft);letter-spacing:.3px;min-height:14px"></span>
           </div>
-          <p style="margin-top:18px;font-size:12px;color:var(--dim);line-height:1.6">
-            No email app on this device? Tap "Copy order details" above, then paste into an email or text to <a href="mailto:team@comeketocatering.com" style="color:var(--gold-soft)">team@comeketocatering.com</a> — or just call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.
-          </p>
         </div>
       </div>
     </div>
@@ -1140,10 +1140,10 @@ footer.foot a{color:var(--gold-soft)}
 /* MENU ORDER BUILDER */
 (function(){
   // ===== CONFIG =====
-  // Submissions open the customer's email app with a pre-filled message to
-  // team@comeketocatering.com. Zero backend required. Customer just taps Send.
-  // (Later we can swap this for the Close-CRM Vercel endpoint — code is in
-  //  ~/comeketo-quote-api — for direct API delivery into Close.)
+  // Primary: POST submission to Zapier webhook (handles email + any other automation).
+  // Fallback: if the webhook fails for any reason, open the customer's email app
+  // with the order pre-filled to team@comeketocatering.com so they can still send it.
+  var ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/10501573/4yvjcgt/';
   var TEAM_EMAIL = 'team@comeketocatering.com';
   var STORAGE_KEY = 'comeketo_tray_cart_v1';
 
@@ -1349,6 +1349,7 @@ footer.foot a{color:var(--gold-soft)}
     var lines = document.getElementById('builderLines');
     var empty = document.getElementById('builderEmpty');
     var disclaimer = document.getElementById('builderDisclaimer');
+    var clearWrap = document.getElementById('builderClearWrap');
     var t = totals();
     document.getElementById('footTotal').textContent = money(t.subtotal);
 
@@ -1356,6 +1357,7 @@ footer.foot a{color:var(--gold-soft)}
       lines.innerHTML = '';
       empty.hidden = false;
       disclaimer.style.display = 'none';
+      if(clearWrap) clearWrap.hidden = true;
       if(step === 'review'){
         document.getElementById('builderNextBtn').disabled = true;
       }
@@ -1363,6 +1365,7 @@ footer.foot a{color:var(--gold-soft)}
     }
     empty.hidden = true;
     disclaimer.style.display = '';
+    if(clearWrap) clearWrap.hidden = false;
     if(step === 'review'){
       document.getElementById('builderNextBtn').disabled = false;
     }
@@ -1453,17 +1456,55 @@ footer.foot a{color:var(--gold-soft)}
       var lineTotal = it.qty * it.unit;
       return '  ' + it.qty + ' x ' + it.name + ' (' + it.sizeLabel + ') — $' + it.unit + ' each = $' + lineTotal;
     });
-
+    var orderSummary =
+      orderLines.join('\n') +
+      '\n\n  ESTIMATED SUBTOTAL: $' + t.subtotal +
+      '\n  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)';
+    var itemsArray = Object.keys(cart).map(function(k){
+      var it = cart[k];
+      return {
+        name: it.name,
+        size: it.sizeLabel,
+        qty: it.qty,
+        unit_price: it.unit,
+        line_total: it.qty * it.unit,
+      };
+    });
     var addonsText = addons.length ? addons.join(', ') : '(none selected)';
-
     var subject =
       'New Tray Menu Order — ' + name +
       ' · $' + t.subtotal + ' est' +
       (date ? ' · ' + date : '');
 
-    var body =
+    // Webhook payload — flat top-level fields so Zapier maps them easily,
+    // plus a structured items[] array for any downstream processing.
+    var payload = {
+      source: 'Tray Menu Builder · rawdre.github.io',
+      submitted_at: new Date().toISOString(),
+      subject: subject,
+      customer_name: name,
+      email: email,
+      phone: phone,
+      event_date: date,
+      event_time: time || '',
+      guests: guests,
+      zip_code: zip || '',
+      estimated_subtotal: t.subtotal,
+      estimated_subtotal_formatted: '$' + t.subtotal,
+      addons_interested: addons,
+      addons_text: addonsText,
+      notes: notesField || '',
+      items: itemsArray,
+      items_count: t.qty,
+      order_summary_text: orderSummary,
+    };
+
+    // Also pre-build a mailto: URL so the success screen can still offer it as
+    // a manual fallback ("send a copy from your own email"), and so a failed
+    // webhook automatically opens the mail app.
+    var mailtoBody =
       'Hi Comeketo team,\n\n' +
-      'I built an order from your tray menu and would love a quote. Here are the details:\n\n' +
+      'I built an order from your tray menu and would love a quote.\n\n' +
       '=== CONTACT ===\n' +
       'Name:  ' + name + '\n' +
       'Email: ' + email + '\n' +
@@ -1474,50 +1515,66 @@ footer.foot a{color:var(--gold-soft)}
       'Time:   ' + (time || '(not specified)') + '\n' +
       'Guests: ' + guests + '\n\n' +
       '=== ORDER (estimate) ===\n' +
-      orderLines.join('\n') + '\n\n' +
-      '  ESTIMATED SUBTOTAL: $' + t.subtotal + '\n' +
-      '  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)\n\n' +
+      orderSummary + '\n\n' +
       '=== OPTIONAL ADD-ONS ===\n' +
       addonsText + '\n\n' +
       '=== NOTES / DIETARY ===\n' +
       (notesField || '(none)') + '\n\n' +
       '— Sent from the Comeketo tray-menu order builder';
-
-    // Build mailto URL (encoded). Save body separately for the clipboard fallback.
     var mailtoUrl = 'mailto:' + TEAM_EMAIL +
       '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(body);
+      '&body=' + encodeURIComponent(mailtoBody);
 
-    // Stash for the success step's "Copy to clipboard" fallback
     window.__lastOrderEmail = {
       to: TEAM_EMAIL,
       subject: subject,
-      body: body,
+      body: mailtoBody,
       mailtoUrl: mailtoUrl,
     };
 
-    // Open the email client. setStep first so the success view is visible
-    // immediately even if the OS takes a beat to launch the mail app.
-    document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
-    setStep('success');
+    var nextBtn = document.getElementById('builderNextBtn');
+    var prevLabel = nextBtn.textContent;
+    nextBtn.disabled = true;
+    nextBtn.textContent = 'Sending…';
 
-    // Clear cart now that the user has acted on the order
-    cart = {};
-    saveCart();
-    syncAllCells();
-    renderPill();
-
-    // Fire mailto: in a way mobile + desktop both handle. Use a transient
-    // <a> element with target=_self so it doesn't get blocked as a popup.
     try{
-      var a = document.createElement('a');
-      a.href = mailtoUrl;
-      a.target = '_self';
-      a.rel = 'noopener';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }catch(e){ /* fallback to copy-to-clipboard handled in success UI */ }
+      var r = await fetch(ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      // Zapier typically returns { status: "success", ... }
+      var data = await r.json().catch(function(){ return {}; });
+      var ok = r.ok && (!data.status || data.status === 'success');
+      if(!ok){
+        throw new Error(data.error || ('HTTP ' + r.status));
+      }
+      // SUCCESS — clear cart, show confirmation
+      document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
+      setStep('success');
+      cart = {};
+      saveCart();
+      syncAllCells();
+      renderPill();
+    }catch(err){
+      // FALLBACK: open the customer's email client with everything pre-filled
+      console.warn('Zapier webhook failed, falling back to mailto:', err);
+      document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
+      setStep('success');
+      cart = {};
+      saveCart();
+      syncAllCells();
+      renderPill();
+      try{
+        var a = document.createElement('a');
+        a.href = mailtoUrl; a.target = '_self'; a.rel = 'noopener';
+        document.body.appendChild(a); a.click(); a.remove();
+      }catch(e){}
+    } finally {
+      // restore button label in case the user navigates back
+      nextBtn.disabled = false;
+      nextBtn.textContent = prevLabel;
+    }
   }
 
   // ===== BOOTSTRAP =====
@@ -1536,6 +1593,13 @@ footer.foot a{color:var(--gold-soft)}
     pill.addEventListener('click', openModal);
 
     document.getElementById('builderKeepBrowsingBtn').addEventListener('click', closeModal);
+    document.getElementById('builderClearBtn').addEventListener('click', function(){
+      cart = {};
+      saveCart();
+      syncAllCells();
+      renderPill();
+      renderReview();
+    });
     document.getElementById('builderBackBtn').addEventListener('click', function(){
       setStep('review');
       renderReview();
