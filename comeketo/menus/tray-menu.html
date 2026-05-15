@@ -1108,8 +1108,16 @@ footer.foot a{color:var(--gold-soft)}
       <div class="builder-step" data-step="success" id="builderStepSuccess">
         <div class="builder-success">
           <div class="check">✓</div>
-          <h4>Order received!</h4>
-          <p>Thanks <span id="successName">there</span>. We got your selection — Andre or one of our managers will reach out within one business day with your final quote. If you need us sooner, call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.</p>
+          <h4>One last tap, <span id="successName">there</span>!</h4>
+          <p>Your email app should have opened with your order ready to go — <strong style="color:var(--gold-soft)">just press Send</strong> and it lands with our team. We'll reply within one business day with your final quote.</p>
+          <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;align-items:center">
+            <a id="successMailtoBtn" class="btn-builder primary" style="text-decoration:none;cursor:pointer" target="_self" href="#">Open email app again</a>
+            <button id="successCopyBtn" class="btn-builder ghost" type="button">Copy order details to clipboard</button>
+            <span id="successCopyStatus" style="font-size:11.5px;color:var(--gold-soft);letter-spacing:.3px;min-height:14px"></span>
+          </div>
+          <p style="margin-top:18px;font-size:12px;color:var(--dim);line-height:1.6">
+            No email app on this device? Tap "Copy order details" above, then paste into an email or text to <a href="mailto:team@comeketocatering.com" style="color:var(--gold-soft)">team@comeketocatering.com</a> — or just call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.
+          </p>
         </div>
       </div>
     </div>
@@ -1132,11 +1140,11 @@ footer.foot a{color:var(--gold-soft)}
 /* MENU ORDER BUILDER */
 (function(){
   // ===== CONFIG =====
-  // For now, submissions go straight to team@comeketocatering.com via FormSubmit.co
-  // (free, no backend). First submission triggers a one-time activation email that
-  // must be confirmed in the inbox; after that every submission arrives directly.
-  // Later we can swap this back to the Close-CRM Vercel endpoint.
-  var FORMSUBMIT_URL = 'https://formsubmit.co/ajax/team@comeketocatering.com';
+  // Submissions open the customer's email app with a pre-filled message to
+  // team@comeketocatering.com. Zero backend required. Customer just taps Send.
+  // (Later we can swap this for the Close-CRM Vercel endpoint — code is in
+  //  ~/comeketo-quote-api — for direct API delivery into Close.)
+  var TEAM_EMAIL = 'team@comeketocatering.com';
   var STORAGE_KEY = 'comeketo_tray_cart_v1';
 
   // ===== STATE =====
@@ -1440,16 +1448,11 @@ footer.foot a{color:var(--gold-soft)}
 
     var t = totals();
 
-    // Format the cart as a readable text block for the email body
     var orderLines = Object.keys(cart).map(function(k){
       var it = cart[k];
       var lineTotal = it.qty * it.unit;
       return '  ' + it.qty + ' x ' + it.name + ' (' + it.sizeLabel + ') — $' + it.unit + ' each = $' + lineTotal;
     });
-    var orderSummary =
-      orderLines.join('\n') +
-      '\n\n  ESTIMATED SUBTOTAL: $' + t.subtotal +
-      '\n  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)';
 
     var addonsText = addons.length ? addons.join(', ') : '(none selected)';
 
@@ -1458,55 +1461,63 @@ footer.foot a{color:var(--gold-soft)}
       ' · $' + t.subtotal + ' est' +
       (date ? ' · ' + date : '');
 
-    // Build the FormSubmit payload — top-level keys render as a table in the email
-    var payload = {
-      _subject: subject,
-      _replyto: email,
-      _template: 'table',
-      _captcha: 'false',
-      Customer_Name: name,
-      Email: email,
-      Phone: phone,
-      Event_Date: date,
-      Event_Time: time || '(not specified)',
-      Guests: guests,
-      Zip_Code: zip || '(not provided)',
-      Estimated_Subtotal: '$' + t.subtotal,
-      Order_Items: orderSummary,
-      Add_Ons_Interested_In: addonsText,
-      Notes: notesField || '(none)',
-      Source: 'Tray Menu Builder · rawdre.github.io',
+    var body =
+      'Hi Comeketo team,\n\n' +
+      'I built an order from your tray menu and would love a quote. Here are the details:\n\n' +
+      '=== CONTACT ===\n' +
+      'Name:  ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Zip:   ' + (zip || '(not provided)') + '\n\n' +
+      '=== EVENT ===\n' +
+      'Date:   ' + date + '\n' +
+      'Time:   ' + (time || '(not specified)') + '\n' +
+      'Guests: ' + guests + '\n\n' +
+      '=== ORDER (estimate) ===\n' +
+      orderLines.join('\n') + '\n\n' +
+      '  ESTIMATED SUBTOTAL: $' + t.subtotal + '\n' +
+      '  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)\n\n' +
+      '=== OPTIONAL ADD-ONS ===\n' +
+      addonsText + '\n\n' +
+      '=== NOTES / DIETARY ===\n' +
+      (notesField || '(none)') + '\n\n' +
+      '— Sent from the Comeketo tray-menu order builder';
+
+    // Build mailto URL (encoded). Save body separately for the clipboard fallback.
+    var mailtoUrl = 'mailto:' + TEAM_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+
+    // Stash for the success step's "Copy to clipboard" fallback
+    window.__lastOrderEmail = {
+      to: TEAM_EMAIL,
+      subject: subject,
+      body: body,
+      mailtoUrl: mailtoUrl,
     };
 
-    var nextBtn = document.getElementById('builderNextBtn');
-    var prevLabel = nextBtn.textContent;
-    nextBtn.disabled = true;
-    nextBtn.textContent = 'Sending…';
+    // Open the email client. setStep first so the success view is visible
+    // immediately even if the OS takes a beat to launch the mail app.
+    document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
+    setStep('success');
 
+    // Clear cart now that the user has acted on the order
+    cart = {};
+    saveCart();
+    syncAllCells();
+    renderPill();
+
+    // Fire mailto: in a way mobile + desktop both handle. Use a transient
+    // <a> element with target=_self so it doesn't get blocked as a popup.
     try{
-      var r = await fetch(FORMSUBMIT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      var data = await r.json().catch(function(){ return {}; });
-      // FormSubmit returns { success: "true" } as a string
-      var ok = r.ok && (data.success === 'true' || data.success === true);
-      if(!ok){
-        throw new Error(data.message || ('HTTP ' + r.status));
-      }
-      document.getElementById('successName').textContent = name.split(' ')[0] || 'there';
-      setStep('success');
-      // Clear cart on success
-      cart = {};
-      saveCart();
-      syncAllCells();
-      renderPill();
-    }catch(err){
-      nextBtn.disabled = false;
-      nextBtn.textContent = prevLabel;
-      showError('Sorry — we couldn\'t send your order: ' + err.message + '. Please call (978) 381-1212 or email team@comeketocatering.com.');
-    }
+      var a = document.createElement('a');
+      a.href = mailtoUrl;
+      a.target = '_self';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }catch(e){ /* fallback to copy-to-clipboard handled in success UI */ }
   }
 
   // ===== BOOTSTRAP =====
@@ -1547,6 +1558,41 @@ footer.foot a{color:var(--gold-soft)}
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
+
+    // Success-step actions: re-open the email app, or copy details to clipboard
+    var mailtoBtn = document.getElementById('successMailtoBtn');
+    if(mailtoBtn){
+      mailtoBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        var info = window.__lastOrderEmail;
+        if(info && info.mailtoUrl){
+          window.location.href = info.mailtoUrl;
+        }
+      });
+    }
+    var copyBtn = document.getElementById('successCopyBtn');
+    if(copyBtn){
+      copyBtn.addEventListener('click', async function(){
+        var info = window.__lastOrderEmail;
+        var status = document.getElementById('successCopyStatus');
+        if(!info){ if(status) status.textContent = 'Nothing to copy'; return; }
+        var text = 'To: ' + info.to + '\nSubject: ' + info.subject + '\n\n' + info.body;
+        try{
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            await navigator.clipboard.writeText(text);
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+            document.body.appendChild(ta); ta.focus(); ta.select();
+            document.execCommand('copy');
+            ta.remove();
+          }
+          if(status) status.textContent = '✓ Copied — paste into any email or chat';
+        }catch(e){
+          if(status) status.textContent = 'Could not copy automatically — long-press to select';
+        }
+      });
+    }
   });
 })();
 </script>
