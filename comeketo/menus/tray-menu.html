@@ -274,6 +274,32 @@ footer.foot{
 }
 footer.foot a{color:var(--gold-soft)}
 
+/* GOOGLE REVIEWS */
+.reviews-section{
+  margin-top:28px;padding:42px 34px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01)),
+    radial-gradient(circle at top right,rgba(209,162,87,.08),transparent 55%);
+  border:1px solid var(--line);border-radius:28px;
+}
+.reviews-head{text-align:center;max-width:640px;margin:0 auto 26px}
+.reviews-head .eyebrow{
+  font-size:11px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--gold-soft);margin-bottom:12px;
+}
+.reviews-head h2{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:36px;line-height:1.1;font-weight:600;margin-bottom:10px;
+}
+.reviews-sub{color:var(--muted);font-size:14px;line-height:1.7}
+.reviews-widget{
+  background:#fff;border-radius:18px;padding:18px;
+  border:1px solid var(--line);
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+  min-height:120px;
+}
+.reviews-widget iframe{max-width:100%!important;border-radius:12px}
+
 /* QUOTE BUTTON + DIVIDER */
 .quote-cta-row{
   display:flex;align-items:center;justify-content:center;gap:18px;
@@ -392,6 +418,9 @@ footer.foot a{color:var(--gold-soft)}
   .hero{padding:32px 22px 28px}
   .section{padding:22px}
   .footer-cta{padding:24px}
+  .reviews-section{padding:30px 18px}
+  .reviews-head h2{font-size:28px}
+  .reviews-widget{padding:12px}
   .quote-cta-row::before,.quote-cta-row::after{max-width:60px}
 }
 @media (max-width:560px){
@@ -789,6 +818,19 @@ footer.foot a{color:var(--gold-soft)}
     <div class="cta-buttons">
       <a class="btn btn-primary" href="tel:+19783811212">📞 Call (978) 381-1212</a>
       <button class="btn btn-secondary" type="button" onclick="openQuoteModal()">→ Get a Quote Here</button>
+    </div>
+  </section>
+
+  <!-- GOOGLE REVIEWS -->
+  <section class="reviews-section" aria-labelledby="reviewsHeading">
+    <div class="reviews-head">
+      <div class="eyebrow">★ ★ ★ ★ ★ &nbsp;Real Reviews</div>
+      <h2 id="reviewsHeading">What our guests are saying</h2>
+      <p class="reviews-sub">Honest feedback from couples, planners, and corporate clients we've served across Massachusetts.</p>
+    </div>
+    <div class="reviews-widget">
+      <div id="JFWebsiteWidget-019ccf4a6a4a7e8785df4e2549f77380bdb1"></div>
+      <script src="https://www.jotform.com/website-widgets/embed/019ccf4a6a4a7e8785df4e2549f77380bdb1"></script>
     </div>
   </section>
 
