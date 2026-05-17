@@ -520,6 +520,39 @@ footer.foot a{color:var(--gold-soft)}
 .builder-totalbox-row.total .val{
   font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:30px;font-weight:600;line-height:1;
 }
+.builder-totalbox-row.misc-head{
+  margin-top:8px;padding-top:8px;border-top:1px dashed var(--line-soft);
+  justify-content:flex-start;
+}
+.builder-totalbox-row.misc-head .lbl{color:var(--dim);font-size:10px;letter-spacing:1.6px}
+.builder-totalbox-row.sub .lbl{text-transform:none;letter-spacing:.4px;font-size:13px;font-weight:600;color:var(--muted)}
+.builder-totalbox-row.sub .lbl small{display:inline;font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.3px;text-transform:none;margin-left:4px}
+.builder-totalbox-row.sub .val{font-size:14px;color:#e8d9bf;font-weight:700;font-family:'Manrope',sans-serif}
+.builder-totalbox-row.sub.muted .val{color:var(--dim);font-style:italic;font-weight:500;font-size:12.5px}
+
+/* SERVICE TOGGLE */
+.builder-service-toggle{
+  margin-top:14px;padding:14px 16px;border-radius:14px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+  display:flex;align-items:flex-start;gap:14px;
+  cursor:pointer;transition:border-color .2s,background .2s;
+}
+.builder-service-toggle:hover{border-color:var(--line);background:#1c1c1c}
+.builder-service-toggle.on{border-color:var(--gold);background:rgba(209,162,87,.06)}
+.builder-service-toggle input[type=checkbox]{
+  width:22px;height:22px;flex-shrink:0;margin-top:2px;
+  accent-color:var(--gold);cursor:pointer;
+}
+.builder-service-toggle .svc-body{flex:1;line-height:1.5}
+.builder-service-toggle .svc-title{
+  color:#fff5e4;font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;
+}
+.builder-service-toggle .svc-title .badge{
+  font-size:9.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;background:rgba(209,162,87,.15);color:var(--gold-soft);
+}
+.builder-service-toggle .svc-desc{color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.6}
+.builder-service-toggle .svc-desc strong{color:var(--gold-soft);font-weight:700}
 
 .builder-orderpeek{
   margin-bottom:16px;padding:12px 14px;border-radius:12px;
@@ -1086,13 +1119,41 @@ footer.foot a{color:var(--gold-soft)}
           <p>Tap any price on the menu to start building your order. We'll keep your selections saved so you can come back any time.</p>
         </div>
         <div id="builderLines"></div>
+
+        <!-- SERVICE TOGGLE -->
+        <label id="builderServiceToggle" class="builder-service-toggle" hidden>
+          <input type="checkbox" id="bfWantsService">
+          <div class="svc-body">
+            <div class="svc-title">Add full service for the day <span class="badge">+24% + staff fee</span></div>
+            <div class="svc-desc">Our team brings the food, sets up the buffet, keeps it hot, and serves your guests. Adds <strong>24% service, fuel &amp; admin</strong> + <strong>$3 per person</strong> staff fee (up to 200 guests; 200+ quoted separately).</div>
+          </div>
+        </label>
+
+        <!-- TOTALS BREAKDOWN -->
         <div id="builderTotalBox" class="builder-totalbox" hidden>
           <div class="builder-totalbox-row">
             <span class="lbl">Items</span>
             <span class="val" id="builderItemsCount">0</span>
           </div>
+          <div class="builder-totalbox-row sub">
+            <span class="lbl">Catering Total</span>
+            <span class="val" id="bfRowSubtotal">$0</span>
+          </div>
+          <div class="builder-totalbox-row misc-head"><span class="lbl">Misc</span></div>
+          <div class="builder-totalbox-row sub">
+            <span class="lbl">Fitchburg / MA tax <small>(7%)</small></span>
+            <span class="val" id="bfRowTax">$0</span>
+          </div>
+          <div class="builder-totalbox-row sub" id="bfRowServiceWrap" hidden>
+            <span class="lbl">Service, fuel &amp; admin <small>(24%)</small></span>
+            <span class="val" id="bfRowService">$0</span>
+          </div>
+          <div class="builder-totalbox-row sub" id="bfRowStaffWrap" hidden>
+            <span class="lbl">Staff service fee <small id="bfRowStaffNote">($3 / person)</small></span>
+            <span class="val" id="bfRowStaff">$0</span>
+          </div>
           <div class="builder-totalbox-row total">
-            <span class="lbl">Order Total <small>(estimate)</small></span>
+            <span class="lbl">Event Total <small>(estimate)</small></span>
             <span class="val" id="builderReviewTotal">$0</span>
           </div>
         </div>
@@ -1100,7 +1161,7 @@ footer.foot a{color:var(--gold-soft)}
           <button type="button" id="builderClearBtn" class="btn-builder ghost" style="padding:8px 16px;font-size:12px">🗑 Empty cart &amp; start over</button>
         </div>
         <div class="builder-disclaimer" id="builderDisclaimer">
-          <strong>This is an estimate.</strong> Final pricing includes 7% MA meals tax, delivery (calculated by distance), and optional add-ons. Our team will send you a final quote within one business day.
+          <strong>This is an estimate.</strong> Delivery (calculated by distance from Fitchburg) and any rentals are added separately. Our team will confirm the final quote within one business day.
         </div>
       </div>
 
@@ -1214,6 +1275,14 @@ footer.foot a{color:var(--gold-soft)}
   var cart = {}; // { itemKey: { id, name, size, sizeLabel, unit, qty, section } }
   var step = 'review';
   var menuIndex = {}; // itemKey -> dom price cell
+  var wantsService = false;
+  var SERVICE_KEY = 'comeketo_tray_service_v1';
+
+  // Pricing constants — change here if MA tax or service rates ever change
+  var TAX_RATE = 0.07;          // 7% Massachusetts meals tax
+  var SERVICE_RATE = 0.24;      // 24% service, fuel & admin
+  var STAFF_PER_PERSON = 3;     // $3 per guest staff fee
+  var STAFF_CAP_GUESTS = 200;   // 200+ quoted separately
 
   function slug(s){
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
@@ -1239,7 +1308,55 @@ footer.foot a{color:var(--gold-soft)}
     return { qty: qty, subtotal: subtotal };
   }
 
-  function money(n){ return '$' + (n || 0).toLocaleString('en-US'); }
+  function money(n){
+    var v = Math.round((n || 0) * 100) / 100;
+    return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // Compute the full event-total breakdown for a given guest count.
+  // guestsArg may be empty/null — staff fee is then skipped with a helper note.
+  function computeBreakdown(guestsArg){
+    var subtotal = totals().subtotal;
+    var tax = subtotal * TAX_RATE;
+    var service = wantsService ? subtotal * SERVICE_RATE : 0;
+    var staff = 0;
+    var staffNote = '';
+    var staffOver200 = false;
+    var g = parseInt(guestsArg, 10);
+    if (wantsService) {
+      if (!g || g <= 0) {
+        staffNote = 'Add guest count to estimate';
+      } else if (g > STAFF_CAP_GUESTS) {
+        staff = 0;
+        staffOver200 = true;
+        staffNote = '200+ guests — quoted by our team';
+      } else {
+        staff = g * STAFF_PER_PERSON;
+        staffNote = '($' + STAFF_PER_PERSON + ' / person)';
+      }
+    }
+    return {
+      subtotal: subtotal,
+      tax: tax,
+      service: service,
+      staff: staff,
+      staffNote: staffNote,
+      staffOver200: staffOver200,
+      total: subtotal + tax + service + staff,
+      wantsService: wantsService,
+      guests: g || 0,
+    };
+  }
+
+  function loadService(){
+    try{
+      var raw = localStorage.getItem(SERVICE_KEY);
+      wantsService = raw === '1';
+    }catch(e){ wantsService = false; }
+  }
+  function saveService(){
+    try{ localStorage.setItem(SERVICE_KEY, wantsService ? '1' : '0'); }catch(e){}
+  }
 
   // ===== SCAN MENU + INJECT STEPPERS =====
   function buildMenuIndex(){
@@ -1397,7 +1514,7 @@ footer.foot a{color:var(--gold-soft)}
       nextBtn.textContent = 'Continue →';
       nextBtn.disabled = totals().qty === 0;
       foot.style.display = '';
-      totalLabel.textContent = 'Estimated subtotal';
+      totalLabel.textContent = 'Estimated event total';
     } else if(s === 'details'){
       title.textContent = 'Your Details';
       sub.textContent = 'Step 2 of 2 · Contact + event';
@@ -1406,7 +1523,7 @@ footer.foot a{color:var(--gold-soft)}
       nextBtn.textContent = 'Send to Comeketo →';
       nextBtn.disabled = false;
       foot.style.display = '';
-      totalLabel.textContent = 'Estimated subtotal';
+      totalLabel.textContent = 'Estimated event total';
     } else if(s === 'success'){
       title.textContent = 'All set!';
       sub.textContent = 'We received your order';
@@ -1420,17 +1537,48 @@ footer.foot a{color:var(--gold-soft)}
     var disclaimer = document.getElementById('builderDisclaimer');
     var clearWrap = document.getElementById('builderClearWrap');
     var totalBox = document.getElementById('builderTotalBox');
+    var svcToggleWrap = document.getElementById('builderServiceToggle');
+    var svcCheck = document.getElementById('bfWantsService');
     var t = totals();
-    document.getElementById('footTotal').textContent = money(t.subtotal);
-    // also update the in-review total box + the details-step peek
+
+    // The guests field only exists once the details step has rendered values.
+    // For the review-step breakdown we read whatever is currently in the input
+    // (may be empty before user fills it).
+    var guestsField = document.getElementById('bfGuests');
+    var guests = guestsField ? guestsField.value.trim() : '';
+    var b = computeBreakdown(guests);
+
+    // Foot bar total ALWAYS shows the running event total (or subtotal if cart empty)
+    document.getElementById('footTotal').textContent = money(t.qty === 0 ? 0 : b.total);
+
+    // Sync the service checkbox visual state
+    if(svcCheck) svcCheck.checked = wantsService;
+    if(svcToggleWrap){
+      svcToggleWrap.classList.toggle('on', wantsService);
+    }
+
+    // Update the breakdown row values + show/hide service rows
+    var serviceWrap = document.getElementById('bfRowServiceWrap');
+    var staffWrap = document.getElementById('bfRowStaffWrap');
+    if(document.getElementById('bfRowSubtotal')) document.getElementById('bfRowSubtotal').textContent = money(b.subtotal);
+    if(document.getElementById('bfRowTax')) document.getElementById('bfRowTax').textContent = money(b.tax);
+    if(serviceWrap) serviceWrap.hidden = !wantsService;
+    if(staffWrap) staffWrap.hidden = !wantsService;
+    if(document.getElementById('bfRowService')) document.getElementById('bfRowService').textContent = money(b.service);
+    var staffEl = document.getElementById('bfRowStaff');
+    var staffNoteEl = document.getElementById('bfRowStaffNote');
+    if(staffEl) staffEl.textContent = b.staff > 0 ? money(b.staff) : '—';
+    if(staffNoteEl) staffNoteEl.textContent = b.staffNote || '($' + STAFF_PER_PERSON + ' / person)';
     var revTotal = document.getElementById('builderReviewTotal');
     var itemsCount = document.getElementById('builderItemsCount');
-    if(revTotal) revTotal.textContent = money(t.subtotal);
+    if(revTotal) revTotal.textContent = money(b.total);
     if(itemsCount) itemsCount.textContent = t.qty;
+
+    // Details-step peek
     var peekItems = document.getElementById('peekItems');
     var peekTotal = document.getElementById('peekTotal');
     if(peekItems) peekItems.textContent = t.qty + (t.qty === 1 ? ' item' : ' items');
-    if(peekTotal) peekTotal.textContent = money(t.subtotal);
+    if(peekTotal) peekTotal.textContent = money(b.total);
 
     if(t.qty === 0){
       lines.innerHTML = '';
@@ -1438,6 +1586,7 @@ footer.foot a{color:var(--gold-soft)}
       disclaimer.style.display = 'none';
       if(clearWrap) clearWrap.hidden = true;
       if(totalBox) totalBox.hidden = true;
+      if(svcToggleWrap) svcToggleWrap.hidden = true;
       if(step === 'review'){
         document.getElementById('builderNextBtn').disabled = true;
       }
@@ -1447,6 +1596,7 @@ footer.foot a{color:var(--gold-soft)}
     disclaimer.style.display = '';
     if(clearWrap) clearWrap.hidden = false;
     if(totalBox) totalBox.hidden = false;
+    if(svcToggleWrap) svcToggleWrap.hidden = false;
     if(step === 'review'){
       document.getElementById('builderNextBtn').disabled = false;
     }
@@ -1541,12 +1691,31 @@ footer.foot a{color:var(--gold-soft)}
     var orderLines = Object.keys(cart).map(function(k){
       var it = cart[k];
       var lineTotal = it.qty * it.unit;
-      return '  ' + it.qty + ' x ' + it.name + ' (' + it.sizeLabel + ') — $' + it.unit + ' each = $' + lineTotal;
+      return '  ' + it.qty + ' x ' + it.name + ' (' + it.sizeLabel + ') — ' + money(it.unit) + ' each = ' + money(lineTotal);
     });
+    // Compute the full event-total breakdown with the real guest count
+    var b = computeBreakdown(guests);
+
+    var breakdownLines = [];
+    breakdownLines.push('  Catering Total:        ' + money(b.subtotal));
+    breakdownLines.push('  Fitchburg/MA Tax 7%:   ' + money(b.tax));
+    if(wantsService){
+      breakdownLines.push('  Service/Fuel/Admin 24%: ' + money(b.service));
+      if(b.staff > 0){
+        breakdownLines.push('  Staff Service Fee:     ' + money(b.staff) + '  ($' + STAFF_PER_PERSON + '/person x ' + b.guests + ')');
+      } else if(b.staffOver200){
+        breakdownLines.push('  Staff Service Fee:     QUOTED SEPARATELY (200+ guests)');
+      }
+    }
+    breakdownLines.push('  ---');
+    breakdownLines.push('  EVENT TOTAL ESTIMATE:  ' + money(b.total));
+    if(!wantsService){
+      breakdownLines.push('  (No service requested — drop-off only)');
+    }
     var orderSummary =
       orderLines.join('\n') +
-      '\n\n  ESTIMATED SUBTOTAL: $' + t.subtotal +
-      '\n  (Estimate only — excludes 7% MA tax, delivery, and add-ons.)';
+      '\n\n' + breakdownLines.join('\n');
+
     var itemsArray = Object.keys(cart).map(function(k){
       var it = cart[k];
       return {
@@ -1560,7 +1729,7 @@ footer.foot a{color:var(--gold-soft)}
     var addonsText = addons.length ? addons.join(', ') : '(none selected)';
     var subject =
       'New Tray Menu Order — ' + name +
-      ' · $' + t.subtotal + ' est' +
+      ' · ' + money(b.total) + ' est' +
       (dateUS ? ' · ' + dateUS : '');
 
     // Webhook payload — flat top-level fields so Zapier maps them easily,
@@ -1577,8 +1746,25 @@ footer.foot a{color:var(--gold-soft)}
       event_time: time || '',
       guests: guests,
       zip_code: zip || '',
-      estimated_subtotal: t.subtotal,
-      estimated_subtotal_formatted: '$' + t.subtotal,
+      // Itemized breakdown
+      catering_total: b.subtotal,
+      catering_total_formatted: money(b.subtotal),
+      ma_tax_rate: '7%',
+      ma_tax: Math.round(b.tax * 100) / 100,
+      ma_tax_formatted: money(b.tax),
+      wants_service: wantsService ? 'Yes' : 'No',
+      service_charge_rate: '24%',
+      service_charge: Math.round(b.service * 100) / 100,
+      service_charge_formatted: money(b.service),
+      staff_fee_per_person: STAFF_PER_PERSON,
+      staff_fee: Math.round(b.staff * 100) / 100,
+      staff_fee_formatted: b.staff > 0 ? money(b.staff) : (b.staffOver200 ? 'Quoted separately (200+ guests)' : ''),
+      staff_over_200: b.staffOver200 ? 'Yes — needs custom quote' : 'No',
+      event_total: Math.round(b.total * 100) / 100,
+      event_total_formatted: money(b.total),
+      // Legacy field name kept for backward compatibility in existing Zaps
+      estimated_subtotal: b.subtotal,
+      estimated_subtotal_formatted: money(b.subtotal),
       addons_interested: addons,
       addons_text: addonsText,
       notes: notesField || '',
@@ -1601,8 +1787,9 @@ footer.foot a{color:var(--gold-soft)}
       '=== EVENT ===\n' +
       'Date:   ' + dateUS + '\n' +
       'Time:   ' + (time || '(not specified)') + '\n' +
-      'Guests: ' + guests + '\n\n' +
-      '=== ORDER (estimate) ===\n' +
+      'Guests: ' + guests + '\n' +
+      'Wants service: ' + (wantsService ? 'YES' : 'No (drop-off only)') + '\n\n' +
+      '=== ORDER ===\n' +
       orderSummary + '\n\n' +
       '=== OPTIONAL ADD-ONS ===\n' +
       addonsText + '\n\n' +
@@ -1688,6 +1875,7 @@ footer.foot a{color:var(--gold-soft)}
 
     buildMenuIndex();
     loadCart();
+    loadService();
     // Heal cart entries against the live menu: update unit prices to current
     // values and drop any item whose id no longer exists. This fixes carts
     // saved before the price-parsing bug above was fixed.
@@ -1729,6 +1917,23 @@ footer.foot a{color:var(--gold-soft)}
         submitOrder();
       }
     });
+
+    // Service toggle — persist + re-render breakdown
+    var svcCheck = document.getElementById('bfWantsService');
+    if(svcCheck){
+      svcCheck.checked = wantsService;
+      svcCheck.addEventListener('change', function(){
+        wantsService = !!svcCheck.checked;
+        saveService();
+        renderReview();
+      });
+    }
+
+    // Guest count — re-render breakdown so staff fee updates live
+    var guestsLive = document.getElementById('bfGuests');
+    if(guestsLive){
+      guestsLive.addEventListener('input', function(){ renderReview(); });
+    }
 
     // Phone: strip non-digits, cap at 10
     var phoneEl = document.getElementById('bfPhone');
