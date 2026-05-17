@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comeketo Trays — Italian, Mexican & American Catering Trays | Massachusetts</title>
+<meta name="description" content="Comeketo Trays — Italian, Mexican & American catering trays for offices, parties, weddings and family events across Massachusetts. Self-serve ordering plus full buffet service. Powered by Comeketo Catering — 15+ years, 500+ events.">
+<link rel="icon" type="image/png" href="../../icon-192.png">
+<link rel="apple-touch-icon" href="../../icon-192.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Comeketo Trays — Catering Trays Made Easy">
+<meta property="og:description" content="Italian, Mexican & American catering trays — powered by Comeketo Catering. Order online or get a full buffet setup.">
+<meta property="og:url" content="https://rawdre.github.io/ai-consulting/comeketo/menus/tray-landing.html">
+
+<!-- Crisp Live Chat -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="6e2ee3ba-8402-4f3a-8240-aace16ee1bac";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<style>
+/* ============================================================
+   FONTS + DESIGN TOKENS
+   Same family as tray-menu.html so the two pages feel related,
+   plus three cuisine accent colors for the colorful sub-brand feel.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+  /* Shared with tray-menu.html (the family DNA) */
+  --bg:#080808;
+  --bg2:#0d0d0d;
+  --panel:#131313;
+  --panel2:#171717;
+  --ink:#f5efe4;
+  --muted:#b7a389;
+  --dim:#8a7964;
+  --gold:#d1a257;
+  --gold-soft:#f0cb93;
+  --gold-deep:#a8833c;
+  --line:rgba(209,162,87,.18);
+  --line-soft:rgba(209,162,87,.10);
+
+  /* NEW: three cuisine accents (more colorful than parent) */
+  --it:#4eaf75;      /* Italian — basil green */
+  --it-soft:#7fd7a0;
+  --mx:#e96a3a;      /* Mexican — chili red */
+  --mx-soft:#ff9870;
+  --us:#5a8de3;      /* American — steel blue */
+  --us-soft:#8eb4ff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--gold-soft);text-decoration:none;transition:color .2s}
+a:hover{color:#fff5e4}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+
+/* ============================================================
+   HEADER  (sticky top bar with logo + minimal nav)
+   ============================================================ */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(8,8,8,.72);
+  border-bottom:1px solid var(--line-soft);
+}
+.site-header .wrap{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding-top:14px;padding-bottom:14px;
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-logo{
+  width:46px;height:46px;border-radius:50%;
+  background:#000;flex-shrink:0;overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 0 1px rgba(209,162,87,.32) inset;
+  display:flex;align-items:center;justify-content:center;
+}
+.brand-logo img{width:100%;height:100%;object-fit:cover}
+.brand-text{display:flex;flex-direction:column;gap:1px;line-height:1.1}
+.brand-text .b-eyebrow{
+  font-size:9px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--gold-soft);
+}
+.brand-text .b-name{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;
+  font-size:20px;font-weight:600;letter-spacing:.2px;
+}
+.site-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.site-nav a{
+  padding:8px 12px;border-radius:999px;
+  font-size:13px;font-weight:700;letter-spacing:.3px;
+  color:var(--muted);
+}
+.site-nav a:hover{color:#fff5e4;background:rgba(255,255,255,.04)}
+.site-nav .btn-mini{
+  background:var(--gold);color:#171109;
+  padding:9px 14px;font-weight:800;font-size:12.5px;letter-spacing:.4px;
+}
+.site-nav .btn-mini:hover{color:#171109;background:var(--gold-soft)}
+@media (max-width:720px){
+  .site-nav a:not(.btn-mini){display:none}
+}
+
+/* ============================================================
+   GLOBAL BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 26px;border-radius:999px;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;letter-spacing:.4px;
+  text-decoration:none;text-align:center;
+  transition:transform .15s ease,box-shadow .2s ease,background .2s ease,color .2s ease;
+  border:1px solid transparent;white-space:nowrap;
+}
+.btn .arr{font-size:15px;line-height:1;transition:transform .2s}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-primary{
+  background:var(--gold);color:#171109;
+  box-shadow:0 18px 38px rgba(209,162,87,.22);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 24px 48px rgba(209,162,87,.32);color:#171109}
+.btn-secondary{
+  background:rgba(255,255,255,.04);color:var(--gold-soft);
+  border-color:var(--line);
+}
+.btn-secondary:hover{background:rgba(209,162,87,.10);border-color:var(--gold);color:#fff5e4}
+.btn-lg{padding:18px 30px;font-size:15px}
+
+/* ============================================================
+   HERO  — animated gradient mesh background + bold headline
+   ============================================================ */
+.hero{
+  position:relative;overflow:hidden;
+  padding:90px 0 100px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 18% 22%, rgba(78,175,117,.22), transparent 42%),
+    radial-gradient(ellipse at 80% 18%, rgba(233,106,58,.22), transparent 44%),
+    radial-gradient(ellipse at 50% 90%, rgba(90,141,227,.18), transparent 50%),
+    radial-gradient(ellipse at 25% 80%, rgba(209,162,87,.16), transparent 45%),
+    linear-gradient(180deg,#060606 0%,#0e0e0e 60%,#080808 100%);
+  background-size:200% 200%;
+  animation:meshDrift 28s ease-in-out infinite;
+}
+.hero-bg::after{
+  /* Subtle film-grain overlay so the gradient isn't flat */
+  content:"";position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='1'/></svg>");
+}
+@keyframes meshDrift{
+  0%,100%{background-position:0% 0%}
+  50%{background-position:100% 50%}
+}
+.hero-inner{position:relative;z-index:1;text-align:center;max-width:920px;margin:0 auto}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;
+  background:rgba(209,162,87,.10);border:1px solid var(--line);
+  color:var(--gold-soft);
+  font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-eyebrow .dot-it{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--it)}
+.hero-eyebrow .dot-mx{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mx)}
+.hero-eyebrow .dot-us{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--us)}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:clamp(44px,7vw,84px);line-height:1.02;letter-spacing:-1px;
+  margin-bottom:22px;
+}
+.hero h1 .hl-it{color:var(--it-soft)}
+.hero h1 .hl-mx{color:var(--mx-soft)}
+.hero h1 .hl-us{color:var(--us-soft)}
+.hero .lede{
+  color:var(--muted);font-size:clamp(16px,1.6vw,19px);line-height:1.7;
+  max-width:680px;margin:0 auto 36px;
+}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:34px}
+.hero-trust{
+  display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  font-size:12px;color:var(--dim);letter-spacing:.5px;
+}
+.hero-trust .sep{opacity:.4}
+.hero-trust strong{color:var(--gold-soft);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px}
+
+/* ============================================================
+   SECTION HELPERS
+   ============================================================ */
+.section{padding:72px 0;position:relative}
+.section + .section{border-top:1px solid var(--line-soft)}
+.section-head{text-align:center;max-width:760px;margin:0 auto 50px}
+.section-head .eyebrow{
+  display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px;
+}
+.section-head h2{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:clamp(34px,4.4vw,52px);line-height:1.05;margin-bottom:14px;letter-spacing:-.5px;
+}
+.section-head p{color:var(--muted);font-size:16px;line-height:1.8}
+
+/* ============================================================
+   BACKED BY COMEKETO  — trust bar
+   ============================================================ */
+.backed-strip{
+  padding:40px 0;
+  background:linear-gradient(180deg,rgba(209,162,87,.04),transparent 80%);
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+}
+.backed-row{
+  display:flex;align-items:center;justify-content:center;gap:34px;flex-wrap:wrap;text-align:center;
+}
+.backed-row .b-lead{
+  font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff5e4;font-weight:600;
+}
+.backed-row .b-lead small{display:block;font-family:'Manrope',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:4px}
+.backed-stats{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
+.b-stat{display:flex;flex-direction:column;align-items:center;min-width:96px}
+.b-stat .n{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:32px;line-height:1;font-weight:600}
+.b-stat .l{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.backed-link{
+  color:var(--gold-soft);font-size:12.5px;font-weight:700;letter-spacing:.6px;
+  text-decoration:underline;text-underline-offset:3px;
+}
+
+/* ============================================================
+   TWO WAYS TO ORDER  — split section
+   ============================================================ */
+.twoways{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.way{
+  position:relative;padding:36px 32px;border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .25s ease,border-color .2s ease;
+}
+.way:hover{transform:translateY(-3px);border-color:var(--gold)}
+.way::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at top right,rgba(209,162,87,.10),transparent 50%);
+  pointer-events:none;
+}
+.way > *{position:relative;z-index:1}
+.way .icon-circ{
+  width:62px;height:62px;border-radius:50%;
+  background:rgba(209,162,87,.12);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;margin-bottom:18px;
+}
+.way h3{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:32px;line-height:1.1;margin-bottom:10px;
+}
+.way .way-desc{color:var(--muted);font-size:14.5px;line-height:1.75;margin-bottom:18px;flex:1}
+.way ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:6px}
+.way ul li{
+  color:#d4c3ae;font-size:13px;line-height:1.6;padding-left:18px;position:relative;
+}
+.way ul li::before{
+  content:"✓";position:absolute;left:0;top:0;color:var(--gold);font-weight:800;font-size:12px;
+}
+.way .btn{align-self:flex-start}
+.way-trays{border-left:3px solid var(--gold)}
+.way-buffet{border-left:3px solid var(--it)}
+.way-buffet .icon-circ{background:rgba(78,175,117,.12);border-color:rgba(78,175,117,.3);color:var(--it-soft)}
+.way-buffet .btn-primary{background:var(--it);color:#0a1a10;box-shadow:0 18px 38px rgba(78,175,117,.22)}
+.way-buffet .btn-primary:hover{background:var(--it-soft);box-shadow:0 24px 48px rgba(78,175,117,.32)}
+@media (max-width:880px){
+  .twoways{grid-template-columns:1fr}
+  .way{padding:30px 24px}
+}
+
+/* ============================================================
+   THREE CUISINES
+   ============================================================ */
+.cuisines{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.cuisine{
+  position:relative;padding:32px 28px;border-radius:26px;
+  background:var(--panel2);border:1px solid var(--line-soft);overflow:hidden;
+  transition:transform .25s ease,border-color .2s ease;display:flex;flex-direction:column;
+}
+.cuisine:hover{transform:translateY(-4px)}
+.cuisine .accent-bar{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,transparent,currentColor,transparent);
+}
+.cuisine .flag{font-size:34px;line-height:1;margin-bottom:14px}
+.cuisine h3{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:30px;line-height:1.05;margin-bottom:6px;
+}
+.cuisine .cuisine-sub{
+  font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.cuisine .menu-list{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:8px;flex:1}
+.cuisine .menu-list li{
+  display:flex;justify-content:space-between;gap:10px;
+  padding:9px 12px;border-radius:10px;background:#0e0e0e;border:1px solid var(--line-soft);
+  font-size:13px;color:#d4c3ae;
+}
+.cuisine .menu-list li .it{font-weight:600;color:#fff5e4}
+.cuisine .menu-list li .pr{font-family:'Cormorant Garamond',serif;color:var(--gold-soft);font-weight:600;font-size:15px}
+.cuisine .more-link{
+  align-self:flex-start;font-size:12.5px;font-weight:700;letter-spacing:.4px;
+  color:currentColor;border-bottom:1px solid currentColor;padding-bottom:2px;
+}
+.cuisine.it{color:var(--it-soft)}
+.cuisine.it .accent-bar{color:var(--it-soft)}
+.cuisine.it:hover{border-color:var(--it)}
+.cuisine.mx{color:var(--mx-soft)}
+.cuisine.mx .accent-bar{color:var(--mx-soft)}
+.cuisine.mx:hover{border-color:var(--mx)}
+.cuisine.us{color:var(--us-soft)}
+.cuisine.us .accent-bar{color:var(--us-soft)}
+.cuisine.us:hover{border-color:var(--us)}
+@media (max-width:880px){.cuisines{grid-template-columns:1fr}}
+
+/* ============================================================
+   PERFECT FOR  — occasions chip grid
+   ============================================================ */
+.occasions{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;
+}
+.occasion{
+  padding:24px 22px;border-radius:18px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+  display:flex;align-items:center;gap:16px;
+  transition:transform .2s ease,border-color .2s,background .2s;
+}
+.occasion:hover{transform:translateY(-2px);border-color:var(--gold);background:#1b1b1b}
+.occasion .ico{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(209,162,87,.12);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+}
+.occasion .text{display:flex;flex-direction:column;gap:2px}
+.occasion .text .t{color:#fff5e4;font-weight:700;font-size:15px;line-height:1.2}
+.occasion .text .d{color:var(--muted);font-size:12px;line-height:1.4}
+@media (max-width:880px){.occasions{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.occasions{grid-template-columns:1fr}}
+
+/* ============================================================
+   HOW IT WORKS  — 4 steps
+   ============================================================ */
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px;
+  position:relative;
+}
+.step{
+  position:relative;padding:26px 22px;border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  border:1px solid var(--line-soft);
+}
+.step .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(209,162,87,.12);border:1px solid var(--line);
+  color:var(--gold-soft);font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;
+  margin-bottom:14px;
+}
+.step h4{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:22px;line-height:1.15;margin-bottom:8px;
+}
+.step p{color:var(--muted);font-size:13.5px;line-height:1.7}
+@media (max-width:880px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* ============================================================
+   SERVICE ADD-ONS
+   ============================================================ */
+.addons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.addon{
+  padding:24px 22px;border-radius:22px;
+  background:linear-gradient(180deg,rgba(209,162,87,.05),rgba(255,255,255,.01));
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+}
+.addon .a-ico{font-size:30px;margin-bottom:10px}
+.addon h4{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;font-size:22px;margin-bottom:6px}
+.addon p{color:var(--muted);font-size:13px;line-height:1.65;margin-bottom:14px;flex:1}
+.addon .price{
+  font-family:'Cormorant Garamond',serif;color:var(--gold-soft);
+  font-size:18px;font-weight:600;
+}
+.addon .price small{display:block;font-family:'Manrope',sans-serif;font-size:10.5px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+@media (max-width:880px){.addons{grid-template-columns:1fr}}
+
+/* ============================================================
+   VIDEO PLACEHOLDER  — Rodrigo's founder spot
+   ============================================================ */
+.video-section{
+  padding:72px 0;
+  background:
+    radial-gradient(circle at 80% 30%,rgba(233,106,58,.10),transparent 50%),
+    radial-gradient(circle at 20% 80%,rgba(78,175,117,.08),transparent 55%),
+    linear-gradient(180deg,#0a0a0a,#0e0e0e);
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+}
+.video-card{
+  max-width:880px;margin:0 auto;
+  padding:36px;border-radius:26px;
+  background:rgba(0,0,0,.4);border:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;
+}
+.video-frame{
+  position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,#1a1a1a,#0a0a0a);
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+.video-frame::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at center,rgba(209,162,87,.15),transparent 60%);
+}
+.video-frame .play{
+  position:relative;width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:2px solid var(--gold-soft);
+  color:var(--gold);font-size:28px;
+  display:flex;align-items:center;justify-content:center;padding-left:6px;
+}
+.video-frame .coming{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  font-size:10.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--gold-soft);background:rgba(0,0,0,.5);padding:5px 12px;border-radius:999px;
+}
+.video-text h2{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:34px;line-height:1.1;margin-bottom:10px;
+}
+.video-text p{color:var(--muted);font-size:14.5px;line-height:1.75;margin-bottom:10px}
+.video-text .sig{color:var(--gold-soft);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700}
+@media (max-width:780px){
+  .video-card{grid-template-columns:1fr;padding:24px}
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{max-width:840px;margin:0 auto;display:grid;gap:10px}
+.faq-item{
+  background:var(--panel2);border:1px solid var(--line-soft);border-radius:18px;
+  overflow:hidden;
+}
+.faq-item[open]{border-color:var(--gold)}
+.faq-item summary{
+  list-style:none;cursor:pointer;
+  padding:20px 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-weight:700;font-size:15.5px;color:#fff5e4;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .q-ico{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:rgba(209,162,87,.10);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--gold-soft);
+  font-size:18px;font-weight:600;transition:transform .25s ease;
+}
+.faq-item[open] summary .q-ico{transform:rotate(45deg)}
+.faq-body{padding:0 22px 20px;color:var(--muted);font-size:14px;line-height:1.75}
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.final-cta{
+  position:relative;overflow:hidden;
+  padding:80px 22px;text-align:center;
+  border-top:1px solid var(--line-soft);
+}
+.final-cta::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 25% 30%,rgba(78,175,117,.14),transparent 45%),
+    radial-gradient(ellipse at 75% 60%,rgba(233,106,58,.14),transparent 45%),
+    radial-gradient(ellipse at 50% 90%,rgba(90,141,227,.10),transparent 50%),
+    linear-gradient(180deg,#0a0a0a,#0e0e0e);
+  animation:meshDrift 36s ease-in-out infinite reverse;
+}
+.final-cta-inner{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.final-cta h2{
+  font-family:'Cormorant Garamond',serif;color:#fff5e4;font-weight:600;
+  font-size:clamp(34px,4.6vw,52px);line-height:1.05;margin-bottom:14px;
+}
+.final-cta p{color:var(--muted);font-size:16px;line-height:1.7;margin-bottom:28px}
+.final-cta-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.final-cta .micro{
+  margin-top:22px;font-size:12px;color:var(--dim);letter-spacing:.5px;
+}
+.final-cta .micro a{color:var(--gold-soft);font-weight:700}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-foot{padding:36px 22px 28px;text-align:center;color:var(--dim);font-size:12px;letter-spacing:.4px;background:#060606;border-top:1px solid var(--line-soft)}
+.site-foot a{color:var(--gold-soft);font-weight:700}
+.site-foot .row{margin-bottom:6px}
+
+/* ============================================================
+   SCROLL REVEAL  (very subtle entrance)
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){
+  .hero-bg,.final-cta::before{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-logo"><img src="assets/comeketo-logo.png" alt="Comeketo Catering"></span>
+      <span class="brand-text">
+        <span class="b-eyebrow">A new line from</span>
+        <span class="b-name">Comeketo Trays</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#two-ways">Order Types</a>
+      <a href="#cuisines">Menus</a>
+      <a href="#how">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn-mini" href="tray-menu.html">Open Menu →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO  — animated gradient background + dual CTA
+============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="dot-it"></span><span class="dot-mx"></span><span class="dot-us"></span>
+        Italian · Mexican · American
+      </div>
+      <h1>Catering trays<br>made <span class="hl-it">easy</span>, <span class="hl-mx">tasty</span> &amp; <span class="hl-us">on time</span>.</h1>
+      <p class="lede">Three cuisines under one tray menu — built for office lunches, birthdays, weddings, graduations and family events across Massachusetts. Order by the tray, or let our team set up the full buffet for you.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="tray-menu.html">🍽 Build Your Tray Order <span class="arr">→</span></a>
+        <a class="btn btn-secondary btn-lg" href="#buffet">👥 Plan Buffet Service <span class="arr">→</span></a>
+      </div>
+      <div class="hero-trust">
+        <span><strong>Powered by Comeketo Catering</strong></span>
+        <span class="sep">·</span>
+        <span>15+ years</span>
+        <span class="sep">·</span>
+        <span>500+ events</span>
+        <span class="sep">·</span>
+        <span>MA &amp; New England</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BACKED BY COMEKETO  — trust strip
+============================================================ -->
+<section class="backed-strip">
+  <div class="wrap">
+    <div class="backed-row">
+      <div class="b-lead">
+        <small>Backed by</small>
+        Comeketo Catering
+      </div>
+      <div class="backed-stats">
+        <div class="b-stat"><div class="n">15+</div><div class="l">Years</div></div>
+        <div class="b-stat"><div class="n">500+</div><div class="l">Events</div></div>
+        <div class="b-stat"><div class="n">MA</div><div class="l">&amp; New England</div></div>
+        <div class="b-stat"><div class="n">★★★★★</div><div class="l">Real Reviews</div></div>
+      </div>
+      <a class="backed-link" href="https://comeketocatering.com/" target="_blank" rel="noopener">Visit comeketocatering.com ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TWO WAYS TO ORDER
+============================================================ -->
+<section class="section" id="two-ways">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Two ways to order</div>
+      <h2>Order by the tray, or let us run the buffet.</h2>
+      <p>Pick whatever fits your event. Both use the same menu and the same kitchen — what changes is whether our team comes out to set everything up for your guests.</p>
+    </div>
+    <div class="twoways">
+
+      <article class="way way-trays reveal">
+        <div class="icon-circ">🍽</div>
+        <h3>Order by the Tray</h3>
+        <p class="way-desc">Build your order online, see the price as you go, and we deliver it hot to your door. No back-and-forth, no waiting on a quote — you stay in control.</p>
+        <ul>
+          <li>Small trays feed ~10, large feed ~20</li>
+          <li>Italian, Mexican &amp; American on one menu</li>
+          <li>Sealed aluminum, ready to serve</li>
+          <li>Add chafers, sternos or delivery as needed</li>
+        </ul>
+        <a class="btn btn-primary" href="tray-menu.html">Build Your Tray Order <span class="arr">→</span></a>
+      </article>
+
+      <article class="way way-buffet reveal" id="buffet">
+        <div class="icon-circ">👥</div>
+        <h3>Plan Buffet Service</h3>
+        <p class="way-desc">Want the full hosted feel? Our team brings the trays, sets up the buffet, dresses the table and gets everything hot and ready before your first guest walks in.</p>
+        <ul>
+          <li>Built off the same tray menu &amp; pricing</li>
+          <li>Tables dressed, trays warmed, ready when guests arrive</li>
+          <li>Setup service add-on starts at +5% / $25 min</li>
+          <li>Great for weddings, showers, corporate events</li>
+        </ul>
+        <a class="btn btn-primary" href="tray-menu.html">Start a Buffet Order <span class="arr">→</span></a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THREE CUISINES
+============================================================ -->
+<section class="section" id="cuisines" style="background:linear-gradient(180deg,#080808,#0c0c0c)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Three cuisines · one menu</div>
+      <h2>Pick the flavor that fits your crowd.</h2>
+      <p>Mix and match across all three — most events do. Sample a few favorites below, then jump into the full tray menu to build your spread.</p>
+    </div>
+
+    <div class="cuisines">
+
+      <article class="cuisine it reveal">
+        <div class="accent-bar"></div>
+        <div class="flag">🍝</div>
+        <h3>Italian</h3>
+        <div class="cuisine-sub">Comfort &amp; pasta classics</div>
+        <ul class="menu-list">
+          <li><span class="it">Lasagna — Meat (Bolognese)</span><span class="pr">$75</span></li>
+          <li><span class="it">Baked Ziti</span><span class="pr">$50</span></li>
+          <li><span class="it">Chicken Marsala</span><span class="pr">$80</span></li>
+          <li><span class="it">Italian Meatballs</span><span class="pr">$60</span></li>
+          <li><span class="it">Bruschetta</span><span class="pr">$35</span></li>
+          <li><span class="it">Stuffed Shells</span><span class="pr">$50</span></li>
+        </ul>
+        <a class="more-link" href="tray-menu.html#sides">See full Italian menu →</a>
+      </article>
+
+      <article class="cuisine mx reveal">
+        <div class="accent-bar"></div>
+        <div class="flag">🌮</div>
+        <h3>Mexican</h3>
+        <div class="cuisine-sub">Bold flavor, build-your-own bars</div>
+        <ul class="menu-list">
+          <li><span class="it">"Birria" Beef Brisket Tacos</span><span class="pr">$90</span></li>
+          <li><span class="it">Carne Asada Steak Tips</span><span class="pr">$140</span></li>
+          <li><span class="it">Beef or Chicken Fajitas</span><span class="pr">$65</span></li>
+          <li><span class="it">Mini Empanadas</span><span class="pr">$60</span></li>
+          <li><span class="it">7-Layer Dip</span><span class="pr">$60</span></li>
+          <li><span class="it">Chips &amp; Trio of Salsas</span><span class="pr">$55</span></li>
+        </ul>
+        <a class="more-link" href="tray-menu.html#tacos">See full Mexican menu →</a>
+      </article>
+
+      <article class="cuisine us reveal">
+        <div class="accent-bar"></div>
+        <div class="flag">🍔</div>
+        <h3>American</h3>
+        <div class="cuisine-sub">Crowd-pleasing favorites</div>
+        <ul class="menu-list">
+          <li><span class="it">BBQ Pork Ribs</span><span class="pr">$65</span></li>
+          <li><span class="it">Build-Your-Own Burger Bar</span><span class="pr">$75</span></li>
+          <li><span class="it">Filet Mignon Medallions</span><span class="pr">$165</span></li>
+          <li><span class="it">Buffalo Wings (3 / person)</span><span class="pr">$60</span></li>
+          <li><span class="it">Macaroni &amp; Cheese</span><span class="pr">$45</span></li>
+          <li><span class="it">Loaded Mashed Potato</span><span class="pr">$53</span></li>
+        </ul>
+        <a class="more-link" href="tray-menu.html#beef-pork">See full American menu →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PERFECT FOR
+============================================================ -->
+<section class="section" id="perfect-for">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Perfect for</div>
+      <h2>Built for the events you're already planning.</h2>
+      <p>Whether it's a Tuesday office lunch or a Saturday wedding shower, the tray menu scales with you — feed 10 or 200.</p>
+    </div>
+    <div class="occasions">
+      <div class="occasion reveal"><div class="ico">💼</div><div class="text"><div class="t">Office Lunches</div><div class="d">Team meetings, client visits, all-hands</div></div></div>
+      <div class="occasion reveal"><div class="ico">🎂</div><div class="text"><div class="t">Birthday Parties</div><div class="d">Family gatherings, milestones</div></div></div>
+      <div class="occasion reveal"><div class="ico">💍</div><div class="text"><div class="t">Weddings &amp; Showers</div><div class="d">Bridal, baby, engagement parties</div></div></div>
+      <div class="occasion reveal"><div class="ico">🎓</div><div class="text"><div class="t">Graduations</div><div class="d">High school, college, big crowds</div></div></div>
+      <div class="occasion reveal"><div class="ico">🎄</div><div class="text"><div class="t">Holiday Parties</div><div class="d">Company holidays, family feasts</div></div></div>
+      <div class="occasion reveal"><div class="ico">🌳</div><div class="text"><div class="t">Backyard Events</div><div class="d">BBQs, reunions, neighborhood parties</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="section" id="how" style="background:linear-gradient(180deg,#080808,#0c0c0c)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>From your tap to the tray, in four steps.</h2>
+      <p>No phone tag, no two-day wait for a quote. You build it; we confirm it; we deliver it.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">1</div>
+        <h4>Pick your trays</h4>
+        <p>Tap any item on the menu to add it. See the running estimate as you go.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">2</div>
+        <h4>Add event details</h4>
+        <p>Name, date, headcount, zip and any notes — takes under a minute.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">3</div>
+        <h4>Review estimate</h4>
+        <p>You see the full subtotal upfront. No mystery, no hidden fees.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">4</div>
+        <h4>We confirm the quote</h4>
+        <p>Our team adds tax + delivery and sends the final quote within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICE ADD-ONS
+============================================================ -->
+<section class="section" id="addons">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Service add-ons</div>
+      <h2>Upgrade only what you need.</h2>
+      <p>By default, food arrives in sealed aluminum, ready to serve. Add hot-keeping, delivery, or full setup — your call.</p>
+    </div>
+    <div class="addons">
+      <article class="addon reveal">
+        <div class="a-ico">🔥</div>
+        <h4>Wire Chafers &amp; Sternos</h4>
+        <p>Keep everything hot for your guests. We deliver chafers + sterno fuel set up and ready.</p>
+        <div class="price">+5% of order<small>or $25 minimum</small></div>
+      </article>
+      <article class="addon reveal">
+        <div class="a-ico">🚚</div>
+        <h4>Delivery</h4>
+        <p>Friendly hand-off to your door, office or venue. Calculated by distance from Fitchburg, MA.</p>
+        <div class="price">$1.50 / mile (both ways)<small>or $25 minimum</small></div>
+      </article>
+      <article class="addon reveal">
+        <div class="a-ico">👥</div>
+        <h4>Full Setup Service</h4>
+        <p>We dress the tables, warm the trays and have your buffet ready before guests arrive.</p>
+        <div class="price">+5% of order<small>or $25 minimum</small></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VIDEO / STORY  (placeholder for Rodrigo's spot)
+============================================================ -->
+<section class="video-section" id="story">
+  <div class="wrap">
+    <div class="video-card reveal">
+      <div class="video-frame" aria-label="Founder video coming soon">
+        <div class="play" aria-hidden="true">▶</div>
+        <div class="coming">Founder video coming soon</div>
+      </div>
+      <div class="video-text">
+        <h2>The story behind the tray menu.</h2>
+        <p>Comeketo Trays is a new line built off the same kitchen, the same standards and the same people you've trusted at Comeketo Catering for over 15 years. We made it easier to order so good food can show up at smaller events too — not just weddings and galas.</p>
+        <p>A short founder video from Rodrigo is on the way.</p>
+        <div class="sig">— The Comeketo Team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2>Quick answers before you order.</h2>
+    </div>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Is Comeketo Trays different from Comeketo Catering? <span class="q-ico">+</span></summary>
+        <div class="faq-body">Yes &mdash; Comeketo Trays is a new line from the same team. The main Comeketo Catering site focuses on Brazilian BBQ &amp; full-service catering. Comeketo Trays is the Italian / Mexican / American tray menu, designed to be quick to order online for any-size event.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I just order trays without service? <span class="q-ico">+</span></summary>
+        <div class="faq-body">Absolutely. Order by the tray, we deliver it hot in sealed aluminum, and you take it from there. Pick add-ons (chafers, delivery, setup) only if you need them.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can Comeketo also set up the buffet? <span class="q-ico">+</span></summary>
+        <div class="faq-body">Yes. Choose the "Full Setup Service" add-on (+5% of order, $25 min) and our team will dress the tables, warm the trays and have the buffet ready before your first guest arrives.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do prices include tax or delivery? <span class="q-ico">+</span></summary>
+        <div class="faq-body">No &mdash; the menu shows tray prices only. 7% Massachusetts meals tax is added at checkout, and delivery is calculated by distance from Fitchburg, MA (both ways). Your final confirmed quote will show all line items clearly.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How far do you deliver? <span class="q-ico">+</span></summary>
+        <div class="faq-body">We serve all of Massachusetts and parts of New England. Delivery is $1.50/mile both ways from Fitchburg, MA, with a $25 minimum. For events farther out, we'll quote it clearly &mdash; no surprises.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How early should I place my order? <span class="q-ico">+</span></summary>
+        <div class="faq-body">As early as you can &mdash; a few days is ideal for small orders, and 1&ndash;2 weeks for larger events or full buffet setup. We do our best to fit last-minute orders when the kitchen has capacity. Call (978) 381&#8209;1212 if you're tight on time.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What about dietary restrictions and allergies? <span class="q-ico">+</span></summary>
+        <div class="faq-body">Note allergies, vegetarian counts, or special requests when you submit your order &mdash; we'll do our best to accommodate. The menu also includes vegetarian options like Eggplant Parmesan, Veggie Fajitas and Pasta Primavera.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I pay? <span class="q-ico">+</span></summary>
+        <div class="faq-body">A non-refundable deposit confirms your order; the balance is due before or at delivery. Our team will walk you through payment options when they send the final quote.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+============================================================ -->
+<section class="final-cta">
+  <div class="final-cta-inner reveal">
+    <h2>Start with trays. Upgrade to buffet if you need service.</h2>
+    <p>Either way, you'll have a confirmed quote in one business day — and great food at your event soon after.</p>
+    <div class="final-cta-ctas">
+      <a class="btn btn-primary btn-lg" href="tray-menu.html">🍽 Build Your Tray Order <span class="arr">→</span></a>
+      <a class="btn btn-secondary btn-lg" href="#buffet">👥 Plan Buffet Service <span class="arr">→</span></a>
+    </div>
+    <div class="micro">
+      Questions? Call <a href="tel:+19783811212">(978) 381-1212</a> or email <a href="mailto:team@comeketocatering.com">team@comeketocatering.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="row"><strong style="color:#fff5e4">Comeketo Trays</strong> — Italian, Mexican &amp; American catering trays</div>
+    <div class="row">199 Main Street, Fitchburg MA 01420 · <a href="tel:+19783811212">(978) 381-1212</a> · <a href="mailto:team@comeketocatering.com">team@comeketocatering.com</a></div>
+    <div class="row">Powered by <a href="https://comeketocatering.com/" target="_blank" rel="noopener">Comeketo Catering ↗</a></div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   SCROLL REVEAL  — lightweight IntersectionObserver
+============================================================ */
+(function(){
+  if(!('IntersectionObserver' in window)){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin:'0px 0px -10% 0px', threshold:0.05 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
