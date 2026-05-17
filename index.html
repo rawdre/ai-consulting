@@ -174,6 +174,11 @@ section{padding:100px 0;position:relative;z-index:1}
 .current-work-card{padding:32px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:.3s;display:flex;flex-direction:column;min-height:100%}
 .current-work-card:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.25);box-shadow:0 20px 60px rgba(0,0,0,.25)}
 .current-work-tag{display:inline-flex;align-items:center;gap:8px;width:max-content;padding:7px 14px;border-radius:999px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.2);color:var(--gold);font-size:.8rem;font-weight:700;margin-bottom:18px}
+.current-work-tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.current-work-tag-row .current-work-tag{margin-bottom:0}
+.current-work-tag-launched{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(46,204,113,.14);border:1px solid rgba(46,204,113,.4);color:#5ee59a;font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.current-work-card-launched{border-color:rgba(46,204,113,.22)!important}
+.current-work-card-launched:hover{border-color:rgba(46,204,113,.45)!important;box-shadow:0 20px 60px rgba(46,204,113,.12)!important}
 .current-work-card h3{font-size:1.25rem;font-weight:800;margin-bottom:12px;color:var(--text)}
 .current-work-card p{color:var(--muted);font-size:.95rem;flex:1;margin-bottom:24px}
 .current-work-card .btn{width:100%;justify-content:center}
@@ -913,10 +918,13 @@ footer a{color:var(--accent)}
         <p data-en="English-first profile page for the operator behind Raw AI, with a PT-BR toggle and the same visual system used across the main site." data-pt="Página de perfil em inglês para o operador por trás da Raw AI, com alternância PT-BR e o mesmo sistema visual usado no site principal.">English-first profile page for the operator behind Raw AI, with a PT-BR toggle and the same visual system used across the main site.</p>
         <a href="about-andre.html" class="btn btn-secondary btn-sm" data-en="Open About Andre →" data-pt="Abrir Sobre o Andre →" onclick="return guardProtectedRoute(event, 'about-andre.html', 'About Andre')">Open About Andre →</a>
       </div>
-      <div class="current-work-card reveal">
-        <div class="current-work-tag">🏠 Real Estate</div>
+      <div class="current-work-card current-work-card-launched reveal">
+        <div class="current-work-tag-row">
+          <div class="current-work-tag">🏠 Real Estate</div>
+          <div class="current-work-tag-launched" data-en="✓ Launched" data-pt="✓ Lançado">✓ Launched</div>
+        </div>
         <h3>Top Imobiliária</h3>
-        <p data-en="One central place for the Top Imobiliária cluster, including the main site, proposal, and consorcio support page." data-pt="Um lugar central para o conjunto da Top Imobiliária, incluindo o site principal, a proposta e a página de consórcio.">One central place for the Top Imobiliária cluster, including the main site, proposal, and consorcio support page.</p>
+        <p data-en="Live real-estate site for Top Imobiliária. The hub also keeps the proposal and consorcio support pages for internal use." data-pt="Site imobiliário ao ar para a Top Imobiliária. O hub também guarda a proposta e a página de consórcio para uso interno.">Live real-estate site for Top Imobiliária. The hub also keeps the proposal and consorcio support pages for internal use.</p>
         <a href="top-imobiliaria-hub.html" class="btn btn-secondary btn-sm" data-en="Open Top Imobiliária →" data-pt="Abrir Top Imobiliária →">Open Top Imobiliária →</a>
       </div>
       <div class="current-work-card reveal">

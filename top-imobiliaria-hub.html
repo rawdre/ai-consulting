@@ -22,35 +22,45 @@ h1{font-size:58px;line-height:.9;margin:16px 0 12px}
 .card{background:var(--panel2);border:1px solid var(--line);border-radius:22px;padding:18px}
 .card h3{font-size:28px;margin-bottom:8px}
 .card a{display:inline-block;margin-top:14px;padding:10px 14px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;font-size:13px}
+.card a:hover{filter:brightness(1.1)}
+.card a.external::after{content:" ↗";opacity:.85}
+.live-badge{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:6px 12px;border-radius:999px;background:rgba(46,204,113,.14);border:1px solid rgba(46,204,113,.4);color:#5ee59a;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}
+.hero-cta{margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:999px;background:#5ee59a;color:#0c2014;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:.3px;box-shadow:0 14px 32px rgba(46,204,113,.18);transition:transform .15s,box-shadow .2s}
+.hero-cta:hover{transform:translateY(-1px);box-shadow:0 18px 38px rgba(46,204,113,.28)}
+.card-launched{border-color:rgba(46,204,113,.35)!important}
 @media (max-width:900px){.grid{grid-template-columns:1fr}h1{font-size:42px}}
 </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="badge">Real Estate Cluster</div>
+      <div class="badge">Real Estate Cluster<span class="live-badge">✓ Launched</span></div>
       <h1>Top Imobiliaria</h1>
-      <p>One central place for the Top Imobiliaria ecosystem: main site, proposal, consorcio support page, and related real-estate work.</p>
+      <p>Live real-estate site for Top Imobiliaria at <a href="https://www.topimobiliaria.com/" target="_blank" rel="noopener" style="color:#ff9a9a">topimobiliaria.com</a>. This hub keeps the live site, the sales proposal, and the consorcio support page in one place for the team.</p>
+      <a href="https://www.topimobiliaria.com/" target="_blank" rel="noopener" class="hero-cta">🌐 Visit live site ↗</a>
     </section>
     <section class="section">
       <h2>Pages</h2>
       <div class="grid">
-        <article class="card">
-          <h3>Main Site</h3>
-          <p>Main real-estate site and presentation experience.</p>
-          <a href="top-imobiliaria.html">Open Main Site</a>
+        <article class="card card-launched">
+          <h3>Main Site <span class="live-badge">Live</span></h3>
+          <p>The live, customer-facing real-estate site for Top Imobiliaria.</p>
+          <a href="https://www.topimobiliaria.com/" target="_blank" rel="noopener" class="external">Open Main Site</a>
         </article>
         <article class="card">
           <h3>Proposal</h3>
-          <p>Sales proposal page for the Top Imobiliaria project.</p>
+          <p>Internal sales proposal page used in pitches for the Top Imobiliaria project.</p>
           <a href="proposta-top-imobiliaria.html">Open Proposal</a>
         </article>
         <article class="card">
           <h3>Consorcio</h3>
-          <p>Supporting page for the Top Imobiliaria cluster.</p>
+          <p>Internal supporting page for the Top Imobiliaria consorcio offer.</p>
           <a href="consorcio-top-imobiliaria.html">Open Consorcio</a>
         </article>
       </div>
+      <p style="margin-top:18px;font-size:12px;color:var(--muted);line-height:1.7">
+        Old demo at <code style="color:#ff9a9a">top-imobiliaria.html</code> is kept dormant as a reusable template — it is no longer the live site.
+      </p>
     </section>
   </div>
 </body>
