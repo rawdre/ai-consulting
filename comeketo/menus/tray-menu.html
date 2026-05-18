@@ -183,14 +183,16 @@ h1 .accent{color:var(--gold);font-style:italic;font-weight:500}
 }
 .section .desc{color:var(--muted);font-size:14px;max-width:520px;line-height:1.7}
 .col-head{
-  display:flex;gap:18px;align-items:center;
+  display:grid;grid-template-columns:1fr 100px 100px;gap:18px;
+  margin:0 0 10px;
   font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
   color:var(--gold-soft);
 }
 .col-head .ch{
-  min-width:80px;text-align:right;
+  text-align:right;
   padding:6px 0;border-bottom:1px solid var(--line-soft);
 }
+.col-head .ch:first-child{grid-column-start:2}
 
 /* TRAY REMINDER — compact "Small Tray ~10 / Large Tray ~20" bar repeated per section */
 .tray-reminder{
@@ -677,6 +679,7 @@ footer.foot a{color:var(--gold-soft)}
 /* Adjust price column on small screens so steppers fit */
 @media (max-width:560px){
   .row{grid-template-columns:1fr 88px 88px;gap:10px;padding:12px 14px}
+  .col-head{grid-template-columns:1fr 88px 88px;gap:10px}
   .qty-btn{width:24px;height:24px;font-size:15px}
   .qty-stepper{gap:4px}
   .cart-pill{padding:10px 16px 10px 12px}
@@ -699,10 +702,9 @@ footer.foot a{color:var(--gold-soft)}
   .addons,.terms{grid-template-columns:1fr}
   .row{grid-template-columns:1fr auto auto;gap:12px}
   .row .p{font-size:18px;min-width:72px}
-  .col-head{font-size:9.5px;width:auto}
+  .col-head{grid-template-columns:1fr auto auto;gap:12px;font-size:9.5px}
   .col-head .ch{min-width:72px}
   .section-head{flex-direction:column;align-items:stretch;gap:10px}
-  .section-head .col-head{align-self:flex-end;padding-right:18px}
   h1{font-size:42px}
   .hero{padding:32px 22px 28px}
   .section{padding:22px}
@@ -796,14 +798,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Appetizers</h2>
         <p class="desc">Crowd-pleasing starters built for sharing — from dips and platters to handheld bites and warm classics.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">7-Layer Dip<span class="note">Beans, guac, sour cream, cheese, tomatoes, olives, green onions — served with chips.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
@@ -843,14 +845,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Salads</h2>
         <p class="desc">Fresh classics from the garden to the antipasto plate, plus our pints and quarts of house-style dressings.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Antipasto</div><div class="p">$60<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
@@ -885,14 +887,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Sides & Pasta</h2>
         <p class="desc">From baked ziti and lasagnas to potatoes, rice, beans, and seasonal vegetables — the foundations of a full spread.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Baked Ziti</div><div class="p">$50<span class="unit">small</span></div><div class="p">$97<span class="unit">large</span></div></div>
@@ -932,14 +934,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Seafood</h2>
         <p class="desc">Baked, glazed and stuffed — coastal favorites including lobster mac, shrimp pasta, and our signature stuffed cod.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Baked Haddock</div><div class="p">$85<span class="unit">small</span></div><div class="p">$170<span class="unit">large</span></div></div>
@@ -960,14 +962,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Beef & Pork</h2>
         <p class="desc">Hearty centerpieces — from al pastor pork and BBQ ribs to filet medallions, carne asada, and burger bars.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Al Pastor Pork Medallions<span class="note">Sliced pork loin marinated in pineapple, achiote, and chilies.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
@@ -992,14 +994,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Chicken</h2>
         <p class="desc">Versatile and reliable — from a half chicken and stuffed breasts to piccata, marsala, carbonara, cordon bleu, and tenders.<br><em style="color:var(--gold-soft);font-style:normal;font-size:12px;letter-spacing:.5px;display:inline-block;margin-top:6px;">* Served with penne pasta.</em></p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
     <div class="rows">
       <div class="row"><div class="name">½ Chicken<span class="note">Deboned and marinated in an array of herbs and spices.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
@@ -1026,14 +1028,14 @@ footer.foot a{color:var(--gold-soft)}
         <h2>Tacos · Fajitas · Enchiladas</h2>
         <p class="desc">Three Mexican-style build-out bars with the right fixings, and a tray-by-the-piece enchilada offering for both intimate and large gatherings.</p>
       </div>
-      <div class="col-head">
-        <span class="ch">Small (~10)</span>
-        <span class="ch">Large (~20)</span>
-      </div>
     </div>
     <div class="tray-reminder">
       <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
       <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
+    <div class="col-head">
+      <span class="ch">Small (~10)</span>
+      <span class="ch">Large (~20)</span>
     </div>
 
     <div class="subhead">
