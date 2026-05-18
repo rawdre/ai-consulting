@@ -9,6 +9,24 @@
 <meta name="description" content="Comeketo Catering by the tray. Mexican, Italian & American trays with small (~10 people) and large (~20 people) pricing. Drop-off and full-service available.">
 <!-- CRISP LIVE CHAT -->
 <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="6e2ee3ba-8402-4f3a-8240-aace16ee1bac";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '376566629580116');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=376566629580116&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root{
@@ -172,6 +190,27 @@ h1 .accent{color:var(--gold);font-style:italic;font-weight:500}
 .col-head .ch{
   min-width:80px;text-align:right;
   padding:6px 0;border-bottom:1px solid var(--line-soft);
+}
+
+/* TRAY REMINDER — compact "Small Tray ~10 / Large Tray ~20" bar repeated per section */
+.tray-reminder{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  margin:0 0 18px;
+}
+.tray-reminder .tr-card{
+  background:var(--panel2);border:1px solid var(--line);border-radius:14px;
+  padding:10px 14px;display:flex;align-items:baseline;gap:10px;
+}
+.tray-reminder .tr-card .k{
+  font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-soft);
+}
+.tray-reminder .tr-card .v{
+  font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.1;color:#fff5e4;
+}
+@media (max-width:560px){
+  .tray-reminder{grid-template-columns:1fr 1fr;gap:8px}
+  .tray-reminder .tr-card{padding:8px 10px;flex-direction:column;align-items:flex-start;gap:2px}
+  .tray-reminder .tr-card .v{font-size:16px}
 }
 
 /* MENU TABLE (rows) */
@@ -762,6 +801,10 @@ footer.foot a{color:var(--gold-soft)}
         <span class="ch">Large (~20)</span>
       </div>
     </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
+    </div>
     <div class="rows">
       <div class="row"><div class="name">7-Layer Dip<span class="note">Beans, guac, sour cream, cheese, tomatoes, olives, green onions — served with chips.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
       <div class="row"><div class="name">Boneless Buffalo Wings<span class="note">3 wings per person.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
@@ -801,9 +844,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">Fresh classics from the garden to the antipasto plate, plus our pints and quarts of house-style dressings.</p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Antipasto</div><div class="p">$60<span class="unit">small</span></div><div class="p">$120<span class="unit">large</span></div></div>
@@ -839,9 +886,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">From baked ziti and lasagnas to potatoes, rice, beans, and seasonal vegetables — the foundations of a full spread.</p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Baked Ziti</div><div class="p">$50<span class="unit">small</span></div><div class="p">$97<span class="unit">large</span></div></div>
@@ -882,9 +933,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">Baked, glazed and stuffed — coastal favorites including lobster mac, shrimp pasta, and our signature stuffed cod.</p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Baked Haddock</div><div class="p">$85<span class="unit">small</span></div><div class="p">$170<span class="unit">large</span></div></div>
@@ -906,9 +961,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">Hearty centerpieces — from al pastor pork and BBQ ribs to filet medallions, carne asada, and burger bars.</p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
     <div class="rows">
       <div class="row"><div class="name">Al Pastor Pork Medallions<span class="note">Sliced pork loin marinated in pineapple, achiote, and chilies.</span></div><div class="p">$60<span class="unit">small</span></div><div class="p">$110<span class="unit">large</span></div></div>
@@ -934,9 +993,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">Versatile and reliable — from a half chicken and stuffed breasts to piccata, marsala, carbonara, cordon bleu, and tenders.<br><em style="color:var(--gold-soft);font-style:normal;font-size:12px;letter-spacing:.5px;display:inline-block;margin-top:6px;">* Served with penne pasta.</em></p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
     <div class="rows">
       <div class="row"><div class="name">½ Chicken<span class="note">Deboned and marinated in an array of herbs and spices.</span></div><div class="p">$65<span class="unit">small</span></div><div class="p">$130<span class="unit">large</span></div></div>
@@ -964,9 +1027,13 @@ footer.foot a{color:var(--gold-soft)}
         <p class="desc">Three Mexican-style build-out bars with the right fixings, and a tray-by-the-piece enchilada offering for both intimate and large gatherings.</p>
       </div>
       <div class="col-head">
-        <span class="ch">Small</span>
-        <span class="ch">Large</span>
+        <span class="ch">Small (~10)</span>
+        <span class="ch">Large (~20)</span>
       </div>
+    </div>
+    <div class="tray-reminder">
+      <div class="tr-card"><span class="k">Small Tray</span><span class="v">~10 people</span></div>
+      <div class="tr-card"><span class="k">Large Tray</span><span class="v">~20 people</span></div>
     </div>
 
     <div class="subhead">
@@ -1120,14 +1187,22 @@ footer.foot a{color:var(--gold-soft)}
         </div>
         <div id="builderLines"></div>
 
-        <!-- SERVICE TOGGLE -->
-        <label id="builderServiceToggle" class="builder-service-toggle" hidden>
-          <input type="checkbox" id="bfWantsService">
-          <div class="svc-body">
-            <div class="svc-title">Add full service for the day <span class="badge">+24% + staff fee</span></div>
-            <div class="svc-desc">Our team brings the food, sets up the buffet, keeps it hot, and serves your guests. Adds <strong>24% service, fuel &amp; admin</strong> + <strong>$3 per person</strong> staff fee (up to 200 guests; 200+ quoted separately).</div>
-          </div>
-        </label>
+        <!-- ADD-ONS (selectable on the cart screen — pricing finalized by our team) -->
+        <div id="builderReviewAddons" class="builder-addons" aria-labelledby="bfReviewAddonsLabel" hidden style="margin:12px 0 0">
+          <label id="bfReviewAddonsLabel" style="font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:2px">Optional add-ons</label>
+          <label class="addon-row">
+            <input type="checkbox" name="addons" value="Wire chafers & sternos">
+            <span class="addon-info"><span class="n">Wire chafers &amp; sternos</span><span class="d">Keep food hot for guests (+5% of order, $25 min)</span></span>
+          </label>
+          <label class="addon-row">
+            <input type="checkbox" name="addons" value="Delivery">
+            <span class="addon-info"><span class="n">Delivery</span><span class="d">$1.50/mile from Fitchburg, both ways ($25 min)</span></span>
+          </label>
+          <label class="addon-row">
+            <input type="checkbox" name="addons" value="Full setup service">
+            <span class="addon-info"><span class="n">Full setup service</span><span class="d">We set up the buffet so you don't have to (+5%, $25 min)</span></span>
+          </label>
+        </div>
 
         <!-- TOTALS BREAKDOWN -->
         <div id="builderTotalBox" class="builder-totalbox" hidden>
@@ -1143,14 +1218,6 @@ footer.foot a{color:var(--gold-soft)}
           <div class="builder-totalbox-row sub">
             <span class="lbl">Fitchburg / MA tax <small>(7%)</small></span>
             <span class="val" id="bfRowTax">$0</span>
-          </div>
-          <div class="builder-totalbox-row sub" id="bfRowServiceWrap" hidden>
-            <span class="lbl">Service, fuel &amp; admin <small>(24%)</small></span>
-            <span class="val" id="bfRowService">$0</span>
-          </div>
-          <div class="builder-totalbox-row sub" id="bfRowStaffWrap" hidden>
-            <span class="lbl">Staff service fee <small id="bfRowStaffNote">($3 / person)</small></span>
-            <span class="val" id="bfRowStaff">$0</span>
           </div>
           <div class="builder-totalbox-row total">
             <span class="lbl">Event Total <small>(estimate)</small></span>
@@ -1205,22 +1272,6 @@ footer.foot a{color:var(--gold-soft)}
           <div class="field">
             <label for="bfZip">Zip code (event location)</label>
             <input id="bfZip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="5 digits">
-          </div>
-
-          <div class="builder-addons" aria-labelledby="bfAddonsLabel">
-            <label id="bfAddonsLabel" style="font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:2px">Optional add-ons</label>
-            <label class="addon-row">
-              <input type="checkbox" name="addons" value="Wire chafers & sternos">
-              <span class="addon-info"><span class="n">Wire chafers & sternos</span><span class="d">Keep food hot for guests (+5% of order, $25 min)</span></span>
-            </label>
-            <label class="addon-row">
-              <input type="checkbox" name="addons" value="Delivery">
-              <span class="addon-info"><span class="n">Delivery</span><span class="d">$1.50/mile from Fitchburg, both ways ($25 min)</span></span>
-            </label>
-            <label class="addon-row">
-              <input type="checkbox" name="addons" value="Full setup service">
-              <span class="addon-info"><span class="n">Full setup service</span><span class="d">We set up the buffet so you don't have to (+5%, $25 min)</span></span>
-            </label>
           </div>
 
           <div class="field">
@@ -1348,15 +1399,7 @@ footer.foot a{color:var(--gold-soft)}
     };
   }
 
-  function loadService(){
-    try{
-      var raw = localStorage.getItem(SERVICE_KEY);
-      wantsService = raw === '1';
-    }catch(e){ wantsService = false; }
-  }
-  function saveService(){
-    try{ localStorage.setItem(SERVICE_KEY, wantsService ? '1' : '0'); }catch(e){}
-  }
+  function loadService(){ wantsService = false; }
 
   // ===== SCAN MENU + INJECT STEPPERS =====
   function buildMenuIndex(){
@@ -1537,8 +1580,7 @@ footer.foot a{color:var(--gold-soft)}
     var disclaimer = document.getElementById('builderDisclaimer');
     var clearWrap = document.getElementById('builderClearWrap');
     var totalBox = document.getElementById('builderTotalBox');
-    var svcToggleWrap = document.getElementById('builderServiceToggle');
-    var svcCheck = document.getElementById('bfWantsService');
+    var svcToggleWrap = document.getElementById('builderReviewAddons');
     var t = totals();
 
     // The guests field only exists once the details step has rendered values.
@@ -1551,24 +1593,9 @@ footer.foot a{color:var(--gold-soft)}
     // Foot bar total ALWAYS shows the running event total (or subtotal if cart empty)
     document.getElementById('footTotal').textContent = money(t.qty === 0 ? 0 : b.total);
 
-    // Sync the service checkbox visual state
-    if(svcCheck) svcCheck.checked = wantsService;
-    if(svcToggleWrap){
-      svcToggleWrap.classList.toggle('on', wantsService);
-    }
-
-    // Update the breakdown row values + show/hide service rows
-    var serviceWrap = document.getElementById('bfRowServiceWrap');
-    var staffWrap = document.getElementById('bfRowStaffWrap');
+    // Update the breakdown row values
     if(document.getElementById('bfRowSubtotal')) document.getElementById('bfRowSubtotal').textContent = money(b.subtotal);
     if(document.getElementById('bfRowTax')) document.getElementById('bfRowTax').textContent = money(b.tax);
-    if(serviceWrap) serviceWrap.hidden = !wantsService;
-    if(staffWrap) staffWrap.hidden = !wantsService;
-    if(document.getElementById('bfRowService')) document.getElementById('bfRowService').textContent = money(b.service);
-    var staffEl = document.getElementById('bfRowStaff');
-    var staffNoteEl = document.getElementById('bfRowStaffNote');
-    if(staffEl) staffEl.textContent = b.staff > 0 ? money(b.staff) : '—';
-    if(staffNoteEl) staffNoteEl.textContent = b.staffNote || '($' + STAFF_PER_PERSON + ' / person)';
     var revTotal = document.getElementById('builderReviewTotal');
     var itemsCount = document.getElementById('builderItemsCount');
     if(revTotal) revTotal.textContent = money(b.total);
@@ -1699,19 +1726,8 @@ footer.foot a{color:var(--gold-soft)}
     var breakdownLines = [];
     breakdownLines.push('  Catering Total:        ' + money(b.subtotal));
     breakdownLines.push('  Fitchburg/MA Tax 7%:   ' + money(b.tax));
-    if(wantsService){
-      breakdownLines.push('  Service/Fuel/Admin 24%: ' + money(b.service));
-      if(b.staff > 0){
-        breakdownLines.push('  Staff Service Fee:     ' + money(b.staff) + '  ($' + STAFF_PER_PERSON + '/person x ' + b.guests + ')');
-      } else if(b.staffOver200){
-        breakdownLines.push('  Staff Service Fee:     QUOTED SEPARATELY (200+ guests)');
-      }
-    }
     breakdownLines.push('  ---');
     breakdownLines.push('  EVENT TOTAL ESTIMATE:  ' + money(b.total));
-    if(!wantsService){
-      breakdownLines.push('  (No service requested — drop-off only)');
-    }
     var orderSummary =
       orderLines.join('\n') +
       '\n\n' + breakdownLines.join('\n');
@@ -1787,8 +1803,7 @@ footer.foot a{color:var(--gold-soft)}
       '=== EVENT ===\n' +
       'Date:   ' + dateUS + '\n' +
       'Time:   ' + (time || '(not specified)') + '\n' +
-      'Guests: ' + guests + '\n' +
-      'Wants service: ' + (wantsService ? 'YES' : 'No (drop-off only)') + '\n\n' +
+      'Guests: ' + guests + '\n\n' +
       '=== ORDER ===\n' +
       orderSummary + '\n\n' +
       '=== OPTIONAL ADD-ONS ===\n' +
@@ -1917,17 +1932,6 @@ footer.foot a{color:var(--gold-soft)}
         submitOrder();
       }
     });
-
-    // Service toggle — persist + re-render breakdown
-    var svcCheck = document.getElementById('bfWantsService');
-    if(svcCheck){
-      svcCheck.checked = wantsService;
-      svcCheck.addEventListener('change', function(){
-        wantsService = !!svcCheck.checked;
-        saveService();
-        renderReview();
-      });
-    }
 
     // Guest count — re-render breakdown so staff fee updates live
     var guestsLive = document.getElementById('bfGuests');
