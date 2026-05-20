@@ -19,16 +19,16 @@
       title: "First Build",
       href: "first-build.html",
       track: "Foundation",
-      hero: "Get one visible win and prove the workflow works.",
+      hero: "Get one visible win and learn the build rhythm: ask, review, improve, verify.",
       tasks: [
         "Pick one visible outcome you can show another person today.",
-        "Use one builder for the first pass instead of mixing five tools.",
-        "Do one improvement pass and stop when the result is demo-ready."
+        "Choose one main builder before you start: Codex, Claude Code, or OpenClaw.",
+        "Do one improvement pass, verify the result, and stop when the first version is demo-ready."
       ],
       prompts: [
         "What should I build first on this site?",
         "Turn my idea into one bounded first project.",
-        "What is the fastest visible win here?"
+        "Which builder should I use for this first result?"
       ]
     },
     "ai-teacher": {
@@ -53,50 +53,50 @@
       title: "Codex",
       href: "codex-best-practices.html",
       track: "Coding",
-      hero: "Teach clear prompts, bounded scope, and verification.",
+      hero: "Use Codex as the beginner builder for local pages, edits, and visible results with verification.",
       tasks: [
-        "Write one prompt with a clear goal, scope, and what not to touch.",
-        "Ask Codex for one small implementation instead of a giant rewrite.",
-        "Verify the result before moving to the next task."
+        "Write one prompt with a clear goal, scope, constraints, and what not to touch.",
+        "Ask Codex for one small implementation or one local fix instead of a giant rewrite.",
+        "Review and verify the result before moving to the next task."
       ],
       prompts: [
         "Show me a better Codex prompt for this task.",
         "How do I debug a Codex run step by step?",
-        "What should I tell Codex not to touch?"
+        "Help me turn this idea into one safe Codex task."
       ]
     },
     notion: {
       slug: "notion",
       title: "Notion",
       href: "notion-complete-guide.html",
-      track: "Knowledge",
-      hero: "Structure pages, databases, and relations before the workspace gets messy.",
+      track: "Support",
+      hero: "Use Notion after the build starts, so your notes, tasks, and systems do not become chaotic.",
       tasks: [
-        "Define one dashboard, one task database, and one project database.",
-        "Decide what belongs in pages versus databases.",
-        "Connect one relation so the system starts to feel useful."
+        "Decide what should be saved as a page, a database, or a template.",
+        "Capture the first build, prompts, and lessons learned in one clean place.",
+        "Keep Notion as support for the build instead of turning setup into the main project."
       ],
       prompts: [
         "What should be a page and what should be a database?",
-        "Help me design a clean beginner Notion setup.",
-        "What is the smallest useful Notion system?"
+        "Help me organize my first AI build notes in Notion.",
+        "What is the smallest useful Notion system for this project?"
       ]
     },
     warp: {
       slug: "warp",
       title: "Warp",
       href: "warp-complete-guide.html",
-      track: "Terminal",
-      hero: "Turn terminal work into repeatable workflows instead of one-off commands.",
+      track: "Support",
+      hero: "Understand Warp as a cleaner terminal layer, not the main builder itself.",
       tasks: [
         "Learn blocks first so command history is easier to read and reuse.",
-        "Save one workflow or notebook worth repeating later.",
-        "Use the teacher to translate terminal errors into clear next actions."
+        "Use Warp to make repo work easier to read after Codex or Claude already gave you a task.",
+        "Save a workflow or notebook only after you understand what command it is repeating."
       ],
       prompts: [
+        "What is Warp actually for in a beginner workflow?",
         "How should I read Warp errors and logs?",
-        "What Warp workflow should a beginner save first?",
-        "Teach me the safer way to use AI in Warp."
+        "What should I save in Warp only after it works?"
       ]
     },
     openclaw: {
@@ -104,16 +104,16 @@
       title: "OpenClaw",
       href: "openclaw-complete-guide.html",
       track: "Agents",
-      hero: "Use local assistants safely and intentionally.",
+      hero: "Use OpenClaw as a narrow, private assistant system with clear review points and safe boundaries.",
       tasks: [
-        "Decide which channels really need automation.",
-        "Keep private assistant flows narrow and reviewable at first.",
-        "Document what the assistant should and should not do."
+        "Pick one assistant job and one channel instead of automating everything at once.",
+        "Keep the flow narrow, private, and reviewable before the assistant acts.",
+        "Document what the assistant should do, what it should not do, and where a human must review."
       ],
       prompts: [
-        "How should I use local agents safely?",
+        "How should I use OpenClaw safely?",
         "What is a good first OpenClaw workflow?",
-        "How do I avoid giving an agent too much freedom?"
+        "Help me design one narrow assistant job with review."
       ]
     },
     "claude-code": {
@@ -121,16 +121,16 @@
       title: "Claude Code",
       href: "claude-code-complete-guide.html",
       track: "Coding",
-      hero: "Use terminal-first AI coding with better prompting discipline.",
+      hero: "Use Claude Code as the repo builder: understand the codebase first, then make one bounded change at a time.",
       tasks: [
-        "Break the work into one repo question or one code change at a time.",
-        "Review the output instead of accepting every suggestion blindly.",
-        "Keep permissions and scope clear when the agent acts in the repo."
+        "Start by understanding the repo and identifying the exact files that matter.",
+        "Ask one bounded repo question or make one code change at a time.",
+        "Review the output and verify behavior before accepting the next task."
       ],
       prompts: [
         "How should I prompt Claude Code better?",
         "What is the safer workflow for repo edits?",
-        "How do I review AI code without missing problems?"
+        "Help me turn this repo problem into one bounded Claude Code task."
       ]
     }
   };
@@ -202,24 +202,24 @@
     },
     notion: {
       en: [
+        "How should I organize what I learned from my first build?",
         "What should be a page and what should be a database?",
-        "What is the smallest useful Notion setup?",
         "How do I avoid messy workspace growth?"
       ],
       pt: [
+        "Como eu organizo o que aprendi na minha primeira construção?",
         "O que deve ser página e o que deve ser banco de dados?",
-        "Qual é a menor configuração útil de Notion?",
         "Como eu evito que o workspace cresça bagunçado?"
       ]
     },
     warp: {
       en: [
-        "What workflow should I save first in Warp?",
+        "What is Warp actually doing for me in this workflow?",
         "How do I turn command-line mistakes into reusable notes?",
         "When should I save a notebook instead of just rerunning a command?"
       ],
       pt: [
-        "Qual workflow eu devo salvar primeiro no Warp?",
+        "O que o Warp realmente está fazendo por mim neste workflow?",
         "Como eu transformo erros de terminal em notas reutilizáveis?",
         "Quando eu devo salvar um notebook em vez de só repetir um comando?"
       ]
@@ -256,20 +256,20 @@
       pt: "Escolha um projeto pequeno e termine antes de otimizar qualquer coisa."
     },
     codex: {
-      en: "Use Codex to build one small HTML page or fix one local issue with verification.",
-      pt: "Use o Codex para construir uma página HTML pequena ou corrigir um problema local com verificação."
+      en: "Use Codex to build one small HTML page, one section, or one local fix with verification.",
+      pt: "Use o Codex para construir uma página HTML pequena, uma seção ou corrigir um problema local com verificação."
     },
     "claude-code": {
-      en: "Use Claude Code to map a repo, ask one bounded question, and make one safe code change.",
-      pt: "Use o Claude Code para mapear um repositório, fazer uma pergunta limitada e aplicar uma mudança segura."
+      en: "Use Claude Code to map a repo, understand the key files, and make one safe code change.",
+      pt: "Use o Claude Code para mapear um repositório, entender os arquivos principais e aplicar uma mudança segura."
     },
     notion: {
-      en: "Build one dashboard page with one task database and one simple template.",
-      pt: "Monte uma página dashboard com um banco de tarefas e um template simples."
+      en: "Document your first build in one clean dashboard page with tasks, prompts, and lessons learned.",
+      pt: "Documente sua primeira construção em uma página limpa com tarefas, prompts e lições aprendidas."
     },
     warp: {
-      en: "Save one workflow and one notebook so your terminal work becomes reusable.",
-      pt: "Salve um workflow e um notebook para que seu trabalho de terminal vire algo reutilizável."
+      en: "Use Warp to understand one terminal workflow better, then save it only after it becomes repeatable.",
+      pt: "Use o Warp para entender melhor um workflow de terminal e só depois salve quando ele virar algo repetível."
     },
     openclaw: {
       en: "Start with one channel and one assistant job that can be reviewed before it acts.",
@@ -284,8 +284,8 @@
   var LESSON_TASKS_PT = {
     "first-build": [
       "Escolha um resultado visível que você consiga mostrar para outra pessoa hoje.",
-      "Use uma ferramenta principal na primeira passada em vez de misturar cinco ao mesmo tempo.",
-      "Faça uma passada de melhoria e pare quando o resultado estiver pronto para demonstração."
+      "Escolha uma ferramenta principal antes de começar: Codex, Claude Code ou OpenClaw.",
+      "Faça uma passada de melhoria, verifique o resultado e pare quando a primeira versão estiver pronta para demonstração."
     ],
     "ai-teacher": [
       "Mantenha chaves de API, modelo e provedor dentro do painel de Configurações.",
@@ -293,29 +293,29 @@
       "Faça o teacher empurrar o usuário para frente em vez de apenas responder."
     ],
     codex: [
-      "Escreva um prompt com objetivo claro, escopo e o que não deve ser tocado.",
-      "Peça uma implementação pequena em vez de uma reescrita gigante.",
-      "Verifique o resultado antes de partir para a próxima tarefa."
+      "Escreva um prompt com objetivo claro, escopo, restrições e o que não deve ser tocado.",
+      "Peça uma implementação pequena ou uma correção local em vez de uma reescrita gigante.",
+      "Revise e verifique o resultado antes de partir para a próxima tarefa."
     ],
     notion: [
-      "Defina um dashboard, um banco de tarefas e um banco de projetos.",
-      "Decida o que pertence a páginas versus bancos de dados.",
-      "Conecte uma relação para o sistema começar a ficar útil."
+      "Decida o que deve ser salvo como página, banco de dados ou template.",
+      "Capture a primeira construção, os prompts e as lições aprendidas em um lugar limpo.",
+      "Mantenha o Notion como apoio da construção em vez de transformar setup no projeto principal."
     ],
     warp: [
       "Aprenda blocos primeiro para deixar o histórico mais legível e reutilizável.",
-      "Salve um workflow ou notebook que realmente vale repetir depois.",
-      "Use o teacher para traduzir erros de terminal em próximas ações claras."
+      "Use o Warp para deixar o trabalho de terminal mais legível depois que Codex ou Claude já te deram uma tarefa.",
+      "Salve um workflow ou notebook só depois de entender que comando ele está repetindo."
     ],
     openclaw: [
-      "Decida quais canais realmente precisam de automação.",
-      "Mantenha os fluxos do assistente privados, limitados e revisáveis no começo.",
-      "Documente claramente o que o assistente deve e não deve fazer."
+      "Escolha uma tarefa do assistente e um canal em vez de automatizar tudo de uma vez.",
+      "Mantenha o fluxo privado, limitado e revisável antes do assistente agir.",
+      "Documente claramente o que o assistente deve fazer, o que não deve fazer e onde um humano precisa revisar."
     ],
     "claude-code": [
-      "Quebre o trabalho em uma pergunta de repositório ou uma mudança por vez.",
-      "Revise a saída em vez de aceitar toda sugestão automaticamente.",
-      "Mantenha permissões e escopo claros quando o agente agir no repositório."
+      "Comece entendendo o repositório e identificando os arquivos exatos que importam.",
+      "Faça uma pergunta limitada sobre o repositório ou uma mudança por vez.",
+      "Revise a saída e verifique o comportamento antes de aceitar a próxima tarefa."
     ]
   };
 
@@ -323,7 +323,7 @@
     "first-build": [
       "O que eu devo construir primeiro neste site?",
       "Transforme minha ideia em um primeiro projeto limitado.",
-      "Qual é a vitória visível mais rápida aqui?"
+      "Qual ferramenta principal eu devo usar para esse primeiro resultado?"
     ],
     "ai-teacher": [
       "Explique BYOK e modo limitado de forma simples.",
@@ -337,23 +337,23 @@
     ],
     notion: [
       "O que deve ser página e o que deve ser banco de dados?",
-      "Me ajude a desenhar um setup limpo de Notion para iniciante.",
-      "Qual é o menor sistema útil de Notion?"
+      "Me ajude a organizar minhas anotações da primeira construção no Notion.",
+      "Qual é o menor sistema útil de Notion para este projeto?"
     ],
     warp: [
+      "Para que o Warp realmente serve em um fluxo de iniciante?",
       "Como eu devo ler erros e logs no Warp?",
-      "Qual workflow do Warp um iniciante deve salvar primeiro?",
-      "Me ensine a forma mais segura de usar IA no Warp."
+      "O que eu só devo salvar no Warp depois que funcionar?"
     ],
     openclaw: [
-      "Como eu devo usar agentes locais com segurança?",
+      "Como eu devo usar o OpenClaw com segurança?",
       "Qual é um bom primeiro workflow de OpenClaw?",
-      "Como eu evito dar liberdade demais para um agente?"
+      "Me ajude a desenhar uma tarefa estreita de assistente com revisão."
     ],
     "claude-code": [
       "Como eu devo orientar melhor o Claude Code?",
       "Qual é o fluxo mais seguro para editar repositórios?",
-      "Como eu reviso código gerado por IA sem perder problemas?"
+      "Me ajude a transformar este problema de repositório em uma tarefa limitada para Claude Code."
     ]
   };
 
@@ -428,11 +428,12 @@
       primerWhatFor: "What this tool is for",
       primerFirstThirty: "Your first 30 minutes",
       primerFirstBuild: "Best first build with this tool",
+      primerUseAi: "Ask the AI these exact questions now",
       primerResearch: "Research mission after this page",
       primerOpenDocs: "Open official docs",
       primerAskTeacher: "Ask AI Teacher",
       primerHome: "Back to home",
-      translationNote: "Use the bilingual study panel on this page for the guided path. The long reference body below stays as the deep dive.",
+      translationNote: "Use the bilingual study panel on this page for the guided path. Ask the AI Teacher before jumping into the long reference body below.",
       roleYou: "You",
       roleTeacher: "Teacher"
     },
@@ -506,11 +507,12 @@
       primerWhatFor: "Para que esta ferramenta serve",
       primerFirstThirty: "Seus primeiros 30 minutos",
       primerFirstBuild: "Melhor primeira construção com esta ferramenta",
+      primerUseAi: "Pergunte exatamente isto para a IA agora",
       primerResearch: "Missão de pesquisa depois desta página",
       primerOpenDocs: "Abrir docs oficiais",
       primerAskTeacher: "Perguntar ao AI Teacher",
       primerHome: "Voltar para a home",
-      translationNote: "Use o painel bilíngue desta página para a trilha guiada. O corpo longo abaixo continua como mergulho profundo de referência.",
+      translationNote: "Use o painel bilíngue desta página para a trilha guiada. Pergunte ao AI Teacher antes de mergulhar no corpo longo de referência abaixo.",
       roleYou: "Você",
       roleTeacher: "Teacher"
     }
@@ -1691,12 +1693,16 @@
       "Act as a teacher, guide, coach, and technical instructor.",
       "Explain things clearly, step by step, with simple but correct language.",
       "Always guide progress instead of just answering.",
-      "Teach best practices for Codex, Cursor, Warp, ChatGPT, OpenRouter, local agents, prompt engineering, AI workflows, debugging, and safe AI coding.",
+      "This school focuses on helping beginners build with Codex, Claude Code, and OpenClaw first.",
+      "Treat Notion and Warp as support tools, not the main builders.",
+      "Push the student toward one visible project, one clear prompt, one safe task, and one verification step at a time.",
+      "Prefer exact next actions, exact prompts to type, and short beginner-safe sequences.",
       "The site uses BYOK. The user provides their own API key, it is stored locally, there are no hardcoded keys, and the site must still work without a key in limited mode.",
       "The site stores API key, model, provider, progress, and settings in IndexedDB for a local-first workflow.",
       "Default provider is OpenRouter and the default model may be " + DEFAULT_MODEL + ". Explain that free models can change or disappear and users can switch models in Settings.",
       "Never expose API configuration on the main page. Keep it in Settings.",
       "When the user's instructions are messy, rewrite and improve them before acting.",
+      "If the user sounds lost, choose the builder for them and explain why in plain language.",
       "Your tone is calm, smart, technical, friendly, confident, and clear.",
       lesson ? "Current page focus: " + lesson.title + ". Primary objective: " + lesson.hero : "Current page focus: Tool School home.",
       "Prefer short sections, concrete next steps, and practical workflows."
@@ -1715,6 +1721,22 @@
     var pt = currentLang() === "pt";
 
     suggestions.push(rewriteInstruction(message));
+
+    if (matchesAny(lower, ["start", "first", "begin", "começo", "comeco", "primeiro", "where do i start"])) {
+      suggestions.push(pt ? [
+        "Ordem recomendada para começar:",
+        "1. Escolha um resultado visível pequeno.",
+        "2. Decida a ferramenta principal: Codex para arquivos locais, Claude Code para repositório, OpenClaw para assistente por canal.",
+        "3. Faça uma tarefa limitada.",
+        "4. Revise e verifique antes de ampliar."
+      ].join("\n") : [
+        "Recommended starting order:",
+        "1. Choose one small visible result.",
+        "2. Pick the main builder: Codex for local files, Claude Code for repos, OpenClaw for channel-based assistant work.",
+        "3. Do one bounded task.",
+        "4. Review and verify before expanding."
+      ].join("\n"));
+    }
 
     if (lower.indexOf("next") !== -1 || lower.indexOf("what should i do") !== -1 || lower.indexOf("onde comeco") !== -1) {
       suggestions.push(buildNextStepResponse(lesson));
@@ -1740,19 +1762,37 @@
 
     if (matchesAny(lower, ["codex", "prompt", "agent", "debug", "claude", "codigo", "código"])) {
       suggestions.push(pt ? [
-        "Fluxo melhor para Codex/Claude Code:",
-        "- Declare o objetivo com clareza.",
-        "- Limite o escopo a uma mudança ou uma pasta.",
-        "- Diga o que não deve ser tocado.",
-        "- Peça verificação.",
-        "- Revise o resultado antes da próxima tarefa."
+        "Fluxo melhor para Codex ou Claude Code:",
+        "1. Declare o objetivo com clareza.",
+        "2. Limite o escopo a uma mudança, uma pasta ou uma pergunta.",
+        "3. Diga o que não deve ser tocado.",
+        "4. Peça verificação.",
+        "5. Revise o resultado antes da próxima tarefa."
       ].join("\n") : [
-        "Better Codex workflow:",
-        "- State the goal clearly.",
-        "- Bound the scope to one change or one folder.",
-        "- Say what not to touch.",
-        "- Ask for verification.",
-        "- Review the result before the next task."
+        "Better Codex or Claude Code workflow:",
+        "1. State the goal clearly.",
+        "2. Bound the scope to one change, one folder, or one question.",
+        "3. Say what not to touch.",
+        "4. Ask for verification.",
+        "5. Review the result before the next task."
+      ].join("\n"));
+    }
+
+    if (matchesAny(lower, ["openclaw", "assistant", "automation", "agente local", "local agent"])) {
+      suggestions.push(pt ? [
+        "Fluxo melhor para OpenClaw:",
+        "1. Escolha uma tarefa do assistente, não um sistema inteiro.",
+        "2. Defina o canal exato.",
+        "3. Decida onde a revisão humana entra.",
+        "4. Escreva claramente o que o assistente não pode fazer.",
+        "5. Teste com uma versão estreita antes de expandir."
+      ].join("\n") : [
+        "Better OpenClaw workflow:",
+        "1. Choose one assistant job, not a whole system.",
+        "2. Define the exact channel.",
+        "3. Decide where human review happens.",
+        "4. State clearly what the assistant must not do.",
+        "5. Test a narrow version before expanding."
       ].join("\n"));
     }
 
@@ -1768,17 +1808,33 @@
 
     if (matchesAny(lower, ["warp", "terminal", "command", "log"])) {
       suggestions.push(pt ? [
-        "Fluxo melhor para Warp:",
-        "- Leia primeiro a linha do erro.",
-        "- Isole o comando que falhou.",
-        "- Tente uma correção por vez.",
-        "- Salve como workflow só depois que funcionar limpo."
+        "Como usar Warp do jeito certo aqui:",
+        "1. Leia primeiro a linha do erro.",
+        "2. Isole o comando que falhou.",
+        "3. Tente uma correção por vez.",
+        "4. Salve como workflow só depois que funcionar limpo.",
+        "5. Use Warp como apoio para Codex ou Claude, não como builder principal."
       ].join("\n") : [
-        "Better Warp workflow:",
-        "- Read the error line first.",
-        "- Isolate the failing command.",
-        "- Retry one fix at a time.",
-        "- Save the command as a workflow only after it works cleanly."
+        "How to use Warp correctly here:",
+        "1. Read the error line first.",
+        "2. Isolate the failing command.",
+        "3. Retry one fix at a time.",
+        "4. Save the command as a workflow only after it works cleanly.",
+        "5. Use Warp as support for Codex or Claude, not as the main builder."
+      ].join("\n"));
+    }
+
+    if (matchesAny(lower, ["notion", "notes", "organize", "organizar"])) {
+      suggestions.push(pt ? [
+        "Como usar Notion do jeito certo aqui:",
+        "1. Não comece pelo Notion se você ainda não construiu nada.",
+        "2. Use o Notion para salvar prompts, resultados e próximos passos.",
+        "3. Crie páginas e bancos só quando houver informação real para organizar."
+      ].join("\n") : [
+        "How to use Notion correctly here:",
+        "1. Do not start with Notion if you have not built anything yet.",
+        "2. Use Notion to store prompts, results, and next steps.",
+        "3. Create pages and databases only when there is real information to organize."
       ].join("\n"));
     }
 
@@ -2098,6 +2154,10 @@
       "    <p>" + escapeHtml(getFirstBuildLine(state.currentLessonKey)) + "</p>",
       "  </article>",
       '  <article class="student-primer-card">',
+      "    <h4>" + escapeHtml(t("primerUseAi")) + "</h4>",
+      "    <ul>" + getLessonPrompts(lesson).map(function (prompt) { return "<li>" + escapeHtml(prompt) + "</li>"; }).join("") + "</ul>",
+      "  </article>",
+      '  <article class="student-primer-card">',
       "    <h4>" + escapeHtml(t("primerResearch")) + "</h4>",
       "    <ul>" + prompts.map(function (prompt) { return "<li>" + escapeHtml(prompt) + "</li>"; }).join("") + "</ul>",
       "  </article>",
@@ -2118,6 +2178,11 @@
   }
 
   function renderShellLanguage() {
+    var guideSearch = document.querySelector("[data-guide-search]");
+    if (guideSearch) {
+      guideSearch.setAttribute("placeholder", currentLang() === "pt" ? "Pesquisar por ferramenta, tópico, workflow ou skill" : "Search by tool, topic, workflow, or skill");
+    }
+
     var dockLabel = document.querySelector("[data-lang-dock-label]");
     if (dockLabel) {
       dockLabel.textContent = t("dockLabel");
@@ -2234,7 +2299,7 @@
   }
 
   function getNextLesson() {
-    var order = ["first-build", "codex", "warp", "notion", "openclaw", "claude-code", "ai-teacher"];
+    var order = ["first-build", "codex", "claude-code", "openclaw", "notion", "warp", "ai-teacher"];
     var nextKey = order.find(function (key) {
       var lessonState = state.lessonStates[key] || getDefaultLessonState(key);
       return lessonState.status !== "completed";
