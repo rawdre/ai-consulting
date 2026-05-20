@@ -153,6 +153,369 @@
     language: document.body.getAttribute("data-lang") || "en"
   };
 
+  var LESSON_TITLES_PT = {
+    "first-build": "Primeira Construção",
+    "ai-teacher": "Configuração do AI Teacher",
+    codex: "Codex",
+    notion: "Notion",
+    warp: "Warp",
+    openclaw: "OpenClaw",
+    "claude-code": "Claude Code"
+  };
+
+  var GUIDE_RESEARCH_PROMPTS = {
+    "first-build": {
+      en: [
+        "What is the smallest project I can finish today?",
+        "What should I not try on my first build?",
+        "How do I know the first version is good enough to show?"
+      ],
+      pt: [
+        "Qual é o menor projeto que eu consigo terminar hoje?",
+        "O que eu não devo tentar na minha primeira construção?",
+        "Como eu sei que a primeira versão já está boa o suficiente para mostrar?"
+      ]
+    },
+    codex: {
+      en: [
+        "What is the safest prompt pattern for code edits?",
+        "How do I ask Codex to verify its own work?",
+        "What should I tell Codex not to touch?"
+      ],
+      pt: [
+        "Qual é o padrão de prompt mais seguro para editar código?",
+        "Como eu peço para o Codex verificar o próprio trabalho?",
+        "O que eu devo dizer para o Codex não tocar?"
+      ]
+    },
+    "claude-code": {
+      en: [
+        "How do I start Claude Code in a repo the right way?",
+        "What is one safe first repo task for a beginner?",
+        "How do I review Claude Code output before trusting it?"
+      ],
+      pt: [
+        "Como eu começo o Claude Code em um repositório do jeito certo?",
+        "Qual é uma primeira tarefa segura de repositório para um iniciante?",
+        "Como eu reviso a saída do Claude Code antes de confiar nela?"
+      ]
+    },
+    notion: {
+      en: [
+        "What should be a page and what should be a database?",
+        "What is the smallest useful Notion setup?",
+        "How do I avoid messy workspace growth?"
+      ],
+      pt: [
+        "O que deve ser página e o que deve ser banco de dados?",
+        "Qual é a menor configuração útil de Notion?",
+        "Como eu evito que o workspace cresça bagunçado?"
+      ]
+    },
+    warp: {
+      en: [
+        "What workflow should I save first in Warp?",
+        "How do I turn command-line mistakes into reusable notes?",
+        "When should I save a notebook instead of just rerunning a command?"
+      ],
+      pt: [
+        "Qual workflow eu devo salvar primeiro no Warp?",
+        "Como eu transformo erros de terminal em notas reutilizáveis?",
+        "Quando eu devo salvar um notebook em vez de só repetir um comando?"
+      ]
+    },
+    openclaw: {
+      en: [
+        "What is one low-risk OpenClaw workflow to start with?",
+        "How do I keep a local assistant narrow and reviewable?",
+        "Which channels should I not automate yet?"
+      ],
+      pt: [
+        "Qual é um workflow de baixo risco para começar no OpenClaw?",
+        "Como eu mantenho um assistente local limitado e revisável?",
+        "Quais canais eu ainda não devo automatizar?"
+      ]
+    },
+    "ai-teacher": {
+      en: [
+        "How should an AI Teacher guide a student step by step?",
+        "What settings should stay hidden from the main page?",
+        "How should BYOK be explained to a beginner?"
+      ],
+      pt: [
+        "Como um AI Teacher deve guiar um aluno passo a passo?",
+        "Quais configurações devem ficar escondidas da página principal?",
+        "Como o BYOK deve ser explicado para um iniciante?"
+      ]
+    }
+  };
+
+  var GUIDE_FIRST_BUILD = {
+    "first-build": {
+      en: "Pick one tiny project and finish it before you optimize anything.",
+      pt: "Escolha um projeto pequeno e termine antes de otimizar qualquer coisa."
+    },
+    codex: {
+      en: "Use Codex to build one small HTML page or fix one local issue with verification.",
+      pt: "Use o Codex para construir uma página HTML pequena ou corrigir um problema local com verificação."
+    },
+    "claude-code": {
+      en: "Use Claude Code to map a repo, ask one bounded question, and make one safe code change.",
+      pt: "Use o Claude Code para mapear um repositório, fazer uma pergunta limitada e aplicar uma mudança segura."
+    },
+    notion: {
+      en: "Build one dashboard page with one task database and one simple template.",
+      pt: "Monte uma página dashboard com um banco de tarefas e um template simples."
+    },
+    warp: {
+      en: "Save one workflow and one notebook so your terminal work becomes reusable.",
+      pt: "Salve um workflow e um notebook para que seu trabalho de terminal vire algo reutilizável."
+    },
+    openclaw: {
+      en: "Start with one channel and one assistant job that can be reviewed before it acts.",
+      pt: "Comece com um canal e uma tarefa do assistente que possa ser revisada antes de agir."
+    },
+    "ai-teacher": {
+      en: "Configure the teacher so a student can ask one question, get one next step, and keep moving.",
+      pt: "Configure o teacher para que um aluno faça uma pergunta, receba um próximo passo e continue avançando."
+    }
+  };
+
+  var LESSON_TASKS_PT = {
+    "first-build": [
+      "Escolha um resultado visível que você consiga mostrar para outra pessoa hoje.",
+      "Use uma ferramenta principal na primeira passada em vez de misturar cinco ao mesmo tempo.",
+      "Faça uma passada de melhoria e pare quando o resultado estiver pronto para demonstração."
+    ],
+    "ai-teacher": [
+      "Mantenha chaves de API, modelo e provedor dentro do painel de Configurações.",
+      "Guarde configurações e progresso em IndexedDB para o site continuar local-first.",
+      "Faça o teacher empurrar o usuário para frente em vez de apenas responder."
+    ],
+    codex: [
+      "Escreva um prompt com objetivo claro, escopo e o que não deve ser tocado.",
+      "Peça uma implementação pequena em vez de uma reescrita gigante.",
+      "Verifique o resultado antes de partir para a próxima tarefa."
+    ],
+    notion: [
+      "Defina um dashboard, um banco de tarefas e um banco de projetos.",
+      "Decida o que pertence a páginas versus bancos de dados.",
+      "Conecte uma relação para o sistema começar a ficar útil."
+    ],
+    warp: [
+      "Aprenda blocos primeiro para deixar o histórico mais legível e reutilizável.",
+      "Salve um workflow ou notebook que realmente vale repetir depois.",
+      "Use o teacher para traduzir erros de terminal em próximas ações claras."
+    ],
+    openclaw: [
+      "Decida quais canais realmente precisam de automação.",
+      "Mantenha os fluxos do assistente privados, limitados e revisáveis no começo.",
+      "Documente claramente o que o assistente deve e não deve fazer."
+    ],
+    "claude-code": [
+      "Quebre o trabalho em uma pergunta de repositório ou uma mudança por vez.",
+      "Revise a saída em vez de aceitar toda sugestão automaticamente.",
+      "Mantenha permissões e escopo claros quando o agente agir no repositório."
+    ]
+  };
+
+  var LESSON_PROMPTS_PT = {
+    "first-build": [
+      "O que eu devo construir primeiro neste site?",
+      "Transforme minha ideia em um primeiro projeto limitado.",
+      "Qual é a vitória visível mais rápida aqui?"
+    ],
+    "ai-teacher": [
+      "Explique BYOK e modo limitado de forma simples.",
+      "Como o IndexedDB deve ser usado aqui?",
+      "O que o AI Teacher deve fazer em cada página?"
+    ],
+    codex: [
+      "Me mostre um prompt melhor de Codex para esta tarefa.",
+      "Como eu depuro uma execução do Codex passo a passo?",
+      "O que eu devo dizer para o Codex não tocar?"
+    ],
+    notion: [
+      "O que deve ser página e o que deve ser banco de dados?",
+      "Me ajude a desenhar um setup limpo de Notion para iniciante.",
+      "Qual é o menor sistema útil de Notion?"
+    ],
+    warp: [
+      "Como eu devo ler erros e logs no Warp?",
+      "Qual workflow do Warp um iniciante deve salvar primeiro?",
+      "Me ensine a forma mais segura de usar IA no Warp."
+    ],
+    openclaw: [
+      "Como eu devo usar agentes locais com segurança?",
+      "Qual é um bom primeiro workflow de OpenClaw?",
+      "Como eu evito dar liberdade demais para um agente?"
+    ],
+    "claude-code": [
+      "Como eu devo orientar melhor o Claude Code?",
+      "Qual é o fluxo mais seguro para editar repositórios?",
+      "Como eu reviso código gerado por IA sem perder problemas?"
+    ]
+  };
+
+  var UI_TEXT = {
+    en: {
+      settings: "Settings",
+      teacher: "AI Teacher",
+      closePanels: "Close panels",
+      settingsTitle: "BYOK + local progress",
+      settingsIntroTitle: "Professional setup",
+      settingsIntroBody: "API keys, provider, model, and local mode stay here. The main screens stay clean and focused on learning.",
+      provider: "Provider",
+      providerHelp: "Default provider is OpenRouter. The site still works without a key in limited mode.",
+      localProvider: "Local Teacher Only",
+      model: "Model",
+      modelPlaceholder: DEFAULT_MODEL,
+      modelHelp: "Free models can change or disappear. If the teacher stops responding, switch models here.",
+      apiKey: "API key",
+      apiKeyPlaceholder: "Paste your OpenRouter key",
+      apiKeyHelp: "Your key is stored in the browser using IndexedDB. No hardcoded keys.",
+      limitedMode: "Use limited mode unless I turn it off",
+      storageIndexedDb: "Stored locally via IndexedDB",
+      storageLocal: "Stored locally via localStorage fallback",
+      language: "Language",
+      languageHelp: "Syncs the site language and teacher tone.",
+      saveSettings: "Save settings",
+      clearKey: "Clear key",
+      resetProgress: "Reset progress",
+      teacherDoTitle: "What the teacher should do",
+      teacherDoBody: "Guide the student step by step, explain why something works, suggest smaller actions, and keep the pace controlled. It should teach, not just chat.",
+      currentFocus: "Current focus",
+      askNextMove: "Ask for the next move",
+      send: "Get guidance",
+      nextQuestion: "What should I do next?",
+      clearHistory: "Clear history",
+      teacherPlaceholder: "Ask what to do next, how to use a tool better, or how to fix the current step.",
+      dashboardKicker: "Student Dashboard",
+      dashboardTitle: "Progress with direction",
+      dashboardOpenNext: "Open next lesson",
+      dayComplete: "Day complete",
+      completedSuffix: "completed",
+      lessonTracker: "Lesson Tracker",
+      lessonTrackerTitle: "Keep this lesson moving",
+      lessonTrackerBody: "Mark the lesson stage, rate confidence, and define the next action so progress stays visible.",
+      status: "Status",
+      notStarted: "Not started",
+      inProgress: "In progress",
+      completed: "Completed",
+      confidence: "Confidence",
+      low: "Low",
+      medium: "Medium",
+      high: "High",
+      lessonChecklist: "Lesson checklist",
+      nextStep: "Next step",
+      nextStepHelp: "Saved locally. Keep it specific enough that you can do it without rethinking the whole lesson.",
+      nextStepPlaceholder: "Write the next small action you want to take.",
+      saveLesson: "Save lesson",
+      guideStatusCompleted: "completed",
+      guideStatusInProgress: "in progress",
+      guideStatusNotStarted: "not started",
+      dashboardScore: "Score",
+      dashboardCompletedWord: "completed",
+      dashboardActiveWord: "active",
+      dashboardChecklistWord: "checklist",
+      dashboardSummary: "Score {score}/100 with {completed} completed lesson{suffix} and {inProgress} in progress.",
+      dashboardNext: "Recommended next lesson: {title}",
+      dashboardOpen: "Open {title}",
+      dockLabel: "Language",
+      primerKicker: "Student Guide",
+      primerTitle: "Use this page like a teacher-led lesson",
+      primerBody: "Do not just read the long guide. Use the sequence below so this page can take you from zero to one clear build step.",
+      primerWhatFor: "What this tool is for",
+      primerFirstThirty: "Your first 30 minutes",
+      primerFirstBuild: "Best first build with this tool",
+      primerResearch: "Research mission after this page",
+      primerOpenDocs: "Open official docs",
+      primerAskTeacher: "Ask AI Teacher",
+      primerHome: "Back to home",
+      translationNote: "Use the bilingual study panel on this page for the guided path. The long reference body below stays as the deep dive.",
+      roleYou: "You",
+      roleTeacher: "Teacher"
+    },
+    pt: {
+      settings: "Configurações",
+      teacher: "AI Teacher",
+      closePanels: "Fechar painéis",
+      settingsTitle: "BYOK + progresso local",
+      settingsIntroTitle: "Configuração profissional",
+      settingsIntroBody: "Chaves de API, provedor, modelo e modo local ficam aqui. As telas principais continuam limpas e focadas no aprendizado.",
+      provider: "Provedor",
+      providerHelp: "O provedor padrão é OpenRouter. O site continua funcionando sem chave no modo limitado.",
+      localProvider: "Somente teacher local",
+      model: "Modelo",
+      modelPlaceholder: DEFAULT_MODEL,
+      modelHelp: "Modelos gratuitos podem mudar ou desaparecer. Se o teacher parar de responder, troque o modelo aqui.",
+      apiKey: "Chave de API",
+      apiKeyPlaceholder: "Cole sua chave do OpenRouter",
+      apiKeyHelp: "Sua chave é armazenada no navegador usando IndexedDB. Sem chaves fixas no código.",
+      limitedMode: "Usar modo limitado até eu desligar",
+      storageIndexedDb: "Armazenado localmente via IndexedDB",
+      storageLocal: "Armazenado localmente via fallback de localStorage",
+      language: "Idioma",
+      languageHelp: "Sincroniza o idioma do site e o tom do teacher.",
+      saveSettings: "Salvar configurações",
+      clearKey: "Limpar chave",
+      resetProgress: "Resetar progresso",
+      teacherDoTitle: "O que o teacher deve fazer",
+      teacherDoBody: "Guiar o aluno passo a passo, explicar por que algo funciona, sugerir ações menores e manter um ritmo controlado. Ele deve ensinar, não só conversar.",
+      currentFocus: "Foco atual",
+      askNextMove: "Peça o próximo movimento",
+      send: "Receber orientação",
+      nextQuestion: "O que eu devo fazer agora?",
+      clearHistory: "Limpar histórico",
+      teacherPlaceholder: "Pergunte o que fazer a seguir, como usar melhor uma ferramenta ou como corrigir o passo atual.",
+      dashboardKicker: "Painel do aluno",
+      dashboardTitle: "Progresso com direção",
+      dashboardOpenNext: "Abrir próxima lição",
+      dayComplete: "Dia concluído",
+      completedSuffix: "concluído",
+      lessonTracker: "Rastreador da lição",
+      lessonTrackerTitle: "Mantenha esta lição andando",
+      lessonTrackerBody: "Marque a etapa da lição, sua confiança e a próxima ação para que o progresso fique visível.",
+      status: "Status",
+      notStarted: "Não iniciado",
+      inProgress: "Em andamento",
+      completed: "Concluído",
+      confidence: "Confiança",
+      low: "Baixa",
+      medium: "Média",
+      high: "Alta",
+      lessonChecklist: "Checklist da lição",
+      nextStep: "Próximo passo",
+      nextStepHelp: "Salvo localmente. Deixe específico o bastante para você executar sem repensar a lição inteira.",
+      nextStepPlaceholder: "Escreva a próxima pequena ação que você quer fazer.",
+      saveLesson: "Salvar lição",
+      guideStatusCompleted: "concluído",
+      guideStatusInProgress: "em andamento",
+      guideStatusNotStarted: "não iniciado",
+      dashboardScore: "Pontuação",
+      dashboardCompletedWord: "concluídas",
+      dashboardActiveWord: "ativas",
+      dashboardChecklistWord: "checklist",
+      dashboardSummary: "Pontuação {score}/100 com {completed} liç{suffix} concluídas e {inProgress} em andamento.",
+      dashboardNext: "Próxima lição recomendada: {title}",
+      dashboardOpen: "Abrir {title}",
+      dockLabel: "Idioma",
+      primerKicker: "Guia do aluno",
+      primerTitle: "Use esta página como uma lição guiada",
+      primerBody: "Não leia só o guia longo. Use a sequência abaixo para esta página te levar do zero até um passo de construção claro.",
+      primerWhatFor: "Para que esta ferramenta serve",
+      primerFirstThirty: "Seus primeiros 30 minutos",
+      primerFirstBuild: "Melhor primeira construção com esta ferramenta",
+      primerResearch: "Missão de pesquisa depois desta página",
+      primerOpenDocs: "Abrir docs oficiais",
+      primerAskTeacher: "Perguntar ao AI Teacher",
+      primerHome: "Voltar para a home",
+      translationNote: "Use o painel bilíngue desta página para a trilha guiada. O corpo longo abaixo continua como mergulho profundo de referência.",
+      roleYou: "Você",
+      roleTeacher: "Teacher"
+    }
+  };
+
   var state = {
     settings: null,
     lessonStates: {},
@@ -194,8 +557,10 @@
     renderTeacherIntro();
     renderDashboard();
     renderGuideBadges();
+    renderGuidePrimer();
     renderSettingsForm();
     renderTeacherMode();
+    renderShellLanguage();
   }
 
   function getCurrentPage() {
@@ -204,6 +569,63 @@
       return "index.html";
     }
     return page.split("?")[0] || "index.html";
+  }
+
+  function currentLang() {
+    return document.body.getAttribute("data-lang") === "pt" ? "pt" : "en";
+  }
+
+  function t(key) {
+    var lang = currentLang();
+    return (UI_TEXT[lang] && UI_TEXT[lang][key]) || (UI_TEXT.en && UI_TEXT.en[key]) || key;
+  }
+
+  function formatText(key, replacements) {
+    var value = t(key);
+    Object.keys(replacements || {}).forEach(function (replacementKey) {
+      value = value.replace("{" + replacementKey + "}", replacements[replacementKey]);
+    });
+    return value;
+  }
+
+  function getLessonTitle(lesson) {
+    if (!lesson) {
+      return "";
+    }
+    if (currentLang() === "pt") {
+      return LESSON_TITLES_PT[lesson.slug] || lesson.title;
+    }
+    return lesson.title;
+  }
+
+  function getLessonTasks(lesson) {
+    if (!lesson) {
+      return [];
+    }
+    if (currentLang() === "pt" && LESSON_TASKS_PT[lesson.slug]) {
+      return LESSON_TASKS_PT[lesson.slug];
+    }
+    return lesson.tasks || [];
+  }
+
+  function getLessonPrompts(lesson) {
+    if (!lesson) {
+      return [];
+    }
+    if (currentLang() === "pt" && LESSON_PROMPTS_PT[lesson.slug]) {
+      return LESSON_PROMPTS_PT[lesson.slug];
+    }
+    return lesson.prompts || [];
+  }
+
+  function getResearchPrompts(lessonKey) {
+    var promptSet = GUIDE_RESEARCH_PROMPTS[lessonKey] || GUIDE_RESEARCH_PROMPTS["first-build"];
+    return promptSet[currentLang()] || promptSet.en;
+  }
+
+  function getFirstBuildLine(lessonKey) {
+    var promptSet = GUIDE_FIRST_BUILD[lessonKey] || GUIDE_FIRST_BUILD["first-build"];
+    return promptSet[currentLang()] || promptSet.en;
   }
 
   function storageKey(key) {
@@ -456,6 +878,7 @@
     buildSettingsDrawer();
     buildTeacherPanel();
     buildTeacherDashboard();
+    buildLanguageDock();
   }
 
   function buildFloatingButtons() {
@@ -479,6 +902,21 @@
     });
 
     document.body.appendChild(group);
+  }
+
+  function buildLanguageDock() {
+    if (document.querySelector(".lang-dock")) {
+      return;
+    }
+
+    var dock = document.createElement("div");
+    dock.className = "lang-dock";
+    dock.innerHTML = [
+      '<span class="dock-label" data-lang-dock-label>' + escapeHtml(t("dockLabel")) + "</span>",
+      '<button type="button" class="button small active" data-lang-switch="en">EN</button>',
+      '<button type="button" class="button small" data-lang-switch="pt">PT-BR</button>'
+    ].join("");
+    document.body.appendChild(dock);
   }
 
   function buildOverlay() {
@@ -820,7 +1258,9 @@
       progressFill.style.width = percent + "%";
     }
     if (progressLabel) {
-      progressLabel.textContent = completed === total ? "Day complete" : completed + " of " + total + " completed";
+      progressLabel.textContent = completed === total
+        ? t("dayComplete")
+        : completed + " / " + total + " " + t("completedSuffix");
     }
     if (progressPercent) {
       progressPercent.textContent = percent + "%";
@@ -887,6 +1327,14 @@
     }
 
     saveSettings({ language: nextLang });
+    renderSettingsForm();
+    renderTeacherMode();
+    renderTeacherIntro();
+    renderLessonPanel();
+    renderDashboard();
+    renderGuideBadges();
+    renderGuidePrimer();
+    renderShellLanguage();
   }
 
   function renderSettingsForm() {
@@ -914,13 +1362,66 @@
       limitedMode.checked = Boolean(settings.limitedMode);
     }
     if (storageNote) {
-      storageNote.textContent = "Stored locally via " + (state.storageMode === "indexeddb" ? "IndexedDB" : "localStorage fallback");
+      storageNote.textContent = state.storageMode === "indexeddb" ? t("storageIndexedDb") : t("storageLocal");
     }
 
     var drawerLangButtons = Array.prototype.slice.call(document.querySelectorAll("[data-setting-lang]"));
     drawerLangButtons.forEach(function (button) {
       button.classList.toggle("active", button.getAttribute("data-setting-lang") === settings.language);
     });
+
+    var drawer = state.nodes.drawer;
+    var headKicker = drawer.querySelector(".section-kicker");
+    var headTitle = drawer.querySelector(".ts-head h3");
+    var introTitle = drawer.querySelector(".ts-card h4");
+    var introBody = drawer.querySelector(".ts-card p");
+    var labels = drawer.querySelectorAll("label");
+    var hints = drawer.querySelectorAll("small");
+    var strongs = drawer.querySelectorAll(".ts-kv strong");
+    var mutedBlocks = drawer.querySelectorAll(".ts-kv .muted");
+    var actionButtons = drawer.querySelectorAll(".ts-actions .button");
+    var teacherTitle = drawer.querySelectorAll(".ts-card h4")[1];
+    var teacherBody = drawer.querySelectorAll(".ts-card p")[1];
+
+    if (headKicker) {
+      headKicker.textContent = t("settings");
+    }
+    if (headTitle) {
+      headTitle.textContent = t("settingsTitle");
+    }
+    if (introTitle) {
+      introTitle.textContent = t("settingsIntroTitle");
+    }
+    if (introBody) {
+      introBody.textContent = t("settingsIntroBody");
+    }
+    if (labels[0]) labels[0].textContent = t("provider");
+    if (labels[1]) labels[1].textContent = t("model");
+    if (labels[2]) labels[2].textContent = t("apiKey");
+    if (hints[0]) hints[0].textContent = t("providerHelp");
+    if (hints[1]) hints[1].textContent = t("modelHelp");
+    if (hints[2]) hints[2].textContent = t("apiKeyHelp");
+    if (apiKey) {
+      apiKey.placeholder = t("apiKeyPlaceholder");
+    }
+    if (model) {
+      model.placeholder = t("modelPlaceholder");
+    }
+    if (strongs[0]) strongs[0].textContent = t("language");
+    if (mutedBlocks[0]) mutedBlocks[0].textContent = t("languageHelp");
+    var limitedText = drawer.querySelector(".ts-toggle span");
+    if (limitedText) {
+      limitedText.textContent = t("limitedMode");
+    }
+    if (actionButtons[0]) actionButtons[0].textContent = t("saveSettings");
+    if (actionButtons[1]) actionButtons[1].textContent = t("clearKey");
+    if (actionButtons[2]) actionButtons[2].textContent = t("resetProgress");
+    if (teacherTitle) {
+      teacherTitle.textContent = t("teacherDoTitle");
+    }
+    if (teacherBody) {
+      teacherBody.textContent = t("teacherDoBody");
+    }
   }
 
   async function handleSettingsSave() {
@@ -1019,9 +1520,11 @@
     var modeText = getTeacherModeText();
     state.nodes.teacherIntro.textContent = lesson
       ? lesson.hero + " " + modeText
-      : "Use the teacher to decide what to open next, how to improve prompts, and how to move through the school without getting lost. " + modeText;
+      : (currentLang() === "pt"
+        ? "Use o teacher para decidir o que abrir a seguir, como melhorar prompts e como avançar pela escola sem se perder. "
+        : "Use the teacher to decide what to open next, how to improve prompts, and how to move through the school without getting lost. ") + modeText;
 
-    var prompts = lesson ? lesson.prompts : [
+    var prompts = lesson ? getLessonPrompts(lesson) : [
       "What guide should I start with?",
       "Teach me BYOK and local storage simply.",
       "How should I move through Tool School?"
@@ -1042,9 +1545,13 @@
   function getTeacherModeText() {
     var settings = state.settings || DEFAULT_SETTINGS;
     if (settings.provider === "local" || settings.limitedMode || !settings.apiKey) {
-      return "Teacher mode: local guidance. Add an OpenRouter key in Settings if you want live AI responses.";
+      return currentLang() === "pt"
+        ? "Modo teacher: orientação local. Adicione uma chave do OpenRouter em Configurações se quiser respostas de IA ao vivo."
+        : "Teacher mode: local guidance. Add an OpenRouter key in Settings if you want live AI responses.";
     }
-    return "Teacher mode: OpenRouter enabled with " + (settings.model || DEFAULT_MODEL) + ".";
+    return currentLang() === "pt"
+      ? "Modo teacher: OpenRouter ativo com " + (settings.model || DEFAULT_MODEL) + "."
+      : "Teacher mode: OpenRouter enabled with " + (settings.model || DEFAULT_MODEL) + ".";
   }
 
   async function renderTeacherMessages() {
@@ -1060,7 +1567,7 @@
     }
 
     state.nodes.teacherMessages.innerHTML = state.teacherHistory.map(function (message) {
-      var roleLabel = message.role === "user" ? "You" : "Teacher";
+      var roleLabel = message.role === "user" ? t("roleYou") : t("roleTeacher");
       var content = escapeHtml(message.content).replace(/\n/g, "<br>");
       return [
         '<div class="ts-message ' + (message.role === "user" ? "user" : "assistant") + '">',
@@ -1075,8 +1582,12 @@
   function buildGreetingMessage() {
     var lesson = state.currentLessonKey ? LESSONS[state.currentLessonKey] : null;
     var content = lesson
-      ? "We are on " + lesson.title + ". Start with one small step: " + lesson.tasks[0] + " Ask for the next move any time."
-      : "Start with one guide, one visible outcome, and one next step. Ask me which lesson to open or what to do next.";
+      ? (currentLang() === "pt"
+        ? "Estamos em " + getLessonTitle(lesson) + ". Comece com um passo pequeno: " + getLessonTasks(lesson)[0] + " Pode me pedir o próximo movimento a qualquer momento."
+        : "We are on " + lesson.title + ". Start with one small step: " + getLessonTasks(lesson)[0] + " Ask for the next move any time.")
+      : (currentLang() === "pt"
+        ? "Comece com um guia, um resultado visível e um próximo passo. Pergunte qual lição abrir ou o que fazer agora."
+        : "Start with one guide, one visible outcome, and one next step. Ask me which lesson to open or what to do next.");
     return {
       role: "assistant",
       content: content
@@ -1201,6 +1712,7 @@
     var lower = String(message || "").toLowerCase();
     var lesson = state.currentLessonKey ? LESSONS[state.currentLessonKey] : null;
     var suggestions = [];
+    var pt = currentLang() === "pt";
 
     suggestions.push(rewriteInstruction(message));
 
@@ -1209,7 +1721,14 @@
     }
 
     if (matchesAny(lower, ["key", "api", "byok", "openrouter", "model", "provider", "settings"])) {
-      suggestions.push([
+      suggestions.push(pt ? [
+        "Configuração BYOK:",
+        "1. Abra Configurações.",
+        "2. Mantenha o provedor em OpenRouter.",
+        "3. Cole sua própria chave de API.",
+        "4. Comece pelo modelo gratuito e troque ali se ele parar de funcionar.",
+        "5. Deixe o modo limitado ligado até querer respostas ao vivo."
+      ].join("\n") : [
         "BYOK setup:",
         "1. Open Settings.",
         "2. Keep provider on OpenRouter.",
@@ -1219,8 +1738,15 @@
       ].join("\n"));
     }
 
-    if (matchesAny(lower, ["codex", "prompt", "agent", "debug"])) {
-      suggestions.push([
+    if (matchesAny(lower, ["codex", "prompt", "agent", "debug", "claude", "codigo", "código"])) {
+      suggestions.push(pt ? [
+        "Fluxo melhor para Codex/Claude Code:",
+        "- Declare o objetivo com clareza.",
+        "- Limite o escopo a uma mudança ou uma pasta.",
+        "- Diga o que não deve ser tocado.",
+        "- Peça verificação.",
+        "- Revise o resultado antes da próxima tarefa."
+      ].join("\n") : [
         "Better Codex workflow:",
         "- State the goal clearly.",
         "- Bound the scope to one change or one folder.",
@@ -1241,7 +1767,13 @@
     }
 
     if (matchesAny(lower, ["warp", "terminal", "command", "log"])) {
-      suggestions.push([
+      suggestions.push(pt ? [
+        "Fluxo melhor para Warp:",
+        "- Leia primeiro a linha do erro.",
+        "- Isole o comando que falhou.",
+        "- Tente uma correção por vez.",
+        "- Salve como workflow só depois que funcionar limpo."
+      ].join("\n") : [
         "Better Warp workflow:",
         "- Read the error line first.",
         "- Isolate the failing command.",
@@ -1251,20 +1783,24 @@
     }
 
     if (matchesAny(lower, ["score", "progress", "complete", "completion"])) {
-      suggestions.push("Use the lesson tracker on each page to mark status, confidence, and the next step. The homepage dashboard then turns that into a simple progress score and recommends the next lesson.");
+      suggestions.push(pt
+        ? "Use o rastreador de lição em cada página para marcar status, confiança e próximo passo. O dashboard da home transforma isso em uma pontuação simples e recomenda a próxima lição."
+        : "Use the lesson tracker on each page to mark status, confidence, and the next step. The homepage dashboard then turns that into a simple progress score and recommends the next lesson.");
     }
 
     if (lesson && suggestions.length < 3) {
       suggestions.push([
         lesson.title + " focus:",
-        "- " + lesson.tasks[0],
-        "- " + lesson.tasks[1],
-        "- " + lesson.tasks[2]
+        "- " + getLessonTasks(lesson)[0],
+        "- " + getLessonTasks(lesson)[1],
+        "- " + getLessonTasks(lesson)[2]
       ].join("\n"));
     }
 
     if (error) {
-      suggestions.push("Live AI was not available, so the teacher stayed in local guidance mode. If you want live responses, check your OpenRouter key and model in Settings.");
+      suggestions.push(pt
+        ? "A IA ao vivo não estava disponível, então o teacher ficou no modo de orientação local. Se quiser respostas ao vivo, confira sua chave e modelo do OpenRouter em Configurações."
+        : "Live AI was not available, so the teacher stayed in local guidance mode. If you want live responses, check your OpenRouter key and model in Settings.");
     }
 
     return suggestions.slice(0, 4).join("\n\n");
@@ -1273,30 +1809,50 @@
   function rewriteInstruction(message) {
     var cleaned = String(message || "").trim();
     if (!cleaned) {
-      return "Refined task: pick one lesson, define one visible outcome, and move one step forward.";
+      return currentLang() === "pt"
+        ? "Tarefa refinada: escolha uma lição, defina um resultado visível e avance um passo de cada vez."
+        : "Refined task: pick one lesson, define one visible outcome, and move one step forward.";
     }
-    return "Refined task: " + cleaned.replace(/\s+/g, " ").replace(/[.?!]*$/, ".") + " I will keep the scope tight and move one step at a time.";
+    return currentLang() === "pt"
+      ? "Tarefa refinada: " + cleaned.replace(/\s+/g, " ").replace(/[.?!]*$/, ".") + " Vou manter o escopo limitado e avançar um passo por vez."
+      : "Refined task: " + cleaned.replace(/\s+/g, " ").replace(/[.?!]*$/, ".") + " I will keep the scope tight and move one step at a time.";
   }
 
   function buildNextStepResponse(lesson) {
     if (!lesson) {
       var nextLesson = getNextLesson();
-      return [
-        "Next step:",
-        "1. Open " + nextLesson.title + ".",
-        "2. Finish the first task only.",
-        "3. Mark the lesson as in progress when you start.",
-        "4. Write one next step before leaving the page."
-      ].join("\n");
+      return currentLang() === "pt"
+        ? [
+          "Próximo passo:",
+          "1. Abra " + getLessonTitle(nextLesson) + ".",
+          "2. Termine apenas a primeira tarefa.",
+          "3. Marque a lição como em andamento quando começar.",
+          "4. Escreva um próximo passo antes de sair da página."
+        ].join("\n")
+        : [
+          "Next step:",
+          "1. Open " + nextLesson.title + ".",
+          "2. Finish the first task only.",
+          "3. Mark the lesson as in progress when you start.",
+          "4. Write one next step before leaving the page."
+        ].join("\n");
     }
 
-    return [
-      "Next step for " + lesson.title + ":",
-      "1. " + lesson.tasks[0],
-      "2. " + lesson.tasks[1],
-      "3. Use the lesson tracker to mark your status.",
-      "4. Ask for the next move again after that."
-    ].join("\n");
+    return currentLang() === "pt"
+      ? [
+        "Próximo passo para " + getLessonTitle(lesson) + ":",
+        "1. " + getLessonTasks(lesson)[0],
+        "2. " + getLessonTasks(lesson)[1],
+        "3. Use o rastreador da lição para marcar seu status.",
+        "4. Peça o próximo movimento de novo depois disso."
+      ].join("\n")
+      : [
+        "Next step for " + lesson.title + ":",
+        "1. " + getLessonTasks(lesson)[0],
+        "2. " + getLessonTasks(lesson)[1],
+        "3. Use the lesson tracker to mark your status.",
+        "4. Ask for the next move again after that."
+      ].join("\n");
   }
 
   function matchesAny(text, fragments) {
@@ -1307,9 +1863,11 @@
 
   function getNextQuestion() {
     if (state.currentLessonKey && LESSONS[state.currentLessonKey]) {
-      return "What should I do next on " + LESSONS[state.currentLessonKey].title + "?";
+      return currentLang() === "pt"
+        ? "O que eu devo fazer agora em " + getLessonTitle(LESSONS[state.currentLessonKey]) + "?"
+        : "What should I do next on " + LESSONS[state.currentLessonKey].title + "?";
     }
-    return "What guide should I open next and why?";
+    return currentLang() === "pt" ? "Qual guia eu devo abrir agora e por quê?" : "What guide should I open next and why?";
   }
 
   function getLessonPanelHost() {
@@ -1343,42 +1901,42 @@
     }
 
     panel.innerHTML = [
-      '<div class="section-kicker">Lesson Tracker</div>',
-      '<h3>Keep this lesson moving</h3>',
-      '<p>Mark the lesson stage, rate confidence, and define the next action so progress stays visible.</p>',
+      '<div class="section-kicker">' + escapeHtml(t("lessonTracker")) + "</div>",
+      "<h3>" + escapeHtml(t("lessonTrackerTitle")) + "</h3>",
+      "<p>" + escapeHtml(t("lessonTrackerBody")) + "</p>",
       '<div class="ts-card">',
-      '  <h4>Status</h4>',
+      '  <h4>' + escapeHtml(t("status")) + "</h4>",
       '  <div class="ts-chip-row">',
-      buildChip("status", "not-started", "Not started", lessonState.status),
-      buildChip("status", "in-progress", "In progress", lessonState.status),
-      buildChip("status", "completed", "Completed", lessonState.status),
+      buildChip("status", "not-started", t("notStarted"), lessonState.status),
+      buildChip("status", "in-progress", t("inProgress"), lessonState.status),
+      buildChip("status", "completed", t("completed"), lessonState.status),
       '  </div>',
       '</div>',
       '<div class="ts-card">',
-      '  <h4>Confidence</h4>',
+      '  <h4>' + escapeHtml(t("confidence")) + "</h4>",
       '  <div class="ts-chip-row">',
-      buildChip("confidence", "low", "Low", lessonState.confidence),
-      buildChip("confidence", "medium", "Medium", lessonState.confidence),
-      buildChip("confidence", "high", "High", lessonState.confidence),
+      buildChip("confidence", "low", t("low"), lessonState.confidence),
+      buildChip("confidence", "medium", t("medium"), lessonState.confidence),
+      buildChip("confidence", "high", t("high"), lessonState.confidence),
       '  </div>',
       '</div>',
       '<div class="ts-card">',
-      '  <h4>Lesson checklist</h4>',
+      '  <h4>' + escapeHtml(t("lessonChecklist")) + "</h4>",
       '  <ul class="ts-task-list">',
-      lesson.tasks.map(function (task, index) {
+      getLessonTasks(lesson).map(function (task, index) {
         var checked = lessonState.tasks[index] ? " checked" : "";
         return '<li><label class="ts-toggle"><input type="checkbox" data-lesson-task="' + index + '"' + checked + '> <span>' + escapeHtml(task) + '</span></label></li>';
       }).join(""),
       '  </ul>',
       '</div>',
       '<div class="ts-field">',
-      '  <label for="lesson-next-step">Next step</label>',
-      '  <textarea id="lesson-next-step" data-lesson-next-step placeholder="Write the next small action you want to take.">' + escapeHtml(lessonState.nextStep || "") + '</textarea>',
-      '  <small>Saved locally. Keep it specific enough that you can do it without rethinking the whole lesson.</small>',
+      '  <label for="lesson-next-step">' + escapeHtml(t("nextStep")) + '</label>',
+      '  <textarea id="lesson-next-step" data-lesson-next-step placeholder="' + escapeAttribute(t("nextStepPlaceholder")) + '">' + escapeHtml(lessonState.nextStep || "") + '</textarea>',
+      '  <small>' + escapeHtml(t("nextStepHelp")) + '</small>',
       '</div>',
       '<div class="lesson-status-line">',
       '  <span data-lesson-summary>' + escapeHtml(buildLessonSummary(lessonState, lesson)) + '</span>',
-      '  <button type="button" class="button small" data-lesson-save>Save lesson</button>',
+      '  <button type="button" class="button small" data-lesson-save>' + escapeHtml(t("saveLesson")) + '</button>',
       '</div>'
     ].join("");
   }
@@ -1390,7 +1948,10 @@
 
   function buildLessonSummary(lessonState, lesson) {
     var completedTasks = (lessonState.tasks || []).filter(Boolean).length;
-    return lesson.title + ": " + completedTasks + "/" + lesson.tasks.length + " tasks complete, status " + lessonState.status + ", confidence " + lessonState.confidence + ".";
+    if (currentLang() === "pt") {
+      return getLessonTitle(lesson) + ": " + completedTasks + "/" + getLessonTasks(lesson).length + " tarefas completas, status " + t(lessonState.status === "completed" ? "completed" : lessonState.status === "in-progress" ? "inProgress" : "notStarted") + ", confiança " + t(lessonState.confidence) + ".";
+    }
+    return lesson.title + ": " + completedTasks + "/" + getLessonTasks(lesson).length + " tasks complete, status " + lessonState.status + ", confidence " + lessonState.confidence + ".";
   }
 
   async function handleLessonPanelClick(event) {
@@ -1480,8 +2041,137 @@
         guideActions.appendChild(badge);
       }
       badge.setAttribute("data-status", lessonState.status);
-      badge.textContent = lessonState.status.replace("-", " ");
+      if (lessonState.status === "completed") {
+        badge.textContent = t("guideStatusCompleted");
+      } else if (lessonState.status === "in-progress") {
+        badge.textContent = t("guideStatusInProgress");
+      } else {
+        badge.textContent = t("guideStatusNotStarted");
+      }
     });
+  }
+
+  function getGuideResourceLinks() {
+    return Array.prototype.slice.call(document.querySelectorAll('#resources a[href^="http"], .resource a[href^="http"]')).slice(0, 3);
+  }
+
+  function renderGuidePrimer() {
+    if (!state.currentLessonKey) {
+      return;
+    }
+
+    var lesson = LESSONS[state.currentLessonKey];
+    var host = document.querySelector("[data-lesson-panel]") || getLessonPanelHost();
+    if (!host || !lesson) {
+      return;
+    }
+
+    var panel = document.querySelector("[data-student-primer]");
+    if (!panel) {
+      panel = document.createElement("section");
+      panel.className = "student-primer";
+      panel.setAttribute("data-student-primer", "true");
+      host.insertAdjacentElement("afterend", panel);
+    }
+
+    var prompts = getResearchPrompts(state.currentLessonKey);
+    var docsLink = getGuideResourceLinks()[0];
+    var docsHref = docsLink ? docsLink.getAttribute("href") : lesson.href;
+    var docsLabel = docsLink ? docsLink.textContent.trim() : t("primerOpenDocs");
+
+    panel.innerHTML = [
+      '<div class="section-kicker">' + escapeHtml(t("primerKicker")) + "</div>",
+      "<h3>" + escapeHtml(t("primerTitle")) + "</h3>",
+      '<p class="student-note">' + escapeHtml(t("primerBody")) + "</p>",
+      '<p class="guide-translation-note">' + escapeHtml(t("translationNote")) + "</p>",
+      '<div class="student-primer-grid">',
+      '  <article class="student-primer-card">',
+      "    <h4>" + escapeHtml(t("primerWhatFor")) + "</h4>",
+      "    <p>" + escapeHtml(lesson.hero) + "</p>",
+      "  </article>",
+      '  <article class="student-primer-card">',
+      "    <h4>" + escapeHtml(t("primerFirstThirty")) + "</h4>",
+      "    <ol>" + getLessonTasks(lesson).map(function (task) { return "<li>" + escapeHtml(task) + "</li>"; }).join("") + "</ol>",
+      "  </article>",
+      '  <article class="student-primer-card">',
+      "    <h4>" + escapeHtml(t("primerFirstBuild")) + "</h4>",
+      "    <p>" + escapeHtml(getFirstBuildLine(state.currentLessonKey)) + "</p>",
+      "  </article>",
+      '  <article class="student-primer-card">',
+      "    <h4>" + escapeHtml(t("primerResearch")) + "</h4>",
+      "    <ul>" + prompts.map(function (prompt) { return "<li>" + escapeHtml(prompt) + "</li>"; }).join("") + "</ul>",
+      "  </article>",
+      "</div>",
+      '<div class="student-primer-actions">',
+      '  <a class="button primary small" href="' + escapeAttribute(docsHref) + '" target="_blank" rel="noreferrer">' + escapeHtml(docsLabel) + "</a>",
+      '  <button type="button" class="button small" data-primer-ask-teacher>' + escapeHtml(t("primerAskTeacher")) + "</button>",
+      '  <a class="button small" href="index.html">' + escapeHtml(t("primerHome")) + "</a>",
+      "</div>"
+    ].join("");
+
+    panel.addEventListener("click", function (event) {
+      if (event.target.matches("[data-primer-ask-teacher]")) {
+        openSurface("teacher");
+        handleTeacherQuickPrompt(getNextQuestion());
+      }
+    }, { once: true });
+  }
+
+  function renderShellLanguage() {
+    var dockLabel = document.querySelector("[data-lang-dock-label]");
+    if (dockLabel) {
+      dockLabel.textContent = t("dockLabel");
+    }
+
+    var fabs = Array.prototype.slice.call(document.querySelectorAll(".ts-fab-group .ts-fab"));
+    if (fabs[0]) {
+      fabs[0].textContent = t("settings");
+    }
+    if (fabs[1]) {
+      fabs[1].textContent = t("teacher");
+    }
+
+    if (state.nodes.overlay) {
+      state.nodes.overlay.setAttribute("aria-label", t("closePanels"));
+    }
+
+    if (state.nodes.dashboard) {
+      var kicker = state.nodes.dashboard.querySelector(".section-kicker");
+      var title = state.nodes.dashboard.querySelector("h3");
+      if (kicker) {
+        kicker.textContent = t("dashboardKicker");
+      }
+      if (title) {
+        title.textContent = t("dashboardTitle");
+      }
+    }
+
+    if (state.nodes.panel) {
+      var teacherKicker = state.nodes.panel.querySelector(".section-kicker");
+      var teacherTitle = state.nodes.panel.querySelector("[data-teacher-title]");
+      var teacherHead = state.nodes.panel.querySelector(".ts-card h4");
+      var teacherAsk = state.nodes.panel.querySelectorAll(".ts-card h4")[1];
+      var teacherButtons = state.nodes.panel.querySelectorAll(".ts-actions .button");
+      var teacherTextarea = state.nodes.panel.querySelector("[data-teacher-input]");
+      if (teacherKicker) {
+        teacherKicker.textContent = t("teacher");
+      }
+      if (teacherTitle) {
+        teacherTitle.textContent = state.currentLessonKey && LESSONS[state.currentLessonKey]
+          ? getLessonTitle(LESSONS[state.currentLessonKey])
+          : "Tool School";
+      }
+      if (teacherHead) {
+        teacherHead.textContent = t("currentFocus");
+      }
+      if (teacherAsk) {
+        teacherAsk.textContent = t("askNextMove");
+      }
+      if (teacherButtons[0]) teacherButtons[0].textContent = t("send");
+      if (teacherButtons[1]) teacherButtons[1].textContent = t("nextQuestion");
+      if (teacherButtons[2]) teacherButtons[2].textContent = t("clearHistory");
+      if (teacherTextarea) teacherTextarea.placeholder = t("teacherPlaceholder");
+    }
   }
 
   function renderDashboard() {
@@ -1517,24 +2207,29 @@
     var link = state.nodes.dashboard.querySelector("[data-dashboard-link]");
 
     if (summary) {
-      summary.textContent = "Score " + score + "/100 with " + completed + " completed lesson" + (completed === 1 ? "" : "s") + " and " + inProgress + " in progress.";
+      summary.textContent = formatText("dashboardSummary", {
+        score: score,
+        completed: completed,
+        inProgress: inProgress,
+        suffix: currentLang() === "pt" ? (completed === 1 ? "ão" : "ões") : (completed === 1 ? "" : "s")
+      });
     }
 
     if (chips) {
       chips.innerHTML = [
-        '<span class="guide-status-badge" data-status="completed">' + completed + ' completed</span>',
-        '<span class="guide-status-badge" data-status="in-progress">' + inProgress + ' active</span>',
-        '<span class="guide-status-badge" data-status="not-started">' + checkDone + '/' + Math.max(checkTotal, 0) + ' checklist</span>'
+        '<span class="guide-status-badge" data-status="completed">' + completed + " " + escapeHtml(t("dashboardCompletedWord")) + "</span>",
+        '<span class="guide-status-badge" data-status="in-progress">' + inProgress + " " + escapeHtml(t("dashboardActiveWord")) + "</span>",
+        '<span class="guide-status-badge" data-status="not-started">' + checkDone + '/' + Math.max(checkTotal, 0) + " " + escapeHtml(t("dashboardChecklistWord")) + "</span>"
       ].join("");
     }
 
     if (next) {
-      next.textContent = "Recommended next lesson: " + nextLesson.title;
+      next.textContent = formatText("dashboardNext", { title: getLessonTitle(nextLesson) });
     }
 
     if (link) {
       link.href = nextLesson.href;
-      link.textContent = "Open " + nextLesson.title;
+      link.textContent = formatText("dashboardOpen", { title: getLessonTitle(nextLesson) });
     }
   }
 

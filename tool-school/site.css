@@ -990,6 +990,131 @@ p {
   color: var(--muted);
 }
 
+.lang-dock {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(7, 9, 14, 0.92);
+  box-shadow: var(--shadow);
+  z-index: 90;
+}
+
+.lang-dock .dock-label {
+  padding: 0 10px 0 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lang-dock button {
+  min-width: 58px;
+}
+
+.student-primer {
+  margin-top: 22px;
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: grid;
+  gap: 18px;
+}
+
+.student-primer h3,
+.student-primer h4 {
+  margin-bottom: 8px;
+}
+
+.student-primer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.student-primer-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 18px;
+}
+
+.student-primer-card ul,
+.student-primer-card ol {
+  margin-top: 10px;
+}
+
+.student-primer-card li {
+  margin-bottom: 8px;
+}
+
+.student-primer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.student-primer-actions .button {
+  min-height: 42px;
+}
+
+.student-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.guide-translation-note {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.zero-path-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.zero-path-card {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+}
+
+.zero-path-card strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.tool-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.tool-choice-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tool-choice-card h3 {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 1050px) {
   .hero-grid,
   .section-head,
@@ -998,7 +1123,10 @@ p {
   .check-grid,
   .action-grid,
   .compare-grid,
-  .lesson-grid {
+  .lesson-grid,
+  .student-primer-grid,
+  .zero-path-grid,
+  .tool-choice-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1039,6 +1167,14 @@ p {
   .ts-fab-group {
     right: 12px;
     bottom: 12px;
+  }
+
+  .lang-dock {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    transform: none;
+    justify-content: space-between;
   }
 
   .ts-panel,
