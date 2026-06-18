@@ -718,6 +718,155 @@ footer.foot a{color:var(--gold-soft)}
   .crumbs{font-size:11px}
   .section-head h2{font-size:26px}
 }
+
+/* ============================================================
+   HOW-TO-ORDER GUIDE — make ordering dummy-proof
+   ============================================================ */
+
+/* Help button in the top bar */
+.topbar-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.help-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:11px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--gold-soft);
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:12px;letter-spacing:.5px;
+  transition:border-color .2s,background .2s,color .2s;
+}
+.help-btn:hover{border-color:var(--gold);background:rgba(209,162,87,.08);color:#fff5e4}
+
+/* "How to order" banner (always visible on the page) */
+.howto{
+  margin:0 0 18px;padding:24px 22px;
+  background:linear-gradient(180deg,rgba(209,162,87,.08),rgba(255,255,255,.01));
+  border:1px solid var(--line);border-radius:22px;
+}
+.howto-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.howto-head h2{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:27px;font-weight:600;line-height:1.1}
+.howto-head .sub{color:var(--muted);font-size:13px;margin-top:3px}
+.howto-replay{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  padding:10px 16px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.03);color:var(--gold-soft);
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:12px;letter-spacing:.5px;
+  transition:border-color .2s,background .2s,color .2s;flex-shrink:0;
+}
+.howto-replay:hover{border-color:var(--gold);background:rgba(209,162,87,.08);color:#fff5e4}
+.howto-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.howto-step{
+  position:relative;padding:16px;border-radius:16px;
+  background:var(--panel2);border:1px solid var(--line-soft);
+}
+.howto-step .num{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--gold);color:#171109;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:16px;margin-bottom:10px;
+}
+.howto-step .t{color:#fff5e4;font-weight:800;font-size:14px;margin-bottom:5px}
+.howto-step .d{color:var(--muted);font-size:12.5px;line-height:1.55}
+.howto-step .d b{color:var(--gold-soft);font-weight:700}
+@media (max-width:760px){.howto-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:430px){.howto-steps{grid-template-columns:1fr}.howto-head h2{font-size:23px}}
+
+/* ============================================================
+   PRICE CELL = BIG, OBVIOUS "TAP TO ADD" BUTTON
+   ============================================================ */
+.row .p{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  text-align:center;
+  background:rgba(209,162,87,.08);
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  padding:10px 6px;
+  min-height:74px;
+  transition:border-color .15s,background .15s,transform .1s,box-shadow .2s;
+}
+.row .p:hover{
+  border-color:var(--gold);
+  background:rgba(209,162,87,.15);
+  box-shadow:0 8px 20px rgba(209,162,87,.14);
+}
+.row .p:active{transform:scale(.97)}
+.row .p .price-label{font-size:21px}
+.row .p .add-hint{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:6px;padding:5px 13px;border-radius:999px;
+  background:var(--gold);color:#171109;
+  font-family:'Manrope',sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.6px;text-transform:uppercase;opacity:1;
+}
+.row .p:hover .add-hint{background:var(--gold-soft)}
+/* selected (already in cart) state */
+.row .p.has-stepper{
+  border-color:var(--gold);
+  background:rgba(209,162,87,.13);
+  box-shadow:0 0 0 1px rgba(209,162,87,.28) inset;
+}
+.row .p.has-stepper .price-label{font-size:14px}
+/* bigger +/- steppers so they're easy to tap */
+.qty-btn{width:32px;height:32px;font-size:18px}
+@media (max-width:560px){
+  .row .p{min-height:78px}
+  .qty-btn{width:30px;height:30px;font-size:17px}
+}
+
+/* ============================================================
+   GUIDED WALKTHROUGH POP-UP
+   ============================================================ */
+.guide-pop{
+  position:fixed;inset:0;z-index:1100;display:none;
+  align-items:center;justify-content:center;padding:20px;
+}
+.guide-pop.open{display:flex}
+.guide-pop::before{
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.guide-card{
+  position:relative;z-index:1;width:min(460px,100%);
+  background:#0e0e0e;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(209,162,87,.18) inset;
+  animation:modalIn .25s cubic-bezier(.2,.8,.2,1);
+}
+.guide-top{padding:22px 22px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.guide-eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold-soft)}
+.guide-skip{background:none;border:0;color:var(--dim);font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.4px;padding:4px}
+.guide-skip:hover{color:var(--gold-soft)}
+.guide-visual{
+  margin:16px 22px 0;height:138px;border-radius:16px;
+  background:radial-gradient(circle at 50% 32%,rgba(209,162,87,.16),rgba(255,255,255,.01) 70%);
+  border:1px solid var(--line-soft);
+  display:flex;align-items:center;justify-content:center;font-size:58px;line-height:1;
+}
+.guide-body{padding:18px 24px 4px;text-align:center}
+.guide-body .gnum{
+  width:30px;height:30px;border-radius:50%;background:var(--gold);color:#171109;
+  font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;
+}
+.guide-body h3{font-family:'Cormorant Garamond',serif;color:#fff5e4;font-size:27px;font-weight:600;line-height:1.12;margin-bottom:8px}
+.guide-body p{color:var(--muted);font-size:14.5px;line-height:1.65;max-width:340px;margin:0 auto}
+.guide-body p b{color:var(--gold-soft);font-weight:700}
+.guide-dots{display:flex;justify-content:center;gap:7px;margin:20px 0 0}
+.guide-dot{width:8px;height:8px;border-radius:50%;background:rgba(209,162,87,.25);transition:background .25s,width .25s}
+.guide-dot.on{background:var(--gold);width:22px;border-radius:999px}
+.guide-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 22px 22px}
+.guide-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 22px;border-radius:999px;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:.4px;
+  border:1px solid transparent;transition:transform .15s,box-shadow .2s,background .2s,color .2s;
+}
+.guide-btn.primary{background:var(--gold);color:#171109;box-shadow:0 12px 28px rgba(209,162,87,.18);flex:1}
+.guide-btn.primary:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgba(209,162,87,.28)}
+.guide-btn.ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--gold-soft)}
+.guide-btn.ghost:hover{border-color:var(--gold);color:#fff5e4}
+.guide-btn.ghost.hidden{visibility:hidden;pointer-events:none}
+@media (max-width:560px){
+  .guide-card{width:100%}
+  .guide-body h3{font-size:24px}
+}
 </style>
 </head>
 <body>
@@ -733,7 +882,10 @@ footer.foot a{color:var(--gold-soft)}
         <span class="b-section">Tray Menu · IT · MX · USA</span>
       </span>
     </a>
-    <button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button>
+    <div class="topbar-actions">
+      <button class="help-btn" type="button" id="howToBtn">❓ How to order</button>
+      <button class="quote-btn" type="button" onclick="openQuoteModal()">Get a Quote <span class="arr">→</span></button>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -777,6 +929,39 @@ footer.foot a{color:var(--gold-soft)}
       <div class="sub">Upgrade to wire chafers & sternos in the add-ons.</div>
     </div>
   </div>
+
+  <!-- HOW TO ORDER (always-visible explainer) -->
+  <section class="howto" aria-label="How to order">
+    <div class="howto-head">
+      <div>
+        <h2>How to order — it's easy</h2>
+        <div class="sub">Build your own order right here. Takes about a minute — no payment now.</div>
+      </div>
+      <button class="howto-replay" type="button" id="howToReplay">▶ Show me how</button>
+    </div>
+    <div class="howto-steps">
+      <div class="howto-step">
+        <div class="num">1</div>
+        <div class="t">Tap a price to add it</div>
+        <div class="d">Find a dish you like and <b>tap its price</b>. Small trays feed <b>~10</b>, large <b>~20</b>.</div>
+      </div>
+      <div class="howto-step">
+        <div class="num">2</div>
+        <div class="t">Choose how many</div>
+        <div class="d">Use the <b>−</b> and <b>+</b> buttons to set how many trays of each item you want.</div>
+      </div>
+      <div class="howto-step">
+        <div class="num">3</div>
+        <div class="t">Open your cart</div>
+        <div class="d">Tap the <b>gold bar</b> that pops up at the bottom to review your order and total.</div>
+      </div>
+      <div class="howto-step">
+        <div class="num">4</div>
+        <div class="t">Send it to us</div>
+        <div class="d">Add your <b>name, date & guests</b> and send. We reply with a final quote within 1 business day.</div>
+      </div>
+    </div>
+  </section>
 
   <!-- CATEGORY NAV -->
   <nav class="catnav" aria-label="Menu categories">
@@ -1313,6 +1498,105 @@ footer.foot a{color:var(--gold-soft)}
   </div>
 </div>
 
+<!-- HOW-TO-ORDER GUIDED POP-UP -->
+<div class="guide-pop" id="guidePop" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+  <div class="guide-card">
+    <div class="guide-top">
+      <span class="guide-eyebrow">How to order</span>
+      <button class="guide-skip" type="button" id="guideSkip">Skip</button>
+    </div>
+    <div class="guide-visual" id="guideVisual">🍱</div>
+    <div class="guide-body">
+      <div class="gnum" id="guideNum">1</div>
+      <h3 id="guideTitle">Pick what you want</h3>
+      <p id="guideText"></p>
+      <div class="guide-dots" id="guideDots"></div>
+    </div>
+    <div class="guide-foot">
+      <button class="guide-btn ghost hidden" type="button" id="guideBack">← Back</button>
+      <button class="guide-btn primary" type="button" id="guideNext">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* HOW-TO-ORDER GUIDED WALKTHROUGH */
+(function(){
+  var SEEN_KEY = 'comeketo_tray_guide_seen_v1';
+  var STEPS = [
+    { icon:'🍱', title:'Pick what you want',
+      text:'Browse the menu below. <b>Small trays feed about 10 people</b>, large about 20. See something good? <b>Tap its price</b> to add it to your order.' },
+    { icon:'➕', title:'Choose how many',
+      text:'After you tap, a <b>−</b> and <b>+</b> appear in that box. Use them to set how many trays of that item you need.' },
+    { icon:'🧾', title:'Open your cart',
+      text:'A <b>gold bar appears at the bottom of the screen</b> showing your total. Tap it any time to review everything you picked.' },
+    { icon:'✅', title:'Send it to us',
+      text:'Add your <b>name, event date and guest count</b>, then hit send. We reply with your final quote within one business day — <b>no payment now</b>.' },
+  ];
+  var idx = 0;
+  var pop, num, title, text, visual, dots, backBtn, nextBtn;
+
+  function render(){
+    var s = STEPS[idx];
+    visual.textContent = s.icon;
+    num.textContent = (idx + 1);
+    title.textContent = s.title;
+    text.innerHTML = s.text;
+    backBtn.classList.toggle('hidden', idx === 0);
+    nextBtn.textContent = (idx === STEPS.length - 1) ? 'Got it — start ordering' : 'Next →';
+    var d = '';
+    for(var i=0;i<STEPS.length;i++){ d += '<span class="guide-dot'+(i===idx?' on':'')+'"></span>'; }
+    dots.innerHTML = d;
+  }
+  function open(reset){
+    if(reset) idx = 0;
+    render();
+    pop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    pop.classList.remove('open');
+    document.body.style.overflow = '';
+    try{ localStorage.setItem(SEEN_KEY, '1'); }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    pop = document.getElementById('guidePop');
+    num = document.getElementById('guideNum');
+    title = document.getElementById('guideTitle');
+    text = document.getElementById('guideText');
+    visual = document.getElementById('guideVisual');
+    dots = document.getElementById('guideDots');
+    backBtn = document.getElementById('guideBack');
+    nextBtn = document.getElementById('guideNext');
+
+    nextBtn.addEventListener('click', function(){
+      if(idx < STEPS.length - 1){ idx++; render(); }
+      else { close(); }
+    });
+    backBtn.addEventListener('click', function(){
+      if(idx > 0){ idx--; render(); }
+    });
+    document.getElementById('guideSkip').addEventListener('click', close);
+    pop.addEventListener('click', function(e){ if(e.target === pop) close(); });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && pop.classList.contains('open')) close();
+    });
+
+    // Re-open triggers (top bar + banner)
+    var howToBtn = document.getElementById('howToBtn');
+    var howToReplay = document.getElementById('howToReplay');
+    if(howToBtn) howToBtn.addEventListener('click', function(){ open(true); });
+    if(howToReplay) howToReplay.addEventListener('click', function(){ open(true); });
+
+    // Auto-show on first visit only
+    var seen = false;
+    try{ seen = !!localStorage.getItem(SEEN_KEY); }catch(e){}
+    if(!seen){ setTimeout(function(){ open(true); }, 600); }
+  });
+})();
+</script>
+
 <script>
 /* MENU ORDER BUILDER */
 (function(){
@@ -1444,7 +1728,7 @@ footer.foot a{color:var(--gold-soft)}
               '<button type="button" class="qty-btn qty-plus" aria-label="Add one">+</button>' +
             '</div>' +
             '<span class="price-label">$' + unitPrice + '<span class="unit">' + sizeLabel + '</span></span>' +
-            '<span class="add-hint">Tap to add</span>';
+            '<span class="add-hint">+ Tap to add</span>';
 
           cell.dataset.itemKey = itemKey;
           cell.dataset.itemName = name;
