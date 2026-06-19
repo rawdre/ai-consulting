@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andre Raw — Command HQ | Comeketo Catering</title>
+<meta name="description" content="Andre Raw's command hub — Mission Control and the Sales Command Center in one place.">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root{
+    --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;
+    --text:#e8e8f0;--muted:#8888aa;
+    --accent:#00d4ff;--accent2:#00ff88;--gold:#ffd700;
+    --gradient:linear-gradient(135deg,#00d4ff,#00ff88);
+    --line:rgba(0,212,255,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:
+      radial-gradient(ellipse at 15% 0%,rgba(0,212,255,.10),transparent 45%),
+      radial-gradient(ellipse at 85% 10%,rgba(0,255,136,.08),transparent 42%),
+      var(--bg);
+    color:var(--text);line-height:1.6;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;
+    padding:48px 20px 40px;
+  }
+  .wrap{width:100%;max-width:960px}
+
+  /* Header */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:16px;
+    padding:7px 14px;border:1px solid var(--line);border-radius:999px;
+    background:rgba(0,212,255,.05);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2)}
+  h1{
+    font-size:clamp(2.4rem,6vw,4rem);line-height:1.04;font-weight:800;letter-spacing:-1px;
+    margin-bottom:14px;
+  }
+  h1 .grad{background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);font-size:1.05rem;max-width:560px;margin-bottom:40px}
+
+  /* Cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:36px}
+  @media (max-width:720px){.cards{grid-template-columns:1fr}}
+  .card{
+    position:relative;overflow:hidden;
+    background:linear-gradient(180deg,var(--bg3),var(--bg2));
+    border:1px solid var(--line);border-radius:22px;
+    padding:30px 28px;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,transparent 55%,rgba(0,212,255,.06));
+    pointer-events:none;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 24px 60px rgba(0,212,255,.14)}
+  .card-icon{
+    width:56px;height:56px;border-radius:16px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:28px;
+    background:rgba(0,212,255,.10);border:1px solid var(--line);margin-bottom:18px;
+  }
+  .card h2{font-size:1.5rem;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+  .card .desc{color:var(--muted);font-size:.94rem;margin-bottom:18px}
+  .card ul{list-style:none;display:grid;gap:9px;margin-bottom:26px}
+  .card li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:var(--text)}
+  .card li .tick{color:var(--accent2);font-weight:800;flex-shrink:0}
+  .card .btn{margin-top:auto}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    width:100%;padding:15px 22px;border-radius:14px;
+    font-size:1rem;font-weight:800;letter-spacing:.2px;cursor:pointer;
+    text-decoration:none;border:0;
+    background:var(--gradient);color:#06121a;
+    transition:transform .15s ease,box-shadow .25s ease,opacity .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,212,255,.3)}
+  .btn .arr{transition:transform .2s}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--accent);background:rgba(0,212,255,.06);box-shadow:none}
+  .card .note{margin-top:10px;font-size:.72rem;color:var(--muted);text-align:center}
+
+  /* Quick links + footer */
+  .quick{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+  .chip{
+    font-size:.8rem;font-weight:600;color:var(--muted);text-decoration:none;
+    padding:9px 16px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.02);transition:.2s;
+  }
+  .chip:hover{color:var(--text);border-color:var(--accent);background:rgba(0,212,255,.06)}
+  footer{color:var(--muted);font-size:.78rem;text-align:center;margin-top:auto}
+  footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <span class="eyebrow"><span class="dot"></span> Comeketo Catering · Command HQ</span>
+    <h1>Andre Raw — <span class="grad">Command HQ</span></h1>
+    <p class="sub">Your two cockpits in one place. Mission Control for the live picture across CRM and Slack, and the Sales Command Center for your personal scoreboard and deals to chase.</p>
+
+    <div class="cards">
+
+      <!-- MISSION CONTROL -->
+      <div class="card">
+        <div class="card-icon">🛰️</div>
+        <h2>Mission Control</h2>
+        <p class="desc">The live operational picture — what's happening right now across your pipeline and Slack.</p>
+        <ul>
+          <li><span class="tick">✓</span> Live CRM signals &amp; today's priorities</li>
+          <li><span class="tick">✓</span> Slack alerts — replies, new leads, mentions</li>
+          <li><span class="tick">✓</span> Cadence exceptions &amp; what needs you</li>
+        </ul>
+        <a class="btn" href="mission-control.html"><span>Open Mission Control</span> <span class="arr">→</span></a>
+      </div>
+
+      <!-- SALES COMMAND CENTER -->
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h2>Sales Command Center</h2>
+        <p class="desc">Your personal live scoreboard — 100% your deals, straight from Close CRM.</p>
+        <ul>
+          <li><span class="tick">✓</span> Won this month &amp; last 90 days</li>
+          <li><span class="tick">✓</span> Open pipeline &amp; weighted value</li>
+          <li><span class="tick">✓</span> Deals to chase — booked deals gone quiet</li>
+        </ul>
+        <!-- UPDATE this href to your final Render URL after deploy -->
+        <a class="btn" href="https://comeketo-command-center.onrender.com/" target="_blank" rel="noopener"><span>Open Command Center</span> <span class="arr">↗</span></a>
+        <div class="note">Opens your live dashboard (password protected)</div>
+      </div>
+
+    </div>
+
+    <div class="quick">
+      <a class="chip" href="index.html">← Raw AI home</a>
+      <a class="chip" href="mission-control-live.html">Mission Control (live)</a>
+      <a class="chip" href="portfolio.html">Portfolio</a>
+    </div>
+
+    <footer>
+      Comeketo Catering · Built by Raw AI · <a href="https://rawdre.github.io/ai-consulting/">rawdre.github.io/ai-consulting</a>
+    </footer>
+
+  </div>
+</body>
+</html>
