@@ -7,6 +7,12 @@
 <meta name="description" content="Andre Raw's live sales command center — real-time Close CRM numbers, deals to chase, and this month's sales.">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest-command.json">
+<meta name="theme-color" content="#00d4ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Command Center">
 <style>
   :root{
     --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;
@@ -73,7 +79,47 @@
       Enter the Command Center <span class="arr">→</span>
     </a>
     <div class="note">Opens your live dashboard · password protected</div>
+    <button id="installBtn" onclick="showInstall()" style="margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.92rem;background:transparent;border:1.5px solid var(--line);color:var(--accent);">📲 Install on your phone</button>
     <div class="back"><a href="index.html">← Raw AI home</a></div>
   </div>
+
+  <!-- INSTALL INSTRUCTIONS OVERLAY -->
+  <div id="installOverlay" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(5,8,15,.8);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:22px;">
+    <div style="max-width:380px;width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:26px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <strong style="font-size:1.1rem;">📲 Install the app</strong>
+        <span onclick="document.getElementById('installOverlay').style.display='none'" style="cursor:pointer;color:var(--muted);font-size:1.3rem;">×</span>
+      </div>
+      <div id="installSteps" style="color:var(--text);font-size:0.92rem;line-height:1.8;"></div>
+    </div>
+  </div>
+
+  <script>
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
+    function showInstall() {
+      if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; return; }
+      const ua = navigator.userAgent || '';
+      const isIOS = /iphone|ipad|ipod/i.test(ua);
+      const steps = isIOS
+        ? `<ol style="margin:0;padding-left:1.1rem;">
+             <li>Make sure you're in <b>Safari</b> (not Chrome).</li>
+             <li>Tap the <b>Share</b> button <span style="color:var(--accent)">⬆️</span> at the bottom of the screen.</li>
+             <li>Scroll down and tap <b>“Add to Home Screen”</b>.</li>
+             <li>Tap <b>Add</b> — the Command Center icon appears on your home screen.</li>
+           </ol>`
+        : `<ol style="margin:0;padding-left:1.1rem;">
+             <li>Open your browser menu (⋮).</li>
+             <li>Tap <b>“Install app”</b> or <b>“Add to Home screen”</b>.</li>
+             <li>Confirm — the icon appears on your home screen.</li>
+           </ol>`;
+      document.getElementById('installSteps').innerHTML = steps;
+      document.getElementById('installOverlay').style.display = 'flex';
+    }
+    // Hide the button if already running as an installed app
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      const b = document.getElementById('installBtn'); if (b) b.style.display = 'none';
+    }
+  </script>
 </body>
 </html>

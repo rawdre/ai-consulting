@@ -383,6 +383,7 @@ footer a{color:var(--accent)}
       <a href="raw-ai-brasil/" data-en="RAW AI Brasil" data-pt="RAW AI Brasil" onclick="return guardProtectedRoute(event, 'raw-ai-brasil/', 'RAW AI Brasil')">RAW AI Brasil</a>
       <a href="#faq" data-en="FAQ" data-pt="FAQ">FAQ</a>
       <a href="andre.html" class="nav-cmd" style="background:linear-gradient(135deg,#00d4ff,#00ff88);color:#06121a;font-weight:800;padding:8px 16px;border-radius:999px;text-decoration:none;box-shadow:0 6px 18px rgba(0,212,255,.3);">⚡ Command Center</a>
+      <a href="javascript:void(0)" onclick="showInstall()" style="color:#00d4ff;font-weight:700;">📲 Install</a>
       <span class="lang-toggle-wrap">
         <button class="lang-toggle" id="langBtn" onclick="toggleLang()">🌐 <span id="langLabel">EN</span></button>
       </span>
@@ -1522,6 +1523,29 @@ if ('serviceWorker' in navigator) {
 <a class="hq-fab" href="andre.html" title="Andre's Command HQ — Mission Control + Sales Command Center">
   <span class="hq-ic">⚡</span> <span>Command HQ</span> <span class="hq-arrow">→</span>
 </a>
+
+<!-- INSTALL INSTRUCTIONS OVERLAY -->
+<div id="installOverlay" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,8,15,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:22px;">
+  <div style="max-width:380px;width:100%;background:#12121a;border:1px solid rgba(0,212,255,.2);border-radius:20px;padding:26px;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;text-align:left;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <strong style="font-size:1.1rem;">📲 Install the app</strong>
+      <span onclick="document.getElementById('installOverlay').style.display='none'" style="cursor:pointer;color:#8888aa;font-size:1.4rem;">×</span>
+    </div>
+    <div id="installSteps" style="font-size:0.92rem;line-height:1.8;"></div>
+  </div>
+</div>
+<script>
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
+  function showInstall() {
+    if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; return; }
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
+    document.getElementById('installSteps').innerHTML = isIOS
+      ? `<ol style="margin:0;padding-left:1.1rem;"><li>Make sure you're in <b>Safari</b>.</li><li>Tap the <b>Share</b> button <span style="color:#00d4ff">⬆️</span> at the bottom.</li><li>Scroll down, tap <b>“Add to Home Screen”</b>.</li><li>Tap <b>Add</b> — the icon lands on your home screen.</li></ol>`
+      : `<ol style="margin:0;padding-left:1.1rem;"><li>Open your browser menu (⋮).</li><li>Tap <b>“Install app”</b> or <b>“Add to Home screen”</b>.</li><li>Confirm.</li></ol>`;
+    document.getElementById('installOverlay').style.display = 'flex';
+  }
+</script>
 </body>
 </html>
 
