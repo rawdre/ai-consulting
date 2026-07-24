@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How AI Actually Works</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body data-lang="en">
+  <div class="site-wrap">
+    <header class="site-nav">
+      <div class="site-nav-inner">
+        <div class="brand">AI Tool School</div>
+        <div class="nav-actions">
+          <nav class="site-links">
+            <a href="index.html">Home</a>
+            <a href="#idea">Big Idea</a>
+            <a href="#wrong">Why it's wrong sometimes</a>
+            <a href="#context">Memory</a>
+            <a href="#agent">Agents</a>
+            <a href="#rules">Rules</a>
+          </nav>
+          <div class="lang-toggle" aria-label="Language toggle">
+            <button type="button" class="active" data-lang-switch="en">EN</button>
+            <button type="button" data-lang-switch="pt">PT-BR</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Start Here · Mental Model</div>
+          <div class="lang-en">
+            <h1>How AI actually works — the mental model before the tools</h1>
+            <p>Before you learn to prompt Codex or Claude Code, learn the one idea underneath all of them. When you understand <strong>how</strong> the model works, the tools stop feeling like magic and start feeling like something you can steer.</p>
+            <p>This is the plain-language version of the real thing. No math, no code — just the mental model that makes every other guide on this site make sense.</p>
+          </div>
+          <div class="lang-pt">
+            <h1>Como a IA realmente funciona — o modelo mental antes das ferramentas</h1>
+            <p>Antes de aprender a orientar o Codex ou o Claude Code, aprenda a única ideia por trás de todos eles. Quando você entende <strong>como</strong> o modelo funciona, as ferramentas deixam de parecer mágica e passam a ser algo que você consegue guiar.</p>
+            <p>Esta é a versão em linguagem simples da coisa real. Sem matemática, sem código — só o modelo mental que faz todos os outros guias deste site fazerem sentido.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#idea">
+              <span class="lang-en">Start with the one idea</span>
+              <span class="lang-pt">Começar pela ideia central</span>
+            </a>
+            <a class="button" href="index.html">
+              <span class="lang-en">Back to home</span>
+              <span class="lang-pt">Voltar para a página inicial</span>
+            </a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">Why this matters</span>
+              <span class="lang-pt">Por que isso importa</span>
+            </h3>
+            <p class="lang-en">People who understand the model write better prompts, trust the output less blindly, and fix problems faster — because they know what the machine is actually doing.</p>
+            <p class="lang-pt">Quem entende o modelo escreve prompts melhores, confia menos cegamente na resposta e resolve problemas mais rápido — porque sabe o que a máquina está realmente fazendo.</p>
+          </div>
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">The whole page in one line</span>
+              <span class="lang-pt">A página inteira em uma linha</span>
+            </h3>
+            <p class="lang-en">An AI language model is a very good <strong>next-word guesser</strong>. Everything it does — and everything it gets wrong — comes from that.</p>
+            <p class="lang-pt">Um modelo de linguagem de IA é um <strong>adivinhador da próxima palavra</strong> muito bom. Tudo o que ele faz — e tudo o que ele erra — vem disso.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="idea">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">The Big Idea</span>
+            <span class="lang-pt">A Ideia Central</span>
+          </div>
+          <h2>
+            <span class="lang-en">It predicts the next piece of text — one step at a time</span>
+            <span class="lang-pt">Ele prevê o próximo pedaço de texto — um passo de cada vez</span>
+          </h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">1</div>
+          <div>
+            <h3 class="lang-en">It breaks your text into "tokens"</h3>
+            <h3 class="lang-pt">Ele quebra seu texto em "tokens"</h3>
+            <p class="lang-en">A token is a chunk of text — often a word or part of a word. The model doesn't read letters like we do; it works in these little pieces. "Catering" might be one or two tokens.</p>
+            <p class="lang-pt">Um token é um pedaço de texto — geralmente uma palavra ou parte de uma palavra. O modelo não lê letras como nós; ele trabalha nessas pequenas peças. "Catering" pode ser um ou dois tokens.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">2</div>
+          <div>
+            <h3 class="lang-en">It guesses the most likely next token</h3>
+            <h3 class="lang-pt">Ele adivinha o próximo token mais provável</h3>
+            <p class="lang-en">Given everything so far, it asks: "what word most likely comes next?" Then it adds that word, and asks again. Over and over, incredibly fast. That loop is the whole engine.</p>
+            <p class="lang-pt">Dado tudo até aqui, ele pergunta: "qual palavra provavelmente vem a seguir?" Aí ele adiciona essa palavra e pergunta de novo. Repetidas vezes, incrivelmente rápido. Esse laço é o motor inteiro.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">3</div>
+          <div>
+            <h3 class="lang-en">It learned those guesses from massive amounts of text</h3>
+            <h3 class="lang-pt">Ele aprendeu esses palpites a partir de enormes quantidades de texto</h3>
+            <p class="lang-en">During "training," it read a huge slice of the internet and books and adjusted itself until its next-word guesses got good. It is not looking anything up live — it is completing patterns it absorbed.</p>
+            <p class="lang-pt">Durante o "treino", ele leu uma fatia enorme da internet e de livros e se ajustou até seus palpites ficarem bons. Ele não está consultando nada ao vivo — está completando padrões que absorveu.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">4</div>
+          <div>
+            <h3 class="lang-en">"Understanding" is a side effect of being great at this</h3>
+            <h3 class="lang-pt">"Entender" é um efeito colateral de ser ótimo nisso</h3>
+            <p class="lang-en">To predict the next word well across almost any topic, it had to pick up grammar, facts, tone, and reasoning patterns. That is why it feels smart — but remember what it is really doing underneath.</p>
+            <p class="lang-pt">Para prever bem a próxima palavra em quase qualquer assunto, ele teve que absorver gramática, fatos, tom e padrões de raciocínio. É por isso que parece inteligente — mas lembre do que ele realmente faz por baixo.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="wrong">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Why It's Confidently Wrong Sometimes</span>
+            <span class="lang-pt">Por Que Às Vezes Ele Erra com Confiança</span>
+          </div>
+          <h2>
+            <span class="lang-en">Hallucination — and why you always verify</span>
+            <span class="lang-pt">Alucinação — e por que você sempre verifica</span>
+          </h2>
+        </div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card warn">
+          <h3 class="lang-en">What's really happening</h3>
+          <h3 class="lang-pt">O que está realmente acontecendo</h3>
+          <p class="lang-en">The model is built to produce <strong>plausible-sounding</strong> text, not guaranteed-true text. When it doesn't know, it doesn't stop — it produces the most likely-looking answer anyway. That confident, wrong answer is called a "hallucination."</p>
+          <p class="lang-pt">O modelo foi feito para produzir texto que <strong>soa plausível</strong>, não texto garantidamente verdadeiro. Quando não sabe, ele não para — produz a resposta que parece mais provável mesmo assim. Essa resposta confiante e errada é chamada de "alucinação".</p>
+        </div>
+        <div class="compare-card good">
+          <h3 class="lang-en">What you do about it</h3>
+          <h3 class="lang-pt">O que você faz a respeito</h3>
+          <ul class="lang-en">
+            <li>Treat output as a strong draft, not final truth.</li>
+            <li>Verify facts, numbers, names, and code before you trust them.</li>
+            <li>Ask it to show its reasoning or cite where something comes from.</li>
+            <li>The more it matters, the harder you check.</li>
+          </ul>
+          <ul class="lang-pt">
+            <li>Trate a resposta como um rascunho forte, não como verdade final.</li>
+            <li>Verifique fatos, números, nomes e código antes de confiar.</li>
+            <li>Peça para mostrar o raciocínio ou de onde tirou algo.</li>
+            <li>Quanto mais importa, mais forte você confere.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="context">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Its Memory</span>
+            <span class="lang-pt">A Memória Dele</span>
+          </div>
+          <h2>
+            <span class="lang-en">The context window — and why long chats "forget"</span>
+            <span class="lang-pt">A janela de contexto — e por que conversas longas "esquecem"</span>
+          </h2>
+        </div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h3 class="lang-en">Context = what it can see right now</h3>
+          <h3 class="lang-pt">Contexto = o que ele consegue ver agora</h3>
+          <p class="lang-en">Every time it guesses the next word, it looks at the text in front of it — your message plus the recent conversation. That visible window has a size limit (measured in tokens). Things inside it steer the answer; things outside it are gone.</p>
+          <p class="lang-pt">Toda vez que ele adivinha a próxima palavra, olha para o texto à frente dele — sua mensagem mais a conversa recente. Essa janela visível tem um limite de tamanho (medido em tokens). O que está dentro dela guia a resposta; o que está fora dela sumiu.</p>
+        </div>
+        <div class="compare-card">
+          <h3 class="lang-en">Why this explains so much</h3>
+          <h3 class="lang-pt">Por que isso explica tanta coisa</h3>
+          <ul class="lang-en">
+            <li>Long chats start "forgetting" early details — they fell out of the window.</li>
+            <li>A fresh chat is genuinely blank — it does not remember you unless the app stored notes.</li>
+            <li>Pasting the key info back in works because it puts it back in view.</li>
+            <li>Shorter, focused context usually gives sharper answers.</li>
+          </ul>
+          <ul class="lang-pt">
+            <li>Conversas longas começam a "esquecer" detalhes iniciais — eles saíram da janela.</li>
+            <li>Uma conversa nova é realmente em branco — ele não lembra de você a menos que o app tenha guardado notas.</li>
+            <li>Colar a informação-chave de volta funciona porque a coloca de volta à vista.</li>
+            <li>Contexto mais curto e focado geralmente dá respostas mais afiadas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Why Prompting Works</span>
+            <span class="lang-pt">Por Que Orientar Funciona</span>
+          </div>
+          <h2>
+            <span class="lang-en">A prompt is you steering the guess</span>
+            <span class="lang-pt">Um prompt é você guiando o palpite</span>
+          </h2>
+        </div>
+      </div>
+      <div class="prompt-list">
+        <div class="prompt">
+          <strong class="lang-en">The reason clear prompts win</strong>
+          <strong class="lang-pt">Por que prompts claros vencem</strong>
+          <p class="lang-en">The model predicts based on what it can see. A vague request gives it a wide, fuzzy target, so you get a wide, fuzzy answer. A clear request — goal, scope, what not to touch, and how to verify — narrows the target so the next-word guesses line up with what you actually want.</p>
+          <p class="lang-pt">O modelo prevê com base no que consegue ver. Um pedido vago dá a ele um alvo amplo e nebuloso, então você recebe uma resposta ampla e nebulosa. Um pedido claro — objetivo, escopo, o que não mexer e como verificar — estreita o alvo para que os palpites de próxima palavra se alinhem com o que você realmente quer.</p>
+          <div class="example"><pre class="lang-en">Vague:  "Make my page better."
+Clear:  "Improve only the hero section of index.html:
+         bigger headline, one call-to-action button,
+         keep the existing colors. Then show me what changed."</pre><pre class="lang-pt">Vago:   "Melhore minha página."
+Claro:  "Melhore só a seção hero do index.html:
+         título maior, um botão de ação,
+         mantenha as cores atuais. Depois me mostre o que mudou."</pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agent">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">From Chatbot To Agent</span>
+            <span class="lang-pt">De Chatbot a Agente</span>
+          </div>
+          <h2>
+            <span class="lang-en">What makes something an "agent" — and why safety modes exist</span>
+            <span class="lang-pt">O que torna algo um "agente" — e por que existem modos de segurança</span>
+          </h2>
+        </div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h3 class="lang-en">Chatbot vs. agent</h3>
+          <h3 class="lang-pt">Chatbot vs. agente</h3>
+          <p class="lang-en">A plain chatbot only produces text. An <strong>agent</strong> is the same next-word engine, but wired to <strong>take actions</strong> — run commands, edit files, browse, send messages. It reads the situation, decides a step, does it, sees the result, and repeats.</p>
+          <p class="lang-pt">Um chatbot comum só produz texto. Um <strong>agente</strong> é o mesmo motor de próxima palavra, mas ligado para <strong>tomar ações</strong> — rodar comandos, editar arquivos, navegar, enviar mensagens. Ele lê a situação, decide um passo, executa, vê o resultado e repete.</p>
+        </div>
+        <div class="compare-card warn">
+          <h3 class="lang-en">Why preview & permission matter</h3>
+          <h3 class="lang-pt">Por que prévia e permissão importam</h3>
+          <p class="lang-en">Because it can act, a wrong guess can now <strong>do</strong> something — delete a file, send the wrong text. That is why good tools have preview modes, confirmations, and limited permissions. You keep the power to build, but you stay the one who approves anything risky.</p>
+          <p class="lang-pt">Porque ele pode agir, um palpite errado agora pode <strong>fazer</strong> algo — apagar um arquivo, enviar o texto errado. Por isso boas ferramentas têm modos de prévia, confirmações e permissões limitadas. Você mantém o poder de construir, mas continua sendo quem aprova qualquer coisa arriscada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">The Operating Rules</span>
+            <span class="lang-pt">As Regras de Operação</span>
+          </div>
+          <h2>
+            <span class="lang-en">Five rules that fall straight out of how it works</span>
+            <span class="lang-pt">Cinco regras que saem direto de como ele funciona</span>
+          </h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">1</div>
+          <div>
+            <h3 class="lang-en">Be specific — you are aiming the guess</h3>
+            <h3 class="lang-pt">Seja específico — você está mirando o palpite</h3>
+            <p class="lang-en">Goal, scope, limits, and how to verify. Clear in, clear out.</p>
+            <p class="lang-pt">Objetivo, escopo, limites e como verificar. Claro na entrada, claro na saída.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">2</div>
+          <div>
+            <h3 class="lang-en">Always verify — it produces plausible, not proven</h3>
+            <h3 class="lang-pt">Sempre verifique — ele produz o plausível, não o comprovado</h3>
+            <p class="lang-en">Check facts, numbers, and code before you rely on them.</p>
+            <p class="lang-pt">Confira fatos, números e código antes de confiar.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">3</div>
+          <div>
+            <h3 class="lang-en">Keep context tight — it only sees the window</h3>
+            <h3 class="lang-pt">Mantenha o contexto enxuto — ele só vê a janela</h3>
+            <p class="lang-en">Give it the relevant info; start fresh when a chat gets muddy.</p>
+            <p class="lang-pt">Dê a ele a info relevante; recomece quando a conversa embolar.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">4</div>
+          <div>
+            <h3 class="lang-en">Preview risky actions — an agent can really do things</h3>
+            <h3 class="lang-pt">Faça prévia de ações arriscadas — um agente pode realmente agir</h3>
+            <p class="lang-en">Approve, don't autopilot, anything that sends, deletes, or publishes.</p>
+            <p class="lang-pt">Aprove, não deixe no piloto automático, nada que envie, apague ou publique.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">5</div>
+          <div>
+            <h3 class="lang-en">One step at a time — the engine works in a loop, so should you</h3>
+            <h3 class="lang-pt">Um passo de cada vez — o motor trabalha em laço, e você também</h3>
+            <p class="lang-en">Ask, review, improve, verify, then take the next step.</p>
+            <p class="lang-pt">Pedir, revisar, melhorar, verificar e então o próximo passo.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>
+        <span class="lang-en">Now the tools make sense</span>
+        <span class="lang-pt">Agora as ferramentas fazem sentido</span>
+      </h2>
+      <p class="lang-en">Every guide on this site is just this mental model applied to one tool. Next: open the <a href="first-build.html">First Build</a>, then pick a path on the <a href="index.html">home page</a>.</p>
+      <p class="lang-pt">Cada guia deste site é só este modelo mental aplicado a uma ferramenta. Próximo: abra a <a href="first-build.html">Primeira Construção</a> e depois escolha uma trilha na <a href="index.html">página inicial</a>.</p>
+    </section>
+  </div>
+
+  <script src="site.js"></script>
+</body>
+</html>

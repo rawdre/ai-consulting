@@ -8,7 +8,8 @@
   var APP_KEY = "tool-school-interactive-v2";
   var DB_NAME = "tool-school-browser";
   var STORE_NAME = "state";
-  var DEFAULT_MODEL = "nvidia/nemotron-3-super-120b-a12b:free";
+  var DEFAULT_MODEL = "meta-llama/llama-3.3-70b-instruct:free";
+  var FREE_MODELS_URL = "https://openrouter.ai/models?max_price=0";
   var LEGACY_PROGRESS_KEY = "toolschool-progress-v1";
   var LEGACY_FILTER_KEY = "toolschool-filter-v1";
   var LEGACY_LANG_KEY = "toolschool-lang-v1";
@@ -968,12 +969,12 @@
       '    <div class="ts-field">',
       '      <label for="ts-model">Model</label>',
       '      <input id="ts-model" type="text" data-setting="model" placeholder="' + DEFAULT_MODEL + '">',
-      '      <small>Free models can change or disappear. If the teacher stops responding, switch models here.</small>',
+      '      <small>Free models change often. If the teacher stops answering, paste a working one from <a href="' + FREE_MODELS_URL + '" target="_blank" rel="noopener">openrouter.ai free models</a>.</small>',
       '    </div>',
       '    <div class="ts-field">',
       '      <label for="ts-api-key">API key</label>',
       '      <input id="ts-api-key" type="password" data-setting="apiKey" placeholder="Paste your OpenRouter key">',
-      '      <small>Your key is stored in the browser using IndexedDB. No hardcoded keys.</small>',
+      '      <small>Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a>. Stored only in your browser (IndexedDB). No hardcoded keys.</small>',
       '    </div>',
       '    <div class="ts-kv">',
       '      <label class="ts-toggle" for="ts-limited-mode">',
@@ -1648,7 +1649,7 @@
         return localTeacherReply(message, error);
       }
     }
-    return localTeacherReply(message);
+    return localTeacherReply(message, { message: "NO_KEY" });
   }
 
   async function fetchOpenRouterReply(message) {
@@ -1853,13 +1854,34 @@
       ].join("\n"));
     }
 
+    var out = suggestions.slice(0, 4);
+
+    // Make the reason VISIBLE at the top so students never get silent, useless
+    // replies. Fixes "I ask a question and nothing comes back."
     if (error) {
-      suggestions.push(pt
-        ? "A IA ao vivo não estava disponível, então o teacher ficou no modo de orientação local. Se quiser respostas ao vivo, confira sua chave e modelo do OpenRouter em Configurações."
-        : "Live AI was not available, so the teacher stayed in local guidance mode. If you want live responses, check your OpenRouter key and model in Settings.");
+      var reason = error && error.message ? String(error.message) : "";
+      if (reason === "NO_KEY") {
+        out.unshift(pt
+          ? ["⚠️ Estou em modo de orientação local — ainda não consigo dar uma resposta real de IA porque nenhuma chave de API foi configurada.",
+             "Para ligar respostas ao vivo (grátis): abra ⚙ Configurações, mantenha o provedor em OpenRouter e cole uma chave gratuita do OpenRouter.",
+             "Pegue uma chave e um modelo gratuitos aqui: " + FREE_MODELS_URL].join("\n")
+          : ["⚠️ I'm in local guidance mode — I can't give a real AI answer yet because no API key is set.",
+             "To turn on live answers (free): open ⚙ Settings, keep provider on OpenRouter, and paste a free OpenRouter key.",
+             "Get a free key + pick a free model here: " + FREE_MODELS_URL].join("\n"));
+      } else {
+        out.unshift(pt
+          ? ["⚠️ A IA ao vivo não conseguiu responder desta vez.",
+             "Correção mais comum: o modelo gratuito mudou ou está ocupado — abra ⚙ Configurações e cole outro modelo gratuito.",
+             "Pegue um modelo gratuito que funciona aqui: " + FREE_MODELS_URL,
+             reason ? "Detalhes: " + reason.slice(0, 180) : ""].filter(Boolean).join("\n")
+          : ["⚠️ Live AI couldn't answer this time.",
+             "Most common fix: the free model changed or is busy — open ⚙ Settings and paste a different free model slug.",
+             "Grab a working free model here: " + FREE_MODELS_URL,
+             reason ? "Details: " + reason.slice(0, 180) : ""].filter(Boolean).join("\n"));
+      }
     }
 
-    return suggestions.slice(0, 4).join("\n\n");
+    return out.join("\n\n");
   }
 
   function rewriteInstruction(message) {
