@@ -1058,7 +1058,7 @@
       '  </div>',
       '  <div class="ts-messages" data-teacher-messages></div>',
       '  <div class="ts-input-area">',
-      '    <textarea data-teacher-input placeholder="Ask what to do next, how to use a tool better, or how to fix the current step."></textarea>',
+      '    <textarea data-teacher-input placeholder="Ask what to do next, how to use a tool better, or how to fix the current step.  (Enter to send · Shift+Enter for a new line)"></textarea>',
       '    <div class="ts-actions">',
       '      <button type="button" class="button primary small" data-teacher-send>Get guidance</button>',
       '      <button type="button" class="button small" data-teacher-next>What should I do next?</button>',
@@ -1100,7 +1100,9 @@
     state.nodes.teacherSuggestions = panel.querySelector("[data-teacher-suggestions]");
     state.nodes.teacherMode = panel.querySelector("[data-teacher-mode]");
     state.nodes.teacherInput.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      // Standard chat behavior: Enter sends, Shift+Enter makes a new line.
+      // (Ctrl/Cmd+Enter also sends, for anyone used to that.)
+      if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
         handleTeacherSend();
       }
