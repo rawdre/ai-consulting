@@ -1,4 +1,4 @@
-const PROTECTED_ROUTE_PASSWORD = "1990471Raw";
+const PROTECTED_ROUTE_PASSWORD = "41131979";
 const ACCESS_KEY = "raw-ai-protected-access-v2";
 
 (function protectPage() {
