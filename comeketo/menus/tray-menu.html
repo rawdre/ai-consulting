@@ -1476,6 +1476,7 @@ footer.foot a{color:var(--gold-soft)}
           <h4>Order received, <span id="successName">there</span>!</h4>
           <p>Thanks — your order is in our hands. Andre or one of our managers will reach out within one business day with your final quote. If you need us sooner, call <a href="tel:+19783811212" style="color:var(--gold-soft);font-weight:700">(978) 381-1212</a>.</p>
           <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;align-items:center">
+            <button id="successPdfBtn" type="button" onclick="window.__downloadTrayQuotePDF&&window.__downloadTrayQuotePDF()" style="cursor:pointer;font-size:13px;font-weight:800;padding:12px 22px;border:none;border-radius:9999px;background:linear-gradient(180deg,#e2b866,#c8912f);color:#1a1206;font-family:'Manrope',sans-serif;letter-spacing:.3px">📄 Download Quote PDF</button>
             <a id="successMailtoBtn" class="btn-builder ghost" style="text-decoration:none;cursor:pointer;font-size:12px;padding:10px 18px" target="_self" href="#">📧 Email yourself a copy</a>
             <button id="successCopyBtn" class="btn-builder ghost" type="button" style="font-size:12px;padding:10px 18px">Copy order details</button>
             <span id="successCopyStatus" style="font-size:11.5px;color:var(--gold-soft);letter-spacing:.3px;min-height:14px"></span>
@@ -1649,6 +1650,52 @@ footer.foot a{color:var(--gold-soft)}
     var v = Math.round((n || 0) * 100) / 100;
     return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
+
+  // ===== BRANDED QUOTE (PDF + customer email copy) =====
+  // Renders the order as a Comeketo-branded quote — same look as the Command
+  // Center / BBQ ballpark. Used both for the "Download Quote PDF" button and as
+  // the HTML copy sent to the customer (customer_quote_html in the webhook).
+  function buildTrayQuoteHTML(d){
+    var LOGO = 'https://comeketo-command-center.onrender.com/icons/comeketo-logo.png';
+    var b = d.b;
+    var esc = function(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+    var menuRows = d.items.map(function(it){
+      return '<tr><td style="padding:7px 14px;font-size:12.5px;color:#5c5148;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+esc(it.name)+' <span style="color:#9b9086;font-size:10.5px;">('+esc(it.size)+')</span><div style="font-size:10.5px;color:#9b9086;">'+it.qty+' &times; '+money(it.unit_price)+'</div></td><td align="right" style="padding:7px 14px;font-size:12.5px;color:#2f2a24;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+money(it.line_total)+'</td></tr>';
+    }).join('');
+    var pr = function(l,a,s){ return '<tr><td style="padding:8px 14px;font-size:12.5px;color:#5c5148;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+l+(s?'<div style="font-size:10.5px;color:#9b9086;">'+s+'</div>':'')+'</td><td align="right" style="padding:8px 14px;font-size:12.5px;color:#2f2a24;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+a+'</td></tr>'; };
+    var svcRows = b.wantsService
+      ? pr('Service, fuel &amp; admin (24%)', money(b.service)) + pr('Staffing', b.staff>0?money(b.staff):(b.staffOver200?'Quoted separately (200+)':'&mdash;'), b.staff>0?('$'+STAFF_PER_PERSON+' / guest &times; '+b.guests):'')
+      : '';
+    var addonsNote = (d.addons && d.addons.length) ? '<tr><td colspan="2" style="padding:8px 14px;font-size:11px;color:#9b9086;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">Requested add-ons (priced on your final quote): '+esc(d.addons.join(', '))+'</td></tr>' : '';
+    var serviceLabel = b.wantsService ? 'FULL-SERVICE BUFFET' : 'DROP-OFF';
+    var p20=b.total*0.20, p35=b.total*0.35, p30=b.total*0.30, p15=b.total-(p20+p35+p30);
+    var payRow = function(l,s,a){ return '<tr><td style="padding:5px 14px;font-size:12px;color:#5c5148;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+l+'<div style="font-size:10px;color:#9b9086;">'+s+'</div></td><td align="right" style="padding:5px 14px;font-size:12px;color:#7c2a17;font-weight:bold;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+money(a)+'</td></tr>'; };
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Comeketo Quote - '+esc(d.name)+'</title></head>'+
+      '<body style="margin:0;padding:0;background:#f4efe7;font-family:Georgia,serif;">'+
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe7;padding:24px 12px;"><tr><td align="center">'+
+      '<table role="presentation" width="620" cellpadding="0" cellspacing="0" style="width:620px;max-width:100%;background:#fffaf3;border-radius:10px;overflow:hidden;">'+
+      '<tr><td style="background:#141414;padding:24px 22px 20px;text-align:center;"><img src="'+LOGO+'" width="150" alt="Comeketo Catering" style="display:block;margin:0 auto 10px;width:150px;height:auto;border:0;"><div style="color:#d9b45b;font-size:24px;letter-spacing:4px;font-variant:small-caps;">Comeketo Catering</div><div style="color:#8a7350;font-size:10px;letter-spacing:3px;margin-top:5px;font-family:Arial,sans-serif;">SINCE 2009</div></td></tr>'+
+      '<tr><td style="padding:24px 30px 4px;"><div style="color:#8c2f1f;font-size:11px;letter-spacing:2px;font-family:Arial,sans-serif;font-weight:bold;">TRAY MENU QUOTE &middot; '+serviceLabel+'</div><h1 style="margin:8px 0 6px;color:#7c2a17;font-size:25px;line-height:1.15;">Your Comeketo quote</h1><p style="margin:0;color:#5c5148;font-size:13.5px;font-family:Arial,sans-serif;line-height:1.55;">Prepared for <strong>'+esc(d.name)+'</strong>'+(d.dateUS?' &middot; <strong>'+esc(d.dateUS)+'</strong>':'')+(d.guests?' &middot; <strong>'+esc(d.guests)+' guests</strong>':'')+'. Mexican &middot; Italian &middot; American by the tray.</p></td></tr>'+
+      '<tr><td style="padding:18px 30px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #e2d7c4;border-radius:9px;overflow:hidden;"><tr><td colspan="2" style="background:#7c2a17;padding:11px 16px;"><span style="font-size:14px;font-weight:bold;color:#fff;font-family:Arial,sans-serif;">Your Menu</span></td></tr>'+menuRows+
+      '<tr><td style="padding:10px 14px;font-size:12.5px;color:#2f2a24;font-weight:bold;background:#faf5ec;font-family:Arial,sans-serif;">Catering subtotal</td><td align="right" style="padding:10px 14px;font-size:13px;color:#2f2a24;font-weight:bold;background:#faf5ec;font-family:Arial,sans-serif;">'+money(b.subtotal)+'</td></tr>'+
+      svcRows + pr('MA &amp; Fitchburg meals tax (7%)', money(b.tax)) + addonsNote +
+      '<tr style="background:#7c2a17;"><td style="padding:12px 14px;font-size:14px;color:#fff;font-weight:bold;font-family:Arial,sans-serif;">Event Total (estimate)</td><td align="right" style="padding:12px 14px;font-size:16px;color:#fff;font-weight:bold;font-family:Arial,sans-serif;">'+money(b.total)+'</td></tr></table></td></tr>'+
+      '<tr><td style="padding:16px 30px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #e2d7c4;border-radius:9px;overflow:hidden;"><tr><td colspan="2" style="background:#faf5ec;padding:9px 14px;font-size:11px;letter-spacing:1.5px;font-weight:bold;color:#7c2a17;font-family:Arial,sans-serif;">PAYMENT SCHEDULE</td></tr>'+
+      payRow('20% Down payment','due at booking',p20)+payRow('35% Second payment','60 days after deposit',p35)+payRow('30% Third payment','60 days before event',p30)+payRow('15% Final payment','30 days before event',p15)+'</table></td></tr>'+
+      '<tr><td style="padding:16px 30px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fbf4e9;border-left:3px solid #d9b45b;border-radius:5px;"><tr><td style="padding:13px 16px;font-family:Arial,sans-serif;font-size:12.5px;color:#5c4a34;line-height:1.55;">This is an estimate. Delivery (by distance from Fitchburg, both ways) and any rentals are added separately. '+(b.wantsService?'':'Drop-off: delivered in trays &mdash; add wire chafers &amp; sternos to keep everything hot. ')+'Any item can be swapped at no extra charge. Approve and a 20% deposit price-locks your quote for up to 2 years.</td></tr></table></td></tr>'+
+      '<tr><td style="padding:22px 30px 26px;text-align:center;"><div style="border-top:1px solid #e8dcc9;padding-top:16px;color:#5c5148;font-size:12.5px;font-family:Arial,sans-serif;line-height:1.8;"><strong>Andr&eacute; | Comeketo Catering</strong><br>(978) 381-1212 &middot; team@comeketocatering.com<br>199 Main St, Fitchburg, MA 01420</div></td></tr>'+
+      '</table></td></tr></table></body></html>';
+  }
+
+  // Open the branded quote and trigger the browser's print dialog (Save as PDF).
+  window.__downloadTrayQuotePDF = function(){
+    var q = window.__lastTrayQuote;
+    if(!q || !q.html){ alert('Build an order first, then submit — the quote will be ready to download.'); return; }
+    var w = window.open('', '_blank');
+    if(!w){ alert('Please allow pop-ups to download the PDF, then tap the button again.'); return; }
+    w.document.open(); w.document.write(q.html); w.document.close(); w.focus();
+    setTimeout(function(){ try{ w.print(); }catch(e){} }, 500);
+  };
 
   // Compute the full event-total breakdown for a given guest count.
   // guestsArg may be empty/null — staff fee is then skipped with a helper note.
@@ -2029,6 +2076,9 @@ footer.foot a{color:var(--gold-soft)}
       };
     });
     var addonsText = addons.length ? addons.join(', ') : '(none selected)';
+    // Branded quote — powers the "Download Quote PDF" button and the customer's email copy.
+    var quoteHTML = buildTrayQuoteHTML({ name:name, email:email, phone:phone, dateUS:dateUS, time:time, guests:guests, zip:zip, items:itemsArray, addons:addons, b:b, notes:notesField });
+    window.__lastTrayQuote = { html: quoteHTML, name: name };
     var subject =
       'New Tray Menu Order — ' + name +
       ' · ' + money(b.total) + ' est' +
@@ -2073,6 +2123,9 @@ footer.foot a{color:var(--gold-soft)}
       items: itemsArray,
       items_count: t.qty,
       order_summary_text: orderSummary,
+      // Branded HTML quote — add a Zapier "Send Email → To: {{email}}" step using
+      // this as the body so the CUSTOMER automatically gets their branded copy.
+      customer_quote_html: quoteHTML,
     };
 
     // Also pre-build a mailto: URL so the success screen can still offer it as
