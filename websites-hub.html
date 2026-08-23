@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Building — Raw AI Business Solutions</title>
+<meta name="description" content="Sites built by Raw AI: live client sites, reusable templates, and the repeatable workflow used on every build.">
+<style>
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;--text:#e8e8f0;--muted:#8888aa;--accent:#00d4ff;--accent2:#00ff88;--gold:#ffd700;--gradient:linear-gradient(135deg,#00d4ff,#00ff88)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none;transition:.3s}
+a:hover{color:var(--accent2)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:80px 0;position:relative}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:20px;line-height:1.2}
+.section-subtitle{font-size:1.05rem;color:var(--muted);max-width:680px;margin-bottom:48px}
+.highlight{background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;border:none;transition:.3s;text-decoration:none}
+.btn-primary{background:var(--gradient);color:#0a0a0f;box-shadow:0 4px 30px rgba(0,212,255,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(0,212,255,.4);color:#0a0a0f}
+.btn-secondary{background:transparent;border:2px solid rgba(255,255,255,.15);color:var(--text)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn-sm{padding:12px 24px;font-size:.9rem;border-radius:10px}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
+.brand{font-weight:900;font-size:1.15rem;letter-spacing:-.5px}
+.brand span{background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.topbar-links a{font-size:.9rem;font-weight:600;color:var(--muted)}
+.topbar-links a:hover{color:var(--accent)}
+
+/* Hero */
+.hero{padding:70px 0 40px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem);font-weight:900;line-height:1.1;margin-bottom:18px}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:720px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.card{padding:30px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:.3s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.25);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.card h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.95rem;flex:1;margin-bottom:18px}
+.card .btn{align-self:flex-start}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.22);color:var(--accent);font-size:.75rem;font-weight:700}
+.tag-live{background:rgba(46,204,113,.14);border-color:rgba(46,204,113,.4);color:#5ee59a;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
+.tag-template{background:rgba(255,215,0,.12);border-color:rgba(255,215,0,.28);color:var(--gold)}
+.stack{font-size:.8rem;color:var(--muted);margin-bottom:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* Workflow */
+.steps{display:grid;gap:18px}
+.step{display:grid;grid-template-columns:64px 1fr;gap:22px;align-items:start;padding:26px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:.3s}
+.step:hover{border-color:rgba(0,255,136,.22)}
+.step-num{width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--gradient);color:#0a0a0f;font-weight:900;font-size:1.2rem}
+.step h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.step p{color:var(--muted);font-size:.95rem;margin-bottom:12px}
+.step ul{list-style:none;display:grid;gap:7px}
+.step li{color:var(--muted);font-size:.9rem;padding-left:22px;position:relative}
+.step li::before{content:'▸';position:absolute;left:0;color:var(--accent2)}
+.step .gate{margin-top:14px;padding:12px 16px;border-radius:10px;background:rgba(255,215,0,.06);border-left:3px solid var(--gold);font-size:.88rem;color:#e8d9a8}
+.step .gate strong{color:var(--gold)}
+
+/* Rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.rule{padding:24px;background:var(--bg3);border-radius:14px;border-left:3px solid var(--accent)}
+.rule h4{font-size:1rem;font-weight:700;margin-bottom:8px}
+.rule p{color:var(--muted);font-size:.9rem}
+
+footer{padding:50px 0;border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--muted);font-size:.9rem}
+@media(max-width:640px){
+  section{padding:56px 0}
+  .step{grid-template-columns:1fr;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="brand">RAW<span>·AI</span></div>
+    <div class="topbar-links">
+      <a href="index.html" data-en="← Main site" data-pt="← Site principal">← Main site</a>
+      <a href="#builds" data-en="Builds" data-pt="Builds">Builds</a>
+      <a href="#templates" data-en="Templates" data-pt="Templates">Templates</a>
+      <a href="#workflow" data-en="Workflow" data-pt="Workflow">Workflow</a>
+      <a href="#" id="langToggle" style="color:var(--accent)">🌐 PT</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container">
+    <div class="section-label" data-en="🌐 Website Building" data-pt="🌐 Criação de Sites">🌐 Website Building</div>
+    <h1 data-en="Sites that do <span class='highlight'>one job</span> — and do it well." data-pt="Sites que fazem <span class='highlight'>uma coisa</span> — e fazem bem.">Sites that do <span class="highlight">one job</span> — and do it well.</h1>
+    <p data-en="Every site here was built for a real business with a real number attached: turn visitors into conversations. Below are the live builds, the reusable templates, and the exact workflow used on every one of them." data-pt="Todo site aqui foi feito para um negócio real com um número real atrelado: transformar visitantes em conversas. Abaixo estão os builds no ar, os templates reutilizáveis e o workflow exato usado em cada um deles.">Every site here was built for a real business with a real number attached: turn visitors into conversations. Below are the live builds, the reusable templates, and the exact workflow used on every one of them.</p>
+    <div class="hero-actions">
+      <a href="#workflow" class="btn btn-primary" data-en="See the workflow →" data-pt="Ver o workflow →">See the workflow →</a>
+      <a href="https://wa.me/5561998229223?text=Hi%20Andr%C3%A9!%20I%20want%20a%20website%20for%20my%20business" target="_blank" rel="noopener" class="btn btn-secondary" data-en="Start a project →" data-pt="Começar um projeto →">Start a project →</a>
+    </div>
+  </div>
+</header>
+
+<!-- BUILDS -->
+<section id="builds">
+  <div class="container">
+    <div class="section-label" data-en="🚀 Live Builds" data-pt="🚀 Builds no Ar">🚀 Live Builds</div>
+    <div class="section-title" data-en="What we've shipped" data-pt="O que já colocamos no ar">What we've shipped</div>
+    <div class="section-subtitle" data-en="Real sites for real businesses. Every one is open — click through and see it working." data-pt="Sites reais para negócios reais. Todos estão abertos — clique e veja funcionando.">Real sites for real businesses. Every one is open — click through and see it working.</div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">🎾 Sports / Local</span>
+          <span class="tag tag-live" data-en="Live" data-pt="No ar">Live</span>
+        </div>
+        <h3>RAW Tennis Club</h3>
+        <div class="stack">Next.js 16 · React 19 · Tailwind v4 · GSAP · Vercel</div>
+        <p data-en="Tennis school at the Clube da Aeronáutica in Brasília. Built to convert Instagram reel traffic into WhatsApp conversations — with a PT/EN toggle, a photo gallery, structured data for local search, and a bot that answers the questions parents ask before a first lesson." data-pt="Escola de tênis no Clube da Aeronáutica em Brasília. Feito para converter tráfego de reels do Instagram em conversas no WhatsApp — com alternância PT/EN, galeria de fotos, dados estruturados para busca local e um bot que responde o que os pais perguntam antes da primeira aula.">Tennis school at the Clube da Aeronáutica in Brasília. Built to convert Instagram reel traffic into WhatsApp conversations — with a PT/EN toggle, a photo gallery, structured data for local search, and a bot that answers the questions parents ask before a first lesson.</p>
+        <a href="https://rawtennisclub.vercel.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-en="Open RAW Tennis Club →" data-pt="Abrir RAW Tennis Club →">Open RAW Tennis Club →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">🏠 Real Estate</span>
+          <span class="tag tag-live" data-en="Live" data-pt="No ar">Live</span>
+        </div>
+        <h3>Top Imobiliária DF</h3>
+        <div class="stack">Next.js · Supabase · Vercel · custom domain</div>
+        <p data-en="Full real-estate site with a listings backend, an admin area for the client to manage properties, and a consorcio support page. Running on its own domain." data-pt="Site imobiliário completo com backend de imóveis, área administrativa para o cliente gerenciar propriedades e página de apoio de consórcio. Rodando em domínio próprio.">Full real-estate site with a listings backend, an admin area for the client to manage properties, and a consorcio support page. Running on its own domain.</p>
+        <a href="top-imobiliaria-hub.html" class="btn btn-secondary btn-sm" data-en="Open Top Imobiliária →" data-pt="Abrir Top Imobiliária →">Open Top Imobiliária →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">❄️ HVAC</span>
+          <span class="tag tag-live" data-en="Live Demo" data-pt="Demo no Ar">Live Demo</span>
+        </div>
+        <h3>BayState Climate Co.</h3>
+        <div class="stack">Static · GitHub Pages · AI advisor widget</div>
+        <p data-en="Concept landing page for a Massachusetts residential HVAC company: a ComfortFit AI advisor, heat pump and mini-split flows, Mass Save rebate guidance, and a starter blog — built as a working proposal a prospect can click through today." data-pt="Landing conceito para uma empresa residencial de HVAC em Massachusetts: assistente ComfortFit AI, fluxos de bomba de calor e mini-split, orientação Mass Save e um blog inicial — feita como proposta viva que o prospect pode navegar hoje.">Concept landing page for a Massachusetts residential HVAC company: a ComfortFit AI advisor, heat pump and mini-split flows, Mass Save rebate guidance, and a starter blog — built as a working proposal a prospect can click through today.</p>
+        <a href="https://rawdre.github.io/mass-hvac-landing/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" data-en="Open BayState Demo →" data-pt="Abrir Demo BayState →">Open BayState Demo →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">🚚 Logistics</span>
+          <span class="tag tag-live" data-en="Live" data-pt="No ar">Live</span>
+        </div>
+        <h3>Raw Truck Dispatcher</h3>
+        <div class="stack">Next.js · Supabase · Vercel</div>
+        <p data-en="Dispatching service site with a lead pipeline and an operations playbook behind it — the build where the current deploy and handoff discipline came from." data-pt="Site de serviço de dispatch com pipeline de leads e um playbook de operações por trás — o build de onde veio a disciplina atual de deploy e handoff.">Dispatching service site with a lead pipeline and an operations playbook behind it — the build where the current deploy and handoff discipline came from.</p>
+        <a href="https://raw-truck-dispatcher.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" data-en="Open Raw Truck →" data-pt="Abrir Raw Truck →">Open Raw Truck →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">🇧🇷 Local Growth</span>
+        </div>
+        <h3>RAW AI Brasil</h3>
+        <div class="stack">Static · niche templates · lead pipeline</div>
+        <p data-en="The Brazil local-business push: a commercial landing page plus four niche templates, wired to the prospecting pipeline for the first fifty leads." data-pt="A frente Raw AI Brasil: uma landing comercial mais quatro templates por nicho, ligados à pipeline de prospecção dos primeiros cinquenta leads.">The Brazil local-business push: a commercial landing page plus four niche templates, wired to the prospecting pipeline for the first fifty leads.</p>
+        <a href="raw-ai-brasil/" class="btn btn-secondary btn-sm" data-en="Open RAW AI Brasil →" data-pt="Abrir RAW AI Brasil →">Open RAW AI Brasil →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row">
+          <span class="tag">🍽️ Client Cluster</span>
+        </div>
+        <h3>Comeketo</h3>
+        <div class="stack">Static pages · quote system · Slack + CRM</div>
+        <p data-en="The full Comeketo cluster: Christalight, Happily Ever Expo, the luxury venue magazine, presentations and the branded quote system." data-pt="O conjunto completo da Comeketo: Christalight, Happily Ever Expo, a revista luxury venue, apresentações e o sistema de orçamento com marca.">The full Comeketo cluster: Christalight, Happily Ever Expo, the luxury venue magazine, presentations and the branded quote system.</p>
+        <a href="comeketo/" class="btn btn-secondary btn-sm" data-en="Open Comeketo →" data-pt="Abrir Comeketo →">Open Comeketo →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section id="templates" style="background:linear-gradient(135deg,rgba(255,215,0,.03),rgba(0,212,255,.03));">
+  <div class="container">
+    <div class="section-label" data-en="🧩 Templates" data-pt="🧩 Templates">🧩 Templates</div>
+    <div class="section-title" data-en="Start from something <span class='highlight'>already proven</span>" data-pt="Comece de algo <span class='highlight'>já comprovado</span>">Start from something <span class="highlight">already proven</span></div>
+    <div class="section-subtitle" data-en="Reusable starting points by niche. Each one has already shipped at least once, so the layout, the copy structure and the conversion path are known to work." data-pt="Pontos de partida reutilizáveis por nicho. Cada um já foi ao ar pelo menos uma vez, então o layout, a estrutura de copy e o caminho de conversão já são conhecidos.">Reusable starting points by niche. Each one has already shipped at least once, so the layout, the copy structure and the conversion path are known to work.</div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="tag-row"><span class="tag tag-template">✂️ Barbershop</span></div>
+        <h3 data-en="Barbershop + Queue" data-pt="Barbearia + Fila">Barbershop + Queue</h3>
+        <p data-en="Two demo shops plus live queue pages — the pattern for any appointment-driven local business where customers want to know the wait." data-pt="Duas barbearias demo mais páginas de fila ao vivo — o padrão para qualquer negócio local por agendamento onde o cliente quer saber a espera.">Two demo shops plus live queue pages — the pattern for any appointment-driven local business where customers want to know the wait.</p>
+        <a href="barbearia-hub.html" class="btn btn-secondary btn-sm" data-en="Open templates →" data-pt="Abrir templates →">Open templates →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row"><span class="tag tag-template">🏠 Real Estate</span></div>
+        <h3 data-en="Listings + Admin" data-pt="Imóveis + Admin">Listings + Admin</h3>
+        <p data-en="Property grid, detail pages and a client-facing admin to add and edit listings without touching code. Proven on Top Imobiliária." data-pt="Grade de imóveis, páginas de detalhe e um admin para o cliente adicionar e editar sem tocar em código. Comprovado na Top Imobiliária.">Property grid, detail pages and a client-facing admin to add and edit listings without touching code. Proven on Top Imobiliária.</p>
+        <a href="demo-top-imobiliaria.html" class="btn btn-secondary btn-sm" data-en="Open demo →" data-pt="Abrir demo →">Open demo →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row"><span class="tag tag-template">🎾 Local Service</span></div>
+        <h3 data-en="Bilingual Local Service" data-pt="Serviço Local Bilíngue">Bilingual Local Service</h3>
+        <p data-en="The RAW Tennis Club pattern: one page, PT/EN toggle, photo gallery, FAQ that feeds a lightweight bot, and every fact in a single config file so the whole site can be corrected without opening a component." data-pt="O padrão do RAW Tennis Club: uma página, alternância PT/EN, galeria, FAQ que alimenta um bot leve, e todo fato em um único arquivo de config para corrigir o site inteiro sem abrir um componente.">The RAW Tennis Club pattern: one page, PT/EN toggle, photo gallery, FAQ that feeds a lightweight bot, and every fact in a single config file so the whole site can be corrected without opening a component.</p>
+        <a href="https://rawtennisclub.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" data-en="See it live →" data-pt="Ver ao vivo →">See it live →</a>
+      </article>
+
+      <article class="card">
+        <div class="tag-row"><span class="tag tag-template">📄 Proposal</span></div>
+        <h3 data-en="Proposal Pages" data-pt="Páginas de Proposta">Proposal Pages</h3>
+        <p data-en="Single-page proposals that stay live after the meeting — Acuas, Agrobil and Top Imobiliária. A link beats a PDF attachment every time." data-pt="Propostas de uma página que continuam vivas depois da reunião — Acuas, Agrobil e Top Imobiliária. Um link ganha de um PDF anexado sempre.">Single-page proposals that stay live after the meeting — Acuas, Agrobil and Top Imobiliária. A link beats a PDF attachment every time.</p>
+        <a href="proposta-acuas.html" class="btn btn-secondary btn-sm" data-en="Open example →" data-pt="Abrir exemplo →">Open example →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="container">
+    <div class="section-label" data-en="🛠️ The Workflow" data-pt="🛠️ O Workflow">🛠️ The Workflow</div>
+    <div class="section-title" data-en="How we start <span class='highlight'>every website</span>" data-pt="Como começamos <span class='highlight'>todo site</span>">How we start <span class="highlight">every website</span></div>
+    <div class="section-subtitle" data-en="The same seven steps on every build, in the same order. Following it is what makes the sites consistent — and what stops us rediscovering the same mistakes on each new project." data-pt="Os mesmos sete passos em todo build, na mesma ordem. Seguir isso é o que deixa os sites consistentes — e o que evita redescobrir os mesmos erros a cada projeto novo.">The same seven steps on every build, in the same order. Following it is what makes the sites consistent — and what stops us rediscovering the same mistakes on each new project.</div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3 data-en="Name the one job" data-pt="Definir a única missão">Name the one job</h3>
+          <p data-en="Before any design, write down the single action the site exists to cause. Not 'a nice website' — one measurable action." data-pt="Antes de qualquer design, escrever a única ação que o site existe para causar. Não 'um site bonito' — uma ação mensurável.">Before any design, write down the single action the site exists to cause. Not "a nice website" — one measurable action.</p>
+          <ul>
+            <li data-en="RAW Tennis Club → open a WhatsApp conversation" data-pt="RAW Tennis Club → abrir uma conversa no WhatsApp">RAW Tennis Club → open a WhatsApp conversation</li>
+            <li data-en="Top Imobiliária → get an enquiry on a specific property" data-pt="Top Imobiliária → gerar uma consulta sobre um imóvel específico">Top Imobiliária → get an enquiry on a specific property</li>
+            <li data-en="Where does the traffic come from today, and what does it currently hit?" data-pt="De onde vem o tráfego hoje, e onde ele cai atualmente?">Where does the traffic come from today, and what does it currently hit?</li>
+          </ul>
+          <div class="gate"><strong data-en="Gate:" data-pt="Trava:">Gate:</strong> <span data-en="if you cannot name the action in one sentence, do not open a code editor." data-pt="se você não consegue nomear a ação em uma frase, não abra um editor de código.">if you cannot name the action in one sentence, do not open a code editor.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3 data-en="Collect the facts before the design" data-pt="Reunir os fatos antes do design">Collect the facts before the design</h3>
+          <p data-en="Prices, hours, address, phone, real photos, the owner's own words. Anything not confirmed gets marked PENDING — never invented." data-pt="Preços, horários, endereço, telefone, fotos reais, as palavras do próprio dono. O que não estiver confirmado é marcado como PENDING — nunca inventado.">Prices, hours, address, phone, real photos, the owner's own words. Anything not confirmed gets marked PENDING — never invented.</p>
+          <ul>
+            <li data-en="Lift the headline from what the client already says — they have a voice, don't invent one" data-pt="Tirar a headline do que o cliente já diz — ele já tem uma voz, não invente outra">Lift the headline from what the client already says — they have a voice, don't invent one</li>
+            <li data-en="Ask for originals off the phone, not screenshots or Instagram downloads" data-pt="Pedir os originais do celular, não prints ou downloads do Instagram">Ask for originals off the phone, not screenshots or Instagram downloads</li>
+            <li data-en="Get written consent for any recognisable person, especially children" data-pt="Conseguir consentimento por escrito para qualquer pessoa reconhecível, especialmente crianças">Get written consent for any recognisable person, especially children</li>
+          </ul>
+          <div class="gate"><strong data-en="Gate:" data-pt="Trava:">Gate:</strong> <span data-en="a wrong price on a live site starts an argument at the first meeting. PENDING is always safer than a guess." data-pt="um preço errado no site ao vivo começa uma discussão na primeira reunião. PENDING é sempre mais seguro que um chute.">a wrong price on a live site starts an argument at the first meeting. PENDING is always safer than a guess.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3 data-en="One config file = one source of truth" data-pt="Um arquivo de config = uma fonte de verdade">One config file = one source of truth</h3>
+          <p data-en="Every fact the site renders lives in a single config file. Components never hardcode business data, so the whole site can be corrected without opening a component." data-pt="Todo fato que o site mostra vive em um único arquivo de config. Componentes nunca fixam dados do negócio, então o site inteiro pode ser corrigido sem abrir um componente.">Every fact the site renders lives in a single config file. Components never hardcode business data, so the whole site can be corrected without opening a component.</p>
+          <ul>
+            <li data-en="Facts in one file (prices, ids, image paths) — words in another when the site is bilingual" data-pt="Fatos em um arquivo (preços, ids, caminhos de imagem) — palavras em outro quando o site é bilíngue">Facts in one file (prices, ids, image paths) — words in another when the site is bilingual</li>
+            <li data-en="Join them by id, so a price is written once and cannot disagree with itself" data-pt="Ligar por id, para que um preço seja escrito uma vez e não possa discordar de si mesmo">Join them by id, so a price is written once and cannot disagree with itself</li>
+            <li data-en="A PENDING value degrades in the UI to 'ask us' — the site ships before every answer exists" data-pt="Um valor PENDING vira 'fale com a gente' na interface — o site vai ao ar antes de toda resposta existir">A PENDING value degrades in the UI to "ask us" — the site ships before every answer exists</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3 data-en="Build the conversion path first" data-pt="Construir o caminho de conversão primeiro">Build the conversion path first</h3>
+          <p data-en="The button that causes the one job gets built and tested before anything decorative. Everything else is supporting cast." data-pt="O botão que causa a única missão é construído e testado antes de qualquer coisa decorativa. Todo o resto é elenco de apoio.">The button that causes the one job gets built and tested before anything decorative. Everything else is supporting cast.</p>
+          <ul>
+            <li data-en="Render a real, working link — never one that only becomes valid on click" data-pt="Renderizar um link real e funcional — nunca um que só fica válido no clique">Render a real, working link — never one that only becomes valid on click</li>
+            <li data-en="Carry context into the message so the first reply can be useful" data-pt="Levar contexto na mensagem para que a primeira resposta já seja útil">Carry context into the message so the first reply can be useful</li>
+            <li data-en="Forward UTMs, so you can prove the site beats whatever it replaced" data-pt="Repassar UTMs, para provar que o site supera o que ele substituiu">Forward UTMs, so you can prove the site beats whatever it replaced</li>
+            <li data-en="Order sections by the decision the buyer actually makes — price comes after the case is made" data-pt="Ordenar seções pela decisão que o comprador realmente toma — preço vem depois do argumento">Order sections by the decision the buyer actually makes — price comes after the case is made</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <h3 data-en="Findable and shareable" data-pt="Encontrável e compartilhável">Findable and shareable</h3>
+          <p data-en="The two cheapest, most-forgotten wins. Skip these and the site is invisible to search and ugly in every WhatsApp forward." data-pt="As duas vitórias mais baratas e mais esquecidas. Pule isso e o site fica invisível na busca e feio em todo encaminhamento de WhatsApp.">The two cheapest, most-forgotten wins. Skip these and the site is invisible to search and ugly in every WhatsApp forward.</p>
+          <ul>
+            <li data-en="Canonical URL must point where the site actually answers — never at a domain you have not registered yet" data-pt="A URL canônica deve apontar para onde o site realmente responde — nunca para um domínio ainda não registrado">Canonical URL must point where the site actually answers — never at a domain you have not registered yet</li>
+            <li data-en="A 1200×630 og:image, or every share is a bare text link" data-pt="Uma og:image 1200×630, ou todo compartilhamento é um link de texto puro">A 1200×630 og:image, or every share is a bare text link</li>
+            <li data-en="robots.txt + sitemap.xml + structured data for the local business" data-pt="robots.txt + sitemap.xml + dados estruturados do negócio local">robots.txt + sitemap.xml + structured data for the local business</li>
+            <li data-en="If a competitor shares the name, disambiguate explicitly or the bigger entity absorbs you" data-pt="Se um concorrente tem nome parecido, desambiguar explicitamente ou a entidade maior te absorve">If a competitor shares the name, disambiguate explicitly or the bigger entity absorbs you</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div>
+          <h3 data-en="Verify on the real device and the real URL" data-pt="Verificar no aparelho real e na URL real">Verify on the real device and the real URL</h3>
+          <p data-en="Localhost lies. The traffic is mostly phones, so the CTA has to land on the first screen of a phone — not a laptop." data-pt="Localhost mente. O tráfego é quase todo celular, então o CTA precisa cair na primeira tela do celular — não do notebook.">Localhost lies. The traffic is mostly phones, so the CTA has to land on the first screen of a phone — not a laptop.</p>
+          <ul>
+            <li data-en="Zero broken images, no horizontal overflow, page scrolls over every section" data-pt="Zero imagens quebradas, sem overflow horizontal, a página rola sobre todas as seções">Zero broken images, no horizontal overflow, page scrolls over every section</li>
+            <li data-en="Check the tags on the LIVE url with curl, not on localhost" data-pt="Checar as tags na URL AO VIVO com curl, não no localhost">Check the tags on the LIVE url with curl, not on localhost</li>
+            <li data-en="Hard-reload before believing anything is broken" data-pt="Fazer hard-reload antes de acreditar que algo quebrou">Hard-reload before believing anything is broken</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div>
+          <h3 data-en="Write the handoff before you walk away" data-pt="Escrever o handoff antes de sair">Write the handoff before you walk away</h3>
+          <p data-en="Every project gets a note recording the deploy method, what was changed and why, and what is still waiting on the client. Without it, the next session rediscovers the same problems." data-pt="Todo projeto ganha uma nota registrando o método de deploy, o que foi mudado e por quê, e o que ainda depende do cliente. Sem isso, a próxima sessão redescobre os mesmos problemas.">Every project gets a note recording the deploy method, what was changed and why, and what is still waiting on the client. Without it, the next session rediscovers the same problems.</p>
+          <ul>
+            <li data-en="HANDOFF.md in the repo, plus a copy in the Obsidian vault" data-pt="HANDOFF.md no repositório, mais uma cópia no vault do Obsidian">HANDOFF.md in the repo, plus a copy in the Obsidian vault</li>
+            <li data-en="Record the exact deploy commands that actually work for THAT project" data-pt="Registrar os comandos de deploy exatos que realmente funcionam NAQUELE projeto">Record the exact deploy commands that actually work for THAT project</li>
+            <li data-en="List what needs the client, separately from what needs code" data-pt="Listar o que depende do cliente, separado do que depende de código">List what needs the client, separately from what needs code</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules" style="background:linear-gradient(135deg,rgba(0,212,255,.03),rgba(0,255,136,.03));">
+  <div class="container">
+    <div class="section-label" data-en="⚖️ Standing Rules" data-pt="⚖️ Regras Fixas">⚖️ Standing Rules</div>
+    <div class="section-title" data-en="Learned the expensive way" data-pt="Aprendidas do jeito caro">Learned the expensive way</div>
+    <div class="section-subtitle" data-en="Each of these cost real time on a real build. They are non-negotiable now." data-pt="Cada uma custou tempo real em um build real. Agora são inegociáveis.">Each of these cost real time on a real build. They are non-negotiable now.</div>
+
+    <div class="rules">
+      <div class="rule">
+        <h4 data-en="Never invent a fact" data-pt="Nunca inventar um fato">Never invent a fact</h4>
+        <p data-en="No made-up prices, hours or testimonials. PENDING degrades to an honest prompt — and the site still ships." data-pt="Sem preços, horários ou depoimentos inventados. PENDING vira um convite honesto — e o site vai ao ar mesmo assim.">No made-up prices, hours or testimonials. PENDING degrades to an honest prompt — and the site still ships.</p>
+      </div>
+      <div class="rule">
+        <h4 data-en="Deploy, then verify the live URL" data-pt="Fazer deploy, depois verificar a URL ao vivo">Deploy, then verify the live URL</h4>
+        <p data-en="A green build does not mean the public address updated. Check the live HTML every single time." data-pt="Um build verde não significa que o endereço público atualizou. Cheque o HTML ao vivo toda vez.">A green build does not mean the public address updated. Check the live HTML every single time.</p>
+      </div>
+      <div class="rule">
+        <h4 data-en="Own the media you publish" data-pt="Ser dono da mídia publicada">Own the media you publish</h4>
+        <p data-en="No Google or Waze imagery, no hotlinked Instagram thumbnails — signed CDN URLs expire within days. Client photos, downloaded and committed." data-pt="Sem imagens do Google ou Waze, sem thumbnails do Instagram por hotlink — URLs assinadas de CDN expiram em dias. Fotos do cliente, baixadas e commitadas.">No Google or Waze imagery, no hotlinked Instagram thumbnails — signed CDN URLs expire within days. Client photos, downloaded and committed.</p>
+      </div>
+      <div class="rule">
+        <h4 data-en="Consent before faces go public" data-pt="Consentimento antes de rostos irem ao ar">Consent before faces go public</h4>
+        <p data-en="Any recognisable person needs permission on file. For children it is a legal requirement, not a preference." data-pt="Qualquer pessoa reconhecível precisa de permissão registrada. Para crianças é exigência legal, não preferência.">Any recognisable person needs permission on file. For children it is a legal requirement, not a preference.</p>
+      </div>
+      <div class="rule">
+        <h4 data-en="Fetch and rebase before editing" data-pt="Fetch e rebase antes de editar">Fetch and rebase before editing</h4>
+        <p data-en="More than one agent may be in the repo. Never force-push — keep the other work and re-apply yours on top." data-pt="Mais de um agente pode estar no repositório. Nunca force-push — mantenha o trabalho do outro e reaplique o seu por cima.">More than one agent may be in the repo. Never force-push — keep the other work and re-apply yours on top.</p>
+      </div>
+      <div class="rule">
+        <h4 data-en="One strong asset beats two weak ones" data-pt="Um ativo forte vale mais que dois fracos">One strong asset beats two weak ones</h4>
+        <p data-en="A weak photo or video next to a strong one drags the strong one down. Cut it rather than filling a grid." data-pt="Uma foto ou vídeo fraco ao lado de um forte puxa o forte para baixo. Corte em vez de preencher a grade.">A weak photo or video next to a strong one drags the strong one down. Cut it rather than filling a grid.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p data-en="Raw AI Business Solutions — website building, workflows and AI automation." data-pt="Raw AI Business Solutions — criação de sites, workflows e automação com IA.">Raw AI Business Solutions — website building, workflows and AI automation.</p>
+    <p style="margin-top:12px"><a href="index.html" data-en="← Back to the main site" data-pt="← Voltar ao site principal">← Back to the main site</a></p>
+  </div>
+</footer>
+
+<script>
+/* Language toggle — same data-en / data-pt convention as the main site, so
+   copy on this page can be edited without touching the script. */
+(function () {
+  var lang = localStorage.getItem('rawai-lang') || 'en';
+
+  function apply(next) {
+    lang = next;
+    document.documentElement.lang = next === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-en][data-pt]').forEach(function (el) {
+      var value = el.getAttribute('data-' + next);
+      if (value !== null) el.innerHTML = value;
+    });
+    var btn = document.getElementById('langToggle');
+    if (btn) btn.textContent = next === 'pt' ? '🌐 EN' : '🌐 PT';
+    try { localStorage.setItem('rawai-lang', next); } catch (e) {}
+  }
+
+  document.getElementById('langToggle').addEventListener('click', function (e) {
+    e.preventDefault();
+    apply(lang === 'pt' ? 'en' : 'pt');
+  });
+
+  apply(lang);
+})();
+</script>
+</body>
+</html>
