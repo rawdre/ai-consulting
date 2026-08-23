@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raw AI — Matrix Background Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RAW AI - MATRIX BACKGROUND LAB
+   Palette lifted straight from your live index.html, so this
+   drops in without changing a single color.
+   ============================================================ */
+:root{
+  --bg:#0a0a0f; --bg2:#12121a; --bg3:#1a1a2e;
+  --text:#e8e8f0; --muted:#8888aa;
+  --accent:#00d4ff;   /* cyan  */
+  --accent2:#00ff88;  /* green */
+  --gold:#ffd700;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  line-height:1.6; overflow-x:hidden; position:relative;
+}
+
+/* ------------------------------------------------------------
+   THE BACKGROUND STACK - 5 layers, back to front:
+
+   z 0  .fx-shader    WebGL  : noise dust + light sweeps + scroll horizon
+   z 1  .fx-canvas    Canvas2D: matrix rain + neural plexus
+   z 2  .fx-scan      CSS    : CRT scanlines + flicker
+   z 3  .fx-vignette  CSS    : edge darkening so text stays readable
+   z 10 content
+
+   THE WHOLE TRICK IS mix-blend-mode:screen.
+   Screen blend makes BLACK fully transparent and only lets light
+   through. Both canvases paint on pure black, so only the cyan and
+   green survive - it reads as real light, not as a sticker on top.
+   ------------------------------------------------------------ */
+.fx-shader,.fx-canvas{
+  position:fixed; inset:0; z-index:0;
+  pointer-events:none;               /* never steal clicks */
+  mix-blend-mode:screen;             /* <-- the secret */
+}
+.fx-canvas{z-index:1}
+.fx-shader canvas,.fx-canvas canvas{display:block;width:100%;height:100%}
+
+/* CRT scanlines - pure CSS, costs nothing */
+.fx-scan{
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(0,212,255,.030) 0px,
+    rgba(0,212,255,.030) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation:scanDrift 8s linear infinite, scanFlicker 5s steps(2) infinite;
+}
+@keyframes scanDrift{to{background-position:0 300px}}
+@keyframes scanFlicker{0%,97%{opacity:.55}98%{opacity:.28}99%{opacity:.7}100%{opacity:.55}}
+
+/* Vignette - keeps the middle calm so copy stays legible */
+.fx-vignette{
+  position:fixed; inset:0; z-index:3; pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 38%,rgba(10,10,15,.55) 100%);
+}
+
+/* Scroll progress rail */
+.fx-progress{
+  position:fixed; top:0; left:0; height:2px; width:100%; z-index:60; pointer-events:none;
+  transform:scaleX(0); transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));
+  box-shadow:0 0 14px rgba(0,212,255,.8);
+}
+
+/* ------------------------------------------------------------
+   DEMO CONTENT - just enough to have something to scroll past
+   ------------------------------------------------------------ */
+.wrap{position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-size:clamp(2.6rem,8vw,5.6rem);line-height:1.02;font-weight:800;letter-spacing:-.03em;margin-bottom:22px}
+h1 .glow{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{max-width:620px;color:var(--muted);font-size:1.12rem}
+.term{font-family:var(--mono);font-size:.9rem;color:var(--accent2);margin-top:32px;min-height:1.6em}
+.term .cursor{display:inline-block;width:9px;height:1em;background:var(--accent2);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+section.block{min-height:92vh;display:flex;align-items:center;border-top:1px solid rgba(255,255,255,.05)}
+section.block h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+section.block p{color:var(--muted);max-width:640px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.card{background:rgba(18,18,26,.55);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:26px;backdrop-filter:blur(6px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px}
+.card h3{font-family:var(--mono);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.card p{font-size:.95rem}
+
+/* ------------------------------------------------------------
+   CONTROL PANEL - the study tool.
+   Every slider writes straight into CONFIG at runtime.
+   ------------------------------------------------------------ */
+.panel{
+  position:fixed;top:14px;right:14px;z-index:100;width:296px;
+  background:rgba(10,10,15,.92);border:1px solid rgba(0,212,255,.25);
+  border-radius:12px;font-family:var(--mono);font-size:.72rem;
+  backdrop-filter:blur(14px);box-shadow:0 18px 50px rgba(0,0,0,.65);
+  max-height:calc(100vh - 28px);display:flex;flex-direction:column;
+}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;user-select:none}
+.panel-head b{color:var(--accent);letter-spacing:.14em;font-size:.7rem}
+.panel-head i{font-style:normal;color:var(--muted)}
+.panel-body{padding:11px 13px 15px;overflow-y:auto;overflow-x:hidden}
+.panel.collapsed .panel-body{display:none}
+.grp{margin-bottom:14px}
+.grp>label{display:flex;align-items:center;justify-content:space-between;color:var(--accent2);letter-spacing:.12em;text-transform:uppercase;font-size:.66rem;margin-bottom:8px;padding-bottom:5px;border-bottom:1px dashed rgba(255,255,255,.08)}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0}
+.row span{flex:0 0 82px;color:var(--muted)}
+.row input[type=range]{flex:1 1 auto;min-width:0;height:3px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.14);border-radius:2px;outline:none}
+.row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:11px;height:11px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 8px rgba(0,212,255,.8)}
+.row input[type=range]::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:var(--accent);cursor:pointer}
+.row b{flex:0 0 36px;text-align:right;color:var(--text);font-weight:500;font-size:.68rem}
+.row input[type=checkbox]{accent-color:var(--accent2);cursor:pointer}
+.btn{width:100%;margin-top:6px;padding:8px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.4);color:var(--accent);border-radius:7px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;cursor:pointer;transition:.25s}
+.btn:hover{background:rgba(0,212,255,.22);color:#fff}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.presets .btn{margin:0;font-size:.65rem;padding:7px 4px}
+
+/* HUD readout */
+.hud{
+  position:fixed;left:14px;bottom:14px;z-index:100;
+  font-family:var(--mono);font-size:.68rem;color:var(--accent2);
+  background:rgba(10,10,15,.8);border:1px solid rgba(0,255,136,.22);
+  border-radius:9px;padding:9px 12px;backdrop-filter:blur(10px);
+  line-height:1.75;pointer-events:none;letter-spacing:.06em;
+}
+.hud i{color:var(--muted);font-style:normal;display:inline-block;width:70px}
+.hud u{text-decoration:none;color:var(--text)}
+
+@media(max-width:820px){
+  .panel{width:calc(100vw - 28px);top:auto;bottom:14px;right:14px;max-height:52vh}
+  .hud{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== BACKGROUND STACK ===== -->
+<div class="fx-shader" aria-hidden="true"><canvas id="fxShader"></canvas></div>
+<div class="fx-canvas" aria-hidden="true"><canvas id="fxCanvas"></canvas></div>
+<div class="fx-scan"     aria-hidden="true"></div>
+<div class="fx-vignette" aria-hidden="true"></div>
+<div class="fx-progress" id="fxProgress" aria-hidden="true"></div>
+
+<!-- ===== CONTROL PANEL ===== -->
+<div class="panel" id="panel">
+  <div class="panel-head" id="panelHead"><b>// BACKGROUND CONTROL</b><i id="panelToggle">[ - ]</i></div>
+  <div class="panel-body">
+
+    <div class="presets">
+      <button class="btn" data-preset="subtle">SUBTLE</button>
+      <button class="btn" data-preset="balanced">BALANCED</button>
+      <button class="btn" data-preset="matrix">FULL MATRIX</button>
+      <button class="btn" data-preset="off">ALL OFF</button>
+    </div>
+
+    <div class="grp">
+      <label>Master</label>
+      <div class="row"><span>Opacity</span><input type="range" id="c_master" min="0" max="1" step="0.01"><b id="v_master"></b></div>
+      <div class="row"><span>Scanlines</span><input type="checkbox" id="c_scan"></div>
+      <div class="row"><span>Vignette</span><input type="checkbox" id="c_vig"></div>
+    </div>
+
+    <div class="grp">
+      <label>Matrix Rain</label>
+      <div class="row"><span>Enabled</span><input type="checkbox" id="c_rainOn"></div>
+      <div class="row"><span>Density</span><input type="range" id="c_rainDensity" min="0.2" max="2" step="0.05"><b id="v_rainDensity"></b></div>
+      <div class="row"><span>Speed</span><input type="range" id="c_rainSpeed" min="0.2" max="4" step="0.05"><b id="v_rainSpeed"></b></div>
+      <div class="row"><span>Trail</span><input type="range" id="c_rainTrail" min="0.02" max="0.4" step="0.005"><b id="v_rainTrail"></b></div>
+      <div class="row"><span>Glyph size</span><input type="range" id="c_rainFont" min="9" max="28" step="1"><b id="v_rainFont"></b></div>
+      <div class="row"><span>Brightness</span><input type="range" id="c_rainAlpha" min="0" max="1" step="0.01"><b id="v_rainAlpha"></b></div>
+      <div class="row"><span>Scroll boost</span><input type="range" id="c_rainBoost" min="0" max="8" step="0.1"><b id="v_rainBoost"></b></div>
+    </div>
+
+    <div class="grp">
+      <label>Neural Plexus</label>
+      <div class="row"><span>Enabled</span><input type="checkbox" id="c_plexOn"></div>
+      <div class="row"><span>Nodes</span><input type="range" id="c_plexCount" min="0" max="160" step="1"><b id="v_plexCount"></b></div>
+      <div class="row"><span>Link dist</span><input type="range" id="c_plexLink" min="40" max="300" step="5"><b id="v_plexLink"></b></div>
+      <div class="row"><span>Drift</span><input type="range" id="c_plexSpeed" min="0" max="1.2" step="0.02"><b id="v_plexSpeed"></b></div>
+      <div class="row"><span>Brightness</span><input type="range" id="c_plexAlpha" min="0" max="1" step="0.01"><b id="v_plexAlpha"></b></div>
+      <div class="row"><span>Parallax</span><input type="range" id="c_plexPar" min="0" max="0.4" step="0.01"><b id="v_plexPar"></b></div>
+    </div>
+
+    <div class="grp">
+      <label>WebGL Shader</label>
+      <div class="row"><span>Enabled</span><input type="checkbox" id="c_shOn"></div>
+      <div class="row"><span>Dust</span><input type="range" id="c_shDust" min="0" max="2" step="0.05"><b id="v_shDust"></b></div>
+      <div class="row"><span>Light beams</span><input type="range" id="c_shBeam" min="0" max="2" step="0.05"><b id="v_shBeam"></b></div>
+      <div class="row"><span>Mouse glow</span><input type="range" id="c_shGlow" min="0" max="2" step="0.05"><b id="v_shGlow"></b></div>
+      <div class="row"><span>Scroll band</span><input type="range" id="c_shHoriz" min="0" max="2" step="0.05"><b id="v_shHoriz"></b></div>
+    </div>
+
+    <button class="btn" id="btnCopy">COPY CONFIG JSON</button>
+    <button class="btn" id="btnHud">TOGGLE HUD</button>
+  </div>
+</div>
+
+<!-- ===== HUD ===== -->
+<div class="hud" id="hud">
+  <div><i>FPS</i><u id="h_fps">--</u></div>
+  <div><i>SCROLL</i><u id="h_scroll">0%</u></div>
+  <div><i>VELOCITY</i><u id="h_vel">0.00</u></div>
+  <div><i>COLUMNS</i><u id="h_cols">0</u></div>
+  <div><i>NODES</i><u id="h_nodes">0</u></div>
+  <div><i>WEBGL</i><u id="h_gl">--</u></div>
+</div>
+
+<!-- ===== DEMO CONTENT ===== -->
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Raw AI // background lab</div>
+    <h1>Your business,<br><span class="glow">running itself.</span></h1>
+    <p class="lede">Scroll. Everything behind this text reacts &mdash; the rain accelerates with your scroll speed, the light band tracks your position down the page, and the neural web drifts on parallax.</p>
+    <div class="term" id="term"><span class="cursor"></span></div>
+  </header>
+
+  <section class="block"><div class="reveal">
+    <h2>Layer 1 &mdash; WebGL shader field</h2>
+    <p>A single full-screen quad running one fragment shader. Simplex noise at two different scales gives you parallax dust; two diagonal sweeps give you light beams; a band of light tracks your scroll position. Roughly 40 lines of GLSL, zero libraries.</p>
+    <div class="grid">
+      <div class="card"><h3>Simplex noise</h3><p>The Ashima Arts <code>snoise</code> function &mdash; the canonical copy-paste one. Threshold it with smoothstep and mush becomes stars.</p></div>
+      <div class="card"><h3>Light sweeps</h3><p>Two diagonal bands whose brightness rises with your scroll velocity. Scroll fast, the room lights up.</p></div>
+      <div class="card"><h3>Scroll horizon</h3><p>A soft band that rises from the bottom to the top as you move down the page. Cyan at the top, green at the bottom.</p></div>
+    </div>
+  </div></section>
+
+  <section class="block"><div class="reveal">
+    <h2>Layer 2 &mdash; Matrix digital rain</h2>
+    <p>Real katakana glyphs, discrete cell stepping so characters never smear, a bright white leading glyph that gets repainted green the moment it moves on, and trails made with <code>destination-out</code> compositing so the canvas stays transparent.</p>
+    <div class="grid">
+      <div class="card"><h3>Two depth bands</h3><p>Near columns are bright, fast and green. Far columns are dim, slow and cyan. That is the whole parallax.</p></div>
+      <div class="card"><h3>Scroll boost</h3><p>Fall speed is multiplied by your scroll velocity. Stop scrolling and it settles back down.</p></div>
+      <div class="card"><h3>Glitch bursts</h3><p>On hard scrolls, random columns reset with a flash. Cheap, and it sells the machine.</p></div>
+    </div>
+  </div></section>
+
+  <section class="block"><div class="reveal">
+    <h2>Layer 3 &mdash; Neural plexus</h2>
+    <p>Nodes drifting with random velocities. Any two closer than the link distance get a line, opacity fading with distance. Your cursor is an extra node with a longer reach &mdash; move the mouse and the web reaches for it.</p>
+  </div></section>
+
+  <section class="block"><div class="reveal">
+    <h2>Layer 4 &mdash; CRT + vignette</h2>
+    <p>Pure CSS, free. A repeating 1px scanline gradient that drifts and flickers, plus a radial vignette that darkens the edges so your copy never fights the background. This is what makes the whole thing read as a screen instead of a wallpaper.</p>
+  </div></section>
+
+  <section class="block"><div class="reveal">
+    <h2>Tune it, then ship it</h2>
+    <p>Set the panel the way you want it, hit COPY CONFIG JSON, and paste that object into the <code>CONFIG</code> block of <code>matrix-bg-dropin.html</code>. That file is the paste-ready version for your live site &mdash; no panel, no HUD, no demo copy.</p>
+  </div></section>
+
+</div>
+
+<script>
+/* ================================================================
+   RAW AI - MATRIX BACKGROUND ENGINE
+   Three independent layers sharing one requestAnimationFrame loop
+   and one shared scroll state.
+
+   A. shader  -> WebGL fragment shader (dust, beams, scroll band, glow)
+   B. rain    -> Canvas2D matrix rain, trails via destination-out
+   C. plexus  -> Canvas2D node web, mouse-reactive, scroll parallax
+
+   No libraries. No build step. Works from file://
+   ================================================================ */
+(function () {
+'use strict';
+
+/* ================================================================
+   1. CONFIG  <- every number you can tune lives here
+   ================================================================ */
+var CONFIG = {
+  master: {
+    opacity : 0.85,   // overall strength of the whole background
+    scan    : true,   // CRT scanlines
+    vignette: true    // edge darkening (keeps copy readable)
+  },
+  rain: {
+    on      : true,
+    density : 1.0,    // streams per column. 1 = one per column
+    speed   : 1.0,    // global fall-speed multiplier
+    trail   : 0.085,  // how fast old glyphs fade. lower = longer tails
+    font    : 15,     // glyph size in CSS px (also sets column width)
+    alpha   : 0.85,   // brightness
+    boost   : 2.5     // extra speed multiplied by your scroll velocity
+  },
+  plexus: {
+    on      : true,
+    count   : 70,     // number of nodes
+    link    : 150,    // px distance under which two nodes connect
+    speed   : 0.30,   // drift speed
+    alpha   : 0.70,   // brightness
+    parallax: 0.12    // how much the web slides as you scroll
+  },
+  shader: {
+    on      : true,
+    dust    : 1.0,    // noise speck density
+    beam    : 1.0,    // diagonal light sweeps
+    glow    : 1.0,    // glow that follows the cursor
+    horiz   : 1.0     // light band that tracks scroll position
+  }
+};
+
+/* ================================================================
+   2. ENVIRONMENT
+   ================================================================ */
+var REDUCED  = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+var IS_MOBILE= innerWidth < 820;
+var DPR      = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.5 : 2);
+
+if (IS_MOBILE) {            // lighter defaults on phones
+  CONFIG.plexus.count = 34;
+  CONFIG.rain.density = 0.7;
+  CONFIG.rain.font    = 13;
+}
+
+var GLYPHS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFXZ:.=*+-<>';
+
+/* ================================================================
+   3. SHARED SCROLL STATE
+   S.p   = 0..1 position down the page
+   S.vel = 0..1 scroll velocity, fast attack / slow release
+   ================================================================ */
+var S = { y: 0, max: 1, p: 0, vel: 0 };
+var lastScrollY = 0;
+
+function measureScroll() {
+  S.max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+}
+/* No scroll listener: we read the position every frame instead. That way the
+   engine is correct even when the page loads already scrolled (refresh mid-page,
+   or an #anchor deep-link) and it can never drift out of sync with the DOM. */
+
+function updateScroll(dt) {
+  S.y = window.scrollY || window.pageYOffset || 0;
+  S.p = Math.min(1, Math.max(0, S.y / S.max));
+  if (progressEl) progressEl.style.transform = "scaleX(" + S.p.toFixed(4) + ")";
+  var dy = Math.abs(S.y - lastScrollY);
+  lastScrollY = S.y;
+  // normalise: a full viewport of scroll in one frame == velocity 1
+  var target = Math.min(1, dy / (innerHeight * 0.30));
+  // snap up instantly, ease back down slowly
+  S.vel += (target - S.vel) * (target > S.vel ? 0.55 : 1 - Math.pow(0.94, dt * 60));
+}
+
+/* mouse in CSS px, page-relative */
+var MOUSE = { x: innerWidth / 2, y: innerHeight / 2, seen: false };
+addEventListener('mousemove', function (e) {
+  MOUSE.x = e.clientX; MOUSE.y = e.clientY; MOUSE.seen = true;
+}, { passive: true });
+
+/* ================================================================
+   4. LAYER A - WebGL shader
+   One full-screen quad, one fragment shader. That is the entire
+   technique behind 90% of "how did they do that" backgrounds.
+   ================================================================ */
+var Shader = (function () {
+  var cvs = document.getElementById('fxShader');
+  var gl  = null;
+  try {
+    gl = cvs.getContext('webgl', { alpha: true, antialias: false, depth: false, stencil: false })
+      || cvs.getContext('experimental-webgl');
+  } catch (e) { gl = null; }
+
+  var api = { ok: false, W: 0, H: 0, resize: function () {}, draw: function () {} };
+  if (!gl) return api;
+
+  var VS = [
+    'attribute vec2 a;',
+    'varying vec2 uv;',
+    'void main(){ uv = a*0.5+0.5; gl_Position = vec4(a,0.0,1.0); }'
+  ].join('\n');
+
+  var FS = [
+    'precision highp float;',
+    'uniform vec2  u_res;',
+    'uniform vec2  u_mouse;',
+    'uniform float u_time, u_scroll, u_vel, u_dust, u_beam, u_glow, u_horiz;',
+    'varying vec2  uv;',
+
+    /* --- Ashima Arts 2D simplex noise. The canonical one. --- */
+    'vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }',
+    'float snoise(vec2 v){',
+    '  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);',
+    '  vec2 i  = floor(v + dot(v, C.yy));',
+    '  vec2 x0 = v - i + dot(i, C.xx);',
+    '  vec2 i1 = (x0.x > x0.y) ? vec2(1.0,0.0) : vec2(0.0,1.0);',
+    '  vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1;',
+    '  i = mod(i, 289.0);',
+    '  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));',
+    '  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);',
+    '  m = m*m; m = m*m;',
+    '  vec3 x = 2.0 * fract(p * C.www) - 1.0;',
+    '  vec3 h = abs(x) - 0.5;',
+    '  vec3 a0 = x - floor(x + 0.5);',
+    '  m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);',
+    '  vec3 g;',
+    '  g.x  = a0.x * x0.x + h.x * x0.y;',
+    '  g.yz = a0.yz * x12.xz + h.yz * x12.yw;',
+    '  return 130.0 * dot(m, g);',
+    '}',
+
+    'void main(){',
+    '  float aspect = u_res.x / max(u_res.y, 1.0);',
+    '  vec3 cyan  = vec3(0.000, 0.831, 1.000);',   /* #00d4ff */
+    '  vec3 green = vec3(0.000, 1.000, 0.533);',   /* #00ff88 */
+    '  vec3 col   = vec3(0.0);',
+
+    /* DUST, far layer: tiny, dense, drifting straight down.
+       smoothstep with a very high threshold keeps only the brightest
+       peaks of the noise - that is what turns mush into sharp specks. */
+    '  float d1 = snoise(uv*vec2(70.0*aspect,70.0) + vec2(0.0, -u_time*0.040));',
+    '  col += cyan * smoothstep(0.900, 0.998, d1) * 0.30 * u_dust;',
+
+    /* DUST, near layer: bigger, slower, drifting sideways too.
+       Two layers at different scales and speeds = parallax depth. */
+    '  float d2 = snoise(uv*vec2(26.0*aspect,26.0) + vec2(u_time*0.018, -u_time*0.032) + 21.3);',
+    '  col += green * smoothstep(0.930, 0.999, d2) * 0.26 * u_dust;',
+
+    /* LIGHT SWEEPS: two diagonal bands crossing the screen.
+       Brightness rises with scroll velocity - scroll hard, it flares. */
+    '  for (int k = 0; k < 2; k++) {',
+    '    float fk  = float(k);',
+    '    float c   = fract(u_time*0.021 + fk*0.5);',
+    '    float pos = mix(-0.35, 1.35, c);',
+    '    float d   = abs((uv.x - pos) + (uv.y - 0.5)*0.6);',
+    '    float beam = smoothstep(0.15, 0.0, d) * smoothstep(0.0, 0.12, c) * smoothstep(1.0, 0.85, c);',
+    '    col += mix(cyan, green, fk) * beam * (0.085 + u_vel*0.22) * u_beam;',
+    '  }',
+
+    /* SCROLL HORIZON: a soft band of light whose height is your
+       scroll position. Cyan at the top of the page, green at the end. */
+    '  float hy   = mix(-0.15, 1.15, u_scroll);',
+    '  float band = smoothstep(0.32, 0.0, abs(uv.y - hy));',
+    '  col += mix(cyan, green, u_scroll) * band * 0.07 * u_horiz;',
+
+    /* CURSOR GLOW */
+    '  vec2  m  = u_mouse / max(u_res, vec2(1.0));',
+    '  float md = distance(uv*vec2(aspect,1.0), m*vec2(aspect,1.0));',
+    '  col += cyan * (1.0 - smoothstep(0.0, 0.40, md)) * 0.08 * u_glow;',
+
+    /* alpha 1.0 is fine: the layer is composited with mix-blend-mode:screen,
+       so pure black is already invisible. */
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'
+  ].join('\n');
+
+  function compile(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.warn('[fx] shader compile failed:', gl.getShaderInfoLog(s));
+      return null;
+    }
+    return s;
+  }
+
+  var vs = compile(gl.VERTEX_SHADER, VS);
+  var fs = compile(gl.FRAGMENT_SHADER, FS);
+  if (!vs || !fs) return api;
+
+  var prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.warn('[fx] program link failed:', gl.getProgramInfoLog(prog));
+    return api;
+  }
+  gl.useProgram(prog);
+
+  /* two triangles covering the screen = TRIANGLE_STRIP of 4 verts */
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'a');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var U = {};
+  ['u_res','u_mouse','u_time','u_scroll','u_vel','u_dust','u_beam','u_glow','u_horiz']
+    .forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+
+  api.ok = true;
+  api.resize = function () {
+    var w = Math.round((cvs.clientWidth  || innerWidth ) * DPR);
+    var h = Math.round((cvs.clientHeight || innerHeight) * DPR);
+    if (cvs.width !== w || cvs.height !== h) { cvs.width = w; cvs.height = h; }
+    api.W = w; api.H = h;
+    gl.viewport(0, 0, w, h);
+  };
+  api.draw = function (t) {
+    if (!CONFIG.shader.on) { gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); return; }
+    gl.uniform2f(U.u_res,   api.W, api.H);
+    gl.uniform2f(U.u_mouse, MOUSE.x * DPR, api.H - MOUSE.y * DPR); // GL y is flipped
+    gl.uniform1f(U.u_time,  t);
+    gl.uniform1f(U.u_scroll,S.p);
+    gl.uniform1f(U.u_vel,   S.vel);
+    gl.uniform1f(U.u_dust,  CONFIG.shader.dust);
+    gl.uniform1f(U.u_beam,  CONFIG.shader.beam);
+    gl.uniform1f(U.u_glow,  CONFIG.shader.glow);
+    gl.uniform1f(U.u_horiz, CONFIG.shader.horiz);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  };
+  api.resize();
+  return api;
+})();
+
+/* ================================================================
+   5. LAYER B + C - the two Canvas2D layers
+
+   They need SEPARATE canvases: the rain keeps its old frames and
+   fades them (that is what makes the tails), while the plexus must
+   be wiped clean every frame or the lines smear into soup.
+   ================================================================ */
+var rainCvs = document.getElementById('fxCanvas');
+var host    = rainCvs.parentNode;
+rainCvs.style.cssText = 'position:absolute;inset:0';
+
+var plexCvs = document.createElement('canvas');
+plexCvs.style.cssText = 'position:absolute;inset:0';
+host.appendChild(plexCvs);
+
+var rctx = rainCvs.getContext('2d');
+var pctx = plexCvs.getContext('2d');
+var W = 0, H = 0;
+
+/* ---------- Layer B: MATRIX RAIN ---------- */
+var streams = [], colW = 0, rows = 0, nCols = 0;
+
+function newStream(spread) {
+  var far = Math.random() < 0.42;      // 42% of streams sit "far away"
+  return {
+    col  : (Math.random() * nCols) | 0,
+    row  : spread ? Math.floor(Math.random() * rows * 1.7) - Math.floor(rows * 0.7) : -2 - ((Math.random() * 16) | 0),
+    t    : Math.random(),              // sub-cell accumulator
+    speed: far ? 4 + Math.random() * 5 : 9 + Math.random() * 11, // cells/sec
+    far  : far,
+    prevChar: null,
+    prevRow : 0
+  };
+}
+
+function initRain() {
+  var f = CONFIG.rain.font * DPR;
+  colW  = f;
+  nCols = Math.max(1, Math.floor(W / colW));
+  rows  = Math.ceil(H / f) + 2;
+  var n = Math.max(1, Math.round(nCols * CONFIG.rain.density));
+  streams = [];
+  for (var i = 0; i < n; i++) streams.push(newStream(true));
+  rctx.clearRect(0, 0, W, H);
+}
+
+function drawRain(dt) {
+  /* --- the trail. destination-out subtracts alpha instead of painting
+     black, so the canvas stays transparent and only the glyphs fade. --- */
+  var fade = 1 - Math.pow(1 - CONFIG.rain.trail, dt * 60);
+  rctx.globalCompositeOperation = 'destination-out';
+  rctx.fillStyle = 'rgba(0,0,0,' + fade.toFixed(4) + ')';
+  rctx.fillRect(0, 0, W, H);
+  rctx.globalCompositeOperation = 'source-over';
+
+  if (!CONFIG.rain.on) return;
+
+  var f     = CONFIG.rain.font * DPR;
+  var A     = CONFIG.rain.alpha;
+  var boost = 1 + S.vel * CONFIG.rain.boost;
+  rctx.font = (f * 0.92).toFixed(1) + 'px "JetBrains Mono", ui-monospace, monospace';
+  rctx.textBaseline = 'top';
+
+  for (var i = 0; i < streams.length; i++) {
+    var s = streams[i];
+    s.t += dt * s.speed * CONFIG.rain.speed * boost;
+
+    var guard = 0;
+    while (s.t >= 1 && guard++ < 24) {   // guard: never lock up after a hidden tab
+      s.t -= 1;
+
+      /* the previous head stops being the head - repaint it as a
+         normal trail glyph so only ONE glyph is ever white */
+      if (s.prevChar !== null) {
+        rctx.shadowBlur = 0;
+        rctx.fillStyle = s.far
+          ? 'rgba(0,150,190,'  + (0.55 * A).toFixed(3) + ')'
+          : 'rgba(0,255,136,'  + (0.82 * A).toFixed(3) + ')';
+        rctx.fillText(s.prevChar, s.col * colW, s.prevRow * f);
+      }
+
+      s.row++;
+      var ch = GLYPHS.charAt((Math.random() * GLYPHS.length) | 0);
+
+      /* the new head: near-white with a glow */
+      rctx.shadowBlur  = (s.far ? 4 : 9) * DPR;
+      rctx.shadowColor = s.far ? '#00d4ff' : '#aaffcc';
+      rctx.fillStyle   = s.far
+        ? 'rgba(150,235,255,' + (0.75 * A).toFixed(3) + ')'
+        : 'rgba(225,255,238,' + (0.98 * A).toFixed(3) + ')';
+      rctx.fillText(ch, s.col * colW, s.row * f);
+
+      s.prevChar = ch;
+      s.prevRow  = s.row;
+
+      if (s.row > rows) {
+        var fresh = newStream(false);
+        s.col = fresh.col; s.row = fresh.row; s.speed = fresh.speed;
+        s.far = fresh.far; s.prevChar = null;
+      }
+    }
+  }
+  rctx.shadowBlur = 0;
+}
+
+/* ---------- Layer C: NEURAL PLEXUS ---------- */
+var nodes = [];
+
+function initPlex() {
+  nodes = [];
+  var n = CONFIG.plexus.count;
+  for (var i = 0; i < n; i++) {
+    nodes.push({
+      x : Math.random() * W,
+      y : Math.random() * H,
+      vx: (Math.random() - 0.5) * DPR,
+      vy: (Math.random() - 0.5) * DPR,
+      r : (Math.random() * 1.3 + 0.9) * DPR,
+      dx: 0, dy: 0
+    });
+  }
+}
+
+function drawPlex(dt) {
+  pctx.clearRect(0, 0, W, H);
+  if (!CONFIG.plexus.on || !nodes.length) return;
+
+  var A    = CONFIG.plexus.alpha;
+  var link = CONFIG.plexus.link * DPR;
+  var link2 = link * link;
+  var mlink = link * 1.5, mlink2 = mlink * mlink;
+  var sp   = CONFIG.plexus.speed;
+  /* parallax: the whole web slides up as you scroll, then wraps */
+  var off  = (S.y * CONFIG.plexus.parallax * DPR) % H;
+  var mx = MOUSE.x * DPR, my = MOUSE.y * DPR;
+  var i, j, a, b, dx, dy, d2, al;
+
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    a.x += a.vx * sp * dt * 60;
+    a.y += a.vy * sp * dt * 60;
+    if (a.x < -30) a.x = W + 30; else if (a.x > W + 30) a.x = -30;
+    if (a.y < -30) a.y = H + 30; else if (a.y > H + 30) a.y = -30;
+    /* display position = real position shifted by the parallax offset */
+    a.dx = a.x;
+    a.dy = a.y - off;
+    if (a.dy < 0) a.dy += H; else if (a.dy > H) a.dy -= H;
+  }
+
+  /* links between nearby nodes */
+  pctx.lineWidth = DPR;
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    for (j = i + 1; j < nodes.length; j++) {
+      b = nodes[j];
+      dx = a.dx - b.dx; dy = a.dy - b.dy;
+      d2 = dx * dx + dy * dy;
+      if (d2 < link2) {
+        al = (1 - Math.sqrt(d2) / link) * 0.30 * A;
+        pctx.strokeStyle = 'rgba(0,212,255,' + al.toFixed(3) + ')';
+        pctx.beginPath();
+        pctx.moveTo(a.dx, a.dy); pctx.lineTo(b.dx, b.dy);
+        pctx.stroke();
+      }
+    }
+  }
+
+  /* the cursor is just one more node, with a longer reach */
+  if (MOUSE.seen) {
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      dx = a.dx - mx; dy = a.dy - my;
+      d2 = dx * dx + dy * dy;
+      if (d2 < mlink2) {
+        al = (1 - Math.sqrt(d2) / mlink) * 0.42 * A;
+        pctx.strokeStyle = 'rgba(0,255,136,' + al.toFixed(3) + ')';
+        pctx.beginPath();
+        pctx.moveTo(a.dx, a.dy); pctx.lineTo(mx, my);
+        pctx.stroke();
+      }
+    }
+  }
+
+  /* the nodes themselves */
+  pctx.fillStyle = 'rgba(0,255,136,' + (0.62 * A).toFixed(3) + ')';
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    pctx.beginPath();
+    pctx.arc(a.dx, a.dy, a.r, 0, 6.2832);
+    pctx.fill();
+  }
+}
+
+/* ================================================================
+   6. RESIZE
+   ================================================================ */
+function resize() {
+  var w = Math.round((host.clientWidth  || innerWidth ) * DPR);
+  var h = Math.round((host.clientHeight || innerHeight) * DPR);
+  if (w === W && h === H) return;
+  W = w; H = h;
+  rainCvs.width = W; rainCvs.height = H;
+  plexCvs.width = W; plexCvs.height = H;
+  Shader.resize();
+  measureScroll();
+  initRain();
+  initPlex();
+}
+addEventListener('resize', resize, { passive: true });
+if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(host);
+
+/* ================================================================
+   7. MAIN LOOP  (one rAF for all three layers)
+   ================================================================ */
+var progressEl = document.getElementById('fxProgress');
+var last = performance.now(), raf = 0;
+var fpsAcc = 0, fpsFrames = 0, fps = 60;
+
+function frame(now) {
+  raf = requestAnimationFrame(frame);
+  var dt = (now - last) / 1000;
+  last = now;
+  if (dt > 0.05) dt = 0.05;          // clamp after a hidden tab / lag spike
+  if (dt <= 0) return;
+
+  fpsAcc += dt; fpsFrames++;
+  if (fpsAcc >= 0.5) { fps = fpsFrames / fpsAcc; fpsAcc = 0; fpsFrames = 0; }
+
+  updateScroll(dt);
+
+  Shader.draw(now * 0.001);
+  drawRain(dt);
+  drawPlex(dt);
+}
+
+function start() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+function stop()  { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) stop(); else start();
+});
+
+resize();
+if (REDUCED) {
+  /* respect the OS setting: draw exactly one frame, then stop */
+  updateScroll(0.016);
+  Shader.draw(0);
+  drawRain(0.016);
+  drawPlex(0.016);
+} else {
+  start();
+}
+
+/* ================================================================
+   8. CONTROL PANEL  (demo only - none of this ships)
+   ================================================================ */
+function get(path) { var o = CONFIG, p = path.split('.'); for (var i=0;i<p.length;i++) o = o[p[i]]; return o; }
+function set(path, v) {
+  var o = CONFIG, p = path.split('.');
+  for (var i = 0; i < p.length - 1; i++) o = o[p[i]];
+  o[p[p.length - 1]] = v;
+}
+
+/* [inputId, config path, valueLabelId, formatter, onChange] */
+var SLIDERS = [
+  ['c_master',      'master.opacity',   'v_master',      2, applyMaster],
+  ['c_rainDensity', 'rain.density',     'v_rainDensity', 2, initRain],
+  ['c_rainSpeed',   'rain.speed',       'v_rainSpeed',   2, null],
+  ['c_rainTrail',   'rain.trail',       'v_rainTrail',   3, null],
+  ['c_rainFont',    'rain.font',        'v_rainFont',    0, initRain],
+  ['c_rainAlpha',   'rain.alpha',       'v_rainAlpha',   2, null],
+  ['c_rainBoost',   'rain.boost',       'v_rainBoost',   1, null],
+  ['c_plexCount',   'plexus.count',     'v_plexCount',   0, initPlex],
+  ['c_plexLink',    'plexus.link',      'v_plexLink',    0, null],
+  ['c_plexSpeed',   'plexus.speed',     'v_plexSpeed',   2, null],
+  ['c_plexAlpha',   'plexus.alpha',     'v_plexAlpha',   2, null],
+  ['c_plexPar',     'plexus.parallax',  'v_plexPar',     2, null],
+  ['c_shDust',      'shader.dust',      'v_shDust',      2, null],
+  ['c_shBeam',      'shader.beam',      'v_shBeam',      2, null],
+  ['c_shGlow',      'shader.glow',      'v_shGlow',      2, null],
+  ['c_shHoriz',     'shader.horiz',     'v_shHoriz',     2, null]
+];
+var CHECKS = [
+  ['c_scan',   'master.scan',    applyMaster],
+  ['c_vig',    'master.vignette',applyMaster],
+  ['c_rainOn', 'rain.on',        null],
+  ['c_plexOn', 'plexus.on',      null],
+  ['c_shOn',   'shader.on',      null]
+];
+
+function applyMaster() {
+  var o = CONFIG.master.opacity;
+  document.querySelector('.fx-shader').style.opacity = o;
+  document.querySelector('.fx-canvas').style.opacity = o;
+  document.querySelector('.fx-scan').style.display     = CONFIG.master.scan     ? '' : 'none';
+  document.querySelector('.fx-vignette').style.display = CONFIG.master.vignette ? '' : 'none';
+}
+
+function syncPanel() {
+  SLIDERS.forEach(function (s) {
+    var el = document.getElementById(s[0]);
+    if (!el) return;
+    el.value = get(s[1]);
+    document.getElementById(s[2]).textContent = Number(get(s[1])).toFixed(s[3]);
+  });
+  CHECKS.forEach(function (c) {
+    var el = document.getElementById(c[0]);
+    if (el) el.checked = !!get(c[1]);
+  });
+  applyMaster();
+}
+
+SLIDERS.forEach(function (s) {
+  var el = document.getElementById(s[0]);
+  if (!el) return;
+  el.addEventListener('input', function () {
+    set(s[1], parseFloat(el.value));
+    document.getElementById(s[2]).textContent = Number(el.value).toFixed(s[3]);
+    if (s[4]) s[4]();
+  });
+});
+CHECKS.forEach(function (c) {
+  var el = document.getElementById(c[0]);
+  if (!el) return;
+  el.addEventListener('change', function () {
+    set(c[1], el.checked);
+    if (c[2]) c[2]();
+  });
+});
+
+var PRESETS = {
+  subtle:  { master:{opacity:0.45,scan:true,vignette:true},
+             rain:{on:true,density:0.45,speed:0.7,trail:0.13,font:14,alpha:0.5,boost:1.4},
+             plexus:{on:true,count:44,link:140,speed:0.22,alpha:0.45,parallax:0.08},
+             shader:{on:true,dust:0.7,beam:0.5,glow:0.8,horiz:0.6} },
+  balanced:{ master:{opacity:0.85,scan:true,vignette:true},
+             rain:{on:true,density:1.0,speed:1.0,trail:0.085,font:15,alpha:0.85,boost:2.5},
+             plexus:{on:true,count:70,link:150,speed:0.30,alpha:0.70,parallax:0.12},
+             shader:{on:true,dust:1,beam:1,glow:1,horiz:1} },
+  matrix:  { master:{opacity:1,scan:true,vignette:true},
+             rain:{on:true,density:1.7,speed:1.7,trail:0.05,font:16,alpha:1,boost:4.5},
+             plexus:{on:true,count:95,link:175,speed:0.45,alpha:0.85,parallax:0.2},
+             shader:{on:true,dust:1.5,beam:1.6,glow:1.3,horiz:1.5} },
+  off:     { master:{opacity:0.85,scan:false,vignette:false},
+             rain:{on:false,density:1,speed:1,trail:0.085,font:15,alpha:0.85,boost:2.5},
+             plexus:{on:false,count:70,link:150,speed:0.30,alpha:0.70,parallax:0.12},
+             shader:{on:false,dust:1,beam:1,glow:1,horiz:1} }
+};
+Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'), function (b) {
+  b.addEventListener('click', function () {
+    var p = PRESETS[b.getAttribute('data-preset')];
+    Object.keys(p).forEach(function (k) {
+      Object.keys(p[k]).forEach(function (kk) { CONFIG[k][kk] = p[k][kk]; });
+    });
+    syncPanel(); initRain(); initPlex();
+  });
+});
+
+document.getElementById('btnCopy').addEventListener('click', function () {
+  var txt = 'var CONFIG = ' + JSON.stringify(CONFIG, null, 2) + ';';
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+  document.body.appendChild(ta);
+  ta.select();
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  if (!ok && navigator.clipboard) { navigator.clipboard.writeText(txt).catch(function(){}); ok = true; }
+  var btn = this, old = btn.textContent;
+  btn.textContent = ok ? 'COPIED TO CLIPBOARD' : 'SEE CONSOLE';
+  if (!ok) console.log(txt);
+  setTimeout(function () { btn.textContent = old; }, 1600);
+});
+
+var panel = document.getElementById('panel');
+document.getElementById('panelHead').addEventListener('click', function () {
+  panel.classList.toggle('collapsed');
+  document.getElementById('panelToggle').textContent = panel.classList.contains('collapsed') ? '[ + ]' : '[ - ]';
+});
+
+var hudEl = document.getElementById('hud');
+document.getElementById('btnHud').addEventListener('click', function () {
+  hudEl.style.display = (hudEl.style.display === 'none') ? '' : 'none';
+});
+
+syncPanel();
+
+/* ================================================================
+   9. HUD readout
+   ================================================================ */
+var h_fps = document.getElementById('h_fps'), h_scroll = document.getElementById('h_scroll'),
+    h_vel = document.getElementById('h_vel'), h_cols = document.getElementById('h_cols'),
+    h_nodes = document.getElementById('h_nodes'), h_gl = document.getElementById('h_gl');
+h_gl.textContent = Shader.ok ? 'ACTIVE' : 'UNAVAILABLE';
+setInterval(function () {
+  if (document.hidden) return;
+  h_fps.textContent    = fps.toFixed(0);
+  h_scroll.textContent = (S.p * 100).toFixed(0) + '%';
+  h_vel.textContent    = S.vel.toFixed(2);
+  h_cols.textContent   = streams.length;
+  h_nodes.textContent  = nodes.length;
+}, 220);
+
+/* ================================================================
+   10. Demo extras: terminal typing + scroll reveals
+   ================================================================ */
+var TERM_LINES = [
+  '> boot raw_ai.core ......... OK',
+  '> loading agents [ 12 ] .... OK',
+  '> scanning pipeline ........ 3 leads flagged',
+  '> autonomy ................. ENABLED'
+];
+(function typeLoop() {
+  var el = document.getElementById('term');
+  if (!el || REDUCED) { if (el) el.textContent = TERM_LINES[TERM_LINES.length - 1]; return; }
+  var li = 0, ci = 0;
+  function tick() {
+    var line = TERM_LINES[li];
+    if (ci <= line.length) {
+      el.innerHTML = line.slice(0, ci) + '<span class="cursor"></span>';
+      ci++;
+      setTimeout(tick, 26 + Math.random() * 34);
+    } else {
+      setTimeout(function () { li = (li + 1) % TERM_LINES.length; ci = 0; tick(); }, 1500);
+    }
+  }
+  tick();
+})();
+
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function (el) { io.observe(el); });
+} else {
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal'), function (el) { el.classList.add('in'); });
+}
+
+/* expose for console tinkering */
+window.RAWFX = { CONFIG: CONFIG, initRain: initRain, initPlex: initPlex, S: S,
+  step: function (dt, t) { updateScroll(dt); Shader.draw(t || 0); drawRain(dt); drawPlex(dt); } };
+
+})();
+</script>
+</body>
+</html>

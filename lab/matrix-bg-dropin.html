@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raw AI — Matrix Background (drop-in)</title>
+
+<!--
+================================================================
+  HOW TO PUT THIS ON rawdre.github.io/ai-consulting
+================================================================
+  This file is a working preview AND the paste source.
+  Three blocks, marked BEGIN/END. Copy them into index.html:
+
+  1. BLOCK 1 (CSS)    -> paste inside your existing <style> tag,
+                         anywhere after the :root{...} line.
+  2. BLOCK 2 (MARKUP) -> paste right after your <body> tag,
+                         next to the existing <div class="tech-bg"></div>.
+                         Keep .tech-bg. They layer fine together.
+  3. BLOCK 3 (SCRIPT) -> paste just before </body>.
+
+  Nothing else in your page has to change.
+
+  WHY IT IS SAFE:
+  the whole stack lives inside one wrapper, .rawfx, set to
+  position:fixed / z-index:0 / pointer-events:none - exactly the
+  shape your existing .tech-bg already uses and which your content
+  already sits above. No z-index rewiring anywhere else.
+
+  TO TUNE: open matrix-bg-demo.html, move the sliders, hit
+  COPY CONFIG JSON, and paste the result over the CONFIG block
+  in BLOCK 3.
+================================================================
+-->
+
+<style>
+/* your site's real variables, so the preview matches */
+:root{--bg:#0a0a0f;--text:#e8e8f0;--muted:#8888aa;--accent:#00d4ff;--accent2:#00ff88;--gold:#ffd700}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6;overflow-x:hidden;position:relative}
+.demo{position:relative;z-index:10;max-width:900px;margin:0 auto;padding:0 24px}
+.demo section{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.demo h1{font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.05;font-weight:800;letter-spacing:-.03em;margin-bottom:18px}
+.demo h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.demo p{color:var(--muted);max-width:600px}
+.demo code{font-family:ui-monospace,Consolas,monospace;color:var(--accent);font-size:.9em}
+
+/* =============== BLOCK 1 - CSS - BEGIN =============== */
+/* Raw AI animated background. One wrapper, five layers.
+   The wrapper matches your existing .tech-bg shape, so your
+   content keeps sitting on top exactly as it does today. */
+.rawfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.rawfx canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+
+/* mix-blend-mode:screen is the whole trick. Screen makes BLACK
+   fully transparent and only lets light through, so the canvases
+   paint on pure black and only the cyan/green survives. It reads
+   as real light instead of a sticker on top of the page. */
+#rawfxShader,#rawfxRain,#rawfxPlex{mix-blend-mode:screen}
+
+/* CRT scanlines - pure CSS, costs nothing */
+.rawfx-scan{position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,
+    rgba(0,212,255,.028) 0px,rgba(0,212,255,.028) 1px,
+    transparent 1px,transparent 3px);
+  animation:rawfxScan 8s linear infinite,rawfxFlick 5s steps(2) infinite}
+@keyframes rawfxScan{to{background-position:0 300px}}
+@keyframes rawfxFlick{0%,97%{opacity:.55}98%{opacity:.28}99%{opacity:.7}100%{opacity:.55}}
+
+/* vignette - darkens the edges so your copy always wins */
+.rawfx-vig{position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 38%,rgba(10,10,15,.55) 100%)}
+
+/* scroll progress rail. z-index sits above your nav (1000). */
+.rawfx-progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:1001;pointer-events:none;
+  transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));
+  box-shadow:0 0 14px rgba(0,212,255,.8)}
+
+/* people who asked their OS for less motion get a still frame */
+@media (prefers-reduced-motion:reduce){
+  .rawfx-scan{animation:none}
+}
+/* =============== BLOCK 1 - CSS - END =============== */
+</style>
+</head>
+<body>
+
+<!-- =============== BLOCK 2 - MARKUP - BEGIN =============== -->
+<div class="rawfx" aria-hidden="true">
+  <canvas id="rawfxShader"></canvas>
+  <canvas id="rawfxRain"></canvas>
+  <canvas id="rawfxPlex"></canvas>
+  <div class="rawfx-scan"></div>
+  <div class="rawfx-vig"></div>
+</div>
+<div class="rawfx-progress" id="rawfxProgress" aria-hidden="true"></div>
+<!-- =============== BLOCK 2 - MARKUP - END =============== -->
+
+
+<!-- preview content only - do NOT copy this part -->
+<div class="demo">
+  <section>
+    <h1>Your business,<br><span>running itself.</span></h1>
+    <p>This is the live-site preset: quieter than the lab, so copy always reads first. Scroll and the rain accelerates, the light band tracks your position, and the neural web drifts on parallax.</p>
+  </section>
+  <section>
+    <h1>Readable at speed</h1>
+    <p>Tune it in <code>matrix-bg-demo.html</code>, hit COPY CONFIG JSON, paste the object over the <code>CONFIG</code> block below. Nothing else changes.</p>
+  </section>
+  <section>
+    <h1>Cheap to run</h1>
+    <p>No libraries, no build step, ~11KB. One <code>requestAnimationFrame</code> for all three layers, paused automatically when the tab is hidden, throttled on mobile, and fully off for <code>prefers-reduced-motion</code>.</p>
+  </section>
+</div>
+
+<!-- =============== BLOCK 3 - SCRIPT - BEGIN =============== -->
+<script>
+/* Raw AI animated background engine.
+   A. WebGL fragment shader  - noise dust, light sweeps, scroll band, cursor glow
+   B. Canvas2D matrix rain   - katakana, trails via destination-out compositing
+   C. Canvas2D neural plexus - node web, cursor-reactive, scroll parallax
+   No dependencies. Degrades to nothing if WebGL is missing. */
+(function () {
+'use strict';
+
+/* ---------------------------------------------------------------
+   CONFIG - the only part you normally touch.
+   These are the LIVE SITE defaults: deliberately quieter than the
+   lab so body copy always wins. Paste a tuned config over this.
+   --------------------------------------------------------------- */
+var CONFIG = {
+  master: { opacity: 0.55, scan: true, vignette: true },
+  rain:   { on: true, density: 0.60, speed: 0.85, trail: 0.110, font: 14, alpha: 0.60, boost: 2.0 },
+  plexus: { on: true, count: 55, link: 145, speed: 0.26, alpha: 0.55, parallax: 0.10 },
+  shader: { on: true, dust: 0.85, beam: 0.80, glow: 1.00, horiz: 0.90 }
+};
+
+var root = document.querySelector('.rawfx');
+if (!root) return;
+
+var REDUCED   = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+var IS_MOBILE = innerWidth < 820;
+var DPR       = Math.min(window.devicePixelRatio || 1, IS_MOBILE ? 1.5 : 2);
+
+if (IS_MOBILE) {                 /* lighter on phones */
+  CONFIG.plexus.count = 30;
+  CONFIG.rain.density = 0.45;
+  CONFIG.rain.font    = 13;
+}
+
+var GLYPHS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFXZ:.=*+-<>';
+
+/* ---------- shared scroll + pointer state ---------- */
+var S = { y: 0, max: 1, p: 0, vel: 0 }, lastY = 0;
+var progressEl = document.getElementById('rawfxProgress');
+
+function measure() { S.max = Math.max(1, document.documentElement.scrollHeight - innerHeight); }
+
+/* Read the scroll position every frame rather than from a scroll
+   listener: that stays correct when the page loads already scrolled
+   (a refresh mid-page, or an #anchor deep-link). */
+function updateScroll(dt) {
+  S.y = window.scrollY || window.pageYOffset || 0;
+  S.p = Math.min(1, Math.max(0, S.y / S.max));
+  if (progressEl) progressEl.style.transform = 'scaleX(' + S.p.toFixed(4) + ')';
+  var dy = Math.abs(S.y - lastY);
+  lastY = S.y;
+  var target = Math.min(1, dy / (innerHeight * 0.30));
+  /* snap up instantly, ease back down slowly */
+  S.vel += (target - S.vel) * (target > S.vel ? 0.55 : 1 - Math.pow(0.94, dt * 60));
+}
+
+var MOUSE = { x: innerWidth / 2, y: innerHeight / 2, seen: false };
+addEventListener('mousemove', function (e) { MOUSE.x = e.clientX; MOUSE.y = e.clientY; MOUSE.seen = true; }, { passive: true });
+
+/* ===============================================================
+   A. WebGL shader - one full-screen quad, one fragment shader
+   =============================================================== */
+var Shader = (function () {
+  var cvs = document.getElementById('rawfxShader'), gl = null;
+  try { gl = cvs.getContext('webgl', { alpha: true, antialias: false, depth: false, stencil: false }) || cvs.getContext('experimental-webgl'); }
+  catch (e) { gl = null; }
+  var api = { ok: false, W: 0, H: 0, resize: function () {}, draw: function () {} };
+  if (!gl) { cvs.style.display = 'none'; return api; }
+
+  var VS = 'attribute vec2 a; varying vec2 uv;' +
+           'void main(){ uv = a*0.5+0.5; gl_Position = vec4(a,0.0,1.0); }';
+
+  var FS = [
+    'precision highp float;',
+    'uniform vec2 u_res, u_mouse;',
+    'uniform float u_time,u_scroll,u_vel,u_dust,u_beam,u_glow,u_horiz;',
+    'varying vec2 uv;',
+    /* Ashima Arts 2D simplex noise - the canonical implementation */
+    'vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }',
+    'float snoise(vec2 v){',
+    ' const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);',
+    ' vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx);',
+    ' vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);',
+    ' vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod(i,289.0);',
+    ' vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));',
+    ' vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);',
+    ' m=m*m; m=m*m;',
+    ' vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 a0=x-floor(x+0.5);',
+    ' m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);',
+    ' vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw;',
+    ' return 130.0*dot(m,g); }',
+    'void main(){',
+    ' float aspect=u_res.x/max(u_res.y,1.0);',
+    ' vec3 cyan=vec3(0.0,0.831,1.0);',      /* #00d4ff */
+    ' vec3 green=vec3(0.0,1.0,0.533);',     /* #00ff88 */
+    ' vec3 col=vec3(0.0);',
+    /* dust, two scales at two speeds = parallax depth.
+       smoothstep with a very high threshold keeps only the brightest
+       peaks of the noise - that is what turns mush into sharp specks */
+    ' float d1=snoise(uv*vec2(70.0*aspect,70.0)+vec2(0.0,-u_time*0.040));',
+    ' col+=cyan*smoothstep(0.900,0.998,d1)*0.30*u_dust;',
+    ' float d2=snoise(uv*vec2(26.0*aspect,26.0)+vec2(u_time*0.018,-u_time*0.032)+21.3);',
+    ' col+=green*smoothstep(0.930,0.999,d2)*0.26*u_dust;',
+    /* two diagonal light sweeps, brighter the faster you scroll */
+    ' for(int k=0;k<2;k++){',
+    '  float fk=float(k); float c=fract(u_time*0.021+fk*0.5);',
+    '  float pos=mix(-0.35,1.35,c);',
+    '  float d=abs((uv.x-pos)+(uv.y-0.5)*0.6);',
+    '  float beam=smoothstep(0.15,0.0,d)*smoothstep(0.0,0.12,c)*smoothstep(1.0,0.85,c);',
+    '  col+=mix(cyan,green,fk)*beam*(0.085+u_vel*0.22)*u_beam; }',
+    /* a band of light whose height IS your scroll position */
+    ' float hy=mix(-0.15,1.15,u_scroll);',
+    ' float band=smoothstep(0.32,0.0,abs(uv.y-hy));',
+    ' col+=mix(cyan,green,u_scroll)*band*0.07*u_horiz;',
+    /* cursor glow */
+    ' vec2 m=u_mouse/max(u_res,vec2(1.0));',
+    ' float md=distance(uv*vec2(aspect,1.0),m*vec2(aspect,1.0));',
+    ' col+=cyan*(1.0-smoothstep(0.0,0.40,md))*0.08*u_glow;',
+    ' gl_FragColor=vec4(col,1.0); }'
+  ].join('\n');
+
+  function compile(t, src) {
+    var s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn('[rawfx]', gl.getShaderInfoLog(s)); return null; }
+    return s;
+  }
+  var vs = compile(gl.VERTEX_SHADER, VS), fs = compile(gl.FRAGMENT_SHADER, FS);
+  if (!vs || !fs) { cvs.style.display = 'none'; return api; }
+
+  var prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('[rawfx]', gl.getProgramInfoLog(prog)); cvs.style.display = 'none'; return api; }
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'a');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var U = {};
+  ['u_res','u_mouse','u_time','u_scroll','u_vel','u_dust','u_beam','u_glow','u_horiz']
+    .forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+
+  api.ok = true;
+  api.resize = function () {
+    var w = Math.round((cvs.clientWidth || innerWidth) * DPR);
+    var h = Math.round((cvs.clientHeight || innerHeight) * DPR);
+    if (cvs.width !== w || cvs.height !== h) { cvs.width = w; cvs.height = h; }
+    api.W = w; api.H = h; gl.viewport(0, 0, w, h);
+  };
+  api.draw = function (t) {
+    if (!CONFIG.shader.on) { gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); return; }
+    gl.uniform2f(U.u_res, api.W, api.H);
+    gl.uniform2f(U.u_mouse, MOUSE.x * DPR, api.H - MOUSE.y * DPR);  /* GL y is flipped */
+    gl.uniform1f(U.u_time, t);
+    gl.uniform1f(U.u_scroll, S.p);
+    gl.uniform1f(U.u_vel, S.vel);
+    gl.uniform1f(U.u_dust, CONFIG.shader.dust);
+    gl.uniform1f(U.u_beam, CONFIG.shader.beam);
+    gl.uniform1f(U.u_glow, CONFIG.shader.glow);
+    gl.uniform1f(U.u_horiz, CONFIG.shader.horiz);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  };
+  api.resize();
+  return api;
+})();
+
+/* ===============================================================
+   B + C. The two Canvas2D layers.
+   They need SEPARATE canvases: the rain keeps its old frames and
+   fades them (that is what makes the tails), while the plexus must
+   be wiped clean every frame or the lines smear into soup.
+   =============================================================== */
+var rainCvs = document.getElementById('rawfxRain');
+var plexCvs = document.getElementById('rawfxPlex');
+var rctx = rainCvs.getContext('2d');
+var pctx = plexCvs.getContext('2d');
+var W = 0, H = 0;
+
+/* ---------- B. matrix rain ---------- */
+var streams = [], colW = 0, rows = 0, nCols = 0;
+
+function newStream(spread) {
+  var far = Math.random() < 0.42;          /* 42% of streams sit "far away" */
+  return {
+    col : (Math.random() * nCols) | 0,
+    /* on init, spread streams across the whole screen so it is full
+       immediately instead of raining in from above */
+    row : spread ? Math.floor(Math.random() * rows * 1.7) - Math.floor(rows * 0.7)
+                 : -2 - ((Math.random() * 16) | 0),
+    t   : Math.random(),                   /* sub-cell accumulator */
+    speed: far ? 4 + Math.random() * 5 : 9 + Math.random() * 11,  /* cells/sec */
+    far : far, prevChar: null, prevRow: 0
+  };
+}
+
+function initRain() {
+  var f = CONFIG.rain.font * DPR;
+  colW = f;
+  nCols = Math.max(1, Math.floor(W / colW));
+  rows = Math.ceil(H / f) + 2;
+  var n = Math.max(1, Math.round(nCols * CONFIG.rain.density));
+  streams = [];
+  for (var i = 0; i < n; i++) streams.push(newStream(true));
+  rctx.clearRect(0, 0, W, H);
+}
+
+function drawRain(dt) {
+  /* THE TRAIL. destination-out subtracts alpha instead of painting
+     black, so the canvas stays transparent and only the glyphs fade.
+     Powered by dt so the look is identical at 60Hz and 144Hz. */
+  var fade = 1 - Math.pow(1 - CONFIG.rain.trail, dt * 60);
+  rctx.globalCompositeOperation = 'destination-out';
+  rctx.fillStyle = 'rgba(0,0,0,' + fade.toFixed(4) + ')';
+  rctx.fillRect(0, 0, W, H);
+  rctx.globalCompositeOperation = 'source-over';
+  if (!CONFIG.rain.on) return;
+
+  var f = CONFIG.rain.font * DPR, A = CONFIG.rain.alpha;
+  var boost = 1 + S.vel * CONFIG.rain.boost;    /* scroll makes it fall faster */
+  rctx.font = (f * 0.92).toFixed(1) + 'px ui-monospace, Consolas, monospace';
+  rctx.textBaseline = 'top';
+
+  for (var i = 0; i < streams.length; i++) {
+    var s = streams[i];
+    s.t += dt * s.speed * CONFIG.rain.speed * boost;
+    var guard = 0;
+    while (s.t >= 1 && guard++ < 24) {          /* guard: never lock up after a hidden tab */
+      s.t -= 1;
+      /* the old head stops being the head - repaint it as a normal
+         trail glyph, so exactly ONE glyph per stream is ever white */
+      if (s.prevChar !== null) {
+        rctx.shadowBlur = 0;
+        rctx.fillStyle = s.far ? 'rgba(0,150,190,' + (0.55 * A).toFixed(3) + ')'
+                               : 'rgba(0,255,136,' + (0.82 * A).toFixed(3) + ')';
+        rctx.fillText(s.prevChar, s.col * colW, s.prevRow * f);
+      }
+      s.row++;
+      var ch = GLYPHS.charAt((Math.random() * GLYPHS.length) | 0);
+      rctx.shadowBlur = (s.far ? 4 : 9) * DPR;
+      rctx.shadowColor = s.far ? '#00d4ff' : '#aaffcc';
+      rctx.fillStyle = s.far ? 'rgba(150,235,255,' + (0.75 * A).toFixed(3) + ')'
+                             : 'rgba(225,255,238,' + (0.98 * A).toFixed(3) + ')';
+      rctx.fillText(ch, s.col * colW, s.row * f);
+      s.prevChar = ch; s.prevRow = s.row;
+      if (s.row > rows) {
+        var fresh = newStream(false);
+        s.col = fresh.col; s.row = fresh.row; s.speed = fresh.speed;
+        s.far = fresh.far; s.prevChar = null;
+      }
+    }
+  }
+  rctx.shadowBlur = 0;
+}
+
+/* ---------- C. neural plexus ---------- */
+var nodes = [];
+
+function initPlex() {
+  nodes = [];
+  for (var i = 0; i < CONFIG.plexus.count; i++) {
+    nodes.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * DPR, vy: (Math.random() - 0.5) * DPR,
+      r: (Math.random() * 1.3 + 0.9) * DPR, dx: 0, dy: 0
+    });
+  }
+}
+
+function drawPlex(dt) {
+  pctx.clearRect(0, 0, W, H);
+  if (!CONFIG.plexus.on || !nodes.length) return;
+
+  var A = CONFIG.plexus.alpha;
+  var link = CONFIG.plexus.link * DPR, link2 = link * link;
+  var mlink = link * 1.5, mlink2 = mlink * mlink;
+  var sp = CONFIG.plexus.speed;
+  var off = (S.y * CONFIG.plexus.parallax * DPR) % H;   /* scroll parallax */
+  var mx = MOUSE.x * DPR, my = MOUSE.y * DPR;
+  var i, j, a, b, dx, dy, d2, al;
+
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    a.x += a.vx * sp * dt * 60;
+    a.y += a.vy * sp * dt * 60;
+    if (a.x < -30) a.x = W + 30; else if (a.x > W + 30) a.x = -30;
+    if (a.y < -30) a.y = H + 30; else if (a.y > H + 30) a.y = -30;
+    a.dx = a.x;
+    a.dy = a.y - off;
+    if (a.dy < 0) a.dy += H; else if (a.dy > H) a.dy -= H;
+  }
+
+  pctx.lineWidth = DPR;
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    for (j = i + 1; j < nodes.length; j++) {
+      b = nodes[j];
+      dx = a.dx - b.dx; dy = a.dy - b.dy; d2 = dx * dx + dy * dy;
+      if (d2 < link2) {
+        al = (1 - Math.sqrt(d2) / link) * 0.30 * A;
+        pctx.strokeStyle = 'rgba(0,212,255,' + al.toFixed(3) + ')';
+        pctx.beginPath(); pctx.moveTo(a.dx, a.dy); pctx.lineTo(b.dx, b.dy); pctx.stroke();
+      }
+    }
+  }
+  /* the cursor is just one more node, with a longer reach */
+  if (MOUSE.seen) {
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      dx = a.dx - mx; dy = a.dy - my; d2 = dx * dx + dy * dy;
+      if (d2 < mlink2) {
+        al = (1 - Math.sqrt(d2) / mlink) * 0.42 * A;
+        pctx.strokeStyle = 'rgba(0,255,136,' + al.toFixed(3) + ')';
+        pctx.beginPath(); pctx.moveTo(a.dx, a.dy); pctx.lineTo(mx, my); pctx.stroke();
+      }
+    }
+  }
+  pctx.fillStyle = 'rgba(0,255,136,' + (0.62 * A).toFixed(3) + ')';
+  for (i = 0; i < nodes.length; i++) {
+    a = nodes[i];
+    pctx.beginPath(); pctx.arc(a.dx, a.dy, a.r, 0, 6.2832); pctx.fill();
+  }
+}
+
+/* ---------- resize / master opacity ---------- */
+function applyMaster() {
+  root.style.opacity = CONFIG.master.opacity;
+  var sc = root.querySelector('.rawfx-scan'), vg = root.querySelector('.rawfx-vig');
+  if (sc) sc.style.display = CONFIG.master.scan ? '' : 'none';
+  if (vg) vg.style.display = CONFIG.master.vignette ? '' : 'none';
+}
+
+function resize() {
+  var w = Math.round((root.clientWidth || innerWidth) * DPR);
+  var h = Math.round((root.clientHeight || innerHeight) * DPR);
+  if (w === W && h === H) return;
+  W = w; H = h;
+  rainCvs.width = W; rainCvs.height = H;
+  plexCvs.width = W; plexCvs.height = H;
+  Shader.resize(); measure(); initRain(); initPlex();
+}
+addEventListener('resize', resize, { passive: true });
+if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(root);
+
+/* ---------- one rAF for all three layers ---------- */
+var last = performance.now(), raf = 0;
+function frame(now) {
+  raf = requestAnimationFrame(frame);
+  var dt = (now - last) / 1000; last = now;
+  if (dt > 0.05) dt = 0.05;        /* clamp after a hidden tab or a lag spike */
+  if (dt <= 0) return;
+  updateScroll(dt);
+  Shader.draw(now * 0.001);
+  drawRain(dt);
+  drawPlex(dt);
+}
+function start() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+function stop()  { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+/* stop burning battery while the tab is in the background */
+document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+/* the page grows as images/fonts land - re-measure so scroll % stays honest */
+addEventListener('load', measure);
+setTimeout(measure, 1200);
+
+applyMaster();
+resize();
+if (REDUCED) {                     /* honour the OS setting: one still frame */
+  updateScroll(0.016); Shader.draw(0); drawRain(0.016); drawPlex(0.016);
+} else {
+  start();
+}
+
+/* live tinkering from devtools: RAWFX.CONFIG.rain.density = 1.4; RAWFX.initRain() */
+window.RAWFX = { CONFIG: CONFIG, initRain: initRain, initPlex: initPlex, applyMaster: applyMaster, S: S,
+  step: function (dt, t) { updateScroll(dt); Shader.draw(t || 0); drawRain(dt); drawPlex(dt); } };
+
+})();
+</script>
+<!-- =============== BLOCK 3 - SCRIPT - END =============== -->
+
+</body>
+</html>
