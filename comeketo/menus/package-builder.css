@@ -11,3 +11,4 @@
 .package-help th,.package-help td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
 .package-help thead th{font-size:10px;color:var(--muted)}.package-help th:first-child{padding-left:0}.package-help td:last-child{white-space:nowrap}
 @media(max-width:700px){.package-help table{font-size:11px}.package-help th,.package-help td{padding:9px 5px}}
+.customer-reviews{border-top:1px solid var(--line);padding:38px 0 50px}.customer-reviews h2{font-size:32px;margin:0 0 12px}.customer-reviews>.muted{font-size:13px;margin-bottom:25px}.customer-reviews iframe{max-width:100%!important}footer p{letter-spacing:0;font-size:11px;line-height:1.8;margin-top:14px}
