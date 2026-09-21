@@ -99,7 +99,7 @@
     $('back').hidden=n===0;
     $('next').textContent=['Choose your menu →','Add event location →','Add contact details →','Review your request →',preview?'Preview complete · sending disabled':'Send My Menu & Request a Call'][n];
     $('next').disabled=preview&&n===4;
-    update();if(n===4)drawReview();
+    update();if(n===4){drawReview();window.dispatchEvent(new CustomEvent('menu-review',{detail:{state:structuredClone(state),estimate:estimate(),preview}}));}
     if(n!==0||furthest>0)$('step-title').focus({preventScroll:true});
     if(furthest>0)$('progress').scrollIntoView({block:'start',behavior:'instant'});
   }
@@ -132,7 +132,7 @@
   }
   form.addEventListener('submit',event=>{
     event.preventDefault();if(busy||sent)return;read();
-    const invalid=form.querySelector(`[data-step="${step}"] :invalid`);
+    const invalid=form.querySelector(`[data-step="${step}"] :invalid:not(#pay-amount)`);
     if(invalid){invalid.reportValidity();return;}
     if(step===4){for(let i=0;i<4;i++){const message=core.validate(i,state,todayISO);if(message){show(i);error(message);return;}}send();}
     else{const message=core.validate(step,state,todayISO);if(message){error(message);return;}show(step+1);}
@@ -148,5 +148,12 @@
   $('review').addEventListener('click',e=>{const b=e.target.closest('[data-edit]');if(b&&!busy)show(+b.dataset.edit);});
   $('progress').addEventListener('click',e=>{const b=e.target.closest('[data-step-nav]');if(b&&!busy&&!sent){const n=+b.dataset.stepNav;if(n>step){read();for(let i=0;i<n;i++){const msg=core.validate(i,state,todayISO);if(msg){show(i);error(msg);return;}}}show(n);}});
   $('download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([lastPayload.order_summary_text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Comeketo-menu-request.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+  window.restoreMenuPayment=function(saved){
+    if(!saved)return;
+    for(const k of Object.keys(state))if(Array.isArray(state[k])&&Array.isArray(saved[k]))state[k]=saved[k];
+    state.style=Object.hasOwn(C.styles,saved.style)?saved.style:'Buffet';
+    for(const [k,v]of Object.entries(saved)){const field=form.elements.namedItem(k);if(field&&typeof v!=='object'){if(field.type==='checkbox')field.checked=v===true;else field.value=String(v);}}
+    drawStyles();drawMenu();read();show(4);
+  };
   drawStyles();drawMenu();show(0);
 })();

@@ -1,12 +1,20 @@
 # Customer catering menu builder
 
+## Stripe extension (September 21, 2026)
+
+The review step offers an editable payment of at least 20% or full payment less 3% through a personalized command-center invitation. Generic visitors can request a quote; payment requires the link created from an André-owned lead's quote. The server validates ownership and recalculates all prices, including the rep-confirmed delivery amount. A fragment token is removed from the address bar before third-party widgets load and kept in sessionStorage for the tab. Stripe return restores the saved checkout details and verifies payment with the backend.
+
+`package-payments.js` calls the command center's public options, checkout and status routes. No secret keys are present here. Backend setup is documented in `rawdre/comeketo-command-center/docs/customer-menu-payments.md`. Checkout is disabled until the API and webhook secrets are configured. Live Stripe verification is pending Render dashboard access; do not mistake local preview for a completed payment test.
+
+Browser preview verified the $4,365.17 sample total, $873.04 minimum, editable amount, $4,234.21 full-payment option ($130.96 savings), zero balance on full payment, and retained Crisp chat. Preview cannot send requests or create Checkout sessions.
+
 Local branch: `feature/customer-catering-builder`. The existing tray menu links to
 `comeketo/menus/catering-package.html`. Existing tray purchasing behavior is retained.
 
 ## Customer experience
 
 Event and service style → dishes → full venue address → contact and callback
-permission → editable review → request receipt. No payment or binding booking.
+permission → editable review → request receipt, or optional Stripe booking payment through a personalized link.
 Popular mains appear first; search and “See all” expose the complete catalog.
 Selections remain in memory when moving between steps. Personal information is not
 written to localStorage. Refreshing the page clears the draft.
@@ -78,9 +86,9 @@ Journeys derived from the user’s request in this task.
 - Desktop and 390px mobile visual inspection. No prior visual baseline exists;
   visual regression comparison is inconclusive. No formal screen-reader audit.
 - No dependencies were added; this static feature has no package manifest and
-  no applicable npm dependency audit. No changes made to command-center backend.
+  no applicable npm dependency audit. Stripe uses the companion command-center backend.
 
-Not published. The email workflow verification above is required before release.
+Published on GitHub Pages at the user's request. The email workflow verification above remains outstanding.
 
 ## Final self-evaluation
 
@@ -95,7 +103,6 @@ The customer UI is reviewable locally; production email delivery remains unverif
 | Conciseness | 4/5 | Popular choices reduce initial menu length; full catalog still needs expansion for less common dishes. |
 
 Overall: 3.8/5. Highest-impact next step: configure and verify both email deliveries,
-then obtain publishing approval. Follow-up: automate catalog synchronization.
+then verify the live Stripe configuration. Follow-up: automate catalog synchronization.
 Would the user agree? The preview is ready to assess, but calling the integration
-fully live would overstate completion. No production messages, pushes, or deploys
-were performed.
+fully live would overstate completion. No production messages were sent during verification.

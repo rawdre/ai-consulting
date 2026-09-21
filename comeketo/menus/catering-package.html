@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <script>
+    // Keep the personalized booking reference out of referrers and third-party URL tracking.
+    (()=>{const token=new URLSearchParams(location.hash.slice(1)).get('booking');if(token&&/^[a-f0-9]{64}$/.test(token)){window.menuBookingToken=token;try{sessionStorage.setItem('comeketo-booking',token);}catch{}history.replaceState(null,'',location.pathname+location.search);}})();
+  </script>
   <title>Build Your Catering Menu · Comeketo Catering</title>
   <meta name="description" content="Make your event menu your own. Choose American, Mexican and Italian favorites, explore service styles, and request a personal callback from Comeketo Catering.">
   <link rel="stylesheet" href="package-builder.css">
-  <script defer src="package-catalog.js"></script><script defer src="package-core.js"></script><script defer src="package-builder.js"></script>
+  <script defer src="package-catalog.js"></script><script defer src="package-core.js"></script><script defer src="package-builder.js"></script><script defer src="package-payments.js"></script>
   <!-- Same live support account as the original tray-menu page. -->
   <script>
     window.$crisp=window.$crisp||[];
@@ -49,10 +54,10 @@
           <label class="wide">Best time for a call <span>(Eastern Time)</span><select name="callback" required><option value="">Choose a time that works for you</option><option>Morning · 9 am–12 pm ET</option><option>Afternoon · 12–5 pm ET</option><option>Evening · 5–7 pm ET</option><option>Any time · 9 am–7 pm ET</option></select></label>
           <label class="wide">Anything else we should know? <span>(optional)</span><textarea name="notes" maxlength="2000" placeholder="Your vision, questions, or a particular day to call…"></textarea></label>
         </div><label class="consent"><input name="consent" type="checkbox" required><span>Please email me my menu and call me about this catering request. My details will be used to help plan this event.</span></label></section>
-        <section data-step="4" hidden><div id="review"></div><p class="notice">This is an estimate and a callback request. Availability, delivery, and final pricing will be confirmed with you. No payment is due now.</p></section>
+        <section data-step="4" hidden><div id="review"></div><section id="payment-panel" class="payment-panel" aria-labelledby="payment-title"><p class="eyebrow">READY TO BOOK?</p><h3 id="payment-title">Reserve your date.</h3><p>Pay at least 20% now, or pay in full and save 3%.</p><div id="payment-content" aria-live="polite"></div></section><p class="notice">You can also send your menu and request a call below. No payment is required to ask for a quote. If you choose to pay, review your event details and payment amount before continuing to Stripe.</p></section>
         <div id="error" role="alert" tabindex="-1" hidden></div>
         <div class="actions"><button id="back" type="button" class="secondary">← Back</button><button id="next" type="submit" class="primary">Choose your menu →</button></div>
-        <p class="footnote">No payment required · Your event is confirmed after speaking with our team.</p>
+        <p class="footnote">No payment required to request a quote · Pay securely when you’re ready to book.</p>
       </form>
       <section id="success" hidden aria-live="polite"><div class="success-mark">✓</div><h2 tabindex="-1" id="success-title">Your request is with us.</h2><p>Thank you, <span id="customer"></span>. Our team will review your menu and call you at your preferred time to work through the details.</p><p id="receipt"></p><button type="button" class="primary" id="download">Save a copy of your menu ↓</button><p><a href="tray-menu.html">Back to the tray menu ↗</a></p></section>
     </section>
