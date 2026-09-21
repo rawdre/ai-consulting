@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Build Your Catering Menu · Comeketo Catering</title>
+  <meta name="description" content="Make your event menu your own. Choose American, Mexican and Italian favorites, explore service styles, and request a personal callback from Comeketo Catering.">
+  <link rel="stylesheet" href="package-builder.css">
+  <script defer src="package-catalog.js"></script><script defer src="package-core.js"></script><script defer src="package-builder.js"></script>
+</head>
+<body>
+<a class="skip" href="#workspace">Skip to menu builder</a>
+<header><a class="brand" href="tray-menu.html"><img src="assets/comeketo-logo.png" alt=""><span>COMEKETO<small>CATERING · SINCE 2009</small></span></a><a class="help" href="tel:+19783811212">A little help? <strong>(978) 381-1212</strong></a></header>
+<main id="workspace">
+  <div class="intro"><div><p class="eyebrow">AT YOUR TABLE, YOUR WAY</p><h1>A menu made for<br><em>your gathering.</em></h1><p>American, Mexican & Italian favorites. A few simple choices.<br class="desktop"> A personal conversation to bring it all together.</p></div><div class="intro-note"><span>01 — 05</span><p>Build your menu.<br>We’ll take care of the details.</p><a href="tray-menu.html">Prefer individual trays? Explore the tray menu ↗</a></div></div>
+  <nav aria-label="Your progress"><ol id="progress"></ol></nav>
+  <div class="workspace">
+    <section class="editor" aria-label="Catering request">
+      <div id="preview-note" hidden class="notice">Design preview — sending is disabled. You can explore every step.</div>
+      <p class="eyebrow" id="step-number"></p><h2 id="step-title" tabindex="-1"></h2><p id="step-description" class="muted"></p>
+      <form id="builder" novalidate>
+        <section data-step="0">
+          <div class="fields">
+            <label class="wide">What are we celebrating?<select name="event" required><option value="">Choose an event type</option><option>Wedding</option><option>Corporate event</option><option>Birthday</option><option>Family gathering</option><option>Graduation</option><option>Other celebration</option></select></label>
+            <label>Event date<input name="date" type="date" required></label><label>Serving time <span>(event local time)</span><input name="time" type="time" required></label>
+            <label class="wide">How many guests?<input name="guests" type="number" min="1" max="5000" step="1" placeholder="e.g. 50" inputmode="numeric" required><small>An estimate is fine. We can fine-tune it on our call.</small></label>
+          </div>
+          <fieldset><legend>How would you like us to serve?</legend><div class="styles" id="styles"></div></fieldset>
+        </section>
+        <section data-step="1" hidden><div class="menu-guide" id="menu-guide"></div><label class="search">Find a favorite<input id="search" type="search" placeholder="Search chicken, pasta, tacos…"></label><div id="menu"></div><label>Dietary needs & allergies <span>(optional)</span><textarea name="diet" maxlength="2000" placeholder="Tell us about allergies, vegetarian meals, or other needs."></textarea><small>Our team will confirm which options can accommodate your guests.</small></label></section>
+        <section data-step="2" hidden><div class="fields">
+          <label class="wide">Venue name <span>(optional)</span><input name="venue" maxlength="150" autocomplete="organization" placeholder="Venue, office, or private home"></label>
+          <label class="wide">Street address<input name="street" maxlength="200" autocomplete="address-line1" placeholder="123 Main Street" required></label>
+          <label class="wide">Apartment, suite, or floor <span>(optional)</span><input name="unit" maxlength="100" autocomplete="address-line2"></label>
+          <label>City<input name="city" maxlength="100" autocomplete="address-level2" required></label>
+          <label>State<select name="state" autocomplete="address-level1" required><option value="">Choose a state</option></select></label>
+          <label>ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required></label>
+          <label class="wide">Delivery & setup notes <span>(optional)</span><textarea name="access" maxlength="2000" placeholder="Parking, stairs, loading entrance, or venue requirements…"></textarea></label>
+        </div><p class="notice">We’ll confirm travel, delivery, and venue requirements with you before finalizing your quote.</p></section>
+        <section data-step="3" hidden><div class="fields">
+          <label class="wide">Your full name<input name="name" autocomplete="name" maxlength="120" required></label>
+          <label class="wide">Email address<input name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required><small>Where you’d like to receive your menu.</small></label>
+          <label class="wide">Phone number<input name="phone" type="tel" autocomplete="tel" maxlength="30" placeholder="(978) 555-0123" required></label>
+          <label class="wide">Best time for a call <span>(Eastern Time)</span><select name="callback" required><option value="">Choose a time that works for you</option><option>Morning · 9 am–12 pm ET</option><option>Afternoon · 12–5 pm ET</option><option>Evening · 5–7 pm ET</option><option>Any time · 9 am–7 pm ET</option></select></label>
+          <label class="wide">Anything else we should know? <span>(optional)</span><textarea name="notes" maxlength="2000" placeholder="Your vision, questions, or a particular day to call…"></textarea></label>
+        </div><label class="consent"><input name="consent" type="checkbox" required><span>Please email me my menu and call me about this catering request. My details will be used to help plan this event.</span></label></section>
+        <section data-step="4" hidden><div id="review"></div><p class="notice">This is an estimate and a callback request. Availability, delivery, and final pricing will be confirmed with you. No payment is due now.</p></section>
+        <div id="error" role="alert" tabindex="-1" hidden></div>
+        <div class="actions"><button id="back" type="button" class="secondary">← Back</button><button id="next" type="submit" class="primary">Choose your menu →</button></div>
+        <p class="footnote">No payment required · Your event is confirmed after speaking with our team.</p>
+      </form>
+      <section id="success" hidden aria-live="polite"><div class="success-mark">✓</div><h2 tabindex="-1" id="success-title">Your request is with us.</h2><p>Thank you, <span id="customer"></span>. Our team will review your menu and call you at your preferred time to work through the details.</p><p id="receipt"></p><button type="button" class="primary" id="download">Save a copy of your menu ↓</button><p><a href="tray-menu.html">Back to the tray menu ↗</a></p></section>
+    </section>
+    <aside aria-label="Your menu summary"><div class="summary"><p class="eyebrow">YOUR GATHERING</p><h2>A delicious beginning.</h2><p id="event-summary" class="muted">Your choices, all in one place.</p><div id="selection-summary"></div><div id="estimate"></div><p class="summary-note">An estimate to help you plan.<br>Delivery and travel quoted separately.</p><div class="personal"><span>LET’S MAKE IT YOURS</span><p>Have a question or a special request? We’ll help you put the perfect menu together.</p><a href="tel:+19783811212">Call (978) 381-1212 ↗</a></div></div></aside>
+  </div>
+</main><footer>COMEKETO CATERING <span>Thoughtfully prepared. Happily shared.</span></footer>
+<noscript><p>Please enable JavaScript to build your menu, or call (978) 381-1212.</p></noscript>
+</body></html>

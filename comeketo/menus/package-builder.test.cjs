@@ -1,13 +1,9 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const code = fs.existsSync(__dirname + '/package-core.js') ? fs.readFileSync(__dirname + '/package-core.js', 'utf8') : '';
-const context = { globalThis: {} }; vm.runInNewContext(code, context);
-const core = context.globalThis.PackageCore;
-const catContext={globalThis:{}};
-vm.runInNewContext(fs.readFileSync(__dirname+'/package-catalog.js','utf8'),catContext);
-const catalog=catContext.globalThis.PackageCatalog;
+require('./package-core.js');
+require('./package-catalog.js');
+const core = globalThis.PackageCore;
+const catalog=globalThis.PackageCatalog;
 test('package estimates follow command center tiers, staffing, service and tax', () => {
   assert.ok(core, 'PackageCore must exist');
   const c={styles:{Buffet:{staff:3,tiers:[['Mini',23.9,1,2],['Full',29.9,2,3],['Deluxe',35.9,3,3]]}},mains:[['Chicken',0],['Beef',0]],sides:[['Rice',0]],salads:[],apps:[],boards:[]};
