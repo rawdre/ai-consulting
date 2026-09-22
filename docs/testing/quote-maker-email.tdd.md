@@ -36,11 +36,12 @@ node --test --experimental-test-coverage comeketo/menus/package-builder.test.cjs
 
 10 tests passed. Coverage: 96.33% lines, 82.08% branches, 88.89% functions.
 
-## Known external integration requirement
+## Command Center delivery
 
 The public page posts `customer_quote_html`, `team_notification_html`,
-`quote_delivery_mode=email_html`, and `create_note=false` to the existing Zapier
-hook. Zapier must map the HTML fields into email actions and must not map this
-request type into a Close Note action. No production request or email was sent
-during this run, so provider delivery remains unverified until the Zap is updated
-and a controlled live email is approved.
+`quote_delivery_mode=email_html`, and `create_note=false` to the Comeketo Command
+Center. Its tested receiver creates a Close lead and two HTML email activities,
+persists per-step idempotency, resumes partial failures without resending the
+customer email, and rejects unsafe relay payloads. No production request or email
+was sent during this run, so provider mailbox delivery still requires the user's
+controlled live test.

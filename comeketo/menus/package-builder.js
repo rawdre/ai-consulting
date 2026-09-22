@@ -3,8 +3,9 @@
   const C = globalThis.PackageCatalog, core = globalThis.PackageCore, esc = core.escape;
   const $ = id => document.getElementById(id), form = $('builder');
   const preview = new URLSearchParams(location.search).has('preview');
-  // Existing tray-menu intake. Zapier must map both email deliveries before launch.
-  const endpoint = 'https://hooks.zapier.com/hooks/catch/10501573/4yvjcgt/';
+  // The Command Center validates, deduplicates and delivers the Quote Builder HTML
+  // through Comeketo's connected Close mailbox. No Zapier Note is involved.
+  const endpoint = 'https://comeketo-command-center.onrender.com/public/customer-menu-quote';
   const team = 'team@comeketocatering.com';
   const labels = ['Event','Menu','Location','Contact','Review'];
   const titles = ['Let’s start with your event.','Make the menu your own.','Where are we gathering?','Let’s stay in touch.','Everything look delicious?'];
@@ -115,9 +116,8 @@
     form.setAttribute('aria-busy','true');
     $('progress').querySelectorAll('button').forEach(b=>b.disabled=true);
     $('review').querySelectorAll('button').forEach(b=>b.disabled=true);
-    const body=new URLSearchParams();Object.entries(payload).forEach(([k,v])=>body.set(k,typeof v==='object'?JSON.stringify(v):String(v)));
     try {
-      await core.submit(fetch,endpoint,body,AbortSignal.timeout(15000));
+      await core.submit(fetch,endpoint,payload,AbortSignal.timeout(20000));
       sent=true;form.hidden=true;['step-number','step-title','step-description'].forEach(id=>$(id).hidden=true);
       $('success').hidden=false;$('customer').textContent=state.name;
       $('receipt').textContent=`Request reference: ${payload.request_id.slice(0,8).toUpperCase()}. Your request has been received. You can save a copy below.`;

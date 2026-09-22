@@ -50,10 +50,15 @@ test('validates each step and specific malformed contact cases',()=>{
   for(const patch of [{city:''},{state:'x'},{zip:'abc'}])assert.ok(core.validate(2,{...good,...patch}));
   for(const patch of [{name:''},{email:'a@b'},{phone:'abc1234567890'},{phone:'1234567890123456'},{callback:''},{consent:false}])assert.ok(core.validate(3,{...good,...patch}));
 });
-test('only treats an explicit webhook success as receipt',async()=>{
+test('only treats an explicit receiver success as receipt and posts JSON objects',async()=>{
   assert.equal(typeof core.submit,'function');
   const ok=async()=>({ok:true,json:async()=>({status:'success'})});
   await core.submit(ok,'test-url',new URLSearchParams({name:'test'}));
+  let request;
+  await core.submit(async(url,options)=>{request={url,options};return {ok:true,json:async()=>({status:'success'})};},'command-center',{name:'test'});
+  assert.equal(request.url,'command-center');
+  assert.equal(request.options.headers['Content-Type'],'application/json');
+  assert.deepEqual(JSON.parse(request.options.body),{name:'test'});
   for(const response of [{ok:false,json:async()=>({status:'success'})},{ok:true,json:async()=>({status:'error'})},{ok:true,json:async()=>({})},{ok:true,json:async()=>{throw Error('invalid JSON');}}]){
     await assert.rejects(()=>core.submit(async()=>response,'test-url',''));
   }

@@ -88,7 +88,8 @@ globalThis.PackageCore = (() => {
     return '';
   }
   async function submit(transport, endpoint, body, signal) {
-    const response=await transport(endpoint,{method:'POST',body,signal});
+    const json=body&&typeof body==='object'&&!(body instanceof URLSearchParams);
+    const response=await transport(endpoint,{method:'POST',body:json?JSON.stringify(body):body,headers:json?{'Content-Type':'application/json'}:undefined,signal});
     const data=await response.json().catch(()=>null);
     if(!response.ok || data?.status!=='success')throw Error('No confirmed receipt');
     return data;

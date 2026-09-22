@@ -5,15 +5,16 @@
 Completed customer selections now generate a numbered `CMK-` estimate with the
 same itemized presentation used by the Quote Maker: package tier, extra proteins,
 premium charges, appetizers, platters, staffing, subtotal, service/admin, tax,
-event total, and the 20/35/30/15 payment schedule. The webhook payload carries
+event total, and the 20/35/30/15 payment schedule. The Command Center request carries
 the result in `customer_quote_html` and `team_notification_html`, declares
 `quote_delivery_mode=email_html`, and sets `create_note=false`. The success-page
 download is the formatted HTML estimate rather than a text-note file.
 
 The rendered example matches `$10,972.50 + $2,633.40 + $952.41 = $14,558.31`
 and is responsive without horizontal overflow at a 375 px content viewport.
-Zapier still needs to map the HTML fields into the two email actions and remove
-or bypass any Note action for this source before production delivery is verified.
+The form now posts JSON to the Command Center's public, validated receiver. The
+receiver creates the Close lead, sends the Quote Builder HTML to the customer,
+sends the same estimate plus callback details to the team, and never creates a Note.
 
 ## Stripe extension (September 21, 2026)
 
@@ -49,40 +50,25 @@ extra mains/sides/salads, staffing, service fee, drop-off chafers/setup, and tax
 It excludes internal overrides, tasting discounts, and travel/delivery distances.
 The UI explicitly identifies travel/delivery as separately quoted.
 
-## Release blocker: verify BOTH email deliveries
+## Email delivery through Command Center
 
-The existing public tray page uses a Zapier Catch Hook. This builder submits to
-that same hook and preserves `email`, `customer_name`, `phone`, `items`,
-`order_summary_text`, `customer_quote_html`, `event_total`, and related fields.
-No production request was sent during testing. Access to the Zapier workflow
-was not available, so email delivery has not been verified or changed.
+`POST https://comeketo-command-center.onrender.com/public/customer-menu-quote`
+accepts only the Quote Builder contract, a fixed Comeketo team recipient, safe
+non-interactive HTML, valid event/contact fields, and a `create_note=false`
+delivery mode. New requests are rate-limited. Durable request receipts track the
+Close lead, customer email, and team email separately. If the team delivery fails
+after the customer message succeeds, an unchanged retry resumes the missing step
+without sending the customer message again.
 
-Before deployment, inspect the existing Zap and configure/verify this branch:
+The receipt screen appears only after both Close email activities are accepted.
+Errors retain the form. The customer can still download the exact HTML estimate.
+One controlled live submission remains the final mailbox-delivery check; no real
+customer email was sent during automated verification.
 
-1. Filter `source` = `Customer Catering Package Builder` so existing tray-only
-   template assumptions do not break the new payload.
-2. Deduplicate accepted requests by `request_id` in persistent storage. The client
-   preserves this ID for unchanged retries; client-only IDs do not deduplicate.
-3. Customer delivery: To = `email`; subject = `Your Comeketo menu request`;
-   HTML body = `customer_quote_html`. Use a verified Comeketo sender and Reply-To
-   `team@comeketocatering.com`.
-4. Team delivery: To = `team@comeketocatering.com` (current site contact; confirm
-   this is Andre’s desired callback inbox); subject = `subject`; body =
-   `team_notification_html`; Reply-To = customer `email`. The body includes phone,
-   callback window, menu, complete address, notes, and itemized estimate.
-5. Ensure a failure in one delivery does not silently prevent the other; configure
-   retry/error alerts and inspect email-provider delivery logs for both messages.
-6. Run one authorized test using a controlled recipient. Verify the two messages,
-   all fields, and failure recovery before public release.
-
-Webhook success confirms intake ONLY, not either email delivery. The receipt
-screen therefore never claims an email was delivered. The customer can download
-the submitted summary. Errors retain the form and do not show false success.
-
-Do not add private email-provider or Close API keys to these public files.
-The public form is not a trusted source of final prices. Review estimates against
-the command center before issuing a final quote. A future dedicated backend can
-recalculate pricing and enforce rate limiting and request deduplication.
+Do not add private email-provider or Close API keys to these public files. The
+public form is not a trusted source of final prices. Review estimates against the
+command center before issuing a final quote. The receiver enforces rate limiting
+and request deduplication.
 
 ## Validation / evidence
 
@@ -94,7 +80,7 @@ Journeys derived from the user’s request in this task.
   passes all eight tests. Core coverage: 100% lines/functions, 92% branches.
 - Covers catalog tiers across four styles, extras, drop-off minimums, invalid
   selections, date/address/contact requirements, consent, HTML escaping, and
-  explicit webhook receipt with network/JSON/error failures mocked locally.
+  explicit receiver receipt with network/JSON/error failures mocked locally.
 - Browser walkthrough on local preview: required-field block, empty-menu block,
   two mains + a side, address, contact, consent, review, and return-to-edit with
   preserved state. No live submissions.
@@ -103,21 +89,21 @@ Journeys derived from the user’s request in this task.
 - No dependencies were added; this static feature has no package manifest and
   no applicable npm dependency audit. Stripe uses the companion command-center backend.
 
-Published on GitHub Pages at the user's request. The email workflow verification above remains outstanding.
+Published on GitHub Pages at the user's request. A controlled live mailbox test remains outstanding.
 
 ## Final self-evaluation
 
-The customer UI is reviewable locally; production email delivery remains unverified.
+The customer UI and Command Center delivery path are implemented; a controlled
+production mailbox test remains before treating provider delivery as verified.
 
 | Axis | Score | Evidence / improvement |
 |---|---:|---|
 | Accuracy | 4/5 | Eight tests pass and core pricing follows the retrieved catalog; the catalog is a snapshot, not live sync. |
-| Completeness | 3/5 | All five customer steps are implemented; both production email deliveries still need Zapier access and verification. |
+| Completeness | 4/5 | All five customer steps and both idempotent Close email deliveries are implemented; the controlled live mailbox test remains. |
 | Clarity | 4/5 | Explicit estimate/receipt language and field labels; no formal screen-reader audit completed. |
-| Actionability | 4/5 | Local preview and email field mappings are available; external automation configuration is still required. |
+| Actionability | 5/5 | Local preview, server receiver, durable retry state, and tests are available without Zapier configuration. |
 | Conciseness | 4/5 | Popular choices reduce initial menu length; full catalog still needs expansion for less common dishes. |
 
-Overall: 3.8/5. Highest-impact next step: configure and verify both email deliveries,
-then verify the live Stripe configuration. Follow-up: automate catalog synchronization.
-Would the user agree? The preview is ready to assess, but calling the integration
-fully live would overstate completion. No production messages were sent during verification.
+Overall: 4.4/5. Highest-impact next step: run the user's controlled end-to-end
+mailbox test, then verify the live Stripe configuration. Follow-up: automate catalog
+synchronization. No production messages were sent during automated verification.
