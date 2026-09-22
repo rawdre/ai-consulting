@@ -59,3 +59,53 @@ test('only treats an explicit webhook success as receipt',async()=>{
   }
   await assert.rejects(()=>core.submit(async()=>{throw Error('offline');},'test-url',''));
 });
+
+test('renders the completed request as a Quote Maker style email instead of a plain-text note',()=>{
+  const state={
+    event:'Wedding',date:'2028-10-07',time:'17:30',guests:150,style:'Buffet',
+    name:'Hiago Victor',email:'hiagovbf@gmail.com',phone:'7746159114',callback:'Morning',
+    venue:'hacienda',street:'115 Blake Corner Rd',unit:'',city:'Phillipston',state:'MA',zip:'01331',
+    mains:['Chicken Carbonara','Pasta Primavera','Eggplant Parmesan over Penne','Garlic Steak Medallions'],
+    sides:['Rice — Plain','Garlic Mashed Potato','Vegetables'],salads:['Caesar Salad'],
+    apps:['Bruschetta','Shrimp Cocktail','Mini Empanadas'],
+    boards:['Cheese & Cracker Platter','Fresh Fruit Platter'],diet:'',access:'',notes:''
+  };
+  const estimate=core.estimate(catalog,state);
+  const html=core.quoteEmailHTML(state,estimate,{estimateNo:'CMK-27854'});
+
+  assert.match(html,/Your Event Estimate/);
+  assert.match(html,/Estimate #:\s*CMK-27854/);
+  assert.match(html,/Hiago Victor/);
+  assert.match(html,/Buffet Deluxe/);
+  assert.match(html,/Extra proteins \(1 beyond Deluxe\)/);
+  assert.match(html,/Premium protein upcharge/);
+  assert.match(html,/Appetizers/);
+  assert.match(html,/Boards &amp; Platters/);
+  assert.match(html,/Food Service Subtotal/);
+  assert.match(html,/Service, Fuel &amp; Admin \(24%\)/);
+  assert.match(html,/MA Meals Tax \(7%\)/);
+  assert.match(html,/EVENT TOTAL/);
+  assert.match(html,/Example Payment Schedule/);
+  assert.match(html,/20% Downpayment/);
+  assert.doesNotMatch(html,/<pre\b/i);
+  assert.doesNotMatch(html,/Catering menu &amp; callback request/i);
+});
+
+test('quote email escapes customer content and exposes a stable email-only delivery contract',()=>{
+  const state={
+    event:'Wedding',date:'2028-10-07',time:'17:30',guests:10,style:'Buffet',
+    name:'<img src=x onerror="boom">',email:'guest@example.com',phone:'9783811212',callback:'Afternoon',
+    venue:'<script>alert(1)</script>',street:'1 Main St',unit:'',city:'Boston',state:'MA',zip:'02110',
+    mains:['Chicken Carbonara'],sides:['Rice — Plain'],salads:[],apps:[],boards:[],diet:'',access:'',notes:''
+  };
+  const estimate=core.estimate(catalog,state);
+  const quote=core.buildQuoteEmail(state,estimate,{requestId:'request-123',estimateNo:'CMK-12345'});
+
+  assert.equal(quote.deliveryMode,'email_html');
+  assert.equal(quote.createNote,false);
+  assert.equal(quote.estimateNo,'CMK-12345');
+  assert.match(quote.subject,/CMK-12345/);
+  assert.match(quote.html,/&lt;img src=x onerror=&quot;boom&quot;&gt;/);
+  assert.match(quote.html,/&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  assert.doesNotMatch(quote.html,/<script/i);
+});
