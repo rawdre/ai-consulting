@@ -73,6 +73,10 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   const estimate=core.estimate(catalog,state);
   const html=core.quoteEmailHTML(state,estimate,{estimateNo:'CMK-27854'});
 
+  assert.equal(estimate.subtotal,10972.5);
+  assert.equal(estimate.service,2633.4);
+  assert.equal(estimate.tax,952.41);
+  assert.equal(estimate.total,14558.31);
   assert.match(html,/Your Event Estimate/);
   assert.match(html,/Estimate #:\s*CMK-27854/);
   assert.match(html,/Hiago Victor/);
@@ -87,6 +91,10 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   assert.match(html,/EVENT TOTAL/);
   assert.match(html,/Example Payment Schedule/);
   assert.match(html,/20% Downpayment/);
+  for(const amount of ['$10,972.50','$2,633.40','$952.41','$14,558.31','$2,911.66','$5,095.41','$4,367.49','$2,183.75'])assert.match(html,new RegExp(amount.replace(/[$,.]/g,'\\$&')));
+  assert.match(html,/width="100%"[^>]+max-width:680px/);
+  assert.match(html,/<td style="padding:4px"><table role="presentation" width="100%"/);
+  assert.doesNotMatch(html,/width="680"/);
   assert.doesNotMatch(html,/<pre\b/i);
   assert.doesNotMatch(html,/Catering menu &amp; callback request/i);
 });

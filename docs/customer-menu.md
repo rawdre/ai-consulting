@@ -1,5 +1,20 @@
 # Customer catering menu builder
 
+## Quote Maker email (September 22, 2026)
+
+Completed customer selections now generate a numbered `CMK-` estimate with the
+same itemized presentation used by the Quote Maker: package tier, extra proteins,
+premium charges, appetizers, platters, staffing, subtotal, service/admin, tax,
+event total, and the 20/35/30/15 payment schedule. The webhook payload carries
+the result in `customer_quote_html` and `team_notification_html`, declares
+`quote_delivery_mode=email_html`, and sets `create_note=false`. The success-page
+download is the formatted HTML estimate rather than a text-note file.
+
+The rendered example matches `$10,972.50 + $2,633.40 + $952.41 = $14,558.31`
+and is responsive without horizontal overflow at a 375 px content viewport.
+Zapier still needs to map the HTML fields into the two email actions and remove
+or bypass any Note action for this source before production delivery is verified.
+
 ## Stripe extension (September 21, 2026)
 
 The review step offers an editable payment of at least 20% or full payment less 3% through a personalized command-center invitation. Generic visitors can request a quote; payment requires the link created from an André-owned lead's quote. The server validates ownership and recalculates all prices, including the rep-confirmed delivery amount. A fragment token is removed from the address bar before third-party widgets load and kept in sessionStorage for the tab. Stripe return restores the saved checkout details and verifies payment with the backend.
