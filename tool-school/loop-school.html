@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSBN5K47B4"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XSBN5K47B4");</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loop School</title>
+  <script src="../raw-ai-brasil/protect.js"></script>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body data-lang="en">
+  <div class="site-wrap">
+    <header class="site-nav">
+      <div class="site-nav-inner">
+        <div class="brand">AI Tool School</div>
+        <div class="nav-actions">
+          <nav class="site-links">
+            <a href="index.html">Home</a>
+            <a href="#primitives">Primitives</a>
+            <a href="#sessions">Sessions</a>
+            <a href="#jobform">Job Form</a>
+            <a href="#rules">Rules</a>
+          </nav>
+          <div class="lang-toggle" aria-label="Language toggle">
+            <button type="button" class="active" data-lang-switch="en">EN</button>
+            <button type="button" data-lang-switch="pt">PT-BR</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Operator Track &middot; 12 sessions &middot; 15 minutes each</div>
+          <div class="lang-en">
+            <h1>Loop School: build a system that runs when you are not there</h1>
+            <p>Every other track on this site teaches you to <strong>build things</strong>. This one teaches you to build the thing that <strong>runs the things</strong> &mdash; so work happens overnight and your job in the morning is to read it, rate it, and correct it.</p>
+            <p>Fifteen minutes per session. Each session ends with something that exists: a file, a schedule, a rating, a rule. If a session ends with only understanding, it failed.</p>
+          </div>
+          <div class="lang-pt">
+            <h1>Loop School: construa um sistema que roda quando você não está</h1>
+            <p>Todas as outras trilhas deste site ensinam a <strong>construir coisas</strong>. Esta ensina a construir a coisa que <strong>roda as coisas</strong> &mdash; o trabalho acontece de madrugada e o seu trabalho de manhã é ler, avaliar e corrigir.</p>
+            <p>Quinze minutos por sessão. Cada sessão termina com algo que existe: um arquivo, um agendamento, uma nota, uma regra. Se a sessão terminar só com entendimento, ela falhou.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#sessions">
+              <span class="lang-en">Start Session 1</span>
+              <span class="lang-pt">Começar a Sessão 1</span>
+            </a>
+            <a class="button" href="index.html">
+              <span class="lang-en">Back to home</span>
+              <span class="lang-pt">Voltar para o início</span>
+            </a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="glass-card">
+            <h3>
+              <span class="lang-en">The honest starting point</span>
+              <span class="lang-pt">O ponto de partida honesto</span>
+            </h3>
+            <p class="lang-en">On <strong>May 13</strong> you deleted five lines from <code>mission-control-refresh.yml</code> &mdash; four cron schedules. Since that day nothing in your stack has started on its own.</p>
+            <p class="lang-pt">Em <strong>13 de maio</strong> você apagou cinco linhas do <code>mission-control-refresh.yml</code> &mdash; quatro agendamentos cron. Desde aquele dia, nada no seu sistema começa sozinho.</p>
+            <p class="lang-en">You do not have a capability problem. You have <strong>67 agents, 59 skills, 0 hooks, 0 schedules</strong>. The library is enormous and the running system is zero.</p>
+            <p class="lang-pt">Você não tem um problema de capacidade. Você tem <strong>67 agentes, 59 skills, 0 hooks, 0 agendamentos</strong>. A biblioteca é enorme e o sistema rodando é zero.</p>
+            <p class="lang-en">This track closes exactly that gap. It adds no tools.</p>
+            <p class="lang-pt">Esta trilha fecha exatamente essa lacuna. Ela não adiciona ferramentas.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="primitives">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">The Four Primitives</span>
+            <span class="lang-pt">Os Quatro Primitivos</span>
+          </div>
+          <h2>
+            <span class="lang-en">A self-running system is only four parts</span>
+            <span class="lang-pt">Um sistema autônomo tem só quatro partes</span>
+          </h2>
+          <p class="lang-en">More agents is not the unlock. Multiple agents give you <em>width</em> &mdash; five readers covering five areas at once. They do not give you <em>autonomy</em>. Autonomy is these four, in this order.</p>
+          <p class="lang-pt">Mais agentes não é a chave. Vários agentes dão <em>largura</em> &mdash; cinco leitores cobrindo cinco áreas ao mesmo tempo. Eles não dão <em>autonomia</em>. Autonomia é isto aqui, nesta ordem.</p>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini-card">
+          <div class="guide-meta"><span class="pill">1</span><span class="pill">Trigger</span></div>
+          <h3 class="lang-en">Something starts the work</h3>
+          <h3 class="lang-pt">Algo inicia o trabalho</h3>
+          <p class="lang-en">A cron schedule, a hook, an incoming message. Without this, you are the event loop and nothing is automated.</p>
+          <p class="lang-pt">Um cron, um hook, uma mensagem que chega. Sem isso, você é o event loop e nada é automático.</p>
+        </article>
+        <article class="mini-card">
+          <div class="guide-meta"><span class="pill">2</span><span class="pill">State</span></div>
+          <h3 class="lang-en">A file the run reads and writes</h3>
+          <h3 class="lang-pt">Um arquivo que a execução lê e escreve</h3>
+          <p class="lang-en">So run #7 knows what run #6 already did. Without state, every run starts from zero and repeats itself.</p>
+          <p class="lang-pt">Para que a execução nº 7 saiba o que a nº 6 já fez. Sem estado, toda execução começa do zero e se repete.</p>
+        </article>
+        <article class="mini-card">
+          <div class="guide-meta"><span class="pill">3</span><span class="pill">Gate</span></div>
+          <h3 class="lang-en">Where it stops and waits for you</h3>
+          <h3 class="lang-pt">Onde ele para e espera por você</h3>
+          <p class="lang-en">The design center, not an afterthought. An autonomous loop with no gate does not fail politely &mdash; it fails at volume, at 3am, into your customers' inboxes.</p>
+          <p class="lang-pt">O centro do projeto, não um detalhe final. Um loop sem gate não falha educadamente &mdash; ele falha em volume, às 3 da manhã, na caixa de entrada dos seus clientes.</p>
+        </article>
+        <article class="mini-card">
+          <div class="guide-meta"><span class="pill">4</span><span class="pill">Signal</span></div>
+          <h3 class="lang-en">It pulls you in only when needed</h3>
+          <h3 class="lang-pt">Ele te chama só quando precisa</h3>
+          <p class="lang-en">A push to your phone, a Slack card. If you have to remember to check it, it is not a loop &mdash; it is another chore.</p>
+          <p class="lang-pt">Um push no celular, um card no Slack. Se você precisa lembrar de conferir, não é um loop &mdash; é mais uma tarefa.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="sessions">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Block 1 &middot; Sessions 1-3</span>
+            <span class="lang-pt">Bloco 1 &middot; Sessões 1-3</span>
+          </div>
+          <h2>
+            <span class="lang-en">See the machine &mdash; change nothing</span>
+            <span class="lang-pt">Enxergar a máquina &mdash; não mudar nada</span>
+          </h2>
+          <p class="lang-en">You cannot automate what you cannot describe. These three sessions are read-only on purpose.</p>
+          <p class="lang-pt">Você não automatiza o que não consegue descrever. Estas três sessões são só leitura, de propósito.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">1</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Read-only</span></div>
+            <h3 class="lang-en">Read your own wreckage</h3>
+            <h3 class="lang-pt">Leia os seus próprios destroços</h3>
+            <p class="lang-en"><strong>Do:</strong> Open commit <code>7be8c9e</code> &mdash; "Disable mission control scheduled refresh". Read the diff. Then write, in your own words, one paragraph: what did the schedule do that made you turn it off?</p>
+            <p class="lang-pt"><strong>Faça:</strong> Abra o commit <code>7be8c9e</code> &mdash; "Disable mission control scheduled refresh". Leia o diff. Depois escreva, com suas palavras, um parágrafo: o que o agendamento fez que te levou a desligá-lo?</p>
+            <p class="lang-en"><strong>Done when:</strong> <code>LOOP-LOG.md</code> exists with that paragraph as its first entry.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> <code>LOOP-LOG.md</code> existir com esse parágrafo como primeira entrada.</p>
+            <p class="lang-en"><strong>Why this is first:</strong> you already tried autonomy once and retreated. If you do not name what went wrong, you will build the same thing again and retreat again.</p>
+            <p class="lang-pt"><strong>Por que é a primeira:</strong> você já tentou autonomia uma vez e recuou. Se não nomear o que deu errado, vai construir a mesma coisa e recuar de novo.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">2</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Read-only</span></div>
+            <h3 class="lang-en">Inventory the four primitives</h3>
+            <h3 class="lang-pt">Inventarie os quatro primitivos</h3>
+            <p class="lang-en"><strong>Do:</strong> Take one system you already own &mdash; Mission Control is the obvious one. Write a four-row table: Trigger, State, Gate, Signal. Mark each one <em>exists</em> or <em>missing</em>, and name the file.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Pegue um sistema que você já tem &mdash; o Mission Control é o óbvio. Escreva uma tabela de quatro linhas: Trigger, Estado, Gate, Sinal. Marque cada um como <em>existe</em> ou <em>falta</em>, e diga o arquivo.</p>
+            <p class="lang-en"><strong>Done when:</strong> the table is in <code>LOOP-LOG.md</code> and every row names a real file path or says "missing".</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> a tabela estiver no <code>LOOP-LOG.md</code> e cada linha citar um caminho real ou disser "falta".</p>
+            <p class="lang-en"><strong>What you will find:</strong> State exists (<code>mission-control-data/latest.json</code>). Trigger is deleted. That is the whole story of your stack.</p>
+            <p class="lang-pt"><strong>O que você vai descobrir:</strong> o Estado existe (<code>mission-control-data/latest.json</code>). O Trigger foi apagado. É essa a história inteira do seu sistema.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">3</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">The hard one</span></div>
+            <h3 class="lang-en">Define "done" so a computer can check it</h3>
+            <h3 class="lang-pt">Defina "pronto" de um jeito que o computador consiga verificar</h3>
+            <p class="lang-en"><strong>Do:</strong> Take one fuzzy goal &mdash; "follow up with quiet leads well" &mdash; and rewrite it until a script could evaluate it. Not "a good follow-up". Something like: <em>"every lead with no activity in 7+ days and status not Won/Lost appears exactly once in today's card, and none appear twice in the same week."</em></p>
+            <p class="lang-pt"><strong>Faça:</strong> Pegue um objetivo vago &mdash; "fazer bom follow-up com leads parados" &mdash; e reescreva até um script conseguir avaliar. Não "um bom follow-up". Algo como: <em>"todo lead sem atividade há 7+ dias e com status diferente de Ganho/Perdido aparece exatamente uma vez no card de hoje, e nenhum aparece duas vezes na mesma semana."</em></p>
+            <p class="lang-en"><strong>Done when:</strong> you can read your criteria out loud and say for any given run "passed" or "failed" without arguing with yourself.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> você conseguir ler seu critério em voz alta e dizer, para qualquer execução, "passou" ou "falhou" sem discutir consigo mesmo.</p>
+            <p class="lang-en"><strong>This is the session most people skip</strong>, and it is why their loops spin forever or drift. A loop with no checkable goal cannot tell success from motion.</p>
+            <p class="lang-pt"><strong>É a sessão que quase todo mundo pula</strong>, e é por isso que os loops giram para sempre ou saem do rumo. Um loop sem objetivo verificável não distingue sucesso de movimento.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Block 2 &middot; Sessions 4-6</span>
+            <span class="lang-pt">Bloco 2 &middot; Sessões 4-6</span>
+          </div>
+          <h2>
+            <span class="lang-en">Make it run &mdash; still touching nobody</span>
+            <span class="lang-pt">Fazer rodar &mdash; ainda sem falar com ninguém</span>
+          </h2>
+          <p class="lang-en">The system starts working without you. It still sends nothing to any human being.</p>
+          <p class="lang-pt">O sistema começa a trabalhar sem você. Ele ainda não envia nada para nenhum ser humano.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">4</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">The unlock</span></div>
+            <h3 class="lang-en">Put the trigger back &mdash; read-only</h3>
+            <h3 class="lang-pt">Devolva o trigger &mdash; só leitura</h3>
+            <p class="lang-en"><strong>Do:</strong> Add a <code>schedule:</code> block back to <code>mission-control-refresh.yml</code>. <strong>One</strong> cron, not four. Confirm first that every step it runs only reads and writes the snapshot &mdash; no send step, no outbox, nothing that reaches a customer.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Devolva um bloco <code>schedule:</code> ao <code>mission-control-refresh.yml</code>. <strong>Um</strong> cron, não quatro. Confirme antes que todos os passos só leem e gravam o snapshot &mdash; sem envio, sem outbox, nada que chegue a um cliente.</p>
+            <p class="lang-en"><strong>Done when:</strong> the file has one cron line and you have said out loud which line would send something to a human. There should be none.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> o arquivo tiver uma linha de cron e você tiver dito em voz alta qual linha enviaria algo a um humano. Não deve haver nenhuma.</p>
+            <p class="lang-en">This is a three-line change and it flips your entire stack from manual to self-starting. That asymmetry is the lesson.</p>
+            <p class="lang-pt">É uma mudança de três linhas e ela vira o seu sistema inteiro de manual para automático. Essa assimetria é a lição.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">5</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Evidence</span></div>
+            <h3 class="lang-en">Watch one unattended run</h3>
+            <h3 class="lang-pt">Assista a uma execução sem você</h3>
+            <p class="lang-en"><strong>Do:</strong> The next day, open the Actions tab and read the log of a run you did not start. Not the summary &mdash; the log. Find the moment it decided something.</p>
+            <p class="lang-pt"><strong>Faça:</strong> No dia seguinte, abra a aba Actions e leia o log de uma execução que você não iniciou. Não o resumo &mdash; o log. Encontre o momento em que ele decidiu algo.</p>
+            <p class="lang-en"><strong>Done when:</strong> you can point at the exact line where the run made a choice, and say whether it was right.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> você conseguir apontar a linha exata em que a execução tomou uma decisão e dizer se estava certa.</p>
+            <p class="lang-en"><strong>The habit this builds</strong> is the highest-return study habit available to you: reading what the machine actually saw at the moment it went wrong, instead of guessing afterward.</p>
+            <p class="lang-pt"><strong>O hábito que isso cria</strong> é o de maior retorno disponível para você: ler o que a máquina realmente viu no momento do erro, em vez de adivinhar depois.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">6</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Build</span></div>
+            <h3 class="lang-en">Make the run produce a job card</h3>
+            <h3 class="lang-pt">Faça a execução produzir um card de trabalho</h3>
+            <p class="lang-en"><strong>Do:</strong> Have the run write one small file &mdash; <code>job-card.json</code> &mdash; with four fields: what it <em>saw</em>, what it <em>would do</em>, what it <em>skipped and why</em>, and how <em>sure</em> it is.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Faça a execução gravar um arquivo pequeno &mdash; <code>job-card.json</code> &mdash; com quatro campos: o que ela <em>viu</em>, o que ela <em>faria</em>, o que ela <em>pulou e por quê</em>, e o quanto está <em>segura</em>.</p>
+            <p class="lang-en"><strong>Done when:</strong> a card exists for a day you were not present, and the "skipped" field is not empty. A loop that never skips anything is not judging &mdash; it is just moving.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> existir um card de um dia em que você não estava, e o campo "pulou" não estiver vazio. Um loop que nunca pula nada não está julgando &mdash; está só se mexendo.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="jobform">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Block 3 &middot; Sessions 7-9</span>
+            <span class="lang-pt">Bloco 3 &middot; Sessões 7-9</span>
+          </div>
+          <h2>
+            <span class="lang-en">The job form &mdash; where you become the teacher</span>
+            <span class="lang-pt">O formulário de trabalho &mdash; onde você vira o professor</span>
+          </h2>
+          <p class="lang-en">This is the part you asked for: you walk in, the work is already done, you read it and rate it. Your rating is not paperwork &mdash; it is the training signal that changes the rules.</p>
+          <p class="lang-pt">Esta é a parte que você pediu: você chega, o trabalho já está feito, você lê e avalia. Sua nota não é burocracia &mdash; é o sinal de treino que muda as regras.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">7</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Build</span></div>
+            <h3 class="lang-en">Build the job form page</h3>
+            <h3 class="lang-pt">Construa a página do formulário</h3>
+            <p class="lang-en"><strong>Do:</strong> One page that renders today's <code>job-card.json</code> and gives you three buttons and one text box. The three buttons are the whole rating scale: <strong>Right</strong> / <strong>Wrong</strong> / <strong>Dangerous</strong>. The box is one line: why.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Uma página que mostra o <code>job-card.json</code> de hoje e te dá três botões e uma caixa de texto. Os três botões são a escala inteira: <strong>Certo</strong> / <strong>Errado</strong> / <strong>Perigoso</strong>. A caixa é uma linha: por quê.</p>
+            <p class="lang-en"><strong>Three options, not five.</strong> A ten-point scale feels rigorous and produces nothing you can act on. "Dangerous" is its own button because it is the only rating that should change a rule the same day.</p>
+            <p class="lang-pt"><strong>Três opções, não cinco.</strong> Uma escala de dez pontos parece rigorosa e não gera nada acionável. "Perigoso" é um botão separado porque é a única nota que deve mudar uma regra no mesmo dia.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">8</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Build</span></div>
+            <h3 class="lang-en">Stack seven days on one screen</h3>
+            <h3 class="lang-pt">Empilhe sete dias em uma tela</h3>
+            <p class="lang-en"><strong>Do:</strong> Make the ratings persist and show the last seven in a row. One day of ratings tells you nothing. Seven days shows you a pattern &mdash; and patterns are the only thing worth changing a rule over.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Faça as notas persistirem e mostre as últimas sete lado a lado. Um dia de notas não diz nada. Sete dias mostram um padrão &mdash; e padrão é a única coisa que justifica mudar uma regra.</p>
+            <p class="lang-en"><strong>Done when:</strong> you can see seven ratings at once without scrolling or clicking.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> você vir sete notas ao mesmo tempo, sem rolar nem clicar.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">9</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">The actual loop</span></div>
+            <h3 class="lang-en">Read the ratings, change exactly one rule</h3>
+            <h3 class="lang-pt">Leia as notas, mude exatamente uma regra</h3>
+            <p class="lang-en"><strong>Do:</strong> Look at your seven ratings. Find the most common reason for "Wrong". Change one rule in the run so that reason cannot happen again. Log the change with the date.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Olhe suas sete notas. Ache o motivo mais comum de "Errado". Mude uma regra da execução para que esse motivo não possa acontecer de novo. Registre a mudança com a data.</p>
+            <p class="lang-en"><strong>One rule.</strong> Change three and you will not know which one helped. This is the session that makes the whole thing a loop instead of a dashboard &mdash; and you will repeat it every week from here on.</p>
+            <p class="lang-pt"><strong>Uma regra.</strong> Mude três e você não vai saber qual ajudou. É esta sessão que transforma tudo em loop em vez de painel &mdash; e você vai repeti-la toda semana daqui em diante.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">Block 4 &middot; Sessions 10-12</span>
+            <span class="lang-pt">Bloco 4 &middot; Sessões 10-12</span>
+          </div>
+          <h2>
+            <span class="lang-en">Earn autonomy &mdash; one action at a time</span>
+            <span class="lang-pt">Conquistar autonomia &mdash; uma ação por vez</span>
+          </h2>
+          <p class="lang-en">Only now does anything get to act on its own, and only the smallest reversible thing.</p>
+          <p class="lang-pt">Só agora alguma coisa age sozinha, e apenas a menor coisa reversível.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-step">10</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Safety</span></div>
+            <h3 class="lang-en">Kill switch and phone signal</h3>
+            <h3 class="lang-pt">Botão de parada e sinal no celular</h3>
+            <p class="lang-en"><strong>Do:</strong> Two things. One: a single file or flag that halts every loop, testable in under ten seconds. Two: the run pushes to your phone when &mdash; and only when &mdash; it needs you.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Duas coisas. Um: um único arquivo ou flag que para todos os loops, testável em menos de dez segundos. Dois: a execução manda push para o celular quando &mdash; e só quando &mdash; precisar de você.</p>
+            <p class="lang-en"><strong>Done when:</strong> you have actually flipped the kill switch once and watched a run stop.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> você tiver acionado o botão de parada uma vez e visto uma execução parar de verdade.</p>
+            <p class="lang-en">Build this <em>before</em> anything acts, not after. A kill switch you have never tested is a belief, not a control.</p>
+            <p class="lang-pt">Construa isso <em>antes</em> de qualquer ação, não depois. Um botão de parada nunca testado é uma crença, não um controle.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">11</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Promotion</span></div>
+            <h3 class="lang-en">Promote exactly one action</h3>
+            <h3 class="lang-pt">Promova exatamente uma ação</h3>
+            <p class="lang-en"><strong>Do:</strong> Pick the smallest, most reversible action the loop has been drafting correctly for two weeks &mdash; an internal Slack post, a CRM status advance. Let it do that one thing unattended. Everything else stays gated.</p>
+            <p class="lang-pt"><strong>Faça:</strong> Escolha a ação menor e mais reversível que o loop vem preparando corretamente há duas semanas &mdash; um post interno no Slack, um avanço de status no CRM. Deixe que ele faça só isso sozinho. Todo o resto continua com gate.</p>
+            <p class="lang-en"><strong>Not customer email.</strong> Not now, and maybe never without a human tap. The August over-send is the reason that line exists.</p>
+            <p class="lang-pt"><strong>Não é e-mail para cliente.</strong> Não agora, e talvez nunca sem um toque humano. O envio em excesso de agosto é a razão dessa regra existir.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-step">12</div>
+          <div>
+            <div class="guide-meta"><span class="pill">15 min</span><span class="pill">Your policy</span></div>
+            <h3 class="lang-en">Write the promotion rule</h3>
+            <h3 class="lang-pt">Escreva a regra de promoção</h3>
+            <p class="lang-en"><strong>Do:</strong> Write down what any future job must prove before it graduates from drafting to acting. Yours will look something like: <em>14 unattended runs, zero "Dangerous", fewer than two "Wrong", reversible in one click, kill switch tested this month.</em></p>
+            <p class="lang-pt"><strong>Faça:</strong> Escreva o que qualquer tarefa futura precisa provar antes de passar de rascunho para ação. A sua vai ser algo como: <em>14 execuções sem supervisão, zero "Perigoso", menos de dois "Errado", reversível em um clique, botão de parada testado neste mês.</em></p>
+            <p class="lang-en"><strong>Done when:</strong> the rule is written and you have applied it to a second job without rethinking it from scratch. That reuse is the proof you learned the pattern and not just the project.</p>
+            <p class="lang-pt"><strong>Pronto quando:</strong> a regra estiver escrita e você a tiver aplicado a uma segunda tarefa sem repensar tudo do zero. Essa reutilização é a prova de que você aprendeu o padrão, e não só o projeto.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">
+            <span class="lang-en">How to use this track</span>
+            <span class="lang-pt">Como usar esta trilha</span>
+          </div>
+          <h2>
+            <span class="lang-en">Rules that keep 15 minutes honest</span>
+            <span class="lang-pt">Regras que mantêm os 15 minutos honestos</span>
+          </h2>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini-card">
+          <h3 class="lang-en">One session per day, maximum</h3>
+          <h3 class="lang-pt">No máximo uma sessão por dia</h3>
+          <p class="lang-en">Several sessions need a night to pass so the machine can run without you. Doing four in one sitting skips the only part that teaches anything.</p>
+          <p class="lang-pt">Várias sessões precisam que uma noite passe para a máquina rodar sem você. Fazer quatro de uma vez pula justamente a parte que ensina.</p>
+        </article>
+        <article class="mini-card">
+          <h3 class="lang-en">Stop at 15 minutes even mid-task</h3>
+          <h3 class="lang-pt">Pare aos 15 minutos, mesmo no meio</h3>
+          <p class="lang-en">Write where you stopped in <code>LOOP-LOG.md</code>. Picking up a written handoff is itself the skill &mdash; it is exactly what you are teaching the loop to do.</p>
+          <p class="lang-pt">Escreva onde parou no <code>LOOP-LOG.md</code>. Retomar a partir de uma anotação é a habilidade em si &mdash; é exatamente o que você está ensinando o loop a fazer.</p>
+        </article>
+        <article class="mini-card">
+          <h3 class="lang-en">Never skip a read-only block</h3>
+          <h3 class="lang-pt">Nunca pule um bloco de leitura</h3>
+          <p class="lang-en">The cost of Blocks 1 and 2 is boredom. The cost of skipping them is an autonomous system you disable in May and never turn back on.</p>
+          <p class="lang-pt">O custo dos Blocos 1 e 2 é tédio. O custo de pulá-los é um sistema autônomo que você desliga em maio e nunca mais religa.</p>
+        </article>
+        <article class="mini-card">
+          <h3 class="lang-en">Add no new tools</h3>
+          <h3 class="lang-pt">Não adicione ferramentas novas</h3>
+          <p class="lang-en">Twelve sessions, zero installs. If a session tempts you into a new framework, that is the old habit &mdash; collecting capability instead of running a loop.</p>
+          <p class="lang-pt">Doze sessões, zero instalações. Se uma sessão te tentar a um framework novo, é o hábito antigo &mdash; colecionar capacidade em vez de rodar um loop.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h2>
+        <span class="lang-en">The whole track in one sentence</span>
+        <span class="lang-pt">A trilha inteira em uma frase</span>
+      </h2>
+      <p class="lang-en">Trigger starts it, state remembers it, the gate stops it, the signal calls you &mdash; and your rating is what makes tomorrow's run better than today's.</p>
+      <p class="lang-pt">O trigger começa, o estado lembra, o gate para, o sinal te chama &mdash; e a sua avaliação é o que faz a execução de amanhã ser melhor que a de hoje.</p>
+    </section>
+  </div>
+
+  <script src="site.js"></script>
+</body>
+</html>

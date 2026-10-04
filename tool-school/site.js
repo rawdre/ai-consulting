@@ -133,6 +133,24 @@
         "What is the safer workflow for repo edits?",
         "Help me turn this repo problem into one bounded Claude Code task."
       ]
+    },
+    "loop-school": {
+      slug: "loop-school",
+      title: "Loop School",
+      href: "loop-school.html",
+      track: "Operator",
+      hero: "Build the system that runs the work while you sleep, then rate it in the morning.",
+      tasks: [
+        "Name the four primitives in one system you already own: trigger, state, gate, signal.",
+        "Rewrite one fuzzy goal until a script could mark it passed or failed.",
+        "Put one read-only trigger back and let it run a full night without you.",
+        "Rate one unattended run Right / Wrong / Dangerous and change exactly one rule."
+      ],
+      prompts: [
+        "Which of my four primitives is missing?",
+        "Turn this fuzzy goal into something a script can check.",
+        "Is this action safe to promote from draft to automatic yet?"
+      ]
     }
   };
 
@@ -143,7 +161,8 @@
     "notion-complete-guide.html": "notion",
     "warp-complete-guide.html": "warp",
     "openclaw-complete-guide.html": "openclaw",
-    "claude-code-complete-guide.html": "claude-code"
+    "claude-code-complete-guide.html": "claude-code",
+    "loop-school.html": "loop-school"
   };
 
   var DEFAULT_SETTINGS = {
@@ -161,7 +180,8 @@
     notion: "Notion",
     warp: "Warp",
     openclaw: "OpenClaw",
-    "claude-code": "Claude Code"
+    "claude-code": "Claude Code",
+    "loop-school": "Loop School"
   };
 
   var GUIDE_RESEARCH_PROMPTS = {
@@ -248,6 +268,18 @@
         "Quais configurações devem ficar escondidas da página principal?",
         "Como o BYOK deve ser explicado para um iniciante?"
       ]
+    },
+    "loop-school": {
+      en: [
+        "What is the smallest action I can safely let run unattended?",
+        "How do I make this goal checkable by a script?",
+        "What should my kill switch actually do?"
+      ],
+      pt: [
+        "Qual é a menor ação que eu posso deixar rodar sozinha com segurança?",
+        "Como eu torno este objetivo verificável por um script?",
+        "O que o meu botão de parada deve realmente fazer?"
+      ]
     }
   };
 
@@ -279,6 +311,10 @@
     "ai-teacher": {
       en: "Configure the teacher so a student can ask one question, get one next step, and keep moving.",
       pt: "Configure o teacher para que um aluno faça uma pergunta, receba um próximo passo e continue avançando."
+    },
+    "loop-school": {
+      en: "Put one read-only trigger back, let it run one night, then rate what it produced.",
+      pt: "Devolva um trigger somente-leitura, deixe rodar uma noite e avalie o que ele produziu."
     }
   };
 
@@ -317,6 +353,12 @@
       "Comece entendendo o repositório e identificando os arquivos exatos que importam.",
       "Faça uma pergunta limitada sobre o repositório ou uma mudança por vez.",
       "Revise a saída e verifique o comportamento antes de aceitar a próxima tarefa."
+    ],
+    "loop-school": [
+      "Nomeie os quatro primitivos de um sistema que você já tem: trigger, estado, gate, sinal.",
+      "Reescreva um objetivo vago até um script conseguir dizer se passou ou falhou.",
+      "Devolva um trigger somente-leitura e deixe rodar uma noite inteira sem você.",
+      "Avalie uma execução sem supervisão como Certo / Errado / Perigoso e mude exatamente uma regra."
     ]
   };
 
@@ -355,6 +397,11 @@
       "Como eu devo orientar melhor o Claude Code?",
       "Qual é o fluxo mais seguro para editar repositórios?",
       "Me ajude a transformar este problema de repositório em uma tarefa limitada para Claude Code."
+    ],
+    "loop-school": [
+      "Qual dos meus quatro primitivos está faltando?",
+      "Transforme este objetivo vago em algo que um script consiga verificar.",
+      "Já é seguro promover esta ação de rascunho para automática?"
     ]
   };
 
