@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertex × Comeketo — Event Partner Package</title>
+<meta name="description" content="A partner catering and bar package from Comeketo Catering for Vertex Innovation & Design Hub events — Brazilian churrasco, bar service, partner pricing.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/vertex/comeketo-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9a24a;--gold-deep:#a8812a;--gold-soft:#f1e3b8;
+  --black:#121010;--panel:#1c1918;--ink:#241f1b;--muted:#6b625a;
+  --paper:#fbf7ef;--card:#fffdf8;--line:rgba(201,162,74,.28);--green:#2f7d4a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Montserrat',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+img{max-width:100%;display:block}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;color:var(--black);line-height:1.15}
+.eyebrow{font-size:11.5px;letter-spacing:3.5px;text-transform:uppercase;font-weight:700;color:var(--gold)}
+.rule{width:72px;height:2px;background:var(--gold);margin:16px 0}
+
+/* HERO */
+.hero{background:radial-gradient(1200px 500px at 85% -10%,#3a2f1d 0%,transparent 60%),var(--black);color:#f6efe2;padding:40px 0 48px;border-bottom:4px solid var(--gold)}
+.hero .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px}
+.hero .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:2px;font-size:12px;text-transform:uppercase;color:var(--gold-soft)}
+.hero .brand img{width:52px;height:52px;border-radius:50%}
+.hero .badge{border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:.5px}
+.hero h1 span{color:var(--gold)}
+.hero .lede{max-width:700px;margin-top:16px;font-size:16px;color:#d9cfbf}
+.hero .pt{margin-top:10px;font-style:italic;color:var(--gold-soft);font-size:14.5px}
+.hero .for{margin-top:22px;font-size:13px;color:#b9ae9d}
+.hero .for b{color:#fff}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:center}
+.hero-photo{border:1px solid var(--gold);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.hero-photo img{width:100%;aspect-ratio:496/244;object-fit:cover}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:700;font-size:13.5px;text-decoration:none;letter-spacing:.3px}
+.btn.gold{background:var(--gold);color:#1b1408}
+.btn.ghost{border:1.5px solid var(--gold);color:var(--gold)}
+
+/* OFFER STRIP */
+.offer{margin-top:-30px;position:relative}
+.offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:16px;padding:20px;box-shadow:0 10px 26px rgba(30,20,5,.08)}
+.kpi .was{font-size:13px;color:var(--muted);text-decoration:line-through}
+.kpi .big{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;color:var(--gold-deep);line-height:1.1}
+.kpi .label{font-size:13.5px;font-weight:700;color:var(--ink);margin-top:4px}
+.kpi .note{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+section{padding:46px 0 0}
+.section-head{margin-bottom:20px}
+.section-head h2{font-size:clamp(26px,4vw,34px)}
+.section-head p{color:var(--muted);font-size:14.5px;max-width:720px;margin-top:6px}
+
+/* WHY */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p,.card li{font-size:13.8px;color:#4a423b}
+.card ul{padding-left:18px}
+.card li{margin:3px 0}
+
+/* PACKAGE */
+.pkg{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.pkg-main{background:var(--black);color:#efe6d6;border-radius:18px;padding:26px;border:1px solid var(--gold)}
+.pkg-main h3{color:#fff;font-size:26px}
+.pkg-main .price{font-family:'Playfair Display',serif;font-size:46px;font-weight:800;color:var(--gold);line-height:1;margin:12px 0 2px}
+.pkg-main .price small{font-family:'Montserrat',sans-serif;font-size:14px;color:#cdbfa8;font-weight:600}
+.pkg-main .reg{font-size:13px;color:#b5a892}
+.pkg-main .reg s{color:#8f846f}
+.pkg-main ul{list-style:none;margin-top:16px;display:grid;gap:8px}
+.pkg-main li{font-size:14.5px;padding-left:24px;position:relative}
+.pkg-main li:before{content:'✦';position:absolute;left:0;color:var(--gold)}
+.choices{display:grid;gap:12px}
+.choice h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;color:#3f3832}
+
+/* BAR */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f4ecd8;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:#5b4a22}
+td.r,th.r{text-align:right;white-space:nowrap}
+tr.pick td{background:#fff8e6}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:var(--gold);color:#1b1408;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.free{color:var(--green);font-weight:800}
+.small{font-size:12.5px;color:var(--muted);margin-top:10px}
+.table-scroll{overflow-x:auto;border-radius:14px}
+
+/* ADDONS */
+.addons{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}
+.addon-photo{border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.addon-photo img{width:100%;height:100%;object-fit:cover;min-height:200px}
+
+/* EVENTS */
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.event .kind{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:800}
+.event h3{font-size:20px;margin:4px 0 8px}
+
+/* INVESTMENT */
+.save{color:var(--green);font-weight:800}
+
+/* CTA */
+.cta{margin:48px 0 0;background:var(--black);color:#efe6d6;border-top:4px solid var(--gold);padding:40px 0}
+.cta-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
+.cta h2{color:#fff;font-size:clamp(26px,4vw,34px)}
+.cta p{color:#cfc3ae;margin-top:8px;font-size:14.5px}
+.contact{display:grid;gap:8px;font-size:14.5px}
+.contact a{color:var(--gold);text-decoration:none;font-weight:600}
+.steps{margin-top:14px;padding-left:20px;color:#e2d7c4;font-size:14px}
+.steps li{margin:4px 0}
+footer{background:#0b0a0a;color:#8d8372;font-size:11.5px;padding:16px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media screen and (max-width:820px){
+  .hero-grid,.pkg,.addons,.cta-grid{grid-template-columns:1fr}
+  .offer-grid,.why,.events{grid-template-columns:1fr}
+  .hero .top{flex-direction:column;align-items:flex-start}
+  .offer{margin-top:-20px}
+}
+
+/* PRINT / PDF */
+@page{size:Letter;margin:0.45in}
+@media print{
+  body{background:#fff;font-size:12px}
+  .wrap{max-width:none;padding:0}
+  .actions,.no-print{display:none!important}
+  .hero{padding:22px 24px 26px;border-radius:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hero .top{margin-bottom:18px}
+  .offer{margin-top:14px}
+  section{padding:20px 0 0}
+  .section-head{break-after:avoid}
+  .kpi,.card,table,.pkg-main{box-shadow:none;break-inside:avoid}
+  .page-break{break-before:auto}
+  .hero h1{font-size:40px}
+  .hero .lede{font-size:13px}
+  .section-head h2{font-size:24px}
+  .kpi .big{font-size:28px}
+  .pkg-main .price{font-size:36px}
+  th,td{padding:7px 10px}
+  .card,.pkg-main{padding:14px}
+  .addon-photo img{min-height:0;max-height:190px}
+  .invest,.pb{break-before:page}
+  .chip{font-size:10px;padding:2px 8px}
+  .choices{gap:6px}
+  .choice h4{font-size:10px;margin-bottom:3px}
+  .pkg-main ul{margin-top:8px;gap:4px}
+  .pkg-main li{font-size:12.5px}
+  .pkg-main h3{font-size:22px}
+  .section-head{margin-bottom:10px}
+  .section-head p{font-size:12.5px}
+  table{font-size:12px}
+  .table-scroll{overflow:visible}
+  .cta{break-before:avoid;margin-top:16px}
+  .why,.events,.offer-grid,.pkg,.addons{break-inside:avoid}
+  .hero-photo img{max-height:170px}
+  .hero .pt{font-size:12px}
+  .cta{padding:22px 24px;border-radius:12px;margin-top:24px;break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  footer{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand"><img src="assets/vertex/comeketo-logo.png" alt="Comeketo Catering logo">Comeketo Catering · Since 2009</div>
+      <div class="badge">Event Partner Proposal</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Prepared for Vertex Innovation &amp; Design Hub</div>
+        <h1>Vertex <span>×</span> Comeketo</h1>
+        <p class="lede">An exclusive partner package for the events Vertex already hosts — networking nights, launches, workshops and galas. Authentic Brazilian churrasco and full bar service, at partner pricing, with one team handling food, staff and bar.</p>
+        <p class="pt">Churrasco brasileiro de verdade para os eventos da comunidade Vertex.</p>
+        <p class="for">Prepared for <b>Dafne Borsatti</b> &amp; <b>Stefanie Shine</b> · Northborough, MA</p>
+        <div class="actions">
+          <a class="btn gold" href="tel:+19783811212">Call André · (978) 381-1212</a>
+          <a class="btn ghost" href="vertex-comeketo.pdf" download>Download PDF</a>
+        </div>
+      </div>
+      <div class="hero-photo"><img src="assets/vertex/churrasco-team.jpg" alt="Comeketo gaúcho chefs carving churrasco on skewers"></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap offer">
+    <div class="offer-grid">
+      <div class="kpi"><div class="was">Regular $41.90 / guest</div><div class="big">$29.90</div><div class="label">Elite Churrasco · per guest</div><div class="note">3 meats · 3 sides · 1 salad</div></div>
+      <div class="kpi"><div class="was">Standard 24%</div><div class="big">20%</div><div class="label">Partner service charge</div><div class="note">Lower rate on every Vertex event</div></div>
+      <div class="kpi"><div class="was">$150 value</div><div class="big">FREE</div><div class="label">Bar setup waived</div><div class="note">With any bar package below</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Why this fits Vertex</div>
+        <h2>Built around the events you already run</h2>
+        <p>Vertex brings together Brazilian-American construction leaders, investors and community voices. Your guests already know and love churrasco — we bring it to your space, done the right way.</p>
+      </div>
+      <div class="why">
+        <div class="card"><h3>Food that feels like home</h3><p>Real Brazilian churrasco — sirloin, flank steak with chimichurri, linguiça, chicken wrapped in bacon — the menu your community celebrates with.</p></div>
+        <div class="card"><h3>One team, start to finish</h3><p>Food, service staff and bartenders from a single partner. No juggling vendors on event night — Vertex hosts, we handle the rest.</p></div>
+        <div class="card"><h3>Ready for every format</h3><p>From a 50-guest member night to a full anniversary gala, the same partner pricing applies — so planning the next event is fast.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">The food package</div>
+        <h2>Elite Churrasco Package</h2>
+        <p>Our 3-meat churrasco experience at an exclusive partner rate. Pick your favorites below.</p>
+      </div>
+      <div class="pkg">
+        <div class="pkg-main">
+          <h3>Elite Churrasco</h3>
+          <div class="price">$29.90 <small>/ guest</small></div>
+          <div class="reg">Regular Deluxe Churrasco <s>$41.90</s> — you save $12.00 per guest</div>
+          <ul>
+            <li><b>3 meats</b> grilled churrasco-style</li>
+            <li><b>3 sides</b> — Brazilian and American favorites</li>
+            <li><b>1 salad</b> — Garden or Caesar</li>
+            <li>Professional buffet setup and service staff</li>
+            <li>Premium cuts available as upgrades</li>
+          </ul>
+        </div>
+        <div class="card choices">
+          <div class="choice"><h4>Choose 3 meats</h4><div class="chips"><span class="chip">Top Sirloin</span><span class="chip">Flank Steak w/ Chimichurri</span><span class="chip">Garlic Steak</span><span class="chip">Chicken Wrapped w/ Bacon</span><span class="chip">Brazilian Sausage</span><span class="chip">Pork Loin w/ Garlic Butter</span><span class="chip">Chicken Wings</span></div></div>
+          <div class="choice"><h4>Choose 3 sides</h4><div class="chips"><span class="chip">Rice</span><span class="chip">Beans</span><span class="chip">Tropeiro Beans</span><span class="chip">Collard Greens</span><span class="chip">Mashed Potatoes</span><span class="chip">Oven Roasted Potatoes</span><span class="chip">Yuca</span><span class="chip">Plantains</span></div></div>
+          <div class="choice"><h4>Choose 1 salad</h4><div class="chips"><span class="chip">Garden Salad</span><span class="chip">Caesar Salad</span></div></div>
+          <div class="choice"><h4>Premium upgrades (per guest)</h4><div class="chips"><span class="chip">Prime Sirloin +$3.00</span><span class="chip">Beef Short Ribs +$5.00</span><span class="chip">Ribeye +$5.75</span><span class="chip">Filet Mignon +$8.00</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">The bar package</div>
+        <h2>Bar Service — setup fee waived</h2>
+        <p>Choose the bar level that matches the night. The $150 bar setup is <b>free</b> for Vertex; bartending staff is $3 per guest.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Bar package</th><th>What's included</th><th class="r">Per guest</th></tr></thead>
+        <tbody>
+          <tr><td><b>Special Open Bar</b></td><td>1 beer, 1 wine or sangria, 2 cocktails, soft drinks</td><td class="r">$19.90</td></tr>
+          <tr class="pick"><td><b>Beer &amp; Wine</b><span class="tag">Best for networking</span></td><td>Beer, red &amp; white wine, sangria, soft drinks</td><td class="r">$22.00</td></tr>
+          <tr><td><b>Beer &amp; Wine + 3 Signature Cocktails</b></td><td>Everything above plus 3 signature cocktails (caipirinha is a crowd favorite)</td><td class="r">$27.00</td></tr>
+          <tr><td><b>Full Open Bar</b><span class="tag">Best for galas</span></td><td>Beer, wine, sangria, liquor, soft drinks</td><td class="r">$30.00</td></tr>
+          <tr><td><b>Cash Bar</b></td><td>Bar service; guests pay per drink ($2–$10)</td><td class="r">$6.50</td></tr>
+          <tr><td><b>Standard Bar Setup</b></td><td>Complete setup with equipment and disposable barware</td><td class="r"><s style="opacity:.55">$150</s> <span class="free">FREE</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small">Open bar packages cover up to 4 hours. Extra open-bar hour: $8 (beer &amp; wine) or $10 (full bar) per guest.</p>
+    </div>
+  </section>
+
+  <section class="pb">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Make it a full experience</div>
+        <h2>Cocktail-hour and dessert add-ons</h2>
+      </div>
+      <div class="addons">
+        <div class="card">
+          <ul>
+            <li><b>Cheese &amp; Crackers, Fruit or Veggie platter</b> — from $4.95 / guest</li>
+            <li><b>Pão de Queijo</b> (Brazilian cheese bread) — $2.50 / guest</li>
+            <li><b>Mini turnovers (pastéis)</b> — $2.50 / guest</li>
+            <li><b>Croquettes (coxinha-style)</b> — $3.50 / guest</li>
+            <li><b>Charcuterie board</b> — from $8.95</li>
+            <li><b>Brigadeiro, Flan or Passion Fruit Mousse</b> — $4.95 / guest</li>
+          </ul>
+        </div>
+        <div class="addon-photo"><img src="assets/vertex/cocktail-board.jpg" alt="Charcuterie and cheese board being served"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Suggested pairings</div>
+        <h2>The right package for each Vertex event</h2>
+      </div>
+      <div class="events">
+        <div class="card event"><div class="kind">Member networking night</div><h3>Elite + Special Open Bar</h3><p>Relaxed churrasco buffet and a simple drink list — easy to run month after month.</p></div>
+        <div class="card event"><div class="kind">Launches &amp; media events</div><h3>Elite + Beer &amp; Wine + Pão de Queijo</h3><p>A cheese-bread welcome and a strong buffet that looks great on camera and on Instagram.</p></div>
+        <div class="card event"><div class="kind">Anniversary gala</div><h3>Elite + Full Bar + Brigadeiro</h3><p>Full bar, premium cut upgrade and Brazilian desserts for the night that matters most.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="invest">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Sample investment</div>
+        <h2>What an event looks like</h2>
+        <p>Example: Elite Churrasco + Beer &amp; Wine open bar. Partner pricing compared with our standard rates.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Line</th><th class="r">50 guests</th><th class="r">100 guests</th><th class="r">150 guests</th></tr></thead>
+        <tbody>
+          <tr><td>Elite Churrasco ($29.90)</td><td class="r">$1,495.00</td><td class="r">$2,990.00</td><td class="r">$4,485.00</td></tr>
+          <tr><td>Service staff ($3 / guest)</td><td class="r">$150.00</td><td class="r">$300.00</td><td class="r">$450.00</td></tr>
+          <tr><td>Beer &amp; Wine open bar ($22)</td><td class="r">$1,100.00</td><td class="r">$2,200.00</td><td class="r">$3,300.00</td></tr>
+          <tr><td>Bartending staff ($3 / guest)</td><td class="r">$150.00</td><td class="r">$300.00</td><td class="r">$450.00</td></tr>
+          <tr><td>Bar setup</td><td class="r free">FREE</td><td class="r free">FREE</td><td class="r free">FREE</td></tr>
+          <tr><td>Service charge (20%)</td><td class="r">$579.00</td><td class="r">$1,158.00</td><td class="r">$1,737.00</td></tr>
+          <tr><td>MA tax (7%)</td><td class="r">$243.18</td><td class="r">$486.36</td><td class="r">$729.54</td></tr>
+          <tr class="pick"><td><b>Vertex partner total</b></td><td class="r"><b>$3,717.18</b></td><td class="r"><b>$7,434.36</b></td><td class="r"><b>$11,151.54</b></td></tr>
+          <tr><td>Standard pricing (Deluxe $41.90, 24%, setup $150)</td><td class="r"><s>$4,836.19</s></td><td class="r"><s>$9,473.35</s></td><td class="r"><s>$14,110.52</s></td></tr>
+          <tr><td><b>Vertex saves</b></td><td class="r save">$1,119.01</td><td class="r save">$2,038.99</td><td class="r save">$2,958.98</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small">About $74 per guest all-in for food, open bar, staff, service and tax. Travel to Northborough and any rentals are quoted separately. Final pricing is confirmed on the event agreement.</p>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="wrap cta-grid">
+      <div>
+        <h2>Let's plan Vertex's next event</h2>
+        <p>We'd love to bring this to your next networking night or launch — and to have Comeketo as Vertex's go-to catering partner.</p>
+        <ol class="steps">
+          <li>Quick call to confirm your space, guest counts and bar policy</li>
+          <li>Tasting with our team to choose the meats and sides</li>
+          <li>Lock in partner pricing for your upcoming events</li>
+        </ol>
+      </div>
+      <div class="contact">
+        <div><b style="color:#fff">André Raw</b> · Comeketo Catering</div>
+        <div>📞 <a href="tel:+19783811212">(978) 381-1212</a></div>
+        <div>✉️ <a href="mailto:team@comeketocatering.com">team@comeketocatering.com</a></div>
+        <div>🌐 <a href="https://comeketocatering.com" target="_blank" rel="noopener">comeketocatering.com</a></div>
+        <div>📍 199 Main St, Fitchburg, MA</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap"><span>Comeketo Catering × Vertex Innovation &amp; Design Hub · Partner proposal · October 2026</span><span>Prepared with Raw AI Business Solution</span></div>
+</footer>
+</body>
+</html>
