@@ -365,6 +365,27 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
   .hero{padding-bottom:110px}
   .hero .slash{width:360px;height:80px}
 }
+
+/* CONTACT WIDGET — "talk to a specialist" (Comeketo + Maximus) */
+.cw{position:fixed;right:18px;bottom:18px;z-index:80}
+.cw-fab{list-style:none;display:inline-flex;align-items:center;gap:9px;cursor:pointer;background:var(--gold);color:#1b1408;font-weight:700;font-size:14px;padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.4);border-bottom:3px solid var(--lime-deep);transition:transform .15s}
+.cw-fab:hover{transform:translateY(-1px)}
+.cw-fab::-webkit-details-marker{display:none}
+.cw-fab::marker{content:''}
+.cw-fab svg{width:20px;height:20px;flex:none}
+.cw[open] .cw-fab{background:var(--gold-soft)}
+.cw-panel{position:absolute;right:0;bottom:62px;width:302px;background:var(--char);color:#f6efe2;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 22px 54px rgba(0,0,0,.55);animation:cwpop .18s ease}
+@keyframes cwpop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cw-title{font-size:13px;color:var(--gold-soft);font-weight:600;margin:2px 4px 11px}
+.cw-row{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;border:1px solid var(--line-dark);text-decoration:none;color:#f6efe2;margin-bottom:8px;transition:background .15s,border-color .15s}
+.cw-row:last-child{margin-bottom:0}
+.cw-row:hover{background:rgba(241,227,184,.06);border-color:var(--gold)}
+.cw-row .lg{width:44px;height:44px;flex:none;background:#f4f4f2;border-radius:10px;padding:5px;display:grid;place-items:center}
+.cw-row .lg img{max-width:100%;max-height:100%;width:auto;height:auto}
+.cw-row b{display:block;font-size:14px;line-height:1.2}
+.cw-row small{display:block;font-size:11.5px;color:#b9ae9d;margin-top:1px}
+.cw-row .arrow{margin-left:auto;color:var(--gold);font-size:18px;flex:none}
+@media print{.cw{display:none}}
 </style>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js"></script>
 </head>
@@ -416,7 +437,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       <div>
         <span class="season"><span class="dot" aria-hidden="true">✦</span><span data-i18n="season">Holiday Season 2026 · Thanksgiving &amp; Christmas</span></span>
         <h1 data-i18n="h1">Wrap your brand.<br><span class="g script" data-sparkles>Feast on us</span> this holiday.</h1>
-        <p class="lede" data-i18n="lede">Purchase <b>$1,000</b> at Maximus Car Wrap and get a <b>$250 bonus</b> toward Comeketo's <b>Christmas or Thanksgiving package</b>, authentic Brazilian churrasco for your family or your team.</p>
+        <p class="lede" data-i18n="lede">Invest <b>$1,000</b> in Maximus products — wraps, signs, banners, uniforms — and earn a <b>$250 bonus</b> toward Comeketo's holiday feast for your team's <b>year-end celebration</b>.</p>
         <div class="actions">
           <a class="btn gold" href="#claim" data-i18n="cta_claim">Claim my $250 bonus</a>
           <a class="btn ghost" href="https://maximuscarwrap.com/" target="_blank" rel="noopener" data-i18n="cta_quote">Get a free Maximus quote</a>
@@ -720,8 +741,29 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
 </main>
 
 <footer>
-  <div class="wrap"><span data-i18n="foot">Maximus Car Wrap × Comeketo Catering · Holiday promotion 2026</span><span>v1.0</span></div>
+  <div class="wrap"><span data-i18n="foot">Maximus Car Wrap × Comeketo Catering · Holiday promotion 2026</span><span>v1.1</span></div>
 </footer>
+
+<!-- Floating "talk to a specialist" widget: Comeketo + Maximus, each with its logo -->
+<details class="cw">
+  <summary class="cw-fab" aria-label="Talk to a specialist">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5Z" stroke="#1b1408" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span data-i18n="cw_open">Talk to a specialist</span>
+  </summary>
+  <div class="cw-panel">
+    <div class="cw-title" data-i18n="cw_title">Who would you like to talk to?</div>
+    <a class="cw-row" href="sms:+19783811212?&amp;body=Hi%20Andr%C3%A9!%20I%20saw%20the%20Maximus%20%C3%97%20Comeketo%20holiday%20bonus%20and%20want%20to%20talk.">
+      <span class="lg"><img src="assets/comeketo-logo.png" alt="Comeketo Catering" width="1001" height="1001"></span>
+      <span><b>Comeketo Catering</b><small data-i18n="cw_ck_sub">Holiday feast &amp; events specialist</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </a>
+    <a class="cw-row" href="https://maximuscarwrap.com/" target="_blank" rel="noopener">
+      <span class="lg"><img src="assets/maximus-logo.png" alt="Maximus Car Wrap" width="493" height="155"></span>
+      <span><b>Maximus Car Wrap</b><small data-i18n="cw_mx_sub">Wraps, signs &amp; branding</small></span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </a>
+  </div>
+</details>
 
 <script>
 (function(){
@@ -734,7 +776,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
   var I18N={
     pt:{
       mq:"Thanksgiving <b>e</b> Natal ✦ Bônus de $250 ✦ Maximus <b>×</b> Comeketo ✦ Churrasco brasileiro ✦ Envelopamento · Placas · Banners ✦ Código MAXIMUS250 ✦ ",
-      lede:"Compre <b>$1.000</b> na Maximus Car Wrap e ganhe <b>$250 de bônus</b> no <b>pacote de Natal ou Thanksgiving</b> da Comeketo, churrasco brasileiro autêntico para a sua família ou a sua equipe.",
+      lede:"Invista <b>$1.000</b> em produtos da Maximus — envelopamento, placas, banners, uniformes — e ganhe <b>$250 de bônus</b> no banquete da Comeketo para a sua <b>confraternização de fim de ano</b>.",
       cta_claim:"Quero meu bônus de $250",
       v_off:"Bônus de fim de ano",
       v_what:"Compre $1.000 na Maximus. Use no pacote de Natal ou Thanksgiving da Comeketo.",
@@ -806,11 +848,12 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       call:'Ligue para o André · (978) 381-1212',text:'Mande mensagem',role_ck:'Promoção e catering de fim de ano · André Raw',role_mx:'Envelopamento, placas e impressão · Orçamento grátis',
       
       tr3:'Mencione o código MAXIMUS250 ao reservar. Não pode ser trocado por dinheiro nem combinado com outras ofertas da Comeketo.',tr4:'Sujeito à disponibilidade de datas. O preço final é confirmado no contrato do evento da Comeketo.',
+      cw_open:'Falar com um especialista',cw_title:'Com quem você quer falar?',cw_ck_sub:'Especialista em banquete e eventos',cw_mx_sub:'Envelopamento, placas e sinalização',
       foot:'Maximus Car Wrap × Comeketo Catering · Promoção de fim de ano 2026'
     },
     es:{
       mq:"Thanksgiving <b>y</b> Navidad ✦ Bono de $250 ✦ Maximus <b>×</b> Comeketo ✦ Churrasco brasileño ✦ Rotulación · Letreros · Banners ✦ Código MAXIMUS250 ✦ ",
-      lede:"Compra <b>$1,000</b> en Maximus Car Wrap y recibe un <b>bono de $250</b> para el <b>paquete de Navidad o Thanksgiving</b> de Comeketo, auténtico churrasco brasileño para tu familia o tu equipo.",
+      lede:"Invierte <b>$1,000</b> en productos de Maximus — rotulación, letreros, banners, uniformes — y gana un <b>bono de $250</b> para el banquete de Comeketo para tu <b>fiesta de fin de año</b>.",
       cta_claim:"Quiero mi bono de $250",
       v_off:"Bono navideño",
       v_what:"Compra $1,000 en Maximus. Úsalo en el paquete de Navidad o Thanksgiving de Comeketo.",
@@ -882,6 +925,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       call:'Llama a André · (978) 381-1212',text:'Escríbenos',role_ck:'Promoción y catering navideño · André Raw',role_mx:'Rotulación, letreros e impresión · Cotización gratis',
       
       tr3:'Menciona el código MAXIMUS250 al reservar. No canjeable por dinero ni combinable con otras ofertas de Comeketo.',tr4:'Sujeto a disponibilidad de fechas. El precio final se confirma en el contrato del evento de Comeketo.',
+      cw_open:'Hablar con un especialista',cw_title:'¿Con quién quieres hablar?',cw_ck_sub:'Especialista en banquete y eventos',cw_mx_sub:'Rotulación, letreros y branding',
       foot:'Maximus Car Wrap × Comeketo Catering · Promoción navideña 2026'
     }
   };
