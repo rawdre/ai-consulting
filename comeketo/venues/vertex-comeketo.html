@@ -123,6 +123,16 @@ tr.pick td{background:#fff8e6}
 /* INVESTMENT */
 .save{color:var(--green);font-weight:800}
 
+/* REWARDS */
+.rewards{background:radial-gradient(900px 420px at 88% -25%,#3a2f1d 0,transparent 60%),var(--black);border:1px solid var(--gold);border-radius:20px;padding:30px;color:#efe6d6;box-shadow:0 18px 40px rgba(30,20,5,.18)}
+.rw-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.rw-card{background:rgba(255,255,255,.045);border:1px solid rgba(201,162,74,.4);border-radius:16px;padding:22px}
+.rw-card .amt{font-family:'Playfair Display',serif;font-size:42px;font-weight:800;color:var(--gold);line-height:1}
+.rw-card h3{color:#fff;font-size:20px;margin:8px 0 6px}
+.rw-card p{color:#cfc3ae;font-size:13.8px}
+.rw-foot{margin-top:18px;font-size:13.8px;color:#e2d7c4;border-top:1px solid rgba(201,162,74,.28);padding-top:14px}
+.rw-foot b{color:var(--gold-soft)}
+
 /* CTA */
 .cta{margin:48px 0 0;background:var(--black);color:#efe6d6;border-top:4px solid var(--gold);padding:40px 0}
 .cta-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
@@ -137,7 +147,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media screen and (max-width:820px){
   .hero-grid,.pkg,.addons,.cta-grid{grid-template-columns:1fr}
-  .offer-grid,.why,.events{grid-template-columns:1fr}
+  .offer-grid,.why,.events,.rw-grid{grid-template-columns:1fr}
   .hero .top{flex-direction:column;align-items:flex-start}
   .offer{margin-top:-20px}
 }
@@ -221,7 +231,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <main>
   <div class="wrap offer">
     <div class="offer-grid">
-      <div class="kpi"><div class="was" data-i18n="k1was">Regular $41.90 / guest</div><div class="big">$29.90</div><div class="label" data-i18n="k1label">Elite Churrasco · per guest</div><div class="note" data-i18n="k1note">3 meats · 3 sides · 1 salad</div></div>
+      <div class="kpi"><div class="was" data-i18n="k1was">Regular $41.90 / guest</div><div class="big">$29.90</div><div class="label" data-i18n="k1label">Elite Churrasco · per guest</div><div class="note" data-i18n="k1note">2 meats · 3 sides · 1 salad</div></div>
       <div class="kpi"><div class="was" data-i18n="k2was">Standard 24%</div><div class="big">20%</div><div class="label" data-i18n="k2label">Partner service charge</div><div class="note" data-i18n="k2note">Lower rate on every Vertex event</div></div>
       <div class="kpi"><div class="was" data-i18n="k3was">$150 value</div><div class="big" data-i18n="free">FREE</div><div class="label" data-i18n="k3label">Bar setup waived</div><div class="note" data-i18n="k3note">With any bar package below</div></div>
     </div>
@@ -247,7 +257,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="section-head">
         <div class="eyebrow" data-i18n="pkg_eb">The food package</div>
         <h2 data-i18n="pkg_h">Elite Churrasco Package</h2>
-        <p data-i18n="pkg_p">Our 3-meat churrasco experience at an exclusive partner rate. Pick your favorites below.</p>
+        <p data-i18n="pkg_p">Our 2-meat churrasco experience at an exclusive partner rate. Pick your favorites below.</p>
       </div>
       <div class="pkg">
         <div class="pkg-main">
@@ -255,7 +265,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <div class="price">$29.90 <small data-i18n="per_guest">/ guest</small></div>
           <div class="reg" data-i18n="reg">Regular Deluxe Churrasco <s>$41.90</s> — you save $12.00 per guest</div>
           <ul>
-            <li data-i18n="li1"><b>3 meats</b> grilled churrasco-style</li>
+            <li data-i18n="li1"><b>2 meats</b> grilled churrasco-style</li>
             <li data-i18n="li2"><b>3 sides</b> — Brazilian and American favorites</li>
             <li data-i18n="li3"><b>1 salad</b> — Garden or Caesar</li>
             <li data-i18n="li4">Professional buffet setup and service staff</li>
@@ -263,7 +273,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           </ul>
         </div>
         <div class="card choices">
-          <div class="choice"><h4 data-i18n="ch_meats">Choose 3 meats</h4><div class="chips"><span class="chip">Top Sirloin</span><span class="chip" data-i18n="c_flank">Flank Steak w/ Chimichurri</span><span class="chip" data-i18n="c_garlic">Garlic Steak</span><span class="chip" data-i18n="c_chicken">Chicken Wrapped w/ Bacon</span><span class="chip" data-i18n="c_sausage">Brazilian Sausage</span><span class="chip" data-i18n="c_pork">Pork Loin w/ Garlic Butter</span><span class="chip" data-i18n="c_wings">Chicken Wings</span></div></div>
+          <div class="choice"><h4 data-i18n="ch_meats">Choose 2 meats</h4><div class="chips"><span class="chip">Top Sirloin</span><span class="chip" data-i18n="c_flank">Flank Steak w/ Chimichurri</span><span class="chip" data-i18n="c_garlic">Garlic Steak</span><span class="chip" data-i18n="c_chicken">Chicken Wrapped w/ Bacon</span><span class="chip" data-i18n="c_sausage">Brazilian Sausage</span><span class="chip" data-i18n="c_pork">Pork Loin w/ Garlic Butter</span><span class="chip" data-i18n="c_wings">Chicken Wings</span></div></div>
           <div class="choice"><h4 data-i18n="ch_sides">Choose 3 sides</h4><div class="chips"><span class="chip" data-i18n="c_rice">Rice</span><span class="chip" data-i18n="c_beans">Beans</span><span class="chip" data-i18n="c_tropeiro">Tropeiro Beans</span><span class="chip" data-i18n="c_collard">Collard Greens</span><span class="chip" data-i18n="c_mashed">Mashed Potatoes</span><span class="chip" data-i18n="c_roasted">Oven Roasted Potatoes</span><span class="chip" data-i18n="c_yuca">Yuca</span><span class="chip" data-i18n="c_plantain">Plantains</span></div></div>
           <div class="choice"><h4 data-i18n="ch_salad">Choose 1 salad</h4><div class="chips"><span class="chip" data-i18n="c_garden">Garden Salad</span><span class="chip" data-i18n="c_caesar">Caesar Salad</span></div></div>
           <div class="choice"><h4 data-i18n="ch_up">Premium upgrades (per guest)</h4><div class="chips"><span class="chip">Prime Sirloin +$3.00</span><span class="chip" data-i18n="c_ribs">Beef Short Ribs +$5.00</span><span class="chip">Ribeye +$5.75</span><span class="chip">Filet Mignon +$8.00</span></div></div>
@@ -326,8 +336,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       </div>
       <div class="events">
         <div class="card event"><div class="kind" data-i18n="e1k">Member networking night</div><h3 data-i18n="e1h">Elite + Special Open Bar</h3><p data-i18n="e1p">Relaxed churrasco buffet and a simple drink list — easy to run month after month.</p></div>
-        <div class="card event"><div class="kind" data-i18n="e2k">Launches &amp; media events</div><h3 data-i18n="e2h">Elite + Beer &amp; Wine + Pão de Queijo</h3><p data-i18n="e2p">A cheese-bread welcome and a strong buffet that looks great on camera and on Instagram.</p></div>
-        <div class="card event"><div class="kind" data-i18n="e3k">Anniversary gala</div><h3 data-i18n="e3h">Elite + Full Bar + Brigadeiro</h3><p data-i18n="e3p">Full bar, premium cut upgrade and Brazilian desserts for the night that matters most.</p></div>
+        <div class="card event"><div class="kind" data-i18n="e2k">Launches &amp; media events</div><h3 data-i18n="e2h">Elite + Beer &amp; Wine + Appetizer</h3><p data-i18n="e2p">An appetizer welcome and a strong buffet that looks great on camera and on Instagram.</p></div>
+        <div class="card event"><div class="kind" data-i18n="e3k">Anniversary gala</div><h3 data-i18n="e3h">Elite + Full Bar + Dessert</h3><p data-i18n="e3p">Full bar, premium cut upgrade and Brazilian desserts for the night that matters most.</p></div>
       </div>
     </div>
   </section>
@@ -348,7 +358,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <tr><td data-i18n="l3">Beer &amp; Wine open bar ($22)</td><td class="r">$1,100.00</td><td class="r">$2,200.00</td><td class="r">$3,300.00</td></tr>
           <tr><td data-i18n="l4">Bartending staff ($3 / guest)</td><td class="r">$150.00</td><td class="r">$300.00</td><td class="r">$450.00</td></tr>
           <tr><td data-i18n="l5">Bar setup</td><td class="r free" data-i18n="free">FREE</td><td class="r free" data-i18n="free">FREE</td><td class="r free" data-i18n="free">FREE</td></tr>
-          <tr><td data-i18n="l6">Service charge (20%)</td><td class="r">$579.00</td><td class="r">$1,158.00</td><td class="r">$1,737.00</td></tr>
+          <tr><td data-i18n="l6">Service charge — 20% <small style="color:var(--green);font-weight:700">(down from 24%)</small></td><td class="r">$579.00</td><td class="r">$1,158.00</td><td class="r">$1,737.00</td></tr>
           <tr><td data-i18n="l7">MA tax (7%)</td><td class="r">$243.18</td><td class="r">$486.36</td><td class="r">$729.54</td></tr>
           <tr class="pick"><td data-i18n="l8"><b>Vertex partner total</b></td><td class="r"><b>$3,717.18</b></td><td class="r"><b>$7,434.36</b></td><td class="r"><b>$11,151.54</b></td></tr>
           <tr><td data-i18n="l9">Standard pricing (Deluxe $41.90, 24%, setup $150)</td><td class="r"><s>$4,836.19</s></td><td class="r"><s>$9,473.35</s></td><td class="r"><s>$14,110.52</s></td></tr>
@@ -356,7 +366,32 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         </tbody>
       </table>
       </div>
-      <p class="small" data-i18n="in_small">About $74 per guest all-in for food, open bar, staff, service and tax. Travel to Northborough and any rentals are quoted separately. Final pricing is confirmed on the event agreement.</p>
+      <p class="small" data-i18n="in_small">About $74 per guest all-in for food, open bar, staff, service and tax. Travel to Northborough and any rentals are quoted separately. Final pricing is confirmed on the event agreement. Vertex also pays a reduced <b>20% service charge instead of the standard 24%</b> — part of why Vertex saves over $1,100 per event versus standard pricing.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-i18n="rw_eb">Partner rewards</div>
+        <h2 data-i18n="rw_h">Hosting costs Vertex nothing — and earns 5% back</h2>
+        <p data-i18n="rw_p">Premium catering at your events with zero spend from Vertex. Guests are covered per plate, and every event sends money straight back to you.</p>
+      </div>
+      <div class="rewards">
+        <div class="rw-grid">
+          <div class="rw-card">
+            <div class="amt">5%</div>
+            <h3 data-i18n="rw1h">Cash back on every event</h3>
+            <p data-i18n="rw1p">Every event booked through Vertex earns Vertex 5% back in cash — no cap. A $1,000 event puts $50 straight back in your pocket; a $10,000 gala returns $500.</p>
+          </div>
+          <div class="rw-card">
+            <div class="amt">$8</div>
+            <h3 data-i18n="rw2h">Tasting passes to give out</h3>
+            <p data-i18n="rw2p">Buy tasting passes at just $8 each and hand them to members and prospects. They come taste the food, Vertex looks generous, and more events get booked.</p>
+          </div>
+        </div>
+        <div class="rw-foot" data-i18n="rw_foot">How Vertex brings premium catering to its events <b>without the spend</b>: guests are covered per plate, Vertex earns 5% cash back on every event, and tasting passes cost just $8 to gift.</div>
+      </div>
     </div>
   </section>
 
@@ -396,7 +431,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       tagline:'Churrasco brasileiro de verdade para os eventos da comunidade Vertex.',
       'for':'Preparado para <b>Dafne Borsatti</b> e <b>Stefanie Shine</b> · Northborough, MA',
       call:'Ligue para o André · (978) 381-1212',pdf:'Baixar PDF',
-      k1was:'Normal $41.90 / convidado',k1label:'Churrasco Elite · por convidado',k1note:'3 carnes · 3 acompanhamentos · 1 salada',
+      k1was:'Normal $41.90 / convidado',k1label:'Churrasco Elite · por convidado',k1note:'2 carnes · 3 acompanhamentos · 1 salada',
       k2was:'Padrão 24%',k2label:'Taxa de serviço de parceiro',k2note:'Taxa menor em todo evento do Vertex',
       k3was:'Valor de $150',free:'GRÁTIS',k3label:'Montagem do bar grátis',k3note:'Com qualquer pacote de bar abaixo',
       why_eb:'Por que combina com o Vertex',why_h:'Pensado para os eventos que vocês já realizam',
@@ -404,11 +439,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       w1h:'Comida com gosto de casa',w1p:'Churrasco brasileiro de verdade — sirloin, fraldinha com chimichurri, linguiça, frango enrolado no bacon — o cardápio que a sua comunidade usa para comemorar.',
       w2h:'Uma equipe, do início ao fim',w2p:'Comida, equipe de serviço e bartenders de um único parceiro. Nada de coordenar vários fornecedores na noite do evento — o Vertex recebe, nós cuidamos do resto.',
       w3h:'Pronto para qualquer formato',w3p:'De uma noite de membros com 50 convidados a uma gala de aniversário completa, vale o mesmo preço de parceiro — então planejar o próximo evento é rápido.',
-      pkg_eb:'O pacote de comida',pkg_h:'Pacote Churrasco Elite',pkg_p:'Nossa experiência de churrasco com 3 carnes, com preço exclusivo de parceiro. Escolha seus favoritos abaixo.',
+      pkg_eb:'O pacote de comida',pkg_h:'Pacote Churrasco Elite',pkg_p:'Nossa experiência de churrasco com 2 carnes, com preço exclusivo de parceiro. Escolha seus favoritos abaixo.',
       pkg_name:'Churrasco Elite',per_guest:'/ convidado',reg:'Churrasco Deluxe normal <s>$41.90</s> — você economiza $12.00 por convidado',
-      li1:'<b>3 carnes</b> grelhadas no estilo churrasco',li2:'<b>3 acompanhamentos</b> — favoritos brasileiros e americanos',li3:'<b>1 salada</b> — Verde ou Caesar',
+      li1:'<b>2 carnes</b> grelhadas no estilo churrasco',li2:'<b>3 acompanhamentos</b> — favoritos brasileiros e americanos',li3:'<b>1 salada</b> — Verde ou Caesar',
       li4:'Montagem profissional do buffet e equipe de serviço',li5:'Cortes premium disponíveis como upgrade',
-      ch_meats:'Escolha 3 carnes',ch_sides:'Escolha 3 acompanhamentos',ch_salad:'Escolha 1 salada',ch_up:'Upgrades premium (por convidado)',
+      ch_meats:'Escolha 2 carnes',ch_sides:'Escolha 3 acompanhamentos',ch_salad:'Escolha 1 salada',ch_up:'Upgrades premium (por convidado)',
       c_flank:'Fraldinha c/ Chimichurri',c_garlic:'Carne no Alho',c_chicken:'Frango Enrolado no Bacon',c_sausage:'Linguiça',c_pork:'Lombo de Porco na Manteiga de Alho',c_wings:'Asinhas de Frango',
       c_rice:'Arroz',c_beans:'Feijão',c_tropeiro:'Feijão Tropeiro',c_collard:'Couve',c_mashed:'Purê de Batata',c_roasted:'Batatas Assadas',c_yuca:'Mandioca',c_plantain:'Banana-da-terra',
       c_garden:'Salada Verde',c_caesar:'Salada Caesar',c_ribs:'Costela Bovina +$5.00',
@@ -428,15 +463,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       a6:'<b>Brigadeiro, Pudim ou Mousse de Maracujá</b> — $4.95 / convidado',
       ev_eb:'Combinações sugeridas',ev_h:'O pacote certo para cada evento do Vertex',
       e1k:'Noite de networking dos membros',e1h:'Elite + Open Bar Especial',e1p:'Buffet de churrasco descontraído e uma carta de drinks simples — fácil de repetir todo mês.',
-      e2k:'Lançamentos e eventos de mídia',e2h:'Elite + Cerveja e Vinho + Pão de Queijo',e2p:'Recepção com pão de queijo e um buffet caprichado que fica lindo na câmera e no Instagram.',
-      e3k:'Gala de aniversário',e3h:'Elite + Bar Completo + Brigadeiro',e3p:'Bar completo, upgrade de corte premium e sobremesas brasileiras para a noite mais importante.',
+      e2k:'Lançamentos e eventos de mídia',e2h:'Elite + Cerveja e Vinho + Aperitivo',e2p:'Recepção com aperitivo e um buffet caprichado que fica lindo na câmera e no Instagram.',
+      e3k:'Gala de aniversário',e3h:'Elite + Bar Completo + Sobremesa',e3p:'Bar completo, upgrade de corte premium e sobremesas brasileiras para a noite mais importante.',
       in_eb:'Exemplo de investimento',in_h:'Como fica um evento',in_p:'Exemplo: Churrasco Elite + open bar de Cerveja e Vinho. Preço de parceiro comparado com nossos valores padrão.',
       th_line:'Item',g50:'50 convidados',g100:'100 convidados',g150:'150 convidados',
       l1:'Churrasco Elite ($29.90)',l2:'Equipe de serviço ($3 / convidado)',l3:'Open bar Cerveja e Vinho ($22)',l4:'Bartenders ($3 / convidado)',l5:'Montagem do bar',
-      l6:'Taxa de serviço (20%)',l7:'Imposto MA (7%)',l8:'<b>Total parceiro Vertex</b>',l9:'Preço padrão (Deluxe $41.90, 24%, montagem $150)',l10:'<b>Economia do Vertex</b>',
-      in_small:'Cerca de $74 por convidado com tudo incluído: comida, open bar, equipe, serviço e imposto. Deslocamento até Northborough e aluguéis são orçados à parte. O preço final é confirmado no contrato do evento.',
+      l6:'Taxa de serviço — 20% <small style="color:var(--green);font-weight:700">(em vez de 24%)</small>',l7:'Imposto MA (7%)',l8:'<b>Total parceiro Vertex</b>',l9:'Preço padrão (Deluxe $41.90, 24%, montagem $150)',l10:'<b>Economia do Vertex</b>',
+      in_small:'Cerca de $74 por convidado com tudo incluído: comida, open bar, equipe, serviço e imposto. Deslocamento até Northborough e aluguéis são orçados à parte. O preço final é confirmado no contrato do evento. O Vertex ainda paga uma taxa de serviço reduzida de <b>20% em vez dos 24% padrão</b> — parte do motivo pelo qual o Vertex economiza mais de $1,100 por evento em relação ao preço padrão.',
       cta_h:'Vamos planejar o próximo evento do Vertex',cta_p:'Adoraríamos levar isso para a sua próxima noite de networking ou lançamento — e ter a Comeketo como a parceira de catering do Vertex.',
       s1:'Uma ligação rápida para confirmar o espaço, o número de convidados e a política do bar',s2:'Degustação com a nossa equipe para escolher as carnes e os acompanhamentos',s3:'Garantir o preço de parceiro para os próximos eventos',
+      rw_eb:'Recompensas de parceiro',rw_h:'Receber a Comeketo não custa nada ao Vertex — e ainda rende 5% de volta',
+      rw_p:'Catering premium nos seus eventos sem nenhum gasto do Vertex. Os convidados pagam por prato, e todo evento devolve dinheiro direto para você.',
+      rw1h:'Cashback em dinheiro em todo evento',rw1p:'Todo evento fechado através do Vertex rende 5% de volta em dinheiro para o Vertex — sem limite. Um evento de $1,000 coloca $50 de volta no seu bolso; uma gala de $10,000 devolve $500.',
+      rw2h:'Ingressos de degustação para distribuir',rw2p:'Compre ingressos de degustação por apenas $8 cada e entregue a membros e potenciais clientes. Eles vêm provar a comida, o Vertex fica bem na fita, e mais eventos são fechados.',
+      rw_foot:'Como o Vertex leva catering premium aos seus eventos <b>sem gastar</b>: os convidados pagam por prato, o Vertex ganha 5% de cashback em dinheiro em todo evento, e os ingressos de degustação custam apenas $8 para presentear.',
       foot:'Comeketo Catering × Vertex Innovation &amp; Design Hub · Proposta de parceria · Outubro de 2026'
     },
     es:{
@@ -446,7 +486,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       tagline:'Auténtico churrasco brasileño para los eventos de la comunidad Vertex.',
       'for':'Preparado para <b>Dafne Borsatti</b> y <b>Stefanie Shine</b> · Northborough, MA',
       call:'Llame a André · (978) 381-1212',pdf:'Descargar PDF',
-      k1was:'Regular $41.90 / invitado',k1label:'Churrasco Elite · por invitado',k1note:'3 carnes · 3 acompañantes · 1 ensalada',
+      k1was:'Regular $41.90 / invitado',k1label:'Churrasco Elite · por invitado',k1note:'2 carnes · 3 acompañantes · 1 ensalada',
       k2was:'Estándar 24%',k2label:'Cargo por servicio de socio',k2note:'Tarifa reducida en cada evento de Vertex',
       k3was:'Valor de $150',free:'GRATIS',k3label:'Montaje de bar sin costo',k3note:'Con cualquier paquete de bar de abajo',
       why_eb:'Por qué es ideal para Vertex',why_h:'Pensado para los eventos que ya organizan',
@@ -454,11 +494,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       w1h:'Comida que sabe a hogar',w1p:'Auténtico churrasco brasileño — sirloin, falda de res con chimichurri, linguiça, pollo envuelto en tocino — el menú con el que su comunidad celebra.',
       w2h:'Un solo equipo, de principio a fin',w2p:'Comida, personal de servicio y bartenders de un solo proveedor. Nada de coordinar varios proveedores la noche del evento — Vertex recibe, nosotros nos encargamos del resto.',
       w3h:'Listo para cualquier formato',w3p:'Desde una noche de miembros con 50 invitados hasta una gala de aniversario completa, aplica el mismo precio de socio — así planear el próximo evento es rápido.',
-      pkg_eb:'El paquete de comida',pkg_h:'Paquete Churrasco Elite',pkg_p:'Nuestra experiencia de churrasco con 3 carnes a un precio exclusivo de socio. Elija sus favoritos abajo.',
+      pkg_eb:'El paquete de comida',pkg_h:'Paquete Churrasco Elite',pkg_p:'Nuestra experiencia de churrasco con 2 carnes a un precio exclusivo de socio. Elija sus favoritos abajo.',
       pkg_name:'Churrasco Elite',per_guest:'/ invitado',reg:'Churrasco Deluxe regular <s>$41.90</s> — ahorra $12.00 por invitado',
-      li1:'<b>3 carnes</b> a la parrilla estilo churrasco',li2:'<b>3 acompañantes</b> — favoritos brasileños y americanos',li3:'<b>1 ensalada</b> — Verde o César',
+      li1:'<b>2 carnes</b> a la parrilla estilo churrasco',li2:'<b>3 acompañantes</b> — favoritos brasileños y americanos',li3:'<b>1 ensalada</b> — Verde o César',
       li4:'Montaje profesional del buffet y personal de servicio',li5:'Cortes premium disponibles como mejora',
-      ch_meats:'Elija 3 carnes',ch_sides:'Elija 3 acompañantes',ch_salad:'Elija 1 ensalada',ch_up:'Mejoras premium (por invitado)',
+      ch_meats:'Elija 2 carnes',ch_sides:'Elija 3 acompañantes',ch_salad:'Elija 1 ensalada',ch_up:'Mejoras premium (por invitado)',
       c_flank:'Falda de Res c/ Chimichurri',c_garlic:'Carne al Ajo',c_chicken:'Pollo Envuelto en Tocino',c_sausage:'Salchicha Brasileña',c_pork:'Lomo de Cerdo con Mantequilla de Ajo',c_wings:'Alitas de Pollo',
       c_rice:'Arroz',c_beans:'Frijoles',c_tropeiro:'Frijoles Tropeiro',c_collard:'Col Rizada',c_mashed:'Puré de Papa',c_roasted:'Papas al Horno',c_yuca:'Yuca',c_plantain:'Plátanos Maduros',
       c_garden:'Ensalada Verde',c_caesar:'Ensalada César',c_ribs:'Costilla de Res +$5.00',
@@ -478,15 +518,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       a6:'<b>Brigadeiro, Flan o Mousse de Maracuyá</b> — $4.95 / invitado',
       ev_eb:'Combinaciones sugeridas',ev_h:'El paquete ideal para cada evento de Vertex',
       e1k:'Noche de networking de miembros',e1h:'Elite + Barra Libre Especial',e1p:'Buffet de churrasco relajado y una carta de bebidas sencilla — fácil de repetir cada mes.',
-      e2k:'Lanzamientos y eventos de prensa',e2h:'Elite + Cerveza y Vino + Pão de Queijo',e2p:'Una bienvenida con pan de queso y un buffet que luce increíble en cámara y en Instagram.',
-      e3k:'Gala de aniversario',e3h:'Elite + Bar Completo + Brigadeiro',e3p:'Bar completo, mejora de corte premium y postres brasileños para la noche más importante.',
+      e2k:'Lanzamientos y eventos de prensa',e2h:'Elite + Cerveza y Vino + Aperitivo',e2p:'Una bienvenida con aperitivo y un buffet que luce increíble en cámara y en Instagram.',
+      e3k:'Gala de aniversario',e3h:'Elite + Bar Completo + Postre',e3p:'Bar completo, mejora de corte premium y postres brasileños para la noche más importante.',
       in_eb:'Ejemplo de inversión',in_h:'Cómo se ve un evento',in_p:'Ejemplo: Churrasco Elite + barra libre de Cerveza y Vino. Precio de socio comparado con nuestras tarifas estándar.',
       th_line:'Concepto',g50:'50 invitados',g100:'100 invitados',g150:'150 invitados',
       l1:'Churrasco Elite ($29.90)',l2:'Personal de servicio ($3 / invitado)',l3:'Barra libre Cerveza y Vino ($22)',l4:'Bartenders ($3 / invitado)',l5:'Montaje de bar',
-      l6:'Cargo por servicio (20%)',l7:'Impuesto MA (7%)',l8:'<b>Total socio Vertex</b>',l9:'Precio estándar (Deluxe $41.90, 24%, montaje $150)',l10:'<b>Ahorro de Vertex</b>',
-      in_small:'Alrededor de $74 por invitado con todo incluido: comida, barra libre, personal, servicio e impuestos. El traslado a Northborough y cualquier alquiler se cotizan por separado. El precio final se confirma en el contrato del evento.',
+      l6:'Cargo por servicio — 20% <small style="color:var(--green);font-weight:700">(en vez de 24%)</small>',l7:'Impuesto MA (7%)',l8:'<b>Total socio Vertex</b>',l9:'Precio estándar (Deluxe $41.90, 24%, montaje $150)',l10:'<b>Ahorro de Vertex</b>',
+      in_small:'Alrededor de $74 por invitado con todo incluido: comida, barra libre, personal, servicio e impuestos. El traslado a Northborough y cualquier alquiler se cotizan por separado. El precio final se confirma en el contrato del evento. Vertex además paga un cargo por servicio reducido del <b>20% en lugar del 24% estándar</b> — parte de por qué Vertex ahorra más de $1,100 por evento frente al precio estándar.',
       cta_h:'Planeemos el próximo evento de Vertex',cta_p:'Nos encantaría llevar esto a su próxima noche de networking o lanzamiento — y que Comeketo sea el proveedor de catering de Vertex.',
       s1:'Una llamada rápida para confirmar su espacio, número de invitados y política de bar',s2:'Degustación con nuestro equipo para elegir las carnes y acompañantes',s3:'Asegurar el precio de socio para sus próximos eventos',
+      rw_eb:'Recompensas de socio',rw_h:'Recibir a Comeketo no le cuesta nada a Vertex — y le devuelve 5%',
+      rw_p:'Catering premium en sus eventos sin ningún gasto de Vertex. Los invitados se cubren por plato, y cada evento le devuelve dinero directo.',
+      rw1h:'Reembolso en efectivo en cada evento',rw1p:'Cada evento reservado a través de Vertex le devuelve a Vertex 5% en efectivo — sin tope. Un evento de $1,000 le regresa $50 al bolsillo; una gala de $10,000 devuelve $500.',
+      rw2h:'Pases de degustación para regalar',rw2p:'Compre pases de degustación por solo $8 cada uno y entréguelos a miembros y prospectos. Vienen a probar la comida, Vertex queda bien, y se reservan más eventos.',
+      rw_foot:'Cómo Vertex lleva catering premium a sus eventos <b>sin gastar</b>: los invitados se cubren por plato, Vertex gana 5% de reembolso en efectivo en cada evento, y los pases de degustación cuestan solo $8 para regalar.',
       foot:'Comeketo Catering × Vertex Innovation &amp; Design Hub · Propuesta de socio · Octubre de 2026'
     }
   };
