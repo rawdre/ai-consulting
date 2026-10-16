@@ -104,6 +104,10 @@ table{width:100%;border-collapse:collapse;background:var(--card);border:1px soli
 th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
 th{background:#f4ecd8;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:#5b4a22}
 td.r,th.r{text-align:right;white-space:nowrap}
+td.norm{color:var(--muted)}
+td.norm s{opacity:.7}
+td.vx{font-weight:800;color:var(--gold-deep)}
+th.vx{background:var(--gold);color:#1b1408}
 tr.pick td{background:#fff8e6}
 .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:var(--gold);color:#1b1408;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
 .free{color:var(--green);font-weight:800}
@@ -291,14 +295,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       </div>
       <div class="table-scroll">
       <table>
-        <thead><tr><th data-i18n="th_pkg">Bar package</th><th data-i18n="th_inc">What's included</th><th class="r" data-i18n="th_pg">Per guest</th></tr></thead>
+        <thead><tr><th data-i18n="th_pkg">Bar package</th><th data-i18n="th_inc">What's included</th><th class="r" data-i18n="th_norm">Normal price</th><th class="r vx" data-i18n="th_vx">Vertex price</th></tr></thead>
         <tbody>
-          <tr><td data-i18n="r1n"><b>Special Open Bar</b></td><td data-i18n="r1d">1 beer, 1 wine or sangria, 2 cocktails, soft drinks</td><td class="r">$19.90</td></tr>
-          <tr class="pick"><td data-i18n="r2n"><b>Beer &amp; Wine</b><span class="tag">Best for networking</span></td><td data-i18n="r2d">Beer, red &amp; white wine, sangria, soft drinks</td><td class="r">$22.00</td></tr>
-          <tr><td data-i18n="r3n"><b>Beer &amp; Wine + 3 Signature Cocktails</b></td><td data-i18n="r3d">Everything above plus 3 signature cocktails (caipirinha is a crowd favorite)</td><td class="r">$27.00</td></tr>
-          <tr><td data-i18n="r4n"><b>Full Open Bar</b><span class="tag">Best for galas</span></td><td data-i18n="r4d">Beer, wine, sangria, liquor, soft drinks</td><td class="r">$30.00</td></tr>
-          <tr><td data-i18n="r5n"><b>Cash Bar</b><span class="tag">Pre-buy $8 tickets</span></td><td data-i18n="r5d">Bar service; guests pay per drink ($2–$10) — or pre-buy $8 drink tickets to hand out (see Partner Rewards below)</td><td class="r">$6.50</td></tr>
-          <tr><td data-i18n="r6n"><b>Standard Bar Setup</b></td><td data-i18n="r6d">Complete setup with equipment and disposable barware</td><td class="r"><s style="opacity:.55">$150</s> <span class="free" data-i18n="free">FREE</span></td></tr>
+          <tr><td data-i18n="r1n"><b>Special Open Bar</b></td><td data-i18n="r1d">1 beer, 1 wine or sangria, 1 cocktail, soft drinks</td><td class="r norm"><s>$19.90</s></td><td class="r vx">$14.90</td></tr>
+          <tr class="pick"><td data-i18n="r2n"><b>Beer &amp; Wine</b><span class="tag">Best for networking</span></td><td data-i18n="r2d">Beer, red &amp; white wine, sangria, soft drinks</td><td class="r norm"><s>$22.00</s></td><td class="r vx">$19.90</td></tr>
+          <tr><td data-i18n="r3n"><b>Beer &amp; Wine + 3 Signature Cocktails</b></td><td data-i18n="r3d">Everything above plus 3 signature cocktails (caipirinha is a crowd favorite)</td><td class="r norm"><s>$27.00</s></td><td class="r vx">$25.00</td></tr>
+          <tr><td data-i18n="r4n"><b>Full Open Bar</b><span class="tag">Best for galas</span></td><td data-i18n="r4d">Beer, wine, sangria, liquor, soft drinks</td><td class="r norm">$30.00</td><td class="r vx">$30.00</td></tr>
+          <tr><td data-i18n="r5n"><b>Cash Bar</b><span class="tag">Vertex events $3.50</span></td><td data-i18n="r5d">Bar service; guests pay per drink ($2–$10). For Vertex's own events, cash bar is just $3.50 per guest (see Partner Rewards below)</td><td class="r norm"><s>$6.50</s></td><td class="r vx">$5.00</td></tr>
+          <tr><td data-i18n="r6n"><b>Standard Bar Setup</b></td><td data-i18n="r6d">Complete setup with equipment and disposable barware</td><td class="r norm"><s>$150</s></td><td class="r"><span class="free" data-i18n="free">FREE</span></td></tr>
         </tbody>
       </table>
       </div>
@@ -347,26 +351,35 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="section-head">
         <div class="eyebrow" data-i18n="in_eb">Sample investment</div>
         <h2 data-i18n="in_h">What an event looks like</h2>
-        <p data-i18n="in_p">Example: Elite Churrasco + Beer &amp; Wine open bar. Partner pricing compared with our standard rates.</p>
+        <p data-i18n="in_p">Example: churrasco + Beer &amp; Wine open bar. Normal price and Vertex price side by side.</p>
       </div>
       <div class="table-scroll">
       <table>
-        <thead><tr><th data-i18n="th_line">Line</th><th class="r" data-i18n="g50">50 guests</th><th class="r" data-i18n="g100">100 guests</th><th class="r" data-i18n="g150">150 guests</th></tr></thead>
+        <thead><tr><th data-i18n="th_line">Line · 100 guests</th><th class="r" data-i18n="th_norm">Normal price</th><th class="r vx" data-i18n="th_vx">Vertex price</th></tr></thead>
         <tbody>
-          <tr><td data-i18n="l1">Elite Churrasco ($29.90)</td><td class="r">$1,495.00</td><td class="r">$2,990.00</td><td class="r">$4,485.00</td></tr>
-          <tr><td data-i18n="l2">Service staff ($3 / guest)</td><td class="r">$150.00</td><td class="r">$300.00</td><td class="r">$450.00</td></tr>
-          <tr><td data-i18n="l3">Beer &amp; Wine open bar ($22)</td><td class="r">$1,100.00</td><td class="r">$2,200.00</td><td class="r">$3,300.00</td></tr>
-          <tr><td data-i18n="l4">Bartending staff ($3 / guest)</td><td class="r">$150.00</td><td class="r">$300.00</td><td class="r">$450.00</td></tr>
-          <tr><td data-i18n="l5">Bar setup</td><td class="r free" data-i18n="free">FREE</td><td class="r free" data-i18n="free">FREE</td><td class="r free" data-i18n="free">FREE</td></tr>
-          <tr><td data-i18n="l6">Service charge — 20% <small style="color:var(--green);font-weight:700">(down from 24%)</small></td><td class="r">$579.00</td><td class="r">$1,158.00</td><td class="r">$1,737.00</td></tr>
-          <tr><td data-i18n="l7">MA tax (7%)</td><td class="r">$243.18</td><td class="r">$486.36</td><td class="r">$729.54</td></tr>
-          <tr class="pick"><td data-i18n="l8"><b>Vertex partner total</b></td><td class="r"><b>$3,717.18</b></td><td class="r"><b>$7,434.36</b></td><td class="r"><b>$11,151.54</b></td></tr>
-          <tr><td data-i18n="l9">Standard pricing (Deluxe $41.90, 24%, setup $150)</td><td class="r"><s>$4,836.19</s></td><td class="r"><s>$9,473.35</s></td><td class="r"><s>$14,110.52</s></td></tr>
-          <tr><td data-i18n="l10"><b>Vertex saves</b></td><td class="r save">$1,119.01</td><td class="r save">$2,038.99</td><td class="r save">$2,958.98</td></tr>
+          <tr><td data-i18n="l1">Churrasco — Deluxe $41.90 vs Elite $29.90</td><td class="r norm">$4,190.00</td><td class="r vx">$2,990.00</td></tr>
+          <tr><td data-i18n="l2">Service staff ($3 / guest)</td><td class="r norm">$300.00</td><td class="r vx">$300.00</td></tr>
+          <tr><td data-i18n="l3">Beer &amp; Wine open bar — $22.00 vs $19.90</td><td class="r norm">$2,200.00</td><td class="r vx">$1,990.00</td></tr>
+          <tr><td data-i18n="l4">Bartending staff ($3 / guest)</td><td class="r norm">$300.00</td><td class="r vx">$300.00</td></tr>
+          <tr><td data-i18n="l5">Bar setup</td><td class="r norm">$150.00</td><td class="r free" data-i18n="free">FREE</td></tr>
+          <tr><td data-i18n="l6">Service charge — 24% vs 20%</td><td class="r norm">$1,713.60</td><td class="r vx">$1,116.00</td></tr>
+          <tr><td data-i18n="l7">MA tax (7%)</td><td class="r norm">$619.75</td><td class="r vx">$468.72</td></tr>
+          <tr class="pick"><td data-i18n="l8"><b>Event total</b></td><td class="r"><b><s>$9,473.35</s></b></td><td class="r vx">$7,164.72</td></tr>
+          <tr><td data-i18n="l10"><b>Vertex saves</b></td><td></td><td class="r save">$2,308.63</td></tr>
         </tbody>
       </table>
       </div>
-      <p class="small" data-i18n="in_small">About $74 per guest all-in for food, open bar, staff, service and tax. Travel to Northborough and any rentals are quoted separately. Final pricing is confirmed on the event agreement. Vertex also pays a reduced <b>20% service charge instead of the standard 24%</b> — part of why Vertex saves over $1,100 per event versus standard pricing.</p>
+      <div class="table-scroll" style="margin-top:14px">
+      <table>
+        <thead><tr><th data-i18n="th_size">Event size</th><th class="r" data-i18n="th_norm">Normal price</th><th class="r vx" data-i18n="th_vx">Vertex price</th><th class="r" data-i18n="th_save">Vertex saves</th></tr></thead>
+        <tbody>
+          <tr><td data-i18n="g50">50 guests</td><td class="r norm"><s>$4,836.19</s></td><td class="r vx">$3,582.36</td><td class="r save">$1,253.83</td></tr>
+          <tr class="pick"><td data-i18n="g100">100 guests</td><td class="r norm"><s>$9,473.35</s></td><td class="r vx">$7,164.72</td><td class="r save">$2,308.63</td></tr>
+          <tr><td data-i18n="g150">150 guests</td><td class="r norm"><s>$14,110.52</s></td><td class="r vx">$10,747.08</td><td class="r save">$3,363.44</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small" data-i18n="in_small">About $72 per guest all-in for food, open bar, staff, service and tax (vs. about $95 at normal pricing). Travel to Northborough and any rentals are quoted separately. Final pricing is confirmed on the event agreement. Vertex pays a reduced <b>20% service charge instead of the standard 24%</b> — part of why Vertex saves over $1,250 per event versus normal pricing.</p>
     </div>
   </section>
 
@@ -374,23 +387,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap">
       <div class="section-head">
         <div class="eyebrow" data-i18n="rw_eb">Partner rewards</div>
-        <h2 data-i18n="rw_h">Hosting costs Vertex nothing — and earns 5% back</h2>
-        <p data-i18n="rw_p">Premium catering at your events with zero spend from Vertex. Guests are covered per plate, and every event sends money straight back to you.</p>
+        <h2 data-i18n="rw_h">Every referral earns Vertex a 5% credit</h2>
+        <p data-i18n="rw_p">Every event Vertex recommends builds credit toward Vertex's own events — plus discounted drinks when your event has no open bar.</p>
       </div>
       <div class="rewards">
         <div class="rw-grid">
           <div class="rw-card">
             <div class="amt">5%</div>
-            <h3 data-i18n="rw1h">Cash back on every event</h3>
-            <p data-i18n="rw1p">Every event booked through Vertex earns Vertex 5% back in cash — no cap. A $1,000 event puts $50 straight back in your pocket; a $10,000 gala returns $500.</p>
+            <h3 data-i18n="rw1h">Credit on everything Vertex sends us</h3>
+            <p data-i18n="rw1p">Every event recommended by Vertex earns a 5% credit on everything it generates — no cap — to use on Vertex's own events. A $10,000 referred event adds $500 to Vertex's event credit.</p>
           </div>
           <div class="rw-card">
-            <div class="amt">$8</div>
-            <h3 data-i18n="rw2h">Cash-bar tickets to give out</h3>
-            <p data-i18n="rw2p">Pre-buy drink tickets at just $8 each and hand them to your guests — each ticket covers a drink from the <b>Cash Bar</b> package above. Vertex looks generous and keeps the bar spend predictable.</p>
+            <div class="amt">$3.50</div>
+            <h3 data-i18n="rw2h">Cash bar for Vertex events</h3>
+            <p data-i18n="rw2p">For Vertex's own events without an open bar: our <b>Cash Bar</b> service is $3.50 per guest instead of $5 (cash bar only). Vertex can also buy drink tickets at a discounted price to hand to guests who want them.</p>
           </div>
         </div>
-        <div class="rw-foot" data-i18n="rw_foot">How Vertex brings premium catering to its events <b>without the spend</b>: guests are covered per plate, Vertex earns 5% cash back on every event, and cash-bar drink tickets cost just $8 each to hand out.</div>
+        <div class="rw-foot" data-i18n="rw_foot">How it works: <b>every event Vertex recommends earns a 5% credit</b> for Vertex's own events, and when Vertex hosts without an open bar, cash bar is $3.50 per guest with discounted drink tickets available.</div>
       </div>
     </div>
   </section>
@@ -449,12 +462,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       c_garden:'Salada Verde',c_caesar:'Salada Caesar',c_ribs:'Costela Bovina +$5.00',
       bar_eb:'O pacote de bar',bar_h:'Serviço de Bar — montagem grátis',
       bar_p:'Escolha o nível de bar que combina com a noite. A montagem do bar de $150 é <b>grátis</b> para o Vertex; os bartenders custam $3 por convidado.',
-      th_pkg:'Pacote de bar',th_inc:'O que inclui',th_pg:'Por convidado',
-      r1n:'<b>Open Bar Especial</b>',r1d:'1 cerveja, 1 vinho ou sangria, 2 coquetéis, refrigerantes',
+      th_pkg:'Pacote de bar',th_inc:'O que inclui',th_norm:'Preço normal',th_vx:'Preço Vertex',th_save:'Economia Vertex',th_size:'Tamanho do evento',
+      r1n:'<b>Open Bar Especial</b>',r1d:'1 cerveja, 1 vinho ou sangria, 1 coquetel, refrigerantes',
       r2n:'<b>Cerveja e Vinho</b><span class="tag">Ideal para networking</span>',r2d:'Cerveja, vinho tinto e branco, sangria, refrigerantes',
       r3n:'<b>Cerveja e Vinho + 3 Coquetéis da Casa</b>',r3d:'Tudo acima mais 3 coquetéis da casa (a caipirinha é a favorita)',
       r4n:'<b>Open Bar Completo</b><span class="tag">Ideal para galas</span>',r4d:'Cerveja, vinho, sangria, destilados, refrigerantes',
-      r5n:'<b>Bar Pago (Cash Bar)</b><span class="tag">Ingressos $8 antecipados</span>',r5d:'Serviço de bar; os convidados pagam por drink ($2–$10) — ou compre antecipadamente ingressos de bebida de $8 para distribuir (veja Recompensas de parceiro abaixo)',
+      r5n:'<b>Bar Pago (Cash Bar)</b><span class="tag">Eventos Vertex $3.50</span>',r5d:'Serviço de bar; os convidados pagam por drink ($2–$10). Nos eventos do próprio Vertex, o cash bar sai por apenas $3.50 por convidado (veja Recompensas de parceiro abaixo)',
       r6n:'<b>Montagem Padrão do Bar</b>',r6d:'Montagem completa com equipamentos e copos descartáveis',
       bar_small:'Os pacotes de open bar cobrem até 4 horas. Hora extra de open bar: $8 (cerveja e vinho) ou $10 (bar completo) por convidado.',
       add_eb:'Uma experiência completa',add_h:'Extras para o coquetel e sobremesas',
@@ -465,18 +478,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       e1k:'Noite de networking dos membros',e1h:'Elite + Open Bar Especial',e1p:'Buffet de churrasco descontraído e uma carta de drinks simples — fácil de repetir todo mês.',
       e2k:'Lançamentos e eventos de mídia',e2h:'Elite + Cerveja e Vinho + Aperitivo',e2p:'Recepção com aperitivo e um buffet caprichado que fica lindo na câmera e no Instagram.',
       e3k:'Gala de aniversário',e3h:'Elite + Bar Completo + Sobremesa',e3p:'Bar completo, upgrade de corte premium e sobremesas brasileiras para a noite mais importante.',
-      in_eb:'Exemplo de investimento',in_h:'Como fica um evento',in_p:'Exemplo: Churrasco Elite + open bar de Cerveja e Vinho. Preço de parceiro comparado com nossos valores padrão.',
-      th_line:'Item',g50:'50 convidados',g100:'100 convidados',g150:'150 convidados',
-      l1:'Churrasco Elite ($29.90)',l2:'Equipe de serviço ($3 / convidado)',l3:'Open bar Cerveja e Vinho ($22)',l4:'Bartenders ($3 / convidado)',l5:'Montagem do bar',
-      l6:'Taxa de serviço — 20% <small style="color:var(--green);font-weight:700">(em vez de 24%)</small>',l7:'Imposto MA (7%)',l8:'<b>Total parceiro Vertex</b>',l9:'Preço padrão (Deluxe $41.90, 24%, montagem $150)',l10:'<b>Economia do Vertex</b>',
-      in_small:'Cerca de $74 por convidado com tudo incluído: comida, open bar, equipe, serviço e imposto. Deslocamento até Northborough e aluguéis são orçados à parte. O preço final é confirmado no contrato do evento. O Vertex ainda paga uma taxa de serviço reduzida de <b>20% em vez dos 24% padrão</b> — parte do motivo pelo qual o Vertex economiza mais de $1,100 por evento em relação ao preço padrão.',
+      in_eb:'Exemplo de investimento',in_h:'Como fica um evento',in_p:'Exemplo: churrasco + open bar de Cerveja e Vinho. Preço normal e preço Vertex lado a lado.',
+      th_line:'Item · 100 convidados',g50:'50 convidados',g100:'100 convidados',g150:'150 convidados',
+      l1:'Churrasco — Deluxe $41.90 vs Elite $29.90',l2:'Equipe de serviço ($3 / convidado)',l3:'Open bar Cerveja e Vinho — $22.00 vs $19.90',l4:'Bartenders ($3 / convidado)',l5:'Montagem do bar',
+      l6:'Taxa de serviço — 24% vs 20%',l7:'Imposto MA (7%)',l8:'<b>Total do evento</b>',l10:'<b>Economia do Vertex</b>',
+      in_small:'Cerca de $72 por convidado com tudo incluído: comida, open bar, equipe, serviço e imposto (vs. cerca de $95 no preço normal). Deslocamento até Northborough e aluguéis são orçados à parte. O preço final é confirmado no contrato do evento. O Vertex paga uma taxa de serviço reduzida de <b>20% em vez dos 24% padrão</b> — parte do motivo pelo qual o Vertex economiza mais de $1,250 por evento em relação ao preço normal.',
       cta_h:'Vamos planejar o próximo evento do Vertex',cta_p:'Adoraríamos levar isso para a sua próxima noite de networking ou lançamento — e ter a Comeketo como a parceira de catering do Vertex.',
       s1:'Uma ligação rápida para confirmar o espaço, o número de convidados e a política do bar',s2:'Degustação com a nossa equipe para escolher as carnes e os acompanhamentos',s3:'Garantir o preço de parceiro para os próximos eventos',
-      rw_eb:'Recompensas de parceiro',rw_h:'Receber a Comeketo não custa nada ao Vertex — e ainda rende 5% de volta',
-      rw_p:'Catering premium nos seus eventos sem nenhum gasto do Vertex. Os convidados pagam por prato, e todo evento devolve dinheiro direto para você.',
-      rw1h:'Cashback em dinheiro em todo evento',rw1p:'Todo evento fechado através do Vertex rende 5% de volta em dinheiro para o Vertex — sem limite. Um evento de $1,000 coloca $50 de volta no seu bolso; uma gala de $10,000 devolve $500.',
-      rw2h:'Ingressos de cash bar para distribuir',rw2p:'Compre antecipadamente ingressos de bebida por apenas $8 cada e entregue aos seus convidados — cada ingresso vale uma bebida do pacote <b>Cash Bar</b> acima. O Vertex fica generoso e mantém o gasto do bar sob controle.',
-      rw_foot:'Como o Vertex leva catering premium aos seus eventos <b>sem gastar</b>: os convidados pagam por prato, o Vertex ganha 5% de cashback em dinheiro em todo evento, e os ingressos de bebida do cash bar custam apenas $8 cada para distribuir.',
+      rw_eb:'Recompensas de parceiro',rw_h:'Toda indicação rende 5% de crédito para o Vertex',
+      rw_p:'Todo evento indicado pelo Vertex gera crédito para os eventos do próprio Vertex — e ainda bebidas com desconto quando o evento não tem open bar.',
+      rw1h:'Crédito sobre tudo que o Vertex nos indica',rw1p:'Todo evento recomendado pelo Vertex gera um crédito de 5% sobre tudo que ele gerar — sem limite — para ser usado nos eventos do Vertex. Um evento indicado de $10,000 soma $500 ao crédito de eventos do Vertex.',
+      rw2h:'Cash bar nos eventos do Vertex',rw2p:'Nos eventos do próprio Vertex sem open bar: o serviço de <b>Cash Bar</b> sai por $3.50 por convidado em vez de $5 (somente cash bar). O Vertex também pode comprar ingressos de bebida com desconto para passar a quem quiser.',
+      rw_foot:'Como funciona: <b>todo evento indicado pelo Vertex gera 5% de crédito</b> para os eventos do Vertex, e quando o Vertex faz um evento sem open bar, o cash bar sai por $3.50 por convidado, com ingressos de bebida com desconto.',
       foot:'Comeketo Catering × Vertex Innovation &amp; Design Hub · Proposta de parceria · Outubro de 2026'
     },
     es:{
@@ -504,12 +517,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       c_garden:'Ensalada Verde',c_caesar:'Ensalada César',c_ribs:'Costilla de Res +$5.00',
       bar_eb:'El paquete de bar',bar_h:'Servicio de Bar — montaje sin costo',
       bar_p:'Elija el nivel de bar que va con la noche. El montaje de bar de $150 es <b>gratis</b> para Vertex; el personal de bar cuesta $3 por invitado.',
-      th_pkg:'Paquete de bar',th_inc:'Qué incluye',th_pg:'Por invitado',
-      r1n:'<b>Barra Libre Especial</b>',r1d:'1 cerveza, 1 vino o sangría, 2 cocteles, refrescos',
+      th_pkg:'Paquete de bar',th_inc:'Qué incluye',th_norm:'Precio normal',th_vx:'Precio Vertex',th_save:'Ahorro Vertex',th_size:'Tamaño del evento',
+      r1n:'<b>Barra Libre Especial</b>',r1d:'1 cerveza, 1 vino o sangría, 1 coctel, refrescos',
       r2n:'<b>Cerveza y Vino</b><span class="tag">Ideal para networking</span>',r2d:'Cerveza, vino tinto y blanco, sangría, refrescos',
       r3n:'<b>Cerveza y Vino + 3 Cocteles de la Casa</b>',r3d:'Todo lo anterior más 3 cocteles de la casa (la caipiriña es la favorita)',
       r4n:'<b>Barra Libre Completa</b><span class="tag">Ideal para galas</span>',r4d:'Cerveza, vino, sangría, licores, refrescos',
-      r5n:'<b>Barra de Pago (Cash Bar)</b><span class="tag">Tickets $8 por adelantado</span>',r5d:'Servicio de bar; los invitados pagan por bebida ($2–$10) — o compre por adelantado tickets de bebida de $8 para repartir (vea Recompensas de socio abajo)',
+      r5n:'<b>Barra de Pago (Cash Bar)</b><span class="tag">Eventos Vertex $3.50</span>',r5d:'Servicio de bar; los invitados pagan por bebida ($2–$10). En los eventos propios de Vertex, el cash bar cuesta solo $3.50 por invitado (vea Recompensas de socio abajo)',
       r6n:'<b>Montaje Estándar de Bar</b>',r6d:'Montaje completo con equipo y vasos desechables',
       bar_small:'Los paquetes de barra libre cubren hasta 4 horas. Hora extra de barra libre: $8 (cerveza y vino) o $10 (bar completo) por invitado.',
       add_eb:'Una experiencia completa',add_h:'Extras para el cóctel y postres',
@@ -520,18 +533,18 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       e1k:'Noche de networking de miembros',e1h:'Elite + Barra Libre Especial',e1p:'Buffet de churrasco relajado y una carta de bebidas sencilla — fácil de repetir cada mes.',
       e2k:'Lanzamientos y eventos de prensa',e2h:'Elite + Cerveza y Vino + Aperitivo',e2p:'Una bienvenida con aperitivo y un buffet que luce increíble en cámara y en Instagram.',
       e3k:'Gala de aniversario',e3h:'Elite + Bar Completo + Postre',e3p:'Bar completo, mejora de corte premium y postres brasileños para la noche más importante.',
-      in_eb:'Ejemplo de inversión',in_h:'Cómo se ve un evento',in_p:'Ejemplo: Churrasco Elite + barra libre de Cerveza y Vino. Precio de socio comparado con nuestras tarifas estándar.',
-      th_line:'Concepto',g50:'50 invitados',g100:'100 invitados',g150:'150 invitados',
-      l1:'Churrasco Elite ($29.90)',l2:'Personal de servicio ($3 / invitado)',l3:'Barra libre Cerveza y Vino ($22)',l4:'Bartenders ($3 / invitado)',l5:'Montaje de bar',
-      l6:'Cargo por servicio — 20% <small style="color:var(--green);font-weight:700">(en vez de 24%)</small>',l7:'Impuesto MA (7%)',l8:'<b>Total socio Vertex</b>',l9:'Precio estándar (Deluxe $41.90, 24%, montaje $150)',l10:'<b>Ahorro de Vertex</b>',
-      in_small:'Alrededor de $74 por invitado con todo incluido: comida, barra libre, personal, servicio e impuestos. El traslado a Northborough y cualquier alquiler se cotizan por separado. El precio final se confirma en el contrato del evento. Vertex además paga un cargo por servicio reducido del <b>20% en lugar del 24% estándar</b> — parte de por qué Vertex ahorra más de $1,100 por evento frente al precio estándar.',
+      in_eb:'Ejemplo de inversión',in_h:'Cómo se ve un evento',in_p:'Ejemplo: churrasco + barra libre de Cerveza y Vino. Precio normal y precio Vertex lado a lado.',
+      th_line:'Concepto · 100 invitados',g50:'50 invitados',g100:'100 invitados',g150:'150 invitados',
+      l1:'Churrasco — Deluxe $41.90 vs Elite $29.90',l2:'Personal de servicio ($3 / invitado)',l3:'Barra libre Cerveza y Vino — $22.00 vs $19.90',l4:'Bartenders ($3 / invitado)',l5:'Montaje de bar',
+      l6:'Cargo por servicio — 24% vs 20%',l7:'Impuesto MA (7%)',l8:'<b>Total del evento</b>',l10:'<b>Ahorro de Vertex</b>',
+      in_small:'Alrededor de $72 por invitado con todo incluido: comida, barra libre, personal, servicio e impuestos (vs. unos $95 a precio normal). El traslado a Northborough y cualquier alquiler se cotizan por separado. El precio final se confirma en el contrato del evento. Vertex paga un cargo por servicio reducido del <b>20% en lugar del 24% estándar</b> — parte de por qué Vertex ahorra más de $1,250 por evento frente al precio normal.',
       cta_h:'Planeemos el próximo evento de Vertex',cta_p:'Nos encantaría llevar esto a su próxima noche de networking o lanzamiento — y que Comeketo sea el proveedor de catering de Vertex.',
       s1:'Una llamada rápida para confirmar su espacio, número de invitados y política de bar',s2:'Degustación con nuestro equipo para elegir las carnes y acompañantes',s3:'Asegurar el precio de socio para sus próximos eventos',
-      rw_eb:'Recompensas de socio',rw_h:'Recibir a Comeketo no le cuesta nada a Vertex — y le devuelve 5%',
-      rw_p:'Catering premium en sus eventos sin ningún gasto de Vertex. Los invitados se cubren por plato, y cada evento le devuelve dinero directo.',
-      rw1h:'Reembolso en efectivo en cada evento',rw1p:'Cada evento reservado a través de Vertex le devuelve a Vertex 5% en efectivo — sin tope. Un evento de $1,000 le regresa $50 al bolsillo; una gala de $10,000 devuelve $500.',
-      rw2h:'Tickets de cash bar para regalar',rw2p:'Compre por adelantado tickets de bebida por solo $8 cada uno y entréguelos a sus invitados — cada ticket cubre una bebida del paquete <b>Cash Bar</b> de arriba. Vertex queda generoso y mantiene el gasto del bar bajo control.',
-      rw_foot:'Cómo Vertex lleva catering premium a sus eventos <b>sin gastar</b>: los invitados se cubren por plato, Vertex gana 5% de reembolso en efectivo en cada evento, y los tickets de bebida del cash bar cuestan solo $8 cada uno para repartir.',
+      rw_eb:'Recompensas de socio',rw_h:'Cada referido le da a Vertex un 5% de crédito',
+      rw_p:'Cada evento que Vertex recomienda genera crédito para los eventos propios de Vertex — además de bebidas con descuento cuando el evento no tiene barra libre.',
+      rw1h:'Crédito sobre todo lo que Vertex nos refiere',rw1p:'Cada evento recomendado por Vertex genera un crédito del 5% sobre todo lo que genere — sin tope — para usar en los eventos de Vertex. Un evento referido de $10,000 suma $500 al crédito de eventos de Vertex.',
+      rw2h:'Cash bar para eventos de Vertex',rw2p:'En los eventos propios de Vertex sin barra libre: el servicio de <b>Cash Bar</b> cuesta $3.50 por invitado en lugar de $5 (solo cash bar). Vertex también puede comprar tickets de bebida con descuento para dar a quien los quiera.',
+      rw_foot:'Cómo funciona: <b>cada evento que Vertex recomienda genera un 5% de crédito</b> para los eventos de Vertex, y cuando Vertex organiza sin barra libre, el cash bar cuesta $3.50 por invitado, con tickets de bebida con descuento.',
       foot:'Comeketo Catering × Vertex Innovation &amp; Design Hub · Propuesta de socio · Octubre de 2026'
     }
   };
