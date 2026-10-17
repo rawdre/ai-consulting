@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@ h1,h2,h3,h4,.amt,.n{font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 96}
 .lockup .mx img{height:46px;width:auto}
 .lockup .x{font-family:'Fraunces',Georgia,serif;font-size:34px;color:var(--gold);line-height:1}
 .lockup .ck img{width:78px;height:78px;border-radius:50%;box-shadow:0 0 0 2px var(--gold),0 10px 30px rgba(0,0,0,.5)}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;margin-top:46px}
+.hero-grid{position:relative;display:grid;grid-template-columns:1fr .92fr;gap:48px;align-items:center;margin-top:46px}
 .season{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line-dark);border-radius:999px;padding:6px 14px 6px 8px;font-size:12px;font-weight:600;color:var(--gold-soft);letter-spacing:.4px}
 .season .dot{width:22px;height:22px;border-radius:50%;background:var(--lime);display:grid;place-items:center;color:#14170a;font-size:12px}
 .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:800;color:#fff;font-size:clamp(38px,6.4vw,66px);line-height:1.04;margin-top:18px;letter-spacing:-.5px}
@@ -101,6 +101,19 @@ h1,h2,h3,h4,.amt,.n{font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 96}
 .voucher .notch{position:absolute;right:84px;width:18px;height:18px;border-radius:50%;background:var(--night)}
 .voucher .notch.t{top:-9px}.voucher .notch.b{bottom:-9px}
 .voucher .ribbon{position:absolute;z-index:2;top:-16px;left:22px;background:var(--red);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border-radius:6px;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+/* --- bigger + flashy $250 voucher (André's pick) --- */
+.voucher .amt{font-size:96px}
+.voucher .amt sup{font-size:40px;top:14px}
+.voucher .off{font-size:16px;letter-spacing:3.5px}
+.voucher .kicker{font-size:11px}
+.voucher .what{font-size:13.5px}
+.voucher .main{padding:26px 22px 24px 28px}
+.voucher .code{font-size:14px;padding:7px 12px}
+.voucher .ribbon{font-size:12px;padding:7px 15px;top:-18px}
+.voucher .ticket{box-shadow:0 0 0 1px rgba(201,162,74,.55),0 20px 54px rgba(0,0,0,.5)}
+.voucher .tilt{animation:voucherGlow 2.8s ease-in-out infinite}
+@keyframes voucherGlow{0%,100%{filter:drop-shadow(0 10px 22px rgba(0,0,0,.5))}50%{filter:drop-shadow(0 0 32px rgba(201,162,74,.6)) drop-shadow(0 12px 26px rgba(0,0,0,.5))}}
+.voucher .ticket:after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:48%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:shimmer 4.2s ease-in-out infinite;pointer-events:none;z-index:4}
 
 /* STEPS */
 .steps-band{position:relative;margin-top:-72px}
@@ -328,7 +341,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
 .sparkle-host{position:relative;display:inline-block}
 .sparkle{position:absolute;pointer-events:none;animation:spark 1.8s ease-in-out infinite}
 @keyframes spark{0%,100%{transform:scale(0) rotate(0);opacity:0}50%{transform:scale(1) rotate(90deg);opacity:1}}
-@media (prefers-reduced-motion:reduce){.marquee .track,.btn.gold:after,.sparkle{animation:none}.voucher .tilt{transition:none}}
+@media (prefers-reduced-motion:reduce){.marquee .track,.btn.gold:after,.sparkle,.voucher .ticket:after{animation:none}.voucher .tilt{transition:none;animation:none}}
 @media screen and (max-width:640px){.marquee span{font-size:16px}.marquee span b{font-size:23px}.marquee{margin-top:44px}}
 
 @media (prefers-reduced-motion:reduce){.bulb,.orn,.leaf,.van-drive{animation:none}}
@@ -358,7 +371,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
   .lockup{gap:14px}
   .lockup .mx img{height:34px}
   .lockup .ck img{width:60px;height:60px}
-  .voucher .amt{font-size:60px}
+  .voucher .amt{font-size:74px}
   .voucher .ticket{grid-template-columns:1fr 70px}
   .voucher .notch{right:62px}
   .pillars{grid-template-columns:1fr}
@@ -488,7 +501,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
     <div class="scene-copy">
       <div class="eyebrow" style="color:var(--lime)" data-i18n="scene_eb">On the road this season</div>
       <h2 id="scene-h" data-i18n="scene_h">Your brand <em>on the road.</em> Your people <i>at the table.</i></h2>
-      <p data-i18n="scene_p">A Maximus wrap works for you all year. This season, it also brings the feast home.</p>
+      <p data-i18n="scene_p">Finish the year strong and make a statement in the market.</p>
     </div>
     <div class="scene-art">
       <img class="van-photo" src="assets/comeketo-van.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="The Comeketo Catering van, wrapped by Maximus, ready for holiday events" style="width:100%;border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.55);aspect-ratio:16/10;object-fit:cover;object-position:50% 46%">
@@ -500,7 +513,6 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       <div class="head">
         <div class="eyebrow gold" data-i18n="duo_eb">Two local brands, one holiday gift</div>
         <h2 data-i18n="duo_h">Make your business impossible to miss, then celebrate it.</h2>
-        <p data-i18n="duo_p">Maximus makes your brand stand out on every street. Comeketo makes the holiday table unforgettable. Together, the investment you make in your business comes back to you as a feast.</p>
       </div>
       <div class="duo">
         <article class="brand-card mx">
@@ -541,66 +553,18 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
   <section>
     <div class="wrap">
       <div class="head">
-        <div class="eyebrow lime" data-i18n="hol_eb">Two holidays, one bonus</div>
-        <h2 data-i18n="hol_h">Thanksgiving or Christmas, you choose.</h2>
-        <p data-i18n="feast_p">Use your $250 bonus toward Comeketo's Christmas or Thanksgiving package. A few ways to celebrate:</p>
+        <div class="eyebrow lime" data-i18n="party_eb">Company party</div>
+        <h2 data-i18n="party_h">Secure your <span>$250</span> credit for your year-end celebration.</h2>
+        <p data-i18n="party_p">Thank your team with real Brazilian churrasco and bar service — the perfect way to close a great year. Talk to us and lock in your date.</p>
       </div>
-      <div class="split">
-        <article class="panel tg">
-          <div class="art" aria-hidden="true"><svg viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice">
-            <circle cx="470" cy="110" r="150" fill="#f6c76b" opacity=".12"/><circle cx="470" cy="110" r="90" fill="#f6c76b" opacity=".12"/>
-            <!-- skewers crossed -->
-            <g transform="translate(300 170) rotate(-28)"><rect x="-230" y="-3" width="460" height="6" rx="3" fill="#d9d4cc"/><rect x="-150" y="-18" width="44" height="36" rx="10" fill="#7a3a1a"/><rect x="-96" y="-16" width="40" height="32" rx="9" fill="#9b4a20"/><rect x="-46" y="-18" width="44" height="36" rx="10" fill="#6b2f14"/><rect x="8" y="-15" width="40" height="30" rx="9" fill="#a1542a"/><rect x="58" y="-18" width="44" height="36" rx="10" fill="#7a3a1a"/><path d="M-140-10l30 20M-86-8l26 16M-36-10l30 20M18-8l26 16M68-10l30 20" stroke="#2a120a" stroke-width="3" opacity=".55"/><rect x="-240" y="-9" width="26" height="18" rx="4" fill="#3a2414"/></g>
-            <g transform="translate(320 200) rotate(24)"><rect x="-230" y="-3" width="460" height="6" rx="3" fill="#d9d4cc"/><rect x="-120" y="-16" width="42" height="32" rx="12" fill="#c46a2a"/><rect x="-70" y="-17" width="42" height="34" rx="12" fill="#b25a22"/><rect x="-20" y="-16" width="42" height="32" rx="12" fill="#c46a2a"/><rect x="30" y="-17" width="42" height="34" rx="12" fill="#a24d1c"/><path d="M-112-8l26 16M-62-8l26 16M-12-8l26 16M38-8l26 16" stroke="#3a1a0a" stroke-width="3" opacity=".5"/><rect x="214" y="-9" width="26" height="18" rx="4" fill="#3a2414"/></g>
-            <!-- roast turkey -->
-            <g transform="translate(150 300)">
-              <ellipse cx="0" cy="42" rx="106" ry="18" fill="#2a1a0e" opacity=".4"/>
-              <path d="M-98 42c0-11 8-18 18-18H80c10 0 18 7 18 18Z" fill="#efe6d6" opacity=".92"/>
-              <ellipse cx="0" cy="2" rx="80" ry="56" fill="#8f531b"/>
-              <ellipse cx="0" cy="-6" rx="66" ry="44" fill="#b4742a"/>
-              <ellipse cx="-22" cy="-16" rx="30" ry="17" fill="#d49646" opacity=".6"/>
-              <path d="M-66 12c-26 0-44 14-42 30 16 7 36 1 46-16Z" fill="#a5641f"/><circle cx="-106" cy="36" r="10" fill="#efe6d6"/>
-              <path d="M66 12c26 0 44 14 42 30-16 7-36 1-46-16Z" fill="#a5641f"/><circle cx="106" cy="36" r="10" fill="#efe6d6"/>
-              <path d="M-16 34c6-10 20-10 28 0" stroke="#4f7a1f" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <circle cx="-28" cy="36" r="6" fill="#9e2a2b"/><circle cx="4" cy="39" r="6" fill="#b8361c"/><circle cx="30" cy="34" r="6" fill="#9e2a2b"/>
-            </g>
-            <!-- pumpkins -->
-            <g transform="translate(470 330)"><ellipse cx="0" cy="0" rx="62" ry="46" fill="#e07b1f"/><ellipse cx="-24" cy="2" rx="26" ry="44" fill="#ef8f2e"/><ellipse cx="24" cy="2" rx="26" ry="44" fill="#ef8f2e"/><ellipse cx="0" cy="0" rx="20" ry="46" fill="#f39b38"/><path d="M0-44c2-14 10-20 16-22" stroke="#5a3a12" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M8-46c18-14 34-6 30 6" stroke="#4f7a1f" stroke-width="3" fill="none"/></g>
-            <g transform="translate(560 368) scale(.6)"><ellipse cx="0" cy="0" rx="62" ry="46" fill="#d46a16"/><ellipse cx="-24" cy="2" rx="26" ry="44" fill="#e07b1f"/><ellipse cx="24" cy="2" rx="26" ry="44" fill="#e07b1f"/><path d="M0-44c2-14 10-20 16-22" stroke="#5a3a12" stroke-width="8" fill="none" stroke-linecap="round"/></g>
-            <g transform="translate(90 360) rotate(-20)" fill="#c4842e"><path d="M0 0c20-30 40-40 60-30-10 8-12 20-6 34-20 2-40 4-54-4Z"/><path d="M6 6 50-16" stroke="#7a4a14" stroke-width="2"/></g>
-            <use class="leaf" href="#leafA" x="331" y="-40" width="26" height="26" fill="#b8361c" opacity=".9" style="animation-duration:9.8s;animation-delay:-0.7s"/><use class="leaf" href="#leafB" x="59" y="-40" width="38" height="38" fill="#f2a33a" opacity=".9" style="animation-duration:8.5s;animation-delay:-1.2s"/><use class="leaf" href="#leafA" x="246" y="-40" width="24" height="24" fill="#d9621e" opacity=".9" style="animation-duration:10.9s;animation-delay:-0.8s"/><use class="leaf" href="#leafA" x="63" y="-40" width="40" height="40" fill="#f2a33a" opacity=".9" style="animation-duration:11.1s;animation-delay:-0.7s"/><use class="leaf" href="#leafB" x="136" y="-40" width="31" height="31" fill="#8a4b16" opacity=".9" style="animation-duration:9.9s;animation-delay:-7.6s"/><use class="leaf" href="#leafB" x="185" y="-40" width="25" height="25" fill="#f2a33a" opacity=".9" style="animation-duration:11.1s;animation-delay:-8.9s"/><use class="leaf" href="#leafB" x="560" y="-40" width="24" height="24" fill="#8a4b16" opacity=".9" style="animation-duration:11.0s;animation-delay:-8.7s"/><use class="leaf" href="#leafB" x="437" y="-40" width="32" height="32" fill="#b8361c" opacity=".9" style="animation-duration:10.3s;animation-delay:-12.9s"/><use class="leaf" href="#leafB" x="254" y="-40" width="27" height="27" fill="#8a4b16" opacity=".9" style="animation-duration:11.9s;animation-delay:-3.4s"/><use class="leaf" href="#leafA" x="506" y="-40" width="32" height="32" fill="#f2a33a" opacity=".9" style="animation-duration:12.1s;animation-delay:-4.0s"/><use class="leaf" href="#leafB" x="524" y="-40" width="35" height="35" fill="#f6c76b" opacity=".9" style="animation-duration:8.2s;animation-delay:-4.8s"/><use class="leaf" href="#leafB" x="40" y="-40" width="24" height="24" fill="#b8361c" opacity=".9" style="animation-duration:12.4s;animation-delay:-8.0s"/><use class="leaf" href="#leafA" x="358" y="-40" width="37" height="37" fill="#b8361c" opacity=".9" style="animation-duration:11.1s;animation-delay:-6.4s"/><use class="leaf" href="#leafB" x="485" y="-40" width="24" height="24" fill="#b8361c" opacity=".9" style="animation-duration:7.4s;animation-delay:-9.8s"/>
-          </svg></div>
-          <div class="veil" aria-hidden="true"></div>
-          <span class="badge" data-i18n="o1k">Thanksgiving</span>
-          <div class="date" data-i18n="tg_date">Thursday · November 26, 2026</div>
-          <h3 data-i18n="o1h">Family Thanksgiving, Brazilian style</h3>
-          <p data-i18n="o1p">Skip the kitchen. We also do the classic Thanksgiving spread — roast turkey and traditional sides alongside churrasco, rice, beans and dessert, delivered and served for the whole family.</p>
-        </article>
-
-        <article class="panel xm">
-          <div class="art" aria-hidden="true"><svg viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice">
-            <circle cx="405" cy="237" r="1.6" fill="#fff" opacity="0.36"/><circle cx="482" cy="100" r="1.2" fill="#fff" opacity="0.69"/><circle cx="515" cy="25" r="1.2" fill="#fff" opacity="0.77"/><circle cx="142" cy="199" r="1.2" fill="#fff" opacity="0.57"/><circle cx="518" cy="30" r="1.2" fill="#fff" opacity="0.60"/><circle cx="572" cy="81" r="1.2" fill="#fff" opacity="0.80"/><circle cx="573" cy="81" r="2" fill="#fff" opacity="0.89"/><circle cx="399" cy="255" r="1.2" fill="#fff" opacity="0.43"/><circle cx="190" cy="48" r="1.2" fill="#fff" opacity="0.71"/><circle cx="22" cy="134" r="1.2" fill="#fff" opacity="0.49"/><circle cx="14" cy="47" r="2" fill="#fff" opacity="0.64"/><circle cx="589" cy="91" r="1.2" fill="#fff" opacity="0.73"/><circle cx="537" cy="253" r="1" fill="#fff" opacity="0.60"/><circle cx="582" cy="110" r="2" fill="#fff" opacity="0.57"/><circle cx="116" cy="133" r="2" fill="#fff" opacity="0.38"/><circle cx="78" cy="63" r="2" fill="#fff" opacity="0.44"/><circle cx="358" cy="163" r="1" fill="#fff" opacity="0.41"/><circle cx="590" cy="48" r="1" fill="#fff" opacity="0.87"/><circle cx="36" cy="28" r="1.2" fill="#fff" opacity="0.69"/><circle cx="162" cy="172" r="1.6" fill="#fff" opacity="0.88"/><circle cx="382" cy="131" r="1" fill="#fff" opacity="0.41"/><circle cx="509" cy="260" r="2" fill="#fff" opacity="0.61"/><circle cx="329" cy="31" r="1.2" fill="#fff" opacity="0.41"/><circle cx="360" cy="199" r="1.6" fill="#fff" opacity="0.61"/><circle cx="175" cy="142" r="1" fill="#fff" opacity="0.46"/><circle cx="550" cy="102" r="1.2" fill="#fff" opacity="0.73"/>
-            <use href="#pine" x="20" y="150" width="210" height="280"/><use href="#pine" x="180" y="230" width="140" height="190"/><use href="#pine" x="430" y="200" width="170" height="230"/>
-            <use href="#star" x="105" y="132" width="40" height="40" fill="#f6c76b" filter="url(#fGlow)"/>
-            <g filter="url(#fGlow)"><circle cx="90" cy="250" r="5" fill="#e0454b"/><circle cx="150" cy="290" r="5" fill="#a4c13d"/><circle cx="100" cy="330" r="5" fill="#f6c76b"/><circle cx="170" cy="360" r="5" fill="#e0454b"/><circle cx="70" cy="380" r="5" fill="#a4c13d"/><circle cx="500" cy="300" r="5" fill="#f6c76b"/><circle cx="540" cy="340" r="5" fill="#e0454b"/><circle cx="480" cy="370" r="5" fill="#a4c13d"/></g>
-            <!-- hanging ornaments with both brands -->
-            <line x1="330" y1="0" x2="330" y2="96" stroke="#c9a24a" stroke-width="1.5"/><rect x="323" y="92" width="14" height="10" rx="2" fill="#c9a24a"/><circle cx="330" cy="135" r="36" fill="url(#gLime)"/><image href="assets/maximus-x.png" x="310" y="115" width="40" height="40"/><ellipse cx="317" cy="120" rx="9" ry="5" fill="#fff" opacity=".45"/>
-            <line x1="420" y1="0" x2="420" y2="56" stroke="#c9a24a" stroke-width="1.5"/><rect x="413" y="52" width="14" height="10" rx="2" fill="#c9a24a"/><circle cx="420" cy="96" r="38" fill="url(#gGold)"/><clipPath id="ckClip2"><circle cx="420" cy="96" r="25"/></clipPath><image href="assets/comeketo-logo.png" x="395" y="71" width="50" height="50" clip-path="url(#ckClip2)"/><ellipse cx="405" cy="80" rx="9" ry="5" fill="#fff" opacity=".45"/>
-            <line x1="505" y1="0" x2="505" y2="120" stroke="#c9a24a" stroke-width="1.5"/><rect x="499" y="116" width="12" height="9" rx="2" fill="#c9a24a"/><circle cx="505" cy="150" r="26" fill="url(#gRed)"/><ellipse cx="495" cy="140" rx="7" ry="4" fill="#fff" opacity=".5"/>
-            <path d="M0 440q150-30 300-8t300-6V480H0Z" fill="#e9f1ee"/>
-          </svg></div>
-          <div class="veil" aria-hidden="true"></div>
-          <span class="badge" data-i18n="o3k">Christmas</span>
-          <div class="date" data-i18n="xm_date">Christmas Eve &amp; Day · December 24–25</div>
-          <h3 data-i18n="o3h">Christmas Eve ceia</h3>
-          <p data-i18n="o3p">A memorable ceia de Natal with premium cuts, appetizers and Brazilian desserts like brigadeiro and flan.</p>
-        </article>
-      </div>
-
       <div class="party">
         <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#24211f"/><path d="M18 40l6-20h4l-4 20Zm12 0 4-20h4l-4 20Zm12 0 4-20h4l-4 20Z" fill="#a4c13d"/><path d="M14 44h36" stroke="#c9a24a" stroke-width="3" stroke-linecap="round"/></svg>
         <div><div class="k" data-i18n="o2k">Company party</div><h4 data-i18n="o2h">Year-end party for your team</h4><p data-i18n="o2p">Thank your crew with a real churrasco and bar service, the perfect way to celebrate a great year.</p></div>
         <div class="price" data-i18n="price_note">Churrasco packages start at <b>$29.95 per guest</b>. Your <b>$250 bonus</b> is yours to use however you like on our packages.</div>
+      </div>
+
+      <div class="actions" style="justify-content:center;margin-top:30px">
+        <a class="btn gold" href="#claim" data-i18n="party_cta">Talk to us now</a>
       </div>
 
       <div class="photos">
@@ -695,7 +659,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
 </main>
 
 <footer>
-  <div class="wrap"><span data-i18n="foot">Maximus Car Wrap × Comeketo Catering · Holiday promotion 2026</span><span>v1.2</span></div>
+  <div class="wrap"><span data-i18n="foot">Maximus Car Wrap × Comeketo Catering · Holiday promotion 2026</span><span>v1.3</span></div>
 </footer>
 
 <!-- Floating "talk to a specialist" widget: Comeketo + Maximus, each with its logo -->
@@ -740,6 +704,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       s3h:"Reserve seu pacote de fim de ano",
       s3p:"O André da Comeketo entra em contato para montar seu cardápio, e $250 vão para o seu pacote de Natal ou Thanksgiving.",
       price_note:"Os pacotes de churrasco começam em <b>$29.95 por convidado</b>. Seu <b>bônus de $250</b> é para usar como quiser nos nossos pacotes.",
+      party_eb:"Festa da empresa",party_h:"Garanta seu crédito de <span>$250</span> para a sua confraternização de fim de ano.",party_p:"Agradeça sua equipe com um churrasco de verdade e serviço de bar — o jeito perfeito de fechar um grande ano. Fale com a gente e garanta sua data.",party_cta:"Converse conosco já",
       claim_h:"Registre seu bônus de <span>$250</span>.",
       claim_p:"As datas de fim de ano esgotam rápido. Envie seus dados e o André entra em contato para garantir a data do seu Thanksgiving ou Natal.",
       c1:"Compre $1.000 na Maximus",
@@ -750,7 +715,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       tr2:"Válido para um pacote de Thanksgiving ou Natal da Comeketo Catering, para eventos entre 1º de novembro e 31 de dezembro de 2026.",
       scene_eb:"Na estrada nesta temporada",
       scene_h:"Sua marca <em>na estrada.</em> Sua gente <i>à mesa.</i>",
-      scene_p:"Um envelopamento da Maximus trabalha por você o ano todo. Nesta temporada, ele também leva a ceia para casa.",
+      scene_p:"Faça sua marca ser vista e ganhe $250 dólares!",
       van_greet:"Boas Festas",
       hol_eb:"Dois feriados, um bônus",
       hol_h:"Thanksgiving ou Natal, você escolhe.",
@@ -774,7 +739,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       f_submit:"Enviar meus dados",
       f_privacy:"Usamos seus dados só para falar sobre esta oferta. Dúvidas? <a href=\"mailto:team@comeketocatering.com\">team@comeketocatering.com</a>",
       feast_p:"Use seu bônus de $250 no pacote de Natal ou Thanksgiving da Comeketo. Algumas ideias:",lang_lbl:'Idioma',season:'Fim de Ano 2026 · Thanksgiving e Natal',
-      h1:'Envelope sua marca.<br><span class="g script" data-sparkles>A ceia é por nossa conta</span> neste fim de ano.',
+      h1:'Envelope sua marca.<br><span class="g script" data-sparkles>A confraternização é por nossa conta</span> neste fim de ano.',
       
       cta_quote:'Orçamento grátis na Maximus',ribbon:'Brinde da Comeketo',
       v_kicker:'Presente Maximus × Comeketo',
@@ -817,6 +782,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       s3h:"Reserva tu paquete navideño",
       s3p:"André de Comeketo te contacta para armar tu menú, y $250 van a tu paquete de Navidad o Thanksgiving.",
       price_note:"Los paquetes de churrasco empiezan en <b>$29.95 por invitado</b>. Tu <b>bono de $250</b> es para usar como quieras en nuestros paquetes.",
+      party_eb:"Fiesta de empresa",party_h:"Asegura tu crédito de <span>$250</span> para tu celebración de fin de año.",party_p:"Agradece a tu equipo con un verdadero churrasco y servicio de bar — la mejor forma de cerrar un gran año. Habla con nosotros y reserva tu fecha.",party_cta:"Habla con nosotros ya",
       claim_h:"Registra tu bono de <span>$250</span>.",
       claim_p:"Las fechas navideñas se llenan rápido. Envía tus datos y André te contactará para asegurar tu fecha de Thanksgiving o Navidad.",
       c1:"Compra $1,000 en Maximus",
@@ -827,7 +793,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
       tr2:"Válido para un paquete de Thanksgiving o Navidad de Comeketo Catering, para eventos entre el 1 de noviembre y el 31 de diciembre de 2026.",
       scene_eb:"En la calle esta temporada",
       scene_h:"Tu marca <em>en la calle.</em> Tu gente <i>en la mesa.</i>",
-      scene_p:"Una rotulación de Maximus trabaja para ti todo el año. Esta temporada, también lleva la cena a casa.",
+      scene_p:"¡Haz que tu marca se vea y gana $250 dólares!",
       van_greet:"Felices Fiestas",
       hol_eb:"Dos fiestas, un bono",
       hol_h:"Thanksgiving o Navidad, tú eliges.",
@@ -906,8 +872,7 @@ legend{font-size:12.5px;font-weight:600;color:#3f3832;margin-bottom:6px}
   function initialLang(){
     try{var q=new URL(location.href).searchParams.get('lang');if(q&&LANGS.indexOf(q)>=0)return q;}catch(e){}
     try{var s=localStorage.getItem('maximus-promo-lang');if(s&&LANGS.indexOf(s)>=0)return s;}catch(e){}
-    var nav=(navigator.language||'en').slice(0,2).toLowerCase();
-    return LANGS.indexOf(nav)>=0?nav:'en';
+    return 'pt'; // Brazilian audience — Portuguese is the default language
   }
   buttons.forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});
   setLang(initialLang());
