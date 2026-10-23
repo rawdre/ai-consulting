@@ -15,8 +15,8 @@ window.SITE = {
   },
 
   contato: {
-    whatsapp: '5561900000000',            // só números, com 55 + DDD
-    telefone: '(61) 90000-0000',
+    whatsapp: '5561998229223',            // só números, com 55 + DDD (padrão = Raw AI para as demos; trocar pelo do cliente)
+    telefone: '(61) 99822-9223',
     endereco: 'Endereço completo, {bairro} — {cidade}',
     mapa: '',
     instagram: '',
