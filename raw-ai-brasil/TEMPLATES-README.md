@@ -93,3 +93,12 @@ Cada template deve manter:
 2. Escolher quais deles combinam com os leads de maior prioridade
 3. Adaptar nome, bairro, servicos e CTA para cada proposta
 4. Iniciar a lista de 50 negocios com foco nos nichos ja cobertos
+
+## v2.0.0 — Biblioteca white-label (2026-10-23)
+
+Pasta: `templates-v2/` · página: `templates-v2/index.html` (biblioteca + gerador de demo por lead)
+
+- 6 templates sem nome real: pet-shop, barbearia, dentista (Sorriso Prime = fictício), adega, studio-unhas, bicicletaria
+- Cada template: `index.html` + `config.js` (TODAS as informações do negócio) + `engine.js` (não editar) + `assets/` (imagens ilustrativas Higgsfield — trocar pelas reais)
+- Demo personalizada: `templates-v2/<template>/?nome=Pet%20Star&bairro=Sobradinho&wa=5561999999999`
+- `templates/pet-shop|adega|dentista` agora redirecionam para a v2. `templates/barbearia` (versão Gabriel, fotos reais) mantida.

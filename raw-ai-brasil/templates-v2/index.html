@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Biblioteca de Templates — Raw AI Brasil</title>
+<meta name="description" content="Templates white-label da Raw AI Brasil com gerador de demo personalizada por lead.">
+<!-- Biblioteca de templates Raw AI · v2.0.0 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #0b0f16; --panel: #121925; --line: rgba(255,255,255,.08); --text: #eef3fa; --muted: #93a1b5; --accent: #63d8ff; --green: #25D366; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Space Grotesk', sans-serif; background: radial-gradient(circle at 10% 0%, rgba(99,216,255,.12), transparent 30%), var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+header { padding: 64px 0 36px; }
+.crumbs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+.crumbs a { font-size: .85rem; color: var(--muted); border: 1px solid var(--line); padding: 7px 14px; border-radius: 999px; }
+.crumbs a:hover { color: var(--text); border-color: var(--accent); }
+.kicker { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+h1 { font-family: 'Fraunces', serif; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; margin: 12px 0 16px; }
+header p { color: var(--muted); max-width: 640px; }
+.version { display: inline-block; margin-left: 8px; font-size: .75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; vertical-align: middle; }
+
+h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; margin: 40px 0 18px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s, border-color .3s; }
+.card:hover { transform: translateY(-4px); border-color: rgba(99,216,255,.35); }
+.thumb { aspect-ratio: 16/9; background-size: cover; background-position: center; position: relative; }
+.thumb span { position: absolute; top: 12px; left: 12px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: rgba(11,15,22,.75); backdrop-filter: blur(8px); padding: 5px 10px; border-radius: 999px; }
+.card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.card h3 { font-size: 1.15rem; }
+.card p { color: var(--muted); font-size: .9rem; flex: 1; }
+.card-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: 999px; font-weight: 700; font-size: .85rem; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; font-family: inherit; }
+.btn:hover { border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: #062130; border-color: var(--accent); }
+.btn-wa { background: var(--green); color: #052611; border-color: var(--green); }
+
+.tool { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.tool p.help { color: var(--muted); font-size: .9rem; margin-bottom: 16px; }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: 4px; font-weight: 700; }
+.field input, .field select, .field textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: #0d131d; color: var(--text); font: inherit; }
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-color: var(--accent); }
+.out { word-break: break-all; font-size: .85rem; background: #0d131d; border: 1px dashed rgba(99,216,255,.35); border-radius: 12px; padding: 12px 14px; color: var(--accent); min-height: 48px; }
+.row-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.status { font-size: .82rem; color: var(--green); min-height: 1.2em; margin-top: 8px; }
+.howto { color: var(--muted); font-size: .9rem; }
+.howto li { margin: 0 0 6px 18px; }
+footer { padding: 50px 0; color: var(--muted); font-size: .82rem; }
+
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } .tool { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .grid { grid-template-columns: 1fr; } .tool { padding: 20px 16px; } }
+</style>
+</head>
+<body>
+<header class="container">
+  <nav class="crumbs">
+    <a href="../index.html">← Hub Raw AI Brasil</a>
+    <a href="../brasil/index.html">Landing comercial</a>
+    <a href="../leads/negocios-prospectados.csv">Leads (CSV)</a>
+  </nav>
+  <span class="kicker">Raw AI Brasil · Ferramenta interna</span>
+  <h1>Biblioteca de Templates <span class="version">v2.0.0</span></h1>
+  <p>Templates white-label prontos para mostrar e personalizar. Cada um tem um <b>config.js</b> com todas as informações do negócio — troque texto, WhatsApp e fotos, e o site está pronto.</p>
+</header>
+
+<main class="container">
+  <section aria-labelledby="gen">
+    <h2 id="gen">Gerar demo personalizada para um lead</h2>
+    <div class="tool">
+      <div>
+        <p class="help">Preencha com os dados do lead. O link abre o template já com o nome e o bairro dele — e o botão de WhatsApp do site vai para o número que você colocar (deixe vazio para manter o número de exemplo).</p>
+        <div class="field"><label for="gTpl">Template</label><select id="gTpl"></select></div>
+        <div class="field"><label for="gNome">Nome do negócio</label><input id="gNome" maxlength="60" placeholder="Ex: Pet Star"></div>
+        <div class="field"><label for="gBairro">Bairro / região</label><input id="gBairro" maxlength="60" placeholder="Ex: Sobradinho"></div>
+        <div class="field"><label for="gWa">WhatsApp do lead (opcional)</label><input id="gWa" inputmode="numeric" maxlength="20" placeholder="Ex: 5561999999999"></div>
+      </div>
+      <div>
+        <div class="field"><label>Link da demo</label><div class="out" id="gOut">Escolha um template e preencha o nome.</div></div>
+        <div class="row-actions">
+          <button class="btn btn-primary" id="gCopy" type="button">Copiar link</button>
+          <a class="btn" id="gOpen" target="_blank" rel="noopener">Abrir demo</a>
+        </div>
+        <div class="field" style="margin-top:18px"><label for="gMsg">Mensagem pronta para o WhatsApp do lead</label><textarea id="gMsg"></textarea></div>
+        <div class="row-actions">
+          <button class="btn" id="gCopyMsg" type="button">Copiar mensagem</button>
+          <a class="btn btn-wa" id="gSend" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+        </div>
+        <div class="status" id="gStatus" role="status"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="tpls">
+    <h2 id="tpls">Templates white-label</h2>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section aria-labelledby="clients">
+    <h2 id="clients">Sites de clientes (com nome)</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:linear-gradient(135deg,#4A1942,#E91E63)"><span>Cliente · Beleza</span></div>
+        <div class="card-body"><h3>Diana Nails</h3><p>Site real de cliente — manicure & pedicure em Sobradinho II.</p>
+          <div class="card-actions"><a class="btn btn-primary" href="https://rawdre.github.io/diana-nails/" target="_blank" rel="noopener">Ver site</a></div></div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:linear-gradient(135deg,#1B2A4A,#D32F2F)"><span>Cliente · Imobiliária</span></div>
+        <div class="card-body"><h3>Top Imobiliária DF</h3><p>Site institucional completo com busca, blog e guias de região.</p>
+          <div class="card-actions"><a class="btn btn-primary" href="https://topimobiliaria.com" target="_blank" rel="noopener">Ver site</a></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="como">
+    <h2 id="como">Como entregar um site a partir do template</h2>
+    <ol class="howto">
+      <li>Copie a pasta do template (index.html, config.js, engine.js, assets/).</li>
+      <li>Edite <b>só o config.js</b>: nome, WhatsApp, endereço, horários, preços, avaliações reais.</li>
+      <li>Troque as fotos em <b>assets/</b> pelas fotos reais do cliente (mesmo nome de arquivo). As imagens atuais são ilustrativas (IA).</li>
+      <li>Publique (GitHub Pages / Vercel) e conecte o domínio do cliente.</li>
+    </ol>
+  </section>
+</main>
+
+<footer class="container">Raw AI Brasil · biblioteca interna de templates · v2.0.0</footer>
+
+<script>
+(function () {
+  'use strict';
+  var TEMPLATES = [
+    { slug: 'pet-shop', nome: 'Pet Shop', nicho: 'Pet', desc: 'Banho, tosa e loja — com agendamento que monta a mensagem no WhatsApp.', fala: 'pet shop' },
+    { slug: 'barbearia', nome: 'Barbearia', nicho: 'Beleza masculina', desc: 'Industrial vintage, tabela de preços, galeria e horários.', fala: 'barbearia' },
+    { slug: 'dentista', nome: 'Clínica Odontológica', nicho: 'Saúde', desc: 'Visual clínico premium: tratamentos, jornada do paciente e prova social.', fala: 'clínica' },
+    { slug: 'adega', nome: 'Adega & Delivery', nicho: 'Bebidas', desc: 'Pedido rápido: categorias, combos com preço e área de entrega.', fala: 'adega' },
+    { slug: 'studio-unhas', nome: 'Studio de Unhas', nicho: 'Beleza', desc: 'Editorial e delicado: serviços, portfólio e agendamento.', fala: 'studio' },
+    { slug: 'bicicletaria', nome: 'Oficina de Bike', nicho: 'Esporte', desc: 'Oficina e manutenção de bikes: serviços, preços e etapas.', fala: 'oficina' }
+  ];
+
+  var grid = document.getElementById('grid');
+  var select = document.getElementById('gTpl');
+  TEMPLATES.forEach(function (t) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    var thumb = document.createElement('div');
+    thumb.className = 'thumb';
+    thumb.style.backgroundImage = 'url("' + t.slug + '/assets/hero.jpg")';
+    var tag = document.createElement('span');
+    tag.textContent = t.nicho;
+    thumb.appendChild(tag);
+    var body = document.createElement('div');
+    body.className = 'card-body';
+    var h3 = document.createElement('h3'); h3.textContent = t.nome;
+    var p = document.createElement('p'); p.textContent = t.desc;
+    var actions = document.createElement('div'); actions.className = 'card-actions';
+    var open = document.createElement('a'); open.className = 'btn btn-primary'; open.href = t.slug + '/'; open.target = '_blank'; open.rel = 'noopener'; open.textContent = 'Abrir template';
+    var use = document.createElement('button'); use.className = 'btn'; use.type = 'button'; use.textContent = 'Gerar demo';
+    use.addEventListener('click', function () { select.value = t.slug; update(); document.getElementById('gNome').focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    actions.appendChild(open); actions.appendChild(use);
+    body.appendChild(h3); body.appendChild(p); body.appendChild(actions);
+    card.appendChild(thumb); card.appendChild(body);
+    grid.appendChild(card);
+
+    var opt = document.createElement('option');
+    opt.value = t.slug; opt.textContent = t.nome;
+    select.appendChild(opt);
+  });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var base = new URL('.', window.location.href);
+
+  function demoUrl() {
+    var url = new URL(select.value + '/', base);
+    var nome = $('gNome').value.trim();
+    var bairro = $('gBairro').value.trim();
+    var wa = $('gWa').value.replace(/\D/g, '');
+    if (nome) url.searchParams.set('nome', nome);
+    if (bairro) url.searchParams.set('bairro', bairro);
+    if (wa.length >= 10 && wa.length <= 13) url.searchParams.set('wa', wa);
+    return url.toString();
+  }
+
+  function message(link) {
+    var nome = $('gNome').value.trim() || 'seu negócio';
+    return 'Oi! Tudo bem? Sou o André, da Raw AI, aqui de Brasília.\n\n' +
+      'Vi o ' + nome + ' no Instagram/Google e montei uma prévia de como ficaria um site próprio pra vocês — com agendamento direto no WhatsApp:\n\n' +
+      link + '\n\n' +
+      'Fica pronto em 48h com as fotos e informações reais de vocês. Posso te mandar os detalhes?';
+  }
+
+  function update() {
+    var link = demoUrl();
+    $('gOut').textContent = link;
+    $('gOpen').href = link;
+    $('gMsg').value = message(link);
+    var wa = $('gWa').value.replace(/\D/g, '');
+    $('gSend').href = 'https://wa.me/' + (wa.length >= 10 ? wa : '') + '?text=' + encodeURIComponent($('gMsg').value);
+  }
+
+  function copy(text) {
+    var done = function () { $('gStatus').textContent = 'Copiado!'; setTimeout(function () { $('gStatus').textContent = ''; }, 2000); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { $('gStatus').textContent = 'Não consegui copiar — selecione e copie manualmente.'; });
+    } else {
+      $('gStatus').textContent = 'Selecione e copie manualmente.';
+    }
+  }
+
+  ['gTpl', 'gNome', 'gBairro', 'gWa'].forEach(function (id) { $(id).addEventListener('input', update); });
+  $('gMsg').addEventListener('input', function () {
+    var wa = $('gWa').value.replace(/\D/g, '');
+    $('gSend').href = 'https://wa.me/' + (wa.length >= 10 ? wa : '') + '?text=' + encodeURIComponent($('gMsg').value);
+  });
+  $('gCopy').addEventListener('click', function () { copy(demoUrl()); });
+  $('gCopyMsg').addEventListener('click', function () { copy($('gMsg').value); });
+  update();
+})();
+</script>
+</body>
+</html>

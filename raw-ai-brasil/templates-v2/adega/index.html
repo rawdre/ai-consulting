@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adega — Delivery de Bebidas</title>
+<meta name="description" content="Cerveja gelada, vinhos, destilados e combos com entrega rápida. Peça pelo WhatsApp.">
+<!-- Template white-label Raw AI · v2.0.0 · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #FF9D2E;
+  --wine: #8a1f4c;
+  --bg: #0e080c;
+  --bg-2: #160d13;
+  --card: rgba(255,255,255,.04);
+  --cream: #f6ece0;
+  --muted: #bfadb5;
+  --line: rgba(255,255,255,.08);
+  --green: #25D366;
+  --radius: 26px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.serif { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: .95; letter-spacing: -.01em; }
+.serif em { font-style: italic; color: var(--accent); }
+
+/* ---------- NAV ---------- */
+.nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: 18px 0; transition: background .35s, padding .35s; }
+.nav.scrolled { background: rgba(14,8,12,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding: 10px 0; border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), #ffc568); color: #2a1206; font-weight: 700; }
+.brand strong { display: block; font-size: 1rem; }
+.brand small { display: block; font-size: .74rem; color: var(--muted); }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+.nav-links a { font-size: .9rem; color: var(--muted); transition: color .25s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links .cta { background: var(--green); color: #062312; font-weight: 700; padding: 11px 20px; border-radius: 999px; }
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cream); margin: 5px 0; }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 130px 0 80px; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.1); animation: drift 22s ease-out forwards; }
+.hero::after { content: ''; position: absolute; inset: 0; background:
+  linear-gradient(100deg, rgba(14,8,12,.95) 0%, rgba(14,8,12,.7) 45%, rgba(14,8,12,.2) 100%),
+  linear-gradient(0deg, var(--bg) 0%, transparent 35%); }
+@keyframes drift { to { transform: scale(1); } }
+.hero-content { position: relative; z-index: 2; max-width: 660px; }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; background: rgba(37,211,102,.12); border: 1px solid rgba(37,211,102,.25); color: #8ef0ba; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 26px; }
+.pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 1.6s infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+.hero h1 { font-size: clamp(3.6rem, 9vw, 7rem); margin-bottom: 22px; }
+.hero h1 em { display: block; }
+.hero p { font-size: 1.12rem; color: var(--muted); max-width: 520px; margin-bottom: 36px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 48px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 700; transition: transform .25s, box-shadow .25s; }
+.btn:hover { transform: translateY(-3px); }
+.btn-wa { background: var(--green); color: #062312; box-shadow: 0 16px 40px rgba(37,211,102,.28); }
+.btn-ghost { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); }
+.btn svg { width: 20px; height: 20px; fill: currentColor; }
+.stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.stats strong { display: block; font-family: 'Instrument Serif'; font-size: 2.8rem; line-height: 1; color: var(--accent); }
+.stats span { font-size: .82rem; color: var(--muted); }
+
+/* ---------- SECTIONS ---------- */
+.pad { padding: 110px 0; }
+.kicker { display: inline-block; font-size: .76rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.title { font-size: clamp(2.8rem, 6vw, 4.6rem); margin-bottom: 16px; }
+.lead { color: var(--muted); max-width: 520px; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 50px; }
+
+/* categories */
+.cats { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 18px; }
+.cat { position: relative; min-height: 480px; border-radius: var(--radius); overflow: hidden; display: flex; align-items: flex-end; isolation: isolate; }
+.cat img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+.cat::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(14,8,12,.95), rgba(14,8,12,.15) 60%); }
+.cat:hover img { transform: scale(1.07); }
+.cat-body { padding: 28px; }
+.cat h3 { font-family: 'Instrument Serif'; font-weight: 400; font-size: 2.3rem; line-height: 1; margin-bottom: 8px; }
+.cat p { color: var(--muted); font-size: .95rem; margin-bottom: 16px; }
+.cat .link { font-weight: 700; color: var(--accent); }
+
+/* combos */
+.combos-wrap { background: linear-gradient(180deg, var(--bg), var(--bg-2)); }
+.combos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.combo { position: relative; padding: 34px 30px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); transition: transform .35s, border-color .35s; display: flex; flex-direction: column; }
+.combo:hover { transform: translateY(-6px); border-color: rgba(255,157,46,.4); }
+.combo .flag { position: absolute; top: 20px; right: 20px; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #2a1206; background: var(--accent); padding: 5px 12px; border-radius: 999px; }
+.combo h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.combo p { color: var(--muted); font-size: .95rem; flex: 1; }
+.combo strong { display: block; font-family: 'Instrument Serif'; font-weight: 400; font-size: 3.2rem; color: var(--accent); line-height: 1; margin: 22px 0 20px; }
+.combo .btn { justify-content: center; }
+
+/* split */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 32px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.split-img { min-height: 440px; background-size: cover; background-position: center; }
+.split-body { padding: 54px 50px; display: flex; flex-direction: column; justify-content: center; }
+.split-body p { color: var(--muted); margin-bottom: 26px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.chips span { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
+.split + .split { margin-top: 22px; }
+.split.reverse .split-img { order: 2; }
+
+/* hours */
+.hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+.box { padding: 36px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.h-row { display: flex; justify-content: space-between; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.h-row span { color: var(--muted); }
+.c-row { margin-bottom: 20px; }
+.c-row small { display: block; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+.map { margin-top: 22px; border-radius: var(--radius); overflow: hidden; height: 360px; border: 1px solid var(--line); }
+.map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.9) contrast(.9); }
+
+.age { text-align: center; padding: 26px 0; font-size: .82rem; color: var(--muted); border-top: 1px solid var(--line); }
+footer { padding: 30px 0 40px; color: var(--muted); font-size: .85rem; }
+.foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer a:hover { color: var(--accent); }
+
+.wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 120; width: 62px; height: 62px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 16px 34px rgba(37,211,102,.35); transition: transform .25s; }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 31px; height: 31px; fill: #fff; }
+
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .hero-media { animation: none; transform: none; } .pill::before { animation: none; } }
+
+@media (max-width: 1000px) {
+  .cats, .combos, .hours-grid { grid-template-columns: 1fr; }
+  .cat { min-height: 360px; }
+  .split { grid-template-columns: 1fr; }
+  .split.reverse .split-img { order: 0; }
+  .split-img { min-height: 300px; }
+}
+@media (max-width: 760px) {
+  .container { width: calc(100% - 32px); }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 18px; padding: 24px 20px; background: rgba(14,8,12,.98); border-bottom: 1px solid var(--line); }
+  .nav.open .nav-links { display: flex; }
+  .nav.open { background: rgba(14,8,12,.98); }
+  .nav-toggle { display: block; }
+  .pad { padding: 80px 0; }
+  .split-body { padding: 32px 22px; }
+  .box { padding: 26px 20px; }
+  .stats { gap: 26px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark">◆</span>
+      <span><strong data-t="negocio.nome">Sua Adega</strong><small data-t="negocio.slogan"></small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#categorias">Bebidas</a></li>
+      <li><a href="#combos">Combos</a></li>
+      <li><a href="#entrega">Entrega</a></li>
+      <li><a href="#horarios">Horários</a></li>
+      <li><a class="cta" data-wa="Olá! Quero fazer um pedido na {nome}.">Pedir agora</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Interior da adega"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="pill" data-t="hero.selo">Delivery & retirada</div>
+      <h1 class="serif"><span data-t="hero.titulo1"></span><em data-t="hero.titulo2"></em></h1>
+      <p data-t="hero.texto"></p>
+      <div class="actions">
+        <a class="btn btn-wa" data-wa="Olá! Quero fazer um pedido na {nome}.">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+          Pedir pelo WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#combos">Ver combos</a>
+        <a class="btn btn-ghost" data-href="contato.ifood" target="_blank" rel="noopener">Pedir no app</a>
+      </div>
+      <div class="stats" data-list="hero.destaques"><template><div><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template></div>
+    </div>
+  </div>
+</header>
+
+<section class="pad" id="categorias">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Bebidas</span><h2 class="title serif">Tudo pra <em>sua noite</em></h2></div>
+      <p class="lead">Do litrão da resenha ao vinho do jantar. Escolha a categoria e chame no WhatsApp.</p>
+    </div>
+    <div class="cats" data-list="categorias">
+      <template>
+        <article class="cat reveal"><img data-fimg="imagem" alt="" loading="lazy">
+          <div class="cat-body"><h3 data-f="titulo"></h3><p data-f="texto"></p><a class="link" data-fwa="whatsapp">Pedir agora →</a></div>
+        </article>
+      </template>
+    </div>
+  </div>
+</section>
+
+<section class="pad combos-wrap" id="combos">
+  <div class="container">
+    <div class="head reveal"><div><span class="kicker">Combos da semana</span><h2 class="title serif">Preço fechado, <em>sem pensar</em></h2></div></div>
+    <div class="combos" data-list="combos">
+      <template>
+        <div class="combo reveal">
+          <span class="flag" data-fhide="destaque" data-f="destaque"></span>
+          <h3 data-f="titulo"></h3><p data-f="itens"></p><strong data-f="preco"></strong>
+          <a class="btn btn-wa" data-fwa="whatsapp">Quero esse combo</a>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="entrega">
+  <div class="container">
+    <div class="split reveal">
+      <div class="split-img" data-img="entrega.imagem" role="img" aria-label="Entregador de moto à noite"></div>
+      <div class="split-body">
+        <span class="kicker">Entrega</span>
+        <h2 class="title serif" data-t="entrega.titulo"></h2>
+        <p data-t="entrega.texto"></p>
+        <div class="chips" data-list="entrega.bairros"><template><span data-f="."></span></template></div>
+        <a class="btn btn-wa" data-wa="Olá! Vocês entregam no meu endereço? ({nome})">Consultar meu endereço</a>
+      </div>
+    </div>
+    <div class="split reverse reveal">
+      <div class="split-img" data-img="festa.imagem" role="img" aria-label="Mesa de churrasco com bebidas"></div>
+      <div class="split-body">
+        <span class="kicker">Eventos</span>
+        <h2 class="title serif" data-t="festa.titulo"></h2>
+        <p data-t="festa.texto"></p>
+        <a class="btn btn-ghost" data-wa="Olá! Quero montar o pedido de uma festa com a {nome}.">Montar pedido da festa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="horarios" style="padding-top:0">
+  <div class="container hours-grid">
+    <div class="box reveal">
+      <span class="kicker">Funcionamento</span>
+      <h2 class="title serif" style="font-size:2.8rem">Horários</h2>
+      <div data-list="horarios"><template><div class="h-row"><span data-f="dia"></span><strong data-f="hora"></strong></div></template></div>
+    </div>
+    <div class="box reveal">
+      <span class="kicker">Contato</span>
+      <h2 class="title serif" style="font-size:2.8rem">Onde estamos</h2>
+      <div class="c-row"><small>WhatsApp</small><span data-t="contato.telefone"></span></div>
+      <div class="c-row"><small>Endereço</small><span data-t="contato.endereco"></span></div>
+      <div class="c-row" data-show="contato.instagram"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+      <div class="map"><iframe data-map loading="lazy" title="Mapa" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<div class="age container" data-t="aviso"></div>
+<footer>
+  <div class="container foot">
+    <div><strong data-t="negocio.nome"></strong> · <span data-t="negocio.cidade"></span></div>
+    <div>© <span data-year></span> <span data-t="negocio.nome"></span>. <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a></div>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="WhatsApp" data-wa="Olá! Quero fazer um pedido na {nome}.">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>

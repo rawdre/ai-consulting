@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Odontológica</title>
+<meta name="description" content="Clareamento, ortodontia, implantes e urgência. Agende pelo WhatsApp.">
+<!-- Template white-label Raw AI · v2.0.0 · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #18A58D;
+  --mint: #e3f5f0;
+  --navy: #0f2740;
+  --ink: #15314b;
+  --muted: #5f7488;
+  --paper: #f7faf9;
+  --card: #ffffff;
+  --gold: #c9a464;
+  --line: rgba(21,49,75,.09);
+  --radius: 26px;
+  --shadow: 0 30px 80px rgba(15,39,64,.10);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Manrope', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.serif { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1; letter-spacing: -.01em; }
+
+/* ---------- NAV ---------- */
+.nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: 18px 0; transition: background .35s, box-shadow .35s, padding .35s; }
+.nav.scrolled { background: rgba(247,250,249,.9); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 1px 0 var(--line); padding: 10px 0; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--navy); color: #fff; font-family: 'Cormorant Garamond'; font-size: 1.5rem; font-weight: 600; }
+.brand strong { display: block; font-size: .98rem; font-weight: 800; }
+.brand small { display: block; font-size: .76rem; color: var(--muted); }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: .9rem; color: var(--muted); font-weight: 600; transition: color .25s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-links .cta { background: var(--navy); color: #fff; padding: 12px 22px; border-radius: 999px; }
+.nav-links .cta:hover { color: #fff; background: var(--accent); }
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; border-radius: 2px; }
+
+/* ---------- HERO ---------- */
+.hero { padding: 140px 0 70px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; width: 900px; height: 900px; right: -300px; top: -350px; border-radius: 50%; background: radial-gradient(circle, rgba(24,165,141,.16), transparent 65%); }
+.hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; background: var(--mint); color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 24px; }
+.pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.hero h1 { font-size: clamp(3.2rem, 7vw, 5.8rem); margin-bottom: 24px; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero h1 span { display: block; }
+.hero p { font-size: 1.1rem; color: var(--muted); max-width: 540px; margin-bottom: 34px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 800; font-size: .98rem; transition: transform .25s, box-shadow .25s, background .25s; }
+.btn:hover { transform: translateY(-3px); }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 16px 40px rgba(24,165,141,.32); }
+.btn-soft { background: var(--card); border: 1px solid var(--line); color: var(--navy); }
+.btn svg { width: 20px; height: 20px; fill: currentColor; }
+.notes { display: flex; gap: 38px; flex-wrap: wrap; padding-top: 28px; border-top: 1px solid var(--line); }
+.notes strong { display: block; font-family: 'Cormorant Garamond'; font-size: 2.6rem; font-weight: 600; line-height: 1; color: var(--navy); }
+.notes span { font-size: .82rem; color: var(--muted); }
+
+.hero-visual { position: relative; height: 620px; }
+.hero-main { position: absolute; inset: 0 0 60px 60px; border-radius: 200px 200px var(--radius) var(--radius); background-size: cover; background-position: center; box-shadow: var(--shadow); }
+.hero-portrait { position: absolute; left: 0; bottom: 0; width: 240px; aspect-ratio: 4/5; border-radius: var(--radius); background-size: cover; background-position: center; border: 6px solid var(--paper); box-shadow: var(--shadow); }
+.hero-badge { position: absolute; right: 22px; bottom: 90px; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-radius: 20px; padding: 16px 20px; box-shadow: var(--shadow); max-width: 230px; }
+.hero-badge strong { display: block; font-size: .95rem; }
+.hero-badge span { font-size: .82rem; color: var(--muted); }
+
+/* ---------- SECTIONS ---------- */
+.pad { padding: 110px 0; }
+.kicker { display: inline-block; font-size: .76rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.title { font-size: clamp(2.6rem, 5vw, 4.2rem); margin-bottom: 16px; }
+.title em { font-style: italic; color: var(--accent); }
+.lead { color: var(--muted); max-width: 560px; font-size: 1.04rem; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 52px; }
+
+.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.service { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 28px; transition: transform .35s, box-shadow .35s, border-color .35s; }
+.service:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: rgba(24,165,141,.3); }
+.service .icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--mint); color: var(--accent); font-size: 1.3rem; margin-bottom: 20px; }
+.service h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.service p { color: var(--muted); font-size: .94rem; }
+
+/* clinic */
+.clinic { background: var(--navy); color: #fff; overflow: hidden; }
+.clinic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+.clinic .title { color: #fff; }
+.clinic p { color: rgba(255,255,255,.72); }
+.points { display: grid; gap: 18px; margin-top: 34px; }
+.point { display: flex; gap: 16px; }
+.point b { flex: 0 0 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(24,165,141,.2); color: #6fe0c9; font-size: .9rem; }
+.point strong { display: block; }
+.point span { color: rgba(255,255,255,.62); font-size: .93rem; }
+.clinic-photos { position: relative; height: 560px; }
+.clinic-photos .a, .clinic-photos .b { position: absolute; border-radius: var(--radius); background-size: cover; background-position: center; }
+.clinic-photos .a { inset: 0 80px 120px 0; }
+.clinic-photos .b { width: 55%; aspect-ratio: 4/3; right: 0; bottom: 0; border: 6px solid var(--navy); }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.step { padding: 30px 26px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); position: relative; }
+.step strong { font-family: 'Cormorant Garamond'; font-size: 3rem; color: var(--accent); line-height: 1; display: block; margin-bottom: 14px; }
+.step h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.step p { color: var(--muted); font-size: .92rem; }
+
+/* reviews */
+.reviews { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 18px; }
+.rev { border-radius: var(--radius); padding: 32px; background: var(--card); border: 1px solid var(--line); }
+.rev.big { background: linear-gradient(160deg, var(--navy), #1d4a70); color: #fff; border: 0; }
+.rev.big strong { font-family: 'Cormorant Garamond'; font-size: 4.2rem; line-height: 1; color: var(--gold); display: block; }
+.rev .stars { color: var(--gold); letter-spacing: 3px; margin: 6px 0 14px; }
+.rev p { font-size: 1rem; }
+.rev:not(.big) p { color: var(--muted); }
+.rev span { display: block; margin-top: 16px; font-size: .82rem; opacity: .7; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; background: var(--card); border: 1px solid var(--line); border-radius: 34px; padding: 34px; box-shadow: var(--shadow); }
+.contact-list { display: grid; gap: 14px; margin: 24px 0 28px; }
+.c-item { padding: 18px 20px; border-radius: 18px; background: var(--paper); border: 1px solid var(--line); }
+.c-item small { display: block; font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.hours div { display: flex; justify-content: space-between; gap: 16px; }
+.map { border-radius: 26px; overflow: hidden; min-height: 440px; background: var(--mint); }
+.map iframe { width: 100%; height: 100%; min-height: 440px; border: 0; }
+
+footer { padding: 34px 0 44px; color: var(--muted); font-size: .86rem; }
+.foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer a:hover { color: var(--accent); }
+
+.wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 120; width: 62px; height: 62px; border-radius: 50%; background: #25D366; display: grid; place-items: center; box-shadow: 0 16px 34px rgba(37,211,102,.4); transition: transform .25s; }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 31px; height: 31px; fill: #fff; }
+
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+@media (max-width: 1000px) {
+  .hero-grid, .clinic-grid, .contact { grid-template-columns: 1fr; }
+  .hero-visual { height: 520px; }
+  .services { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .reviews { grid-template-columns: 1fr; }
+  .clinic-photos { height: 460px; }
+}
+@media (max-width: 760px) {
+  .container { width: calc(100% - 32px); }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 18px; padding: 24px 20px; background: var(--paper); box-shadow: 0 20px 40px rgba(15,39,64,.1); }
+  .nav.open .nav-links { display: flex; }
+  .nav.open { background: var(--paper); }
+  .nav-toggle { display: block; }
+  .hero { padding-top: 120px; }
+  .hero-visual { height: 440px; }
+  .hero-main { inset: 0 0 50px 30px; border-radius: 140px 140px var(--radius) var(--radius); }
+  .hero-portrait { width: 150px; }
+  .hero-badge { right: 10px; bottom: 70px; max-width: 190px; }
+  .services, .steps { grid-template-columns: 1fr; }
+  .pad { padding: 80px 0; }
+  .clinic-photos { height: 380px; }
+  .clinic-photos .a { inset: 0 40px 90px 0; }
+  .contact { padding: 20px; }
+  .notes { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark">S</span>
+      <span><strong data-t="negocio.nome">Clínica</strong><small data-t="negocio.slogan"></small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tratamentos">Tratamentos</a></li>
+      <li><a href="#clinica">A clínica</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a class="cta" data-wa="Olá! Quero agendar uma avaliação na {nome}.">Agendar avaliação</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="pill" data-t="hero.selo">Consultas com hora marcada</div>
+      <h1 class="serif"><span data-t="hero.titulo1"></span><em><span data-t="hero.titulo2"></span></em><span data-t="hero.titulo3"></span></h1>
+      <p data-t="hero.texto"></p>
+      <div class="actions">
+        <a class="btn btn-primary" data-wa="Olá! Quero agendar uma avaliação na {nome}.">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+          Agendar pelo WhatsApp
+        </a>
+        <a class="btn btn-soft" href="#tratamentos">Ver tratamentos</a>
+      </div>
+      <div class="notes" data-list="hero.notas"><template><div><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template></div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-main" data-img="hero.imagem" role="img" aria-label="Consultório odontológico moderno"></div>
+      <div class="hero-portrait" data-img="hero.retrato" role="img" aria-label="Paciente sorrindo"></div>
+      <div class="hero-badge"><strong data-t="negocio.responsavel"></strong><span data-t="negocio.cro"></span></div>
+    </div>
+  </div>
+</header>
+
+<section class="pad" id="tratamentos" style="padding-top:60px">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Tratamentos</span><h2 class="title serif">Tratamentos que <em>você entende</em></h2></div>
+      <p class="lead">Cada tratamento explicado de forma simples: o problema, a solução e o próximo passo.</p>
+    </div>
+    <div class="services" data-list="servicos">
+      <template><article class="service reveal"><div class="icon" data-f="icone"></div><h3 data-f="titulo"></h3><p data-f="texto"></p></article></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad clinic" id="clinica">
+  <div class="container clinic-grid">
+    <div class="clinic-photos reveal">
+      <div class="a" data-img="clinica.imagem" role="img" aria-label="Recepção da clínica"></div>
+      <div class="b" data-img="clinica.imagem2" role="img" aria-label="Consulta odontológica"></div>
+    </div>
+    <div class="reveal">
+      <span class="kicker" style="color:#6fe0c9">A clínica</span>
+      <h2 class="title serif" data-t="clinica.titulo"></h2>
+      <p data-t="clinica.texto"></p>
+      <div class="points" data-list="clinica.pontos">
+        <template><div class="point"><b>✓</b><div><strong data-f="titulo"></strong><span data-f="texto"></span></div></div></template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="container">
+    <div class="head reveal"><div><span class="kicker">Como funciona</span><h2 class="title serif">Do clique ao <em>sorriso</em></h2></div></div>
+    <div class="steps" data-list="passos">
+      <template><div class="step reveal"><strong data-f="numero"></strong><h3 data-f="titulo"></h3><p data-f="texto"></p></div></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="depoimentos" style="padding-top:0">
+  <div class="container">
+    <div class="head reveal"><div><span class="kicker">Depoimentos</span><h2 class="title serif">Quem passou, <em>recomenda</em></h2></div></div>
+    <div class="reviews" data-list="avaliacoes.lista">
+      <div class="rev big reveal">
+        <strong data-t="avaliacoes.nota"></strong><div class="stars">★★★★★</div>
+        <p data-t="avaliacoes.destaque"></p><span data-t="avaliacoes.total"></span>
+      </div>
+      <template><div class="rev reveal"><div class="stars">★★★★★</div><p data-f="texto"></p><span data-f="nome"></span></div></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="contato" style="padding-top:0">
+  <div class="container">
+    <div class="contact reveal">
+      <div>
+        <span class="kicker">Contato</span>
+        <h2 class="title serif">Agende sua <em>avaliação</em></h2>
+        <div class="contact-list">
+          <div class="c-item"><small>WhatsApp</small><span data-t="contato.telefone"></span></div>
+          <div class="c-item"><small>Endereço</small><span data-t="contato.endereco"></span></div>
+          <div class="c-item"><small>Horários</small><div class="hours" data-list="horarios"><template><div><span data-f="dia"></span><strong data-f="hora"></strong></div></template></div></div>
+          <div class="c-item" data-show="contato.instagram"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+        </div>
+        <a class="btn btn-primary" data-wa="Olá! Quero agendar uma consulta na {nome}.">Quero agendar agora</a>
+      </div>
+      <div class="map"><iframe data-map loading="lazy" title="Mapa" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div><strong data-t="negocio.nome"></strong> · <span data-t="negocio.responsavel"></span> · <span data-t="negocio.cro"></span></div>
+    <div>© <span data-year></span> <span data-t="negocio.nome"></span>. <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a></div>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="WhatsApp" data-wa="Olá! Vim pelo site da {nome}.">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>

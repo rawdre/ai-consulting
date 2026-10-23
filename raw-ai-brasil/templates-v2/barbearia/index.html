@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia — Corte & Barba</title>
+<meta name="description" content="Corte, barba e cuidado masculino. Agende pelo WhatsApp.">
+<!-- Template white-label Raw AI · v2.0.0 · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C8813F;
+  --accent-soft: rgba(200,129,63,.16);
+  --bg: #0c0b0a;
+  --bg-2: #141210;
+  --card: #1a1715;
+  --cream: #f3eadc;
+  --muted: #a39a8e;
+  --line: rgba(243,234,220,.09);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.display { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: .04em; line-height: .92; }
+.serif { font-family: 'Playfair Display', serif; font-style: italic; letter-spacing: 0; text-transform: none; }
+
+/* grain */
+body::before { content: ''; position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ---------- NAV ---------- */
+.nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: 22px 0; transition: background .35s, padding .35s; }
+.nav.scrolled { background: rgba(12,11,10,.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 12px 0; border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { font-family: 'Bebas Neue'; font-size: 1.7rem; letter-spacing: .12em; color: var(--cream); }
+.brand span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+.nav-links a { font-size: .8rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); transition: color .25s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links .cta { color: var(--bg); background: var(--accent); padding: 11px 22px; }
+.nav-links .cta:hover { color: var(--bg); background: var(--cream); }
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.nav-toggle span { display: block; width: 26px; height: 2px; background: var(--cream); margin: 6px 0; }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; padding: 130px 0 80px; }
+.hero-media { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.1); animation: push 20s ease-out forwards; }
+.hero::after { content: ''; position: absolute; inset: 0; background:
+  radial-gradient(ellipse at 30% 50%, rgba(12,11,10,.55), rgba(12,11,10,.92) 75%),
+  linear-gradient(0deg, var(--bg) 0%, transparent 30%); }
+@keyframes push { to { transform: scale(1); } }
+.hero-content { position: relative; z-index: 2; max-width: 860px; }
+.overline { display: inline-flex; align-items: center; gap: 14px; font-size: .78rem; font-weight: 600; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 26px; }
+.overline::before { content: ''; width: 46px; height: 1px; background: var(--accent); }
+.hero h1 { font-size: clamp(4rem, 13vw, 10rem); margin-bottom: 6px; text-transform: uppercase; }
+.hero .sub { font-size: clamp(1.6rem, 4vw, 2.8rem); color: var(--accent); margin-bottom: 28px; display: block; }
+.hero p { max-width: 520px; color: var(--muted); font-size: 1.1rem; font-weight: 300; margin-bottom: 40px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.btn { display: inline-flex; align-items: center; gap: 12px; padding: 17px 32px; font-size: .82rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; transition: all .3s; border: 1px solid transparent; cursor: pointer; }
+.btn-primary { background: var(--accent); color: var(--bg); }
+.btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+.btn-line { border-color: rgba(243,234,220,.35); color: var(--cream); }
+.btn-line:hover { border-color: var(--accent); color: var(--accent); }
+.btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* pole stripe */
+.pole { height: 5px; background: repeating-linear-gradient(-45deg, #b3263a 0 14px, var(--cream) 14px 28px, #1f3d72 28px 42px, var(--cream) 42px 56px); background-size: 80px 5px; animation: pole 3s linear infinite; }
+@keyframes pole { to { background-position: 80px 0; } }
+
+/* ---------- SECTIONS ---------- */
+.pad { padding: 120px 0; }
+.eyebrow { display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.title { font-size: clamp(2.8rem, 6vw, 4.6rem); text-transform: uppercase; margin-bottom: 18px; }
+.lead { color: var(--muted); font-weight: 300; font-size: 1.05rem; }
+
+/* about */
+.about { background: var(--bg-2); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+.about-img { position: relative; }
+.about-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.about-img::after { content: ''; position: absolute; inset: 22px -22px -22px 22px; border: 1px solid var(--accent); z-index: -1; }
+.about p { color: var(--muted); font-weight: 300; margin-bottom: 16px; font-size: 1.05rem; }
+.numbers { display: flex; gap: 46px; margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.numbers strong { display: block; font-family: 'Bebas Neue'; font-size: 3rem; color: var(--accent); line-height: 1; }
+.numbers span { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+/* menu */
+.menu-head { text-align: center; margin-bottom: 64px; }
+.menu { display: grid; grid-template-columns: 1fr 1fr; gap: 0 70px; max-width: 980px; margin: 0 auto; }
+.item { padding: 26px 0; border-bottom: 1px solid var(--line); }
+.item-top { display: flex; align-items: baseline; gap: 14px; }
+.item h3 { font-family: 'Bebas Neue'; font-weight: 400; font-size: 1.8rem; letter-spacing: .06em; white-space: nowrap; }
+.item .dots { flex: 1; border-bottom: 1px dotted rgba(243,234,220,.25); transform: translateY(-6px); }
+.item .price { font-family: 'Bebas Neue'; font-size: 1.8rem; color: var(--accent); white-space: nowrap; }
+.item p { color: var(--muted); font-size: .95rem; font-weight: 300; }
+.menu-cta { text-align: center; margin-top: 56px; }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 10px; }
+.gallery figure { position: relative; overflow: hidden; }
+.gallery figure:nth-of-type(1) { grid-row: span 2; }
+.gallery figure:nth-of-type(4) { grid-column: span 2; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.25) brightness(.85); transition: transform .9s cubic-bezier(.2,.8,.2,1), filter .6s; }
+.gallery figure:hover img { transform: scale(1.06); filter: none; }
+.gallery figcaption { position: absolute; left: 18px; bottom: 16px; font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: .1em; }
+
+/* reviews */
+.reviews { background: var(--bg-2); }
+.score { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 56px; }
+.score strong { font-family: 'Bebas Neue'; font-size: 6rem; color: var(--accent); line-height: 1; }
+.score .stars { color: var(--accent); letter-spacing: 6px; font-size: 1.3rem; }
+.score small { display: block; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-size: .75rem; }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.quote { background: var(--card); padding: 36px 32px; border-top: 2px solid var(--accent); }
+.quote p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; line-height: 1.6; margin-bottom: 20px; }
+.quote span { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+/* hours */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.hours-card { background: var(--card); padding: 46px 42px; border-left: 2px solid var(--accent); }
+.hours-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.hours-row span { color: var(--muted); }
+.hours-row strong { font-weight: 600; }
+.contact { display: grid; gap: 26px; align-content: start; }
+.contact small { display: block; font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.contact p, .contact a { color: var(--cream); font-size: 1.05rem; }
+.map { aspect-ratio: 16/9; border: 1px solid var(--line); }
+.map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.92) contrast(.9); }
+
+/* cta band */
+.band { position: relative; padding: 150px 0; text-align: center; overflow: hidden; }
+.band-media { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.band::after { content: ''; position: absolute; inset: 0; background: rgba(12,11,10,.78); }
+.band .container { position: relative; z-index: 2; }
+.band p { color: var(--muted); margin: 0 auto 40px; max-width: 480px; font-size: 1.1rem; }
+
+footer { border-top: 1px solid var(--line); padding: 36px 0; color: var(--muted); font-size: .85rem; }
+.foot { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer a:hover { color: var(--accent); }
+
+.wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 120; width: 60px; height: 60px; border-radius: 50%; background: #25D366; display: grid; place-items: center; box-shadow: 0 12px 30px rgba(0,0,0,.5); transition: transform .25s; }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .hero-media, .pole { animation: none; transform: none; } }
+
+@media (max-width: 960px) {
+  .about-grid, .info-grid { grid-template-columns: 1fr; gap: 50px; }
+  .about-img::after { inset: 14px -14px -14px 14px; }
+  .menu { grid-template-columns: 1fr; }
+  .quotes { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px 240px; }
+  .gallery figure:nth-of-type(1) { grid-row: auto; grid-column: span 2; }
+  .gallery figure:nth-of-type(4) { grid-column: span 2; }
+}
+@media (max-width: 760px) {
+  .container { width: calc(100% - 32px); }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 20px; padding: 26px 20px; background: rgba(12,11,10,.98); border-bottom: 1px solid var(--line); }
+  .nav.open .nav-links { display: flex; }
+  .nav.open { background: rgba(12,11,10,.98); }
+  .nav-toggle { display: block; }
+  .pad { padding: 84px 0; }
+  .item h3, .item .price { font-size: 1.5rem; }
+  .hours-card { padding: 32px 24px; }
+  .btn { width: 100%; justify-content: center; }
+  .band { padding: 110px 0; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand" data-t="negocio.nome">Sua Barbearia</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#horarios">Horários</a></li>
+      <li><a class="cta" data-wa="Olá! Quero agendar um horário na {nome}.">Agendar</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Interior da barbearia"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="overline" data-t="hero.selo">Barbearia clássica</div>
+      <h1 class="display" data-t="hero.titulo">Sua Barbearia</h1>
+      <span class="sub serif" data-t="hero.subtitulo">Precisão em cada corte</span>
+      <p data-t="hero.texto"></p>
+      <div class="actions">
+        <a class="btn btn-primary" data-wa="Olá! Quero agendar um horário na {nome}.">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+          Agendar pelo WhatsApp
+        </a>
+        <a class="btn btn-line" href="#servicos">Ver serviços</a>
+        <a class="btn btn-line" data-href="contato.agendamento" target="_blank" rel="noopener">Agenda online</a>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="pole" aria-hidden="true"></div>
+
+<section class="pad about" id="sobre">
+  <div class="container about-grid">
+    <div class="about-img reveal"><img data-img="sobre.imagem" alt="Cadeira de barbeiro" loading="lazy"></div>
+    <div class="reveal">
+      <span class="eyebrow">Sobre nós</span>
+      <h2 class="title display" data-t="sobre.titulo"></h2>
+      <p data-t="sobre.texto1"></p>
+      <p data-t="sobre.texto2"></p>
+      <div class="numbers" data-list="sobre.numeros">
+        <template><div><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="servicos">
+  <div class="container">
+    <div class="menu-head reveal">
+      <span class="eyebrow">Serviços & preços</span>
+      <h2 class="title display">Escolha seu <span class="serif" style="color:var(--accent)">estilo</span></h2>
+    </div>
+    <div class="menu" data-list="servicos">
+      <template>
+        <div class="item reveal">
+          <div class="item-top"><h3 data-f="titulo"></h3><span class="dots"></span><span class="price" data-f="preco"></span></div>
+          <p data-f="texto"></p>
+        </div>
+      </template>
+    </div>
+    <div class="menu-cta reveal"><a class="btn btn-primary" data-wa="Olá! Quero agendar um horário na {nome}.">Reservar minha cadeira</a></div>
+  </div>
+</section>
+
+<section class="pad" id="galeria" style="padding-top:0">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:46px">
+      <span class="eyebrow">Nosso espaço</span>
+      <h2 class="title display">Conheça a casa</h2>
+    </div>
+    <div class="gallery" data-list="galeria">
+      <template><figure class="reveal"><img data-fimg="imagem" alt="" loading="lazy"><figcaption data-f="legenda"></figcaption></figure></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad reviews" id="avaliacoes">
+  <div class="container">
+    <div class="reveal" style="text-align:center"><span class="eyebrow">Avaliações</span></div>
+    <div class="score reveal">
+      <strong data-t="avaliacoes.nota">5.0</strong>
+      <div><div class="stars">★★★★★</div><small data-t="avaliacoes.total"></small></div>
+    </div>
+    <div class="quotes" data-list="avaliacoes.lista">
+      <template><div class="quote reveal"><p data-f="texto"></p><span data-f="nome"></span></div></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="horarios">
+  <div class="container info-grid">
+    <div class="hours-card reveal">
+      <span class="eyebrow">Horários</span>
+      <h2 class="title display" style="font-size:2.8rem">Funcionamento</h2>
+      <div data-list="horarios"><template><div class="hours-row"><span data-f="dia"></span><strong data-f="hora"></strong></div></template></div>
+    </div>
+    <div class="contact reveal">
+      <div><small>WhatsApp</small><a data-wa="Olá! Quero agendar um horário na {nome}." data-t="contato.telefone"></a></div>
+      <div data-show="contato.instagram"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+      <div><small>Endereço</small><p data-t="contato.endereco"></p></div>
+      <div class="map"><iframe data-map loading="lazy" title="Mapa" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-media" data-img="cta.imagem"></div>
+  <div class="container reveal">
+    <span class="eyebrow">Não perca tempo</span>
+    <h2 class="title display" data-t="cta.titulo"></h2>
+    <p data-t="cta.texto"></p>
+    <a class="btn btn-primary" data-wa="Olá! Quero agendar um horário na {nome}.">Chamar no WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div><span class="brand" style="font-size:1.3rem" data-t="negocio.nome"></span> · <span data-t="negocio.cidade"></span></div>
+    <div>© <span data-year></span> <span data-t="negocio.nome"></span>. <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a></div>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="WhatsApp" data-wa="Olá! Vim pelo site da {nome}.">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
