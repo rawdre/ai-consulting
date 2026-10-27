@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truck Dispatch — Owner-Operators & Small Fleets</title>
+<meta name="description" content="We book your loads, negotiate the rate and handle the paperwork.">
+<!-- Template white-label Raw AI · v2.3.0 · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #FF7A1A;
+  --bg: #0E1318;
+  --bg-2: #141B22;
+  --card: #18212A;
+  --ink: #EEF1F4;
+  --muted: #95A1AD;
+  --line: rgba(238,241,244,.09);
+  --radius: 14px;
+  --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --sans: 'Barlow', system-ui, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
+.display { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .92; }
+.kicker { display: inline-flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.kicker::before { content: ''; width: 22px; height: 2px; background: var(--accent); }
+section { scroll-margin-top: 76px; }
+.section { padding: clamp(64px, 9vw, 120px) 0; }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 44px; }
+.section-head h2 { font-size: clamp(2.4rem, 5.4vw, 4.4rem); max-width: 15ch; }
+.section-head p { color: var(--muted); max-width: 46ch; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 10px; font-weight: 700; font-size: .98rem; border: 1px solid transparent; cursor: pointer; font-family: inherit; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-accent { background: var(--accent); color: #1A0D02; }
+.btn-ghost { border-color: rgba(238,241,244,.3); }
+.btn-ghost:hover { border-color: var(--accent); }
+.btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wa-glyph { width: 18px; height: 18px; flex: none; }
+.stripe { height: 6px; background: repeating-linear-gradient(-45deg, var(--accent) 0 14px, #1A0D02 14px 28px); opacity: .9; }
+
+/* NAV */
+.nav { position: fixed; inset: 0 0 auto; z-index: 50; padding: 16px 0; transition: background .3s, padding .3s; }
+.nav.scrolled { background: rgba(14,19,24,.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: 10px 0; box-shadow: 0 1px 0 var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; position: relative; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark { flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--accent); color: #1A0D02; display: grid; place-items: center; }
+.brand-mark svg { width: 24px; height: 24px; }
+.brand-text { min-width: 0; }
+.brand-text strong { display: block; font-family: var(--display); font-weight: 800; font-size: 1.4rem; text-transform: uppercase; letter-spacing: .02em; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-text small { display: block; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; font-weight: 600; font-size: .95rem; }
+.nav-links a:not(.btn) { color: var(--muted); }
+.nav-links a:not(.btn):hover { color: var(--ink); }
+.nav-links .btn { padding: 11px 18px; }
+.nav-toggle { display: none; background: none; border: 0; color: inherit; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: currentColor; margin: 5px 0; }
+
+/* HERO */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; isolation: isolate; padding: 130px 0 80px; }
+.hero-media { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: 60% center; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(14,19,24,.96) 0%, rgba(14,19,24,.82) 42%, rgba(14,19,24,.25) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 25%); }
+.hero h1 { font-size: clamp(3.4rem, 9vw, 7.6rem); margin-bottom: 22px; }
+.hero h1 span { display: block; }
+.hero h1 span:last-child { color: var(--accent); }
+.hero .lead { max-width: 50ch; font-size: clamp(1.02rem, 1.4vw, 1.18rem); color: #C9D1D9; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.trust { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 36px; list-style: none; }
+.trust li { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: .92rem; color: #C9D1D9; }
+.trust li::before { content: '✓'; color: var(--accent); font-weight: 800; }
+.badge { display: inline-flex; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(238,241,244,.18); background: rgba(14,19,24,.5); font-size: .8rem; font-weight: 600; color: #C9D1D9; margin-bottom: 22px; }
+
+/* PILLARS */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pillar { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; }
+.pillar span { font-family: var(--display); font-weight: 800; font-size: 3.4rem; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--accent); }
+.pillar h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; font-size: 1.6rem; margin: 18px 0 8px; letter-spacing: .02em; }
+.pillar p { color: var(--muted); font-size: .96rem; }
+
+/* CALCULATOR */
+.calc-wrap { background: var(--bg-2); border-block: 1px solid var(--line); }
+.calc { display: grid; grid-template-columns: 1.1fr .9fr; gap: 22px; }
+.calc-form { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: grid; gap: 6px; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select { width: 100%; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: 600 1.05rem var(--sans); }
+.calc-out { border-radius: var(--radius); padding: 28px; background: linear-gradient(160deg, #1F2A35, var(--card)); border: 1px solid var(--line); display: grid; gap: 14px; align-content: start; }
+.calc-out .row { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); color: var(--muted); font-weight: 600; }
+.calc-out .row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.calc-net small { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.calc-net strong { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(2.8rem, 6vw, 4.2rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.calc-net span { color: var(--muted); font-size: .9rem; }
+
+/* PRICING */
+.pricing { display: grid; grid-template-columns: .95fr 1.05fr; gap: 22px; align-items: start; }
+.bands { width: 100%; border-collapse: collapse; background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+.bands th, .bands td { padding: 13px 16px; text-align: left; font-variant-numeric: tabular-nums; }
+.bands th { font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); background: rgba(238,241,244,.03); }
+.bands td { border-top: 1px solid var(--line); font-weight: 600; }
+.bands td:nth-child(3) { color: var(--accent); font-weight: 800; }
+.bands-note { font-size: .82rem; color: var(--muted); margin-top: 10px; }
+.plans { display: grid; gap: 14px; }
+.plan { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; position: relative; }
+.plan:has(.plan-tag) { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 20px 40px -24px rgba(255,122,26,.5); }
+.plan-tag { position: absolute; top: -11px; right: 18px; background: var(--accent); color: #1A0D02; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.plan h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; font-size: 1.5rem; letter-spacing: .02em; }
+.plan p { color: var(--muted); font-size: .94rem; margin: 4px 0 10px; }
+.plan small { font-size: .82rem; font-weight: 600; color: #C9D1D9; }
+.inc { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; }
+.inc h4 { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 10px; }
+.inc ul { list-style: none; display: grid; gap: 8px; font-size: .92rem; color: #C9D1D9; }
+.inc .yes li::before { content: '✓  '; color: var(--accent); font-weight: 800; }
+.inc .no li { color: var(--muted); }
+.inc .no li::before { content: '✕  '; color: #E5484D; font-weight: 800; }
+
+/* EQUIPMENT */
+.equip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.equip figure { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3.4; }
+.equip img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.equip figure:hover img { transform: scale(1.05); }
+.equip figcaption { position: absolute; inset: auto 0 0; padding: 60px 20px 20px; background: linear-gradient(transparent, rgba(14,19,24,.95)); }
+.equip figcaption strong { display: block; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.7rem; line-height: 1; }
+.equip figcaption span { font-size: .88rem; color: #C9D1D9; }
+.equip-more { margin-top: 18px; font-weight: 600; color: #C9D1D9; }
+.nope { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
+.nope div { border: 1px dashed rgba(238,241,244,.18); border-radius: var(--radius); padding: 16px 18px; }
+.nope strong { display: block; }
+.nope strong::before { content: 'NOT FOR US · '; color: #E5484D; font-size: .72rem; letter-spacing: .12em; }
+.nope span { color: var(--muted); font-size: .9rem; }
+
+/* STEPS */
+.steps-wrap { position: relative; isolation: isolate; }
+.steps-media { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; opacity: .22; }
+.steps-wrap::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(var(--bg), rgba(14,19,24,.7), var(--bg)); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+.step { padding: 0 28px 0 0; }
+.step:not(:first-child) { padding-left: 28px; border-left: 1px solid var(--line); }
+.step b { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #1A0D02; font-family: var(--display); font-size: 1.4rem; }
+.step h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; font-size: 1.6rem; margin: 16px 0 6px; }
+.step p { color: #C9D1D9; }
+
+/* FAQ */
+.faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; }
+.faq h2 { font-size: clamp(2.4rem, 5vw, 4rem); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 20px 0; font-weight: 700; font-size: 1.08rem; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--accent); font-size: 1.5rem; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); padding-bottom: 20px; max-width: 62ch; }
+
+/* ONBOARDING */
+.onboard { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 64px); background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: clamp(26px, 5vw, 56px); }
+.onboard h2 { font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 16px; }
+.onboard > div > p { color: var(--muted); }
+.slots { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 8px 14px; border-radius: 999px; background: rgba(255,122,26,.12); color: var(--accent); font-weight: 700; font-size: .88rem; }
+.slots::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+.contact-lines { margin-top: 26px; display: grid; gap: 8px; font-weight: 600; color: #C9D1D9; }
+.contact-lines a:hover { color: var(--accent); }
+.ob-form { display: grid; gap: 14px; }
+.ob-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.preview { white-space: pre-wrap; font: 500 .85rem/1.6 ui-monospace, Menlo, monospace; color: var(--muted); padding: 14px; border: 1px dashed var(--line); border-radius: 10px; }
+.error { color: #FF9B9B; font-size: .88rem; font-weight: 600; }
+
+.footer { padding: 34px 0 44px; font-size: .86rem; color: var(--muted); }
+.footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 26px; }
+.footer a:hover { color: var(--ink); }
+
+.wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: #25D366; color: #fff; box-shadow: 0 14px 30px -10px rgba(0,0,0,.6); transition: transform .2s; }
+.wa-float:hover { transform: scale(1.06); }
+.wa-float .wa-glyph { width: 28px; height: 28px; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 960px) {
+  .pillars, .equip { grid-template-columns: 1fr 1fr; }
+  .calc, .pricing, .faq, .onboard { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 28px; }
+  .step, .step:not(:first-child) { padding: 0; border-left: 0; }
+}
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav-links { position: absolute; top: calc(100% + 10px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px; padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); display: none; }
+  .nav.open .nav-links { display: flex; }
+  .nav-links a { padding: 10px 12px; }
+}
+@media (max-width: 620px) {
+  .pillars, .equip, .nope, .inc, .calc-form, .ob-row { grid-template-columns: 1fr; }
+  .bands th, .bands td { padding: 11px 10px; font-size: .9rem; }
+  .hero::before { background: linear-gradient(0deg, rgba(14,19,24,.97) 30%, rgba(14,19,24,.55) 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .equip img { transition: none; }
+  .slots::before { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13v10H1z"/><path d="M14 9h4l4 4v3h-8"/><circle cx="5.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></svg></span>
+      <span class="brand-text"><strong data-t="negocio.nome">Your Dispatch Co.</strong><small data-t="negocio.slogan">Truck Dispatch Service</small></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="#calculator">Profit calculator</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#equipment">Equipment</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a class="btn btn-accent" href="#quote">Free quote</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Semi truck on the highway at sunset"></div>
+    <div class="container">
+      <span class="badge" data-t="hero.selo"></span>
+      <h1 class="display"><span data-t="hero.titulo1"></span><span data-t="hero.titulo2"></span><span data-t="hero.titulo3"></span></h1>
+      <p class="lead" data-t="hero.texto"></p>
+      <div class="hero-cta">
+        <a class="btn btn-accent" href="#quote">Get a free quote →</a>
+        <a class="btn btn-ghost" data-wa="Hi {nome}! I found your website and want to talk about dispatch for my truck.">
+          <svg class="wa-glyph" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+          WhatsApp dispatch
+        </a>
+      </div>
+      <ul class="trust" data-list="hero.confianca"><template><li data-f="texto"></li></template></ul>
+    </div>
+  </section>
+  <div class="stripe" aria-hidden="true"></div>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">What we do</span><h2 class="display">You drive. We run the office.</h2></div>
+        <p>One dispatcher who knows your truck, your lanes and your numbers — not a call center reading a script.</p>
+      </div>
+      <div class="pillars" data-list="pilares">
+        <template><article class="pillar reveal"><span data-f="numero"></span><h3 data-f="titulo"></h3><p data-f="texto"></p></article></template>
+      </div>
+    </div>
+  </section>
+
+  <div class="calc-wrap">
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="kicker">Free tool</span><h2 class="display">Is this load worth it?</h2></div>
+          <p>Plug in any load: fuel, dispatch fee, deadhead and what actually lands in your pocket. No login.</p>
+        </div>
+        <div class="calc reveal">
+          <form class="calc-form" id="calcForm">
+            <label class="field">Gross rate ($)<input id="cFrete" type="number" inputmode="decimal" min="0" step="50"></label>
+            <label class="field">Loaded miles<input id="cMilhas" type="number" inputmode="numeric" min="1" step="10"></label>
+            <label class="field">Deadhead miles<input id="cDeadhead" type="number" inputmode="numeric" min="0" step="10"></label>
+            <label class="field">Truck MPG<input id="cMpg" type="number" inputmode="decimal" min="1" step="0.1"></label>
+            <label class="field">Diesel ($/gal)<input id="cDiesel" type="number" inputmode="decimal" min="0" step="0.01"></label>
+            <label class="field">Dispatch fee (%)<input id="cTaxa" type="number" inputmode="decimal" min="0" max="20" step="0.5"></label>
+          </form>
+          <div class="calc-out" aria-live="polite">
+            <div class="row"><span>Rate per loaded mile</span><b id="oRpm">—</b></div>
+            <div class="row"><span>Rate per total mile</span><b id="oRpmAll">—</b></div>
+            <div class="row"><span>Fuel cost</span><b id="oFuel">—</b></div>
+            <div class="row"><span>Dispatch fee</span><b id="oFee">—</b></div>
+            <div class="row"><span>Deadhead</span><b id="oDh">—</b></div>
+            <div class="calc-net"><small>Net after fuel & dispatch</small><strong id="oNet">—</strong><span id="oNetMile"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">Pricing</span><h2 class="display">Priced by your equipment.</h2></div>
+        <p>The industry charges 5% to 10% of the gross, and the right number depends on what you pull. Here are the bands — we quote your exact rate after a free call.</p>
+      </div>
+      <div class="pricing">
+        <div class="reveal">
+          <table class="bands">
+            <thead><tr><th>Equipment</th><th>Floor</th><th>Typical</th><th>Top</th></tr></thead>
+            <tbody data-list="faixas"><template><tr><td data-f="equipamento"></td><td data-f="min"></td><td data-f="ideal"></td><td data-f="max"></td></tr></template></tbody>
+          </table>
+          <p class="bands-note">Market ranges, % of gross per load.</p>
+          <div class="inc">
+            <div><h4>Always included</h4><ul class="yes" data-list="incluso"><template><li data-f="texto"></li></template></ul></div>
+            <div><h4>We never charge for</h4><ul class="no" data-list="naoCobramos"><template><li data-f="texto"></li></template></ul></div>
+          </div>
+        </div>
+        <div class="plans reveal" data-list="planos">
+          <template><article class="plan"><span class="plan-tag" data-f="destaque" data-fhide="destaque"></span><h3 data-f="nome"></h3><p data-f="texto"></p><small data-f="itens"></small></article></template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="equipment" style="padding-top:0">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">Equipment & fit</span><h2 class="display">We say no on purpose.</h2></div>
+        <p>Generalist dispatchers promise everything and fail at half of it. Here is exactly who we serve.</p>
+      </div>
+      <div class="equip" data-list="atendemos">
+        <template><figure class="reveal"><img data-fimg="imagem" alt="" loading="lazy" width="1168" height="880"><figcaption><strong data-f="titulo"></strong><span data-f="nota"></span></figcaption></figure></template>
+      </div>
+      <p class="equip-more reveal" data-t="outrosEquipamentos"></p>
+      <div class="nope reveal" data-list="naoAtendemos">
+        <template><div><strong data-f="titulo"></strong><span data-f="motivo"></span></div></template>
+      </div>
+    </div>
+  </section>
+
+  <section class="section steps-wrap" id="how">
+    <div class="steps-media" data-img="passosImagem" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">How it works</span><h2 class="display">Rolling in three steps.</h2></div>
+      </div>
+      <div class="steps" data-list="passos">
+        <template><div class="step reveal"><b data-f="numero"></b><h3 data-f="titulo"></h3><p data-f="texto"></p></div></template>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container faq">
+      <div class="reveal"><span class="kicker">FAQ</span><h2 class="display">Answers, no asterisks.</h2></div>
+      <div class="reveal" data-list="faq">
+        <template><details><summary data-f="pergunta"></summary><p data-f="resposta"></p></details></template>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quote" style="padding-top:0">
+    <div class="container">
+      <div class="onboard reveal">
+        <div>
+          <span class="kicker">Free quote</span>
+          <h2 class="display" data-t="onboarding.titulo"></h2>
+          <p data-t="onboarding.texto"></p>
+          <span class="slots" data-t="onboarding.vagas"></span>
+          <div class="contact-lines">
+            <a data-href="contato.telefoneLink" data-t="contato.telefone"></a>
+            <a id="emailLink" data-t="contato.email"></a>
+            <span data-t="contato.idiomas"></span>
+          </div>
+        </div>
+        <form class="ob-form" id="quoteForm" novalidate>
+          <div class="ob-row">
+            <label class="field">Your name<input id="qNome" type="text" maxlength="60" autocomplete="name"></label>
+            <label class="field">MC number<input id="qMc" type="text" maxlength="12" inputmode="numeric" placeholder="MC-"></label>
+          </div>
+          <div class="ob-row">
+            <label class="field">Equipment<select id="qEquip"></select></label>
+            <label class="field">Trucks<select id="qTrucks"><option>1</option><option>2–3</option><option>4–10</option><option>10+</option></select></label>
+          </div>
+          <label class="field">Home base & preferred lanes<input id="qLanes" type="text" maxlength="100" placeholder="e.g. Dallas, TX — Southeast, no NYC"></label>
+          <p class="error" id="qErro" hidden>Add your name so we can quote you.</p>
+          <pre class="preview" id="qPreview" aria-live="polite"></pre>
+          <a class="btn btn-accent" id="qSend" target="_blank" rel="noopener">
+            <svg class="wa-glyph" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+            Send on WhatsApp
+          </a>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <span>© <span data-year></span> <span data-t="negocio.nome"></span> · <span data-t="rodape.aviso"></span></span>
+    <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="WhatsApp" data-wa="Hi {nome}! I found your website and want to talk about dispatch for my truck.">
+  <svg class="wa-glyph" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+<script src="dispatch.js"></script>
+</body>
+</html>
