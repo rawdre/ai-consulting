@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <title>Biblioteca de Templates — Raw AI Brasil</title>
 <meta name="description" content="Templates white-label da Raw AI Brasil com gerador de demo personalizada por lead.">
-<!-- Biblioteca de templates Raw AI · v2.3.0 -->
+<!-- Biblioteca de templates Raw AI · v2.4.0 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -52,6 +52,17 @@ h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; margin: 40px 0 18px; }
 .status { font-size: .82rem; color: var(--green); min-height: 1.2em; margin-top: 8px; }
 .howto { color: var(--muted); font-size: .9rem; }
 .howto li { margin: 0 0 6px 18px; }
+.sale { display: grid; grid-template-columns: 1.15fr 1fr; background: var(--panel); border: 1px solid rgba(255,190,60,.45); border-radius: 24px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,190,60,.12), 0 30px 60px -30px rgba(255,190,60,.35); }
+.sale-thumb { position: relative; min-height: 300px; background-size: cover; background-position: left top; }
+.sale-tag { position: absolute; top: 16px; left: 16px; background: #FFBE3C; color: #1d1300; font-weight: 800; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }
+.sale-body { padding: 28px 30px; display: flex; flex-direction: column; gap: 10px; }
+.sale-body h3 { font-family: 'Fraunces', serif; font-size: 1.7rem; line-height: 1.1; }
+.sale-body p { color: var(--muted); font-size: .92rem; }
+.sale-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; font-size: .86rem; margin: 6px 0 4px; }
+.sale-list li::before { content: '✓ '; color: #FFBE3C; font-weight: 700; }
+.sale-note { font-size: .8rem !important; }
+@media (max-width: 860px) { .sale { grid-template-columns: 1fr; } .sale-thumb { min-height: 220px; } }
+@media (max-width: 480px) { .sale-list { grid-template-columns: 1fr; } }
 footer { padding: 50px 0; color: var(--muted); font-size: .82rem; }
 
 @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } .tool { grid-template-columns: 1fr; } }
@@ -66,7 +77,7 @@ footer { padding: 50px 0; color: var(--muted); font-size: .82rem; }
     <a href="../leads/negocios-prospectados.csv">Leads (CSV)</a>
   </nav>
   <span class="kicker">Raw AI Brasil · Ferramenta interna</span>
-  <h1>Biblioteca de Templates <span class="version">v2.3.0</span></h1>
+  <h1>Biblioteca de Templates <span class="version">v2.4.0</span></h1>
   <p>Templates white-label prontos para mostrar e personalizar. Cada um tem um <b>config.js</b> com todas as informações do negócio — troque texto, WhatsApp e fotos, e o site está pronto.</p>
 </header>
 
@@ -102,6 +113,32 @@ footer { padding: 50px 0; color: var(--muted); font-size: .82rem; }
     <div class="grid" id="grid"></div>
   </section>
 
+  <section aria-labelledby="forsale">
+    <h2 id="forsale">For Sale <span class="version" style="color:#FFBE3C;border-color:rgba(255,190,60,.45)">site completo</span></h2>
+    <article class="sale">
+      <div class="sale-thumb" style="background-image:url('assets/raw-truck-site.jpg')"><span class="sale-tag">For Sale</span></div>
+      <div class="sale-body">
+        <h3>Raw Truck Dispatcher — plataforma completa de dispatch (EUA)</h3>
+        <p>Site pronto e no ar, vendido como está. O comprador só troca o nome, contatos e domínio — todo o resto já funciona.</p>
+        <ul class="sale-list">
+          <li>Inglês, espanhol e português</li>
+          <li>Chat com IA 24/7</li>
+          <li>Calculadora de lucro + milhas</li>
+          <li>Rota de caminhão com IA (0–100)</li>
+          <li>Mapa de paradas e mecânicos</li>
+          <li>Onboarding com upload de documentos</li>
+          <li>Painel admin + banco de dados</li>
+          <li>60+ artigos de blog (SEO)</li>
+        </ul>
+        <p class="sale-note">Next.js + Supabase + Vercel. Inclui setup da nova marca e transferência.</p>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://raw-truck-dispatcher.vercel.app" target="_blank" rel="noopener">Ver site ao vivo</a>
+          <a class="btn" href="truck-dispatch/" target="_blank" rel="noopener">Versão template (mais simples)</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
   <section aria-labelledby="clients">
     <h2 id="clients">Sites de clientes (com nome)</h2>
     <div class="grid">
@@ -129,7 +166,7 @@ footer { padding: 50px 0; color: var(--muted); font-size: .82rem; }
   </section>
 </main>
 
-<footer class="container">Raw AI Brasil · biblioteca interna de templates · v2.3.0</footer>
+<footer class="container">Raw AI Brasil · biblioteca interna de templates · v2.4.0</footer>
 
 <script>
 (function () {
