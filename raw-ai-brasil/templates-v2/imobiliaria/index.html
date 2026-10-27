@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imobiliária — Imóveis à venda e para alugar</title>
+<meta name="description" content="Compre, venda ou alugue com quem conhece a região. Avaliação gratuita do seu imóvel.">
+<!-- Template white-label Raw AI · v2.2.0 · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C8A24A;
+  --green: #12332E;
+  --green-2: #1B463F;
+  --ink: #10221F;
+  --paper: #F6F3EC;
+  --card: #FFFFFF;
+  --muted: #5F6B66;
+  --line: rgba(16,34,31,.12);
+  --radius: 18px;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.6; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.05; }
+.serif em { font-style: italic; color: var(--accent); }
+.kicker { display: inline-block; font-size: .74rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+section { scroll-margin-top: 80px; }
+.section { padding: clamp(64px, 9vw, 120px) 0; }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.section-head h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); max-width: 16ch; }
+.section-head p { color: var(--muted); max-width: 46ch; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font-weight: 700; font-size: .95rem; border: 1px solid transparent; cursor: pointer; font-family: inherit; transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn-gold { background: var(--accent); color: var(--ink); }
+.btn-green { background: var(--green); color: var(--paper); }
+.btn:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wa-glyph { width: 18px; height: 18px; flex: none; }
+
+/* ---------- NAV ---------- */
+.nav { position: fixed; inset: 0 0 auto; z-index: 50; padding: 18px 0; transition: background .3s, padding .3s, box-shadow .3s; color: var(--paper); }
+.nav.scrolled { background: rgba(18,51,46,.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: 10px 0; box-shadow: 0 1px 0 rgba(255,255,255,.08); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; position: relative; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--accent); color: var(--ink); }
+.brand-mark svg { width: 22px; height: 22px; }
+.brand-text { min-width: 0; }
+.brand-text strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-text small { display: block; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; opacity: .7; margin-top: 3px; }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; font-weight: 600; font-size: .92rem; }
+.nav-links a:not(.btn) { opacity: .85; }
+.nav-links a:not(.btn):hover { opacity: 1; color: var(--accent); }
+.nav-toggle { display: none; background: none; border: 0; color: inherit; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: currentColor; margin: 5px 0; }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--paper); isolation: isolate; padding: 140px 0 56px; }
+.hero-media { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10,28,25,.55) 0%, rgba(10,28,25,.15) 35%, rgba(10,28,25,.85) 100%); }
+.hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); max-width: 14ch; margin-bottom: 18px; }
+.hero p.lead { max-width: 52ch; font-size: clamp(1rem, 1.4vw, 1.15rem); opacity: .9; }
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: rgba(246,243,236,.12); border: 1px solid rgba(246,243,236,.25); backdrop-filter: blur(8px); font-size: .82rem; font-weight: 600; margin-bottom: 22px; }
+.badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+.search { margin-top: 36px; display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 10px; align-items: center; background: var(--paper); color: var(--ink); border-radius: 22px; padding: 12px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.45); max-width: 920px; }
+.seg { display: flex; background: rgba(16,34,31,.06); border-radius: 14px; padding: 4px; }
+.seg button { border: 0; background: transparent; padding: 12px 18px; border-radius: 10px; font: 700 .9rem var(--sans); color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--green); color: var(--paper); }
+.search label { display: grid; gap: 2px; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 0 10px; }
+.search select { border: 0; background: transparent; font: 600 1rem var(--sans); color: var(--ink); padding: 6px 0; cursor: pointer; }
+.search .btn { padding: 16px 26px; border-radius: 14px; }
+
+/* ---------- IMÓVEIS ---------- */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button { border: 1px solid var(--line); background: var(--card); padding: 10px 18px; border-radius: 999px; font: 700 .88rem var(--sans); color: var(--muted); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.listings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.listing { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .3s ease, box-shadow .3s ease; }
+.listing:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -24px rgba(16,34,31,.35); }
+.listing-img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+.listing-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.listing:hover .listing-img img { transform: scale(1.05); }
+.tag { position: absolute; top: 14px; left: 14px; padding: 6px 12px; border-radius: 999px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; background: var(--paper); color: var(--ink); }
+.tag[data-finalidade="aluguel"] { background: var(--green); color: var(--paper); }
+.code { position: absolute; top: 14px; right: 14px; padding: 6px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(16,34,31,.65); color: var(--paper); }
+.listing-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.listing-type { font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #9C7A2A; }
+.listing h3 { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.15; }
+.listing-place { font-size: .88rem; color: var(--muted); }
+.specs { display: flex; gap: 16px; padding: 12px 0; margin-top: 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .84rem; color: var(--muted); }
+.specs b { color: var(--ink); }
+.listing-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 8px; }
+.price { font-weight: 800; font-size: 1.2rem; }
+.listing .btn { padding: 10px 16px; font-size: .85rem; }
+.empty { grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--muted); background: var(--card); border-radius: var(--radius); border: 1px dashed var(--line); }
+
+/* ---------- SERVIÇOS ---------- */
+.services-wrap { background: var(--green); color: var(--paper); }
+.services-wrap .section-head p { color: rgba(246,243,236,.7); }
+.services { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(246,243,236,.15); }
+.service { padding: 34px 28px 34px 0; border-bottom: 1px solid rgba(246,243,236,.15); }
+.service:not(:nth-child(3n+1)) { padding-left: 28px; border-left: 1px solid rgba(246,243,236,.15); }
+.service span { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); line-height: 1; }
+.service h3 { font-size: 1.15rem; margin: 14px 0 6px; }
+.service p { color: rgba(246,243,236,.7); font-size: .93rem; }
+.numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 64px; }
+.numbers div { border-left: 2px solid var(--accent); padding-left: 18px; }
+.numbers strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1; }
+.numbers span { font-size: .85rem; color: rgba(246,243,236,.7); }
+
+/* ---------- AVALIAÇÃO ---------- */
+.valuation { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+.valuation h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); margin-bottom: 16px; }
+.valuation > div > p { color: var(--muted); max-width: 48ch; }
+.estimate { margin-top: 30px; padding: 24px; border-radius: var(--radius); background: var(--ink); color: var(--paper); }
+.estimate small { display: block; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+.estimate strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin: 6px 0 4px; line-height: 1.1; }
+.estimate p { font-size: .82rem; color: rgba(246,243,236,.65); }
+.form { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: clamp(22px, 3vw, 34px); display: grid; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: grid; gap: 6px; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.field input, .field select { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font: 500 1rem var(--sans); color: var(--ink); }
+.error { color: #9A3B12; font-size: .85rem; font-weight: 600; }
+
+/* ---------- PROPRIETÁRIO ---------- */
+.owner { position: relative; isolation: isolate; border-radius: 28px; overflow: hidden; color: var(--paper); padding: clamp(36px, 6vw, 72px); display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: end; }
+.owner-media { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; }
+.owner::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(10,28,25,.92) 0%, rgba(10,28,25,.7) 55%, rgba(10,28,25,.35) 100%); }
+.owner h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); margin-bottom: 16px; max-width: 14ch; }
+.owner p { opacity: .85; max-width: 46ch; margin-bottom: 26px; }
+.checks { list-style: none; display: grid; gap: 12px; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; background: rgba(246,243,236,.1); border: 1px solid rgba(246,243,236,.18); backdrop-filter: blur(8px); padding: 14px 16px; border-radius: 14px; font-weight: 600; }
+.checks li::before { content: '✓'; flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--ink); font-size: .75rem; font-weight: 800; }
+
+/* ---------- SOBRE + DEPOIMENTOS ---------- */
+.about { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+.about img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 28px; }
+.about h2 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); margin-bottom: 16px; }
+.about > div > p { color: var(--muted); max-width: 52ch; }
+.quotes { display: grid; gap: 14px; margin-top: 30px; }
+.quote { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+.quote p { font-size: .98rem; }
+.quote span { display: block; margin-top: 8px; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.quote span::before { content: '★★★★★  '; color: var(--accent); letter-spacing: .1em; }
+.areas-title { margin-top: 28px; font-weight: 700; }
+.areas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.areas span { padding: 8px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: .85rem; font-weight: 600; }
+
+/* ---------- CONTATO ---------- */
+.contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; }
+.contact-card { background: var(--ink); color: var(--paper); border-radius: 24px; padding: clamp(26px, 4vw, 40px); display: grid; gap: 20px; align-content: start; }
+.contact-card h2 { font-size: clamp(2rem, 3.6vw, 2.8rem); }
+.contact-card small { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-bottom: 4px; }
+.contact-card a:hover { color: var(--accent); }
+.hours-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(246,243,236,.12); font-size: .92rem; }
+.map { border-radius: 24px; overflow: hidden; min-height: 380px; border: 1px solid var(--line); }
+.map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(.4); }
+
+.footer { padding: 36px 0 44px; font-size: .85rem; color: var(--muted); }
+.footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 26px; }
+.footer a:hover { color: var(--ink); }
+
+.wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: #25D366; color: #fff; box-shadow: 0 14px 30px -10px rgba(0,0,0,.45); transition: transform .2s; }
+.wa-float:hover { transform: scale(1.06); }
+.wa-float .wa-glyph { width: 28px; height: 28px; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 1000px) {
+  .listings { grid-template-columns: 1fr 1fr; }
+  .services { grid-template-columns: 1fr 1fr; }
+  .service, .service:not(:nth-child(3n+1)) { padding: 28px 20px 28px 0; border-left: 0; }
+  .service:nth-child(2n) { padding-left: 20px; border-left: 1px solid rgba(246,243,236,.15); }
+  .search { grid-template-columns: 1fr 1fr; }
+  .search .seg { grid-column: 1 / -1; }
+  .search .btn { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav-links { position: absolute; top: calc(100% + 10px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px; padding: 14px; border-radius: 18px; background: var(--green); box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); display: none; }
+  .nav.open .nav-links { display: flex; }
+  .nav-links a { padding: 10px 12px; }
+  .valuation, .owner, .about, .contact { grid-template-columns: 1fr; }
+  .numbers { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .about img { aspect-ratio: 16/10; }
+}
+@media (max-width: 620px) {
+  .listings, .services { grid-template-columns: 1fr; }
+  .service:nth-child(2n) { padding-left: 0; border-left: 0; }
+  .search { grid-template-columns: 1fr; }
+  .search .seg button { flex: 1; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero { padding-bottom: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .listing, .listing-img img { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/></svg></span>
+      <span class="brand-text"><strong data-t="negocio.nome">Sua Imobiliária</strong><small data-t="negocio.slogan">Imóveis & Negócios</small></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="#imoveis">Imóveis</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#avaliacao">Avaliação</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a class="btn btn-gold" data-wa="Olá! Vim pelo site da {nome} e quero falar com um corretor.">Falar com corretor</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Vista aérea de bairro residencial"></div>
+    <div class="container">
+      <span class="badge" data-t="hero.selo"></span>
+      <h1 class="serif" data-t="hero.titulo"></h1>
+      <p class="lead" data-t="hero.texto"></p>
+      <form class="search" id="search" role="search">
+        <div class="seg" role="group" aria-label="Finalidade">
+          <button type="button" data-finalidade="venda" aria-pressed="true">Comprar</button>
+          <button type="button" data-finalidade="aluguel" aria-pressed="false">Alugar</button>
+        </div>
+        <label>Tipo de imóvel<select id="searchTipo"><option value="">Todos os tipos</option></select></label>
+        <label>Quartos<select id="searchQuartos"><option value="">Qualquer</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+        <button class="btn btn-green" type="submit">Buscar imóveis</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="imoveis">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">Imóveis em destaque</span><h2 class="serif">Encontre o lugar <em>certo</em></h2></div>
+        <div class="filters" role="group" aria-label="Filtrar imóveis">
+          <button type="button" data-filtro="" aria-pressed="true">Todos</button>
+          <button type="button" data-filtro="venda" aria-pressed="false">À venda</button>
+          <button type="button" data-filtro="aluguel" aria-pressed="false">Para alugar</button>
+        </div>
+      </div>
+      <div class="listings" id="listings" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="services-wrap">
+    <section class="section" id="servicos">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="kicker">O que fazemos</span><h2 class="serif">Tudo do seu imóvel em <em>um só lugar</em></h2></div>
+          <p>Da avaliação à entrega das chaves — e depois dela, com administração completa para quem aluga.</p>
+        </div>
+        <div class="services" data-list="servicos">
+          <template><article class="service reveal"><span data-f="numero"></span><h3 data-f="titulo"></h3><p data-f="texto"></p></article></template>
+        </div>
+        <div class="numbers" data-list="numeros">
+          <template><div class="reveal"><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section" id="avaliacao">
+    <div class="container valuation">
+      <div class="reveal">
+        <span class="kicker">Avaliação gratuita</span>
+        <h2 class="serif" data-t="avaliacao.titulo"></h2>
+        <p data-t="avaliacao.texto"></p>
+        <div class="estimate" aria-live="polite">
+          <small id="estimateLabel">Faixa inicial estimada</small>
+          <strong id="estimateValue">Preencha a área</strong>
+          <p>Estimativa automática pela média do m² na região. O valor final vem da avaliação do corretor.</p>
+        </div>
+      </div>
+      <form class="form reveal" id="valuationForm" novalidate>
+        <div class="form-row">
+          <label class="field">Quero
+            <select id="vObjetivo"><option value="venda">Vender</option><option value="aluguel">Alugar</option></select>
+          </label>
+          <label class="field">Tipo do imóvel<select id="vTipo"></select></label>
+        </div>
+        <div class="form-row">
+          <label class="field">Área (m²)<input id="vArea" type="number" inputmode="numeric" min="10" max="5000" placeholder="Ex: 90"></label>
+          <label class="field">Quartos
+            <select id="vQuartos"><option>1</option><option>2</option><option selected>3</option><option>4+</option></select>
+          </label>
+        </div>
+        <label class="field">Bairro / condomínio<input id="vBairro" type="text" maxlength="60" placeholder="Ex: Rua 12, Residencial das Flores"></label>
+        <label class="field">Seu nome<input id="vNome" type="text" maxlength="60" autocomplete="given-name"></label>
+        <p class="error" id="vErro" hidden>Preencha a área e o seu nome para receber a avaliação.</p>
+        <a class="btn btn-green" id="vEnviar" target="_blank" rel="noopener">
+          <svg class="wa-glyph" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+          Receber avaliação no WhatsApp
+        </a>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="owner reveal">
+        <div class="owner-media" data-img="proprietario.imagem" role="img" aria-label="Condomínio residencial com piscina"></div>
+        <div>
+          <span class="kicker">Para proprietários</span>
+          <h2 class="serif" data-t="proprietario.titulo"></h2>
+          <p data-t="proprietario.texto"></p>
+          <a class="btn btn-gold" data-wa="Olá! Tenho um imóvel e quero anunciar com a {nome}.">Anunciar meu imóvel</a>
+        </div>
+        <ul class="checks" data-list="proprietario.lista"><template><li data-f="texto"></li></template></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sobre" style="padding-top:0">
+    <div class="container about">
+      <img class="reveal" data-img="sobre.imagem" alt="Entrega das chaves de um imóvel" loading="lazy" width="1168" height="880">
+      <div class="reveal">
+        <span class="kicker">Quem somos</span>
+        <h2 class="serif" data-t="sobre.titulo"></h2>
+        <p data-t="sobre.texto"></p>
+        <div class="quotes" data-list="depoimentos">
+          <template><figure class="quote"><p data-f="texto"></p><span data-f="nome"></span></figure></template>
+        </div>
+        <p class="areas-title">Bairros que atendemos</p>
+        <div class="areas" id="areas"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contato" style="padding-top:0">
+    <div class="container contact">
+      <div class="contact-card reveal">
+        <h2 class="serif">Vamos conversar?</h2>
+        <div><small>WhatsApp</small><a data-wa="Olá! Vim pelo site da {nome}." data-t="contato.telefone"></a></div>
+        <div><small>E-mail</small><a id="emailLink" data-t="contato.email"></a></div>
+        <div><small>Endereço</small><p data-t="contato.endereco"></p></div>
+        <div data-show="contato.instagram"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+        <div><small>Horários</small><div data-list="horarios"><template><div class="hours-row"><span data-f="dia"></span><b data-f="hora"></b></div></template></div></div>
+      </div>
+      <div class="map reveal"><iframe data-map loading="lazy" title="Mapa" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <span>© <span data-year></span> <span data-t="negocio.nome"></span> · <span data-t="negocio.creci"></span></span>
+    <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="Falar no WhatsApp" data-wa="Olá! Vim pelo site da {nome} e quero falar com um corretor.">
+  <svg class="wa-glyph" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+<script src="imob.js"></script>
+</body>
+</html>
