@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Drinx Bebidas | Distribuidora de bebidas em Brasília/DF</title>
+<meta name="description" content="Há 18 anos entregando cerveja, refrigerante, destilados e gelo em Brasília e região. Peça pelo WhatsApp.">
+<meta name="theme-color" content="#0e080c">
+<link rel="icon" href="assets/logo.webp">
+<!-- Drinx Bebidas · base: template adega (Raw AI) · edite config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LiquorStore","name":"Drinx Bebidas","telephone":"+55-61-96404-4046",
+"address":{"@type":"PostalAddress","streetAddress":"SH Grande Colorado, Condomínio Jardim Europa 2, 5","postalCode":"70297-400","addressLocality":"Brasília","addressRegion":"DF","addressCountry":"BR"},
+"openingHours":["Tu-Th 12:00-24:00","Fr-Sa 12:00-02:00","Su 12:00-24:00"],"areaServed":["Brasília","Distrito Federal"],
+"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"50"}}
+</script>
+<style>
+:root {
+  --accent: #E3B04B;
+  --gold-2: #f6d27e;
+  --red: #D72631;
+  --wine: #8a1f4c;
+  --bg: #0e080c;
+  --bg-2: #160d13;
+  --card: rgba(255,255,255,.04);
+  --card-2: rgba(255,255,255,.07);
+  --cream: #f6ece0;
+  --muted: #bfadb5;
+  --line: rgba(255,255,255,.08);
+  --green: #25D366;
+  --radius: 26px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--cream); line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+body.locked { overflow: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; cursor: pointer; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.serif { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: .95; letter-spacing: -.01em; }
+.serif em { font-style: italic; color: var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* ---------- TOP TICKER (espaço de anúncio) ---------- */
+.ticker { position: relative; z-index: 101; background: linear-gradient(90deg, var(--red), #a3141e); color: #fff; font-size: .8rem; font-weight: 600; overflow: hidden; white-space: nowrap; }
+.ticker-track { display: inline-flex; gap: 48px; padding: 8px 0; animation: tick 38s linear infinite; }
+.ticker-track span { flex: none; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* ---------- NAV ---------- */
+.nav { position: sticky; top: 0; z-index: 100; padding: 14px 0; transition: background .35s, padding .35s; background: rgba(14,8,12,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.nav.scrolled { background: rgba(14,8,12,.92); padding: 9px 0; border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand img { width: 46px; height: 46px; border-radius: 12px; border: 1px solid rgba(227,176,75,.35); }
+.brand strong { display: block; font-size: 1rem; letter-spacing: .02em; }
+.brand strong b { color: var(--red); }
+.brand small { display: block; font-size: .72rem; color: var(--muted); white-space: nowrap; }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+.nav-links a { font-size: .9rem; color: var(--muted); transition: color .25s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links .cta { background: var(--green); color: #062312; font-weight: 700; padding: 11px 20px; border-radius: 999px; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.cart-btn { position: relative; width: 46px; height: 46px; border-radius: 14px; border: 1px solid var(--line); background: var(--card-2); display: grid; place-items: center; cursor: pointer; }
+.cart-btn svg { width: 22px; height: 22px; stroke: var(--cream); fill: none; stroke-width: 1.8; }
+.badge { position: absolute; top: -6px; right: -6px; min-width: 21px; height: 21px; padding: 0 5px; border-radius: 999px; background: var(--red); color: #fff; font-size: .72rem; font-weight: 700; display: grid; place-items: center; transform: scale(0); transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+.badge.on { transform: scale(1); }
+.nav-toggle { display: none; width: 46px; height: 46px; border-radius: 14px; border: 1px solid var(--line); background: var(--card-2); cursor: pointer; flex-direction: column; align-items: center; justify-content: center; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--cream); margin: 2px 0; transition: transform .3s, opacity .3s; }
+.nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; min-height: calc(100svh - 100px); display: flex; align-items: center; padding: 150px 0 70px; overflow: hidden; margin-top: -76px; }
+.hero-media { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.1); animation: drift 22s ease-out forwards; }
+.hero::after { content: ''; position: absolute; inset: 0; background:
+  linear-gradient(100deg, rgba(14,8,12,.95) 0%, rgba(14,8,12,.7) 45%, rgba(14,8,12,.2) 100%),
+  linear-gradient(0deg, var(--bg) 0%, transparent 35%); }
+@keyframes drift { to { transform: scale(1); } }
+.hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.25fr .75fr; gap: 40px; align-items: center; }
+.hero-content { max-width: 660px; }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; background: rgba(37,211,102,.12); border: 1px solid rgba(37,211,102,.25); color: #8ef0ba; font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; }
+.pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 1.6s infinite; }
+.pill.closed { background: rgba(215,38,49,.14); border-color: rgba(215,38,49,.35); color: #ff9aa0; }
+.pill.closed::before { background: var(--red); }
+@keyframes blink { 50% { opacity: .3; } }
+.hero h1 { font-size: clamp(3.4rem, 9vw, 7rem); margin-bottom: 22px; }
+.hero h1 em { display: block; }
+.hero p { font-size: 1.12rem; color: var(--muted); max-width: 520px; margin-bottom: 34px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font-weight: 700; border: 0; cursor: pointer; transition: transform .25s, box-shadow .25s, background .25s; }
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: scale(.97); }
+.btn-wa { background: var(--green); color: #062312; box-shadow: 0 16px 40px rgba(37,211,102,.28); }
+.btn-gold { background: linear-gradient(135deg, var(--accent), var(--gold-2)); color: #2a1206; box-shadow: 0 16px 40px rgba(227,176,75,.25); }
+.btn-ghost { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); }
+.btn svg { width: 20px; height: 20px; fill: currentColor; flex: none; }
+.stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.stats strong { display: block; font-family: 'Instrument Serif'; font-size: 2.6rem; line-height: 1; color: var(--accent); }
+.stats span { font-size: .82rem; color: var(--muted); }
+.hero-logo { justify-self: center; width: min(340px, 80%); aspect-ratio: 1; border-radius: 34px; overflow: hidden; border: 1px solid rgba(227,176,75,.3); box-shadow: 0 40px 90px rgba(0,0,0,.6), 0 0 0 10px rgba(227,176,75,.05); animation: float 6s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-12px); } }
+
+/* ---------- SECTIONS ---------- */
+.pad { padding: 100px 0; }
+.kicker { display: inline-block; font-size: .76rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.title { font-size: clamp(2.6rem, 6vw, 4.6rem); margin-bottom: 16px; }
+.lead { color: var(--muted); max-width: 520px; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+
+/* ---------- ADS CAROUSEL ---------- */
+.ads-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 32px; }
+.ads-track::-webkit-scrollbar { display: none; }
+.ad { scroll-snap-align: start; position: relative; min-height: 380px; display: grid; grid-template-columns: 1.1fr .9fr; background: linear-gradient(120deg, #24121b, #120a0f); border: 1px solid var(--line); border-radius: 32px; overflow: hidden; }
+.ad-body { padding: 48px 46px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.ad-tag { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #2a1206; background: var(--accent); padding: 6px 12px; border-radius: 999px; margin-bottom: 18px; }
+.ad h3 { font-family: 'Instrument Serif'; font-weight: 400; font-size: clamp(2.3rem, 5vw, 3.8rem); line-height: .95; margin-bottom: 12px; }
+.ad p { color: var(--muted); margin-bottom: 24px; max-width: 420px; }
+.ad-img { background-size: cover; background-position: center; position: relative; }
+.ad-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #1b0e15 0%, transparent 40%); }
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+.dots button { width: 9px; height: 9px; border-radius: 999px; border: 0; background: rgba(255,255,255,.2); cursor: pointer; transition: width .3s, background .3s; }
+.dots button.on { width: 28px; background: var(--accent); }
+
+/* ---------- SHOP ---------- */
+.shop-wrap { background: linear-gradient(180deg, var(--bg), var(--bg-2)); }
+.shop-bar { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 26px; }
+.chips-scroll { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; padding-bottom: 2px; }
+.chips-scroll::-webkit-scrollbar { display: none; }
+.chip { flex: none; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted); font-weight: 600; font-size: .9rem; cursor: pointer; transition: all .25s; white-space: nowrap; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #2a1206; }
+.search { position: relative; width: 260px; }
+.search input { width: 100%; padding: 12px 16px 12px 42px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); outline: none; font-size: 16px; }
+.search input:focus { border-color: var(--accent); }
+.search svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; stroke: var(--muted); fill: none; stroke-width: 2; }
+.grid-p { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.prod { position: relative; display: flex; flex-direction: column; padding: 18px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); transition: transform .3s, border-color .3s; }
+.prod:hover { transform: translateY(-4px); border-color: rgba(227,176,75,.35); }
+.prod-ico { height: 120px; border-radius: 16px; display: grid; place-items: center; font-size: 3.4rem; margin-bottom: 14px; background: radial-gradient(circle at 50% 40%, rgba(227,176,75,.22), rgba(138,31,76,.12) 60%, transparent 75%), rgba(255,255,255,.02); }
+.prod-ico img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+.prod .selo { position: absolute; top: 12px; left: 12px; font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--red); color: #fff; }
+.prod h3 { font-size: 1rem; line-height: 1.25; margin-bottom: 2px; }
+.prod small { color: var(--muted); font-size: .82rem; flex: 1; }
+.prod-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+.price { font-weight: 700; font-size: 1.1rem; color: var(--gold-2); }
+.add { padding: 10px 16px; border-radius: 999px; border: 0; background: var(--accent); color: #2a1206; font-weight: 700; font-size: .88rem; cursor: pointer; }
+.stepper { display: inline-flex; align-items: center; border-radius: 999px; background: rgba(227,176,75,.14); border: 1px solid rgba(227,176,75,.35); }
+.stepper button { width: 34px; height: 34px; border: 0; background: none; color: var(--accent); font-size: 1.15rem; font-weight: 700; cursor: pointer; }
+.stepper span { min-width: 22px; text-align: center; font-weight: 700; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 30px; }
+.shop-note { margin-top: 18px; font-size: .82rem; color: var(--muted); }
+.shop-note a { color: var(--accent); font-weight: 700; }
+
+/* banner patrocinado inline */
+.sponsor-banner { margin-top: 34px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 26px 30px; border-radius: 24px; border: 1px dashed rgba(227,176,75,.45); background: repeating-linear-gradient(135deg, rgba(227,176,75,.05) 0 14px, transparent 14px 28px); }
+.sponsor-banner small { display: block; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.sponsor-banner strong { font-size: 1.15rem; }
+
+/* ---------- KITS ---------- */
+.kits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.kit { position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; display: flex; align-items: flex-end; isolation: isolate; }
+.kit img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+.kit::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(14,8,12,.97) 15%, rgba(14,8,12,.15) 70%); }
+.kit:hover img { transform: scale(1.07); }
+.kit-body { padding: 24px; width: 100%; }
+.kit .occ { font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.kit h3 { font-family: 'Instrument Serif'; font-weight: 400; font-size: 2rem; line-height: 1; margin: 6px 0 8px; }
+.kit p { color: var(--muted); font-size: .9rem; margin-bottom: 14px; }
+.kit .flag { position: absolute; top: 18px; right: 18px; font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: var(--red); padding: 5px 12px; border-radius: 999px; }
+
+/* ---------- PARCEIROS ---------- */
+.partners { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.partner { padding: 30px; border-radius: var(--radius); border: 1px dashed rgba(227,176,75,.35); background: linear-gradient(160deg, rgba(227,176,75,.07), transparent 60%); min-height: 210px; display: flex; flex-direction: column; }
+.partner small { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.partner h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.partner p { color: var(--muted); font-size: .92rem; flex: 1; }
+.partner a { margin-top: 16px; font-weight: 700; color: var(--accent); }
+
+/* ---------- GALLERY ---------- */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery figure { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 3/4; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s; }
+.gallery figure:hover img { transform: scale(1.05); }
+.gallery figcaption { position: absolute; left: 16px; bottom: 16px; padding: 8px 14px; border-radius: 999px; background: rgba(14,8,12,.75); backdrop-filter: blur(8px); font-size: .86rem; font-weight: 600; }
+
+/* ---------- SPLIT (template) ---------- */
+.split { display: grid; grid-template-columns: 1fr 1fr; border-radius: 32px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.split-img { min-height: 440px; background-size: cover; background-position: center; }
+.split-body { padding: 50px 46px; display: flex; flex-direction: column; justify-content: center; }
+.split-body > p { color: var(--muted); margin-bottom: 22px; }
+.zones { list-style: none; margin-bottom: 22px; }
+.zones li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: .93rem; }
+.zones li span:last-child { color: var(--accent); font-weight: 600; text-align: right; white-space: nowrap; }
+.zones li small { display: block; color: var(--muted); font-size: .78rem; }
+.note { font-size: .85rem; color: var(--muted); margin-bottom: 22px; }
+
+/* tabacaria */
+.tab-box { display: grid; grid-template-columns: 1.2fr .8fr; gap: 26px; align-items: center; padding: 40px; border-radius: 32px; background: var(--card); border: 1px solid var(--line); margin-top: 22px; }
+.tab-box p { color: var(--muted); margin-bottom: 18px; }
+.legal { padding: 22px; border-radius: 18px; border: 1px solid rgba(215,38,49,.35); background: rgba(215,38,49,.08); font-size: .84rem; color: #f2c3c6; }
+.legal strong { display: block; color: #fff; margin-bottom: 4px; letter-spacing: .04em; }
+
+/* diferenciais + passos */
+.feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.feat { padding: 28px 24px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.feat i { font-style: normal; font-size: 2rem; display: block; margin-bottom: 14px; }
+.feat h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.feat p { color: var(--muted); font-size: .92rem; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+.step { position: relative; padding: 32px 26px; border-radius: var(--radius); background: linear-gradient(160deg, rgba(227,176,75,.09), transparent 55%), var(--card); border: 1px solid var(--line); }
+.step::before { counter-increment: s; content: counter(s); font-family: 'Instrument Serif'; font-size: 4rem; line-height: 1; color: var(--accent); display: block; margin-bottom: 8px; }
+.step h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.step p { color: var(--muted); font-size: .93rem; }
+
+/* avaliações */
+.rating { display: flex; align-items: center; gap: 16px; }
+.rating strong { font-family: 'Instrument Serif'; font-size: 4rem; line-height: 1; color: var(--accent); font-weight: 400; }
+.stars { color: var(--accent); letter-spacing: 3px; }
+.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.review { padding: 30px 26px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.review blockquote { font-family: 'Instrument Serif'; font-size: 1.5rem; line-height: 1.2; margin: 12px 0 18px; }
+.review cite { font-style: normal; font-weight: 700; display: block; }
+.review small { color: var(--muted); }
+
+/* hours (template) */
+.hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+.box { padding: 36px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.h-row { display: flex; justify-content: space-between; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.h-row span { color: var(--muted); }
+.h-row.today span, .h-row.today strong { color: var(--accent); }
+.c-row { margin-bottom: 18px; }
+.c-row small { display: block; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+.map { margin-top: 20px; border-radius: var(--radius); overflow: hidden; height: 320px; border: 1px solid var(--line); }
+.map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.9) contrast(.9); }
+
+/* CTA final */
+.final { text-align: center; padding: 70px 26px; border-radius: 36px; background: radial-gradient(circle at 50% 0%, rgba(227,176,75,.22), transparent 60%), var(--bg-2); border: 1px solid rgba(227,176,75,.25); }
+.final h2 { font-size: clamp(2.8rem, 7vw, 5rem); margin-bottom: 14px; }
+.final p { color: var(--muted); margin: 0 auto 30px; max-width: 480px; }
+.final .actions { justify-content: center; margin-bottom: 0; }
+
+.age { text-align: center; padding: 24px 0; font-size: .82rem; color: var(--muted); border-top: 1px solid var(--line); }
+footer { padding: 26px 0 40px; color: var(--muted); font-size: .85rem; }
+.foot { display: flex; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; }
+footer a:hover { color: var(--accent); }
+.ver { display: inline-block; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); font-size: .72rem; }
+
+/* ---------- FLOATING ---------- */
+.wa-float { position: fixed; right: 22px; bottom: calc(22px + var(--safe-b)); z-index: 120; width: 62px; height: 62px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 16px 34px rgba(37,211,102,.35); transition: transform .25s; }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 31px; height: 31px; fill: #fff; }
+.mbar { display: none; }
+
+/* ---------- CART DRAWER ---------- */
+.scrim { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.6); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 201; width: min(460px, 100%); background: #140b11; border-left: 1px solid var(--line); display: flex; flex-direction: column; transform: translateX(100%); transition: transform .4s cubic-bezier(.2,.8,.2,1); visibility: hidden; }
+.drawer.on { transform: none; visibility: visible; }
+.d-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid var(--line); }
+.d-head h2 { font-family: 'Instrument Serif'; font-weight: 400; font-size: 2rem; }
+.x { width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-size: 1.3rem; cursor: pointer; }
+.d-body { flex: 1; overflow-y: auto; padding: 18px 22px 24px; overscroll-behavior: contain; }
+.line { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.line .li-name { flex: 1; min-width: 0; }
+.line .li-name strong { display: block; font-size: .93rem; line-height: 1.25; }
+.line .li-name small { color: var(--muted); font-size: .8rem; }
+.line .li-total { font-weight: 700; color: var(--gold-2); min-width: 72px; text-align: right; font-size: .92rem; }
+.d-empty { text-align: center; padding: 34px 10px; color: var(--muted); }
+.d-empty i { font-style: normal; font-size: 3rem; display: block; margin-bottom: 10px; }
+.d-empty .btn { margin-top: 16px; }
+.form { margin-top: 20px; display: grid; gap: 12px; }
+.form h3 { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-top: 8px; }
+.form label { display: grid; gap: 5px; font-size: .84rem; color: var(--muted); }
+.form input, .form select, .form textarea { width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.05); outline: none; font-size: 16px; }
+.form select option { background: #140b11; }
+.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--accent); }
+.form .bad { border-color: var(--red); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; padding: 5px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid var(--line); }
+.seg label { display: block; cursor: pointer; position: relative; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg span { display: block; text-align: center; padding: 10px 6px; border-radius: 12px; font-weight: 600; font-size: .86rem; color: var(--muted); transition: all .2s; }
+.seg input:checked + span { background: var(--accent); color: #2a1206; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.two[hidden], .form [hidden] { display: none; }
+.form .check { display: flex; align-items: flex-start; gap: 10px; }
+.check input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+.check.bad span { color: #ff9aa0; }
+.d-foot { padding: 16px 22px calc(16px + var(--safe-b)); border-top: 1px solid var(--line); background: #110910; }
+.sum { display: grid; gap: 4px; margin-bottom: 12px; font-size: .9rem; }
+.sum div { display: flex; justify-content: space-between; color: var(--muted); }
+.sum .tot { color: var(--cream); font-size: 1.15rem; font-weight: 700; }
+.sum .tot span:last-child { color: var(--gold-2); }
+.hint { font-size: .8rem; color: #ffb3b8; margin-bottom: 10px; min-height: 1em; }
+.hint.good { color: #8ef0ba; }
+.d-foot .btn { width: 100%; }
+.ok { text-align: center; padding: 30px 6px; }
+.ok i { font-style: normal; font-size: 3.4rem; display: block; margin-bottom: 8px; }
+.ok h3 { font-family: 'Instrument Serif'; font-weight: 400; font-size: 2.2rem; margin-bottom: 8px; }
+.ok p { color: var(--muted); margin-bottom: 18px; }
+.ok .btn { width: 100%; margin-bottom: 10px; }
+
+/* ---------- AGE GATE ---------- */
+.gate { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; padding: 20px; background: rgba(8,4,7,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.gate[hidden] { display: none; }
+.gate-card { width: min(420px, 100%); text-align: center; padding: 34px 26px; border-radius: 28px; background: var(--bg-2); border: 1px solid rgba(227,176,75,.3); }
+.gate-card img { width: 110px; height: 110px; border-radius: 22px; margin: 0 auto 18px; }
+.gate-card h2 { font-family: 'Instrument Serif'; font-weight: 400; font-size: 2.3rem; line-height: 1; margin-bottom: 10px; }
+.gate-card p { color: var(--muted); font-size: .92rem; margin-bottom: 22px; }
+.gate-card .btn { width: 100%; margin-bottom: 10px; }
+
+.toast { position: fixed; left: 50%; bottom: calc(96px + var(--safe-b)); z-index: 150; transform: translate(-50%, 20px); opacity: 0; padding: 12px 20px; border-radius: 999px; background: var(--cream); color: #1b0e15; font-weight: 700; font-size: .9rem; transition: all .3s; pointer-events: none; white-space: nowrap; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .hero-media, .hero-logo, .ticker-track { animation: none; transform: none; }
+  .pill::before { animation: none; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1080px) {
+  .grid-p { grid-template-columns: repeat(3, 1fr); }
+  .kits, .feats { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { gap: 18px; }
+}
+@media (max-width: 920px) {
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px; padding: 14px 20px 22px; background: rgba(14,8,12,.98); border-bottom: 1px solid var(--line); }
+  .nav-links a { display: block; padding: 13px 4px; font-size: 1.05rem; color: var(--cream); border-bottom: 1px solid var(--line); }
+  .nav-links .cta { margin-top: 12px; text-align: center; border: 0; padding: 15px; }
+  .nav.open .nav-links { display: flex; }
+  .nav.open { background: rgba(14,8,12,.98); }
+  .hero-grid, .reviews, .steps, .hours-grid, .tab-box, .split { grid-template-columns: 1fr; }
+  .hero-logo { display: none; }
+  .ad { grid-template-columns: 1fr; }
+  .ad-img { min-height: 220px; order: -1; }
+  .ad-img::before { background: linear-gradient(0deg, #1b0e15 0%, transparent 50%); }
+  .split-img { min-height: 260px; }
+  .gallery, .partners { grid-template-columns: none; grid-auto-flow: column; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .gallery { grid-auto-columns: 78%; }
+  .partners { grid-auto-columns: 84%; }
+  .gallery figure, .partner { scroll-snap-align: start; }
+}
+@media (max-width: 760px) {
+  .container { width: calc(100% - 32px); }
+  .ticker { font-size: .74rem; }
+  .brand small { display: none; }
+  .brand img { width: 42px; height: 42px; }
+  .hero { padding-top: 130px; padding-bottom: 50px; min-height: auto; }
+  .hero p { font-size: 1rem; }
+  .actions .btn { flex: 1 1 100%; }
+  .stats { gap: 22px; }
+  .stats strong { font-size: 2.1rem; }
+  .pad { padding: 72px 0; }
+  .head { margin-bottom: 30px; }
+  .ad-body { padding: 26px 22px 30px; }
+  .ad { min-height: 0; }
+  .search { width: 100%; order: -1; }
+  .grid-p { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .prod { padding: 12px; border-radius: 18px; }
+  .prod-ico { height: 92px; font-size: 2.7rem; margin-bottom: 10px; }
+  .prod h3 { font-size: .9rem; }
+  .prod small { font-size: .76rem; }
+  .prod-foot { flex-direction: column; align-items: stretch; gap: 8px; }
+  .add { width: 100%; padding: 11px; }
+  .stepper { justify-content: space-between; }
+  .kits { grid-template-columns: 1fr; }
+  .kit { min-height: 340px; }
+  .feats { grid-template-columns: 1fr; }
+  .split-body, .tab-box { padding: 28px 22px; }
+  .box { padding: 26px 20px; }
+  .final { padding: 54px 20px; }
+  .sponsor-banner { padding: 22px; }
+  .sponsor-banner .btn { width: 100%; }
+  /* barra fixa de CTA no celular */
+  .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 130; gap: 10px; padding: 10px 14px calc(10px + var(--safe-b)); background: rgba(14,8,12,.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line); }
+  .mbar .btn { flex: 1; padding: 15px 10px; font-size: .95rem; }
+  .mbar .btn:hover { transform: none; }
+  .wa-float { display: none; }
+  footer { padding-bottom: calc(100px + var(--safe-b)); }
+}
+</style>
+</head>
+<body>
+
+<!-- 18+ -->
+<div class="gate" id="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gateT">
+  <div class="gate-card">
+    <img data-img="negocio.logo" alt="Logo Drinx Bebidas" width="110" height="110">
+    <h2 id="gateT">Você tem 18 anos ou mais?</h2>
+    <p>A venda de bebidas alcoólicas é proibida para menores de 18 anos (ECA, art. 243).</p>
+    <button class="btn btn-gold" id="gateYes" type="button">Sim, tenho 18+</button>
+    <a class="btn btn-ghost" href="https://www.google.com" rel="noopener">Não tenho</a>
+  </div>
+</div>
+
+<div class="ticker" aria-label="Avisos"><div class="ticker-track" id="ticker"></div></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand" aria-label="Drinx Bebidas — início">
+      <img data-img="negocio.logo" alt="" width="46" height="46">
+      <span><strong>DRIN<b>X</b> Bebidas</strong><small data-t="negocio.slogan"></small></span>
+    </a>
+    <ul class="nav-links" id="menu">
+      <li><a href="#ofertas">Ofertas</a></li>
+      <li><a href="#loja">Loja</a></li>
+      <li><a href="#kits">Kits</a></li>
+      <li><a href="#entrega">Entrega</a></li>
+      <li><a href="#avaliacoes">Avaliações</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a class="cta" data-wa="Olá! Vim pelo site da {nome} e quero fazer um pedido.">Pedir no WhatsApp</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" type="button" data-open-cart aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+        <span class="badge" data-count>0</span>
+      </button>
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Interior da distribuidora"></div>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="pill" id="openPill" data-t="hero.selo"></div>
+      <h1 class="serif"><span data-t="hero.titulo1"></span><em data-t="hero.titulo2"></em></h1>
+      <p data-t="hero.texto"></p>
+      <div class="actions">
+        <a class="btn btn-gold" href="#loja">🛒 Montar meu pedido</a>
+        <a class="btn btn-wa" data-wa="Olá! Vim pelo site da {nome} e quero fazer um pedido.">
+          <svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg> Pedir pelo WhatsApp
+        </a>
+      </div>
+      <div class="stats" data-list="hero.destaques"><template><div><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template></div>
+    </div>
+    <img class="hero-logo" data-img="negocio.logo" alt="Logo Drinx Bebidas" width="340" height="340" fetchpriority="high">
+  </div>
+</header>
+
+<!-- ANÚNCIOS / OFERTAS -->
+<section class="pad" id="ofertas" style="padding-bottom:60px">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Ofertas & novidades</span><h2 class="title serif">Em destaque <em>essa semana</em></h2></div>
+      <p class="lead">Promoções, lançamentos e espaços de marcas parceiras. Viu, gostou, chama no WhatsApp.</p>
+    </div>
+    <div class="reveal">
+      <div class="ads-track" id="adsTrack"></div>
+      <div class="dots" id="adsDots" aria-label="Escolher anúncio"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOJA -->
+<section class="pad shop-wrap" id="loja">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Loja online</span><h2 class="title serif">Monte seu pedido, <em>a gente leva</em></h2></div>
+      <p class="lead">Adicione no carrinho, escolha a entrega e finalize no WhatsApp. Um atendente confirma estoque e horário na hora.</p>
+    </div>
+    <div class="shop-bar">
+      <div class="chips-scroll" id="chips" aria-label="Categorias"></div>
+      <label class="search"><span class="sr">Buscar produto</span>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Buscar bebida…" autocomplete="off">
+      </label>
+    </div>
+    <div class="grid-p" id="products"></div>
+    <p class="shop-note">Preços e estoque sujeitos a confirmação no WhatsApp. Não achou o que procura? <a data-wa="Olá! Não achei um produto no site da {nome}. Vocês têm…">Chama a gente →</a></p>
+
+    <div class="sponsor-banner reveal">
+      <div><small>Espaço publicitário</small><strong>Sua marca aqui, na vitrine de quem compra bebida em Brasília.</strong></div>
+      <a class="btn btn-ghost" data-wa="Olá! Tenho interesse em anunciar minha marca no site da {nome}.">Anunciar aqui</a>
+    </div>
+  </div>
+</section>
+
+<!-- KITS -->
+<section class="pad" id="kits">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">A Drinx tá junto</span><h2 class="title serif">Um kit pra <em>cada ocasião</em></h2></div>
+      <p class="lead">Churrasco, dia de jogo, evento ou fim de semana: preço fechado, entra no carrinho num toque.</p>
+    </div>
+    <div class="kits" id="kitsGrid"></div>
+  </div>
+</section>
+
+<!-- PARCEIROS -->
+<section class="pad shop-wrap" id="parceiros" style="padding-top:80px">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Marcas parceiras</span><h2 class="title serif">Vitrine para <em>fornecedores</em></h2></div>
+      <p class="lead">Espaços para lançamentos, degustações e promoções de marcas de bebida — trade marketing feito dentro da lei.</p>
+    </div>
+    <div class="partners" data-list="patrocinados">
+      <template>
+        <article class="partner"><small data-f="tag"></small><h3 data-f="titulo"></h3><p data-f="texto"></p>
+          <a data-wa="Olá! Quero saber dos espaços para marcas parceiras no site da {nome}.">Quero esse espaço →</a></article>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="pad" id="galeria">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Por dentro da Drinx</span><h2 class="title serif">Bebida gelada, <em>do seu jeito</em></h2></div>
+      <p class="lead">Um pouco do que você encontra na loja do Grande Colorado.</p>
+    </div>
+    <div class="gallery" data-list="galeria">
+      <template><figure><img data-fimg="imagem" alt="" loading="lazy"><figcaption data-f="legenda"></figcaption></figure></template>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS + COMO FUNCIONA -->
+<section class="pad shop-wrap" id="diferenciais">
+  <div class="container">
+    <div class="head reveal"><div><span class="kicker">Por que a Drinx</span><h2 class="title serif">Quem pede, <em>volta a pedir</em></h2></div></div>
+    <div class="feats" data-list="diferenciais">
+      <template><article class="feat reveal"><i data-f="icone"></i><h3 data-f="titulo"></h3><p data-f="texto"></p></article></template>
+    </div>
+
+    <div class="head reveal" style="margin-top:90px"><div><span class="kicker">Como funciona</span><h2 class="title serif">Em 3 passos, <em>tá na sua porta</em></h2></div></div>
+    <div class="steps">
+      <article class="step reveal"><h3>Monte o carrinho</h3><p>Escolha bebidas e kits aqui no site — ou só chame no WhatsApp que a gente monta pra você.</p></article>
+      <article class="step reveal"><h3>Envie pelo WhatsApp</h3><p>O pedido chega pronto, com endereço e pagamento. Um atendente humano confirma em minutos.</p></article>
+      <article class="step reveal"><h3>Receba em casa</h3><p>Nosso entregador leva no horário combinado. Pague no Pix, cartão ou dinheiro.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREGA + TABACARIA -->
+<section class="pad" id="entrega">
+  <div class="container">
+    <div class="split reveal">
+      <div class="split-img" data-img="kits.2.imagem" role="img" aria-label="Entregador levando pedido"></div>
+      <div class="split-body">
+        <span class="kicker">Área de entrega</span>
+        <h2 class="title serif">Brasília e região, <em>no horário</em></h2>
+        <p>Taxa e prazo por região. Não achou a sua? Pergunte no WhatsApp — a resposta é rápida.</p>
+        <ul class="zones" id="zones"></ul>
+        <p class="note" id="zoneNote"></p>
+        <a class="btn btn-wa" data-wa="Olá! A {nome} entrega no meu endereço? Meu bairro é: ">Conferir meu endereço</a>
+      </div>
+    </div>
+
+    <div class="tab-box reveal" id="tabacaria">
+      <div>
+        <span class="kicker">Tabacaria na loja</span>
+        <h2 class="title serif" style="font-size:clamp(2.2rem,5vw,3.4rem)">Sua bebida pede <em>um complemento</em></h2>
+        <p>Temos uma seleção de tabacaria e acessórios na loja física — só para maiores de 18 anos e só produtos regularizados na Anvisa. Consulte a disponibilidade no WhatsApp.</p>
+        <a class="btn btn-ghost" data-wa="Olá! Tenho 18 anos ou mais e quero consultar a tabacaria da {nome}.">Consultar disponibilidade</a>
+      </div>
+      <div class="legal">
+        <strong>O MINISTÉRIO DA SAÚDE ADVERTE:</strong>
+        Fumar causa câncer de pulmão e outras doenças graves. Venda proibida para menores de 18 anos. Não vendemos cigarro eletrônico (vape) — produto proibido no Brasil.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<section class="pad shop-wrap" id="avaliacoes">
+  <div class="container">
+    <div class="head reveal">
+      <div><span class="kicker">Avaliações</span><h2 class="title serif">Nota máxima <em>no Google</em></h2></div>
+      <a class="rating" data-href="contato.google" target="_blank" rel="noopener">
+        <strong data-t="notaGoogle.nota"></strong>
+        <span><span class="stars">★★★★★</span><br><small style="color:var(--muted)" data-t="notaGoogle.total"></small></span>
+      </a>
+    </div>
+    <div class="reviews" data-list="avaliacoes">
+      <template><figure class="review reveal"><span class="stars" aria-label="5 estrelas">★★★★★</span><blockquote data-f="texto"></blockquote><figcaption><cite data-f="nome"></cite><small data-f="local"></small></figcaption></figure></template>
+    </div>
+  </div>
+</section>
+
+<!-- HORÁRIOS + CONTATO -->
+<section class="pad" id="contato">
+  <div class="container hours-grid">
+    <div class="box reveal">
+      <span class="kicker">Funcionamento</span>
+      <h2 class="title serif" style="font-size:2.8rem">Horários</h2>
+      <div id="hours"></div>
+    </div>
+    <div class="box reveal">
+      <span class="kicker">Contato</span>
+      <h2 class="title serif" style="font-size:2.8rem">Onde estamos</h2>
+      <div class="c-row"><small>WhatsApp / telefone</small><a data-wa="Olá! Vim pelo site da {nome}." data-t="contato.telefone"></a></div>
+      <div class="c-row"><small>Endereço</small><span data-t="contato.endereco"></span></div>
+      <div class="c-row"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+      <div class="map"><iframe data-map loading="lazy" title="Mapa da Drinx Bebidas" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 0 90px">
+  <div class="container">
+    <div class="final reveal">
+      <span class="kicker">Tá com sede?</span>
+      <h2 class="serif">A Drinx já tá <em>a caminho.</em></h2>
+      <p>Monte o pedido no site ou chame direto no WhatsApp. Atendimento humano, entrega no horário combinado.</p>
+      <div class="actions">
+        <a class="btn btn-gold" href="#loja">🛒 Montar meu pedido</a>
+        <a class="btn btn-wa" data-wa="Olá! Vim pelo site da {nome} e quero fazer um pedido."><svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg> Pedir no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="age container" data-t="aviso"></div>
+<footer>
+  <div class="container foot">
+    <div><strong data-t="negocio.nome"></strong> · CNPJ <span data-t="negocio.cnpj"></span><br><span data-t="contato.endereco"></span></div>
+    <div>© <span data-year></span> <span data-t="negocio.nome"></span> · <span class="ver" data-t="versao"></span><br><a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a></div>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="Pedir pelo WhatsApp" data-wa="Olá! Vim pelo site da {nome} e quero fazer um pedido."><svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg></a>
+
+<!-- barra fixa de CTA (celular) -->
+<div class="mbar">
+  <a class="btn btn-wa" data-wa="Olá! Vim pelo site da {nome} e quero fazer um pedido."><svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg> WhatsApp</a>
+  <button class="btn btn-gold" type="button" data-open-cart id="mbarCart">🛒 Montar pedido</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- CARRINHO + CHECKOUT -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Seu pedido">
+  <div class="d-head"><h2>Seu pedido</h2><button class="x" type="button" id="closeCart" aria-label="Fechar">×</button></div>
+  <div class="d-body">
+    <div id="lines"></div>
+    <form class="form" id="checkout" novalidate>
+      <h3>Entrega</h3>
+      <div class="seg" role="radiogroup" aria-label="Tipo de entrega">
+        <label><input type="radio" name="tipo" value="entrega" checked><span>🚚 Entregar</span></label>
+        <label><input type="radio" name="tipo" value="retirada"><span>🏪 Retirar na loja</span></label>
+      </div>
+      <label data-only="entrega">Região
+        <select name="regiao" id="regiao"></select>
+      </label>
+      <label data-only="entrega">Endereço completo *
+        <input name="endereco" autocomplete="street-address" placeholder="Rua / quadra, conjunto, casa, condomínio">
+      </label>
+      <label data-only="entrega">Ponto de referência
+        <input name="referencia" placeholder="Ex.: portaria 2, casa de muro azul">
+      </label>
+      <h3>Quando</h3>
+      <div class="seg" role="radiogroup" aria-label="Quando entregar">
+        <label><input type="radio" name="quando" value="agora" checked><span>⚡ O quanto antes</span></label>
+        <label><input type="radio" name="quando" value="agendar"><span>🕒 Agendar</span></label>
+      </div>
+      <div class="two" id="agendaRow" hidden>
+        <label>Dia<input type="date" name="dia"></label>
+        <label>Horário<input type="time" name="hora"></label>
+      </div>
+      <h3>Pagamento</h3>
+      <select name="pagamento" aria-label="Forma de pagamento">
+        <option>Pix</option><option>Cartão de crédito (na entrega)</option><option>Cartão de débito (na entrega)</option><option>Dinheiro</option>
+      </select>
+      <label id="trocoRow" hidden>Troco para quanto?<input name="troco" inputmode="decimal" placeholder="Ex.: 100"></label>
+      <h3>Seus dados</h3>
+      <div class="two">
+        <label>Nome *<input name="nome" autocomplete="name" placeholder="Seu nome"></label>
+        <label>WhatsApp<input name="fone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(61) 9…"></label>
+      </div>
+      <label>Observações<textarea name="obs" rows="2" placeholder="Ex.: bem gelada, tocar o interfone"></textarea></label>
+      <label class="check"><input type="checkbox" name="maior"> <span>Confirmo que tenho 18 anos ou mais e apresento documento na entrega, se pedido.</span></label>
+    </form>
+  </div>
+  <div class="d-foot">
+    <div class="sum">
+      <div><span>Subtotal</span><span id="sSub">R$ 0,00</span></div>
+      <div><span>Entrega</span><span id="sFee">—</span></div>
+      <div class="tot"><span>Total</span><span id="sTot">R$ 0,00</span></div>
+    </div>
+    <p class="hint" id="hint"></p>
+    <button class="btn btn-wa" type="button" id="sendOrder"><svg viewBox="0 0 24 24"><use href="#ico-wa"/></svg> Enviar pedido no WhatsApp</button>
+  </div>
+</aside>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ico-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></symbol>
+</svg>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+<script src="loja.js"></script>
+</body>
+</html>
