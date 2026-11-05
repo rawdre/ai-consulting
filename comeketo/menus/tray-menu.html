@@ -1624,7 +1624,7 @@ footer.foot a{color:var(--gold-soft)}
   // Pricing constants — change here if MA tax or service rates ever change
   var TAX_RATE = 0.07;          // 7% Massachusetts meals tax
   var SERVICE_RATE = 0.24;      // 24% service, fuel & admin
-  var STAFF_PER_PERSON = 3;     // $3 per guest staff fee
+  var STAFF_PER_PERSON = 3.30;  // $3.30 per guest staff fee (Quote Maker / Nov 2026 menu)
   var STAFF_CAP_GUESTS = 200;   // 200+ quoted separately
 
   function slug(s){
@@ -1669,7 +1669,7 @@ footer.foot a{color:var(--gold-soft)}
     }).join('');
     var pr = function(l,a,s){ return '<tr><td style="padding:8px 14px;font-size:12.5px;color:#5c5148;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+l+(s?'<div style="font-size:10.5px;color:#9b9086;">'+s+'</div>':'')+'</td><td align="right" style="padding:8px 14px;font-size:12.5px;color:#2f2a24;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">'+a+'</td></tr>'; };
     var svcRows = b.wantsService
-      ? pr('Service, fuel &amp; admin (24%)', money(b.service)) + pr('Staffing', b.staff>0?money(b.staff):(b.staffOver200?'Quoted separately (200+)':'&mdash;'), b.staff>0?('$'+STAFF_PER_PERSON+' / guest &times; '+b.guests):'')
+      ? pr('Service, fuel &amp; admin (24%)', money(b.service)) + pr('Staffing', b.staff>0?money(b.staff):(b.staffOver200?'Quoted separately (200+)':'&mdash;'), b.staff>0?('$'+STAFF_PER_PERSON.toFixed(2)+' / guest &times; '+b.guests):'')
       : '';
     var addonsNote = (d.addons && d.addons.length) ? '<tr><td colspan="2" style="padding:8px 14px;font-size:11px;color:#9b9086;border-top:1px solid #f0e9dd;font-family:Arial,sans-serif;">Requested add-ons (priced on your final quote): '+esc(d.addons.join(', '))+'</td></tr>' : '';
     var serviceLabel = b.wantsService ? 'FULL-SERVICE BUFFET' : 'DROP-OFF';
@@ -1721,7 +1721,7 @@ footer.foot a{color:var(--gold-soft)}
         staffNote = '200+ guests — quoted by our team';
       } else {
         staff = g * STAFF_PER_PERSON;
-        staffNote = '($' + STAFF_PER_PERSON + ' / person)';
+        staffNote = '($' + STAFF_PER_PERSON.toFixed(2) + ' / person)';
       }
     }
     return {

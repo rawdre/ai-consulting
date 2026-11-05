@@ -39,7 +39,7 @@ test('all service styles and tiers match default command center calculations',()
 });
 test('premiums, additional sides and salads, appetizers and platters are priced',()=>{
   const e=core.estimate(catalog,{style:'Buffet',guests:10,mains:['Salmon'],sides:['Rice — Mexican','Black Beans','Loaded Garlic Mashed Potato'],salads:['Garden Salad','Antipasto'],apps:['Bruschetta'],boards:['Fresh Fruit Platter']});
-  assert.equal(e.food,475);
+  assert.equal(e.food,490);
   assert.equal(core.estimate(catalog,{style:'Drop-Off',guests:1}).chafers,37.5);
   assert.equal(core.estimate(catalog,{style:'Buffet',guests:10,mains:['Salmon']}).staff,195);
 });
@@ -80,10 +80,10 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   const estimate=core.estimate(catalog,state);
   const html=core.quoteEmailHTML(state,estimate,{estimateNo:'CMK-27854'});
 
-  assert.equal(estimate.subtotal,11902.5);
-  assert.equal(estimate.service,2856.6);
-  assert.equal(estimate.tax,1033.14);
-  assert.equal(estimate.total,15792.24);
+  assert.equal(estimate.subtotal,12202.5);
+  assert.equal(estimate.service,2928.6);
+  assert.equal(estimate.tax,1059.18);
+  assert.equal(estimate.total,16190.28);
   assert.match(html,/Your Event Estimate/);
   assert.match(html,/Estimate #:\s*CMK-27854/);
   assert.match(html,/Hiago Victor/);
@@ -98,7 +98,7 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   assert.match(html,/EVENT TOTAL/);
   assert.match(html,/Example Payment Schedule/);
   assert.match(html,/20% Downpayment/);
-  for(const amount of ['$11,902.50','$2,856.60','$1,033.14','$15,792.24','$3,158.45','$5,527.28','$4,737.67','$2,368.84'])assert.match(html,new RegExp(amount.replace(/[$,.]/g,'\\$&')));
+  for(const amount of ['$12,202.50','$2,928.60','$1,059.18','$16,190.28','$3,238.06','$5,666.60','$4,857.08','$2,428.54'])assert.match(html,new RegExp(amount.replace(/[$,.]/g,'\\$&')));
   assert.match(html,/width="100%"[^>]+max-width:680px/);
   assert.match(html,/<td style="padding:4px"><table role="presentation" width="100%"/);
   assert.doesNotMatch(html,/width="680"/);
