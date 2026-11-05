@@ -30,16 +30,18 @@ test('all service styles and tiers match default command center calculations',()
   for(const style of Object.keys(catalog.styles))for(const count of [1,2,3,4]){
     const s={style,guests:50,mains:catalog.mains.slice(0,count).map(x=>x[0]),sides:[],salads:[],apps:[],boards:[]};
     const e=core.estimate(catalog,s), t=catalog.styles[style].tiers[Math.min(count-1,2)];
-    assert.equal(e.food,(t[1]+Math.max(0,count-t[2])*6.5)*50);
-    assert.equal(e.staff,catalog.styles[style].staff*50);
-    assert.equal(e.chafers,style==='Drop-Off'?64.5:0);
-    assert.equal(e.setup,style==='Drop-Off'?60:0);
+    const r2=n=>Math.round(n*100)/100, staffRaw=catalog.styles[style].staff*50;
+    assert.equal(e.food,r2((t[1]+Math.max(0,count-t[2])*7.25)*50));
+    assert.equal(e.staff,r2(style==='Buffet'?Math.max(195,staffRaw):staffRaw));
+    assert.equal(e.chafers,style==='Drop-Off'?r2(Math.max(37.5,e.food*.025)):0);
+    assert.equal(e.setup,style==='Drop-Off'?r2(Math.max(37.5,e.food*.025)):0);
   }
 });
 test('premiums, additional sides and salads, appetizers and platters are priced',()=>{
   const e=core.estimate(catalog,{style:'Buffet',guests:10,mains:['Salmon'],sides:['Rice — Mexican','Black Beans','Loaded Garlic Mashed Potato'],salads:['Garden Salad','Antipasto'],apps:['Bruschetta'],boards:['Fresh Fruit Platter']});
-  assert.equal(e.food,436.5);
-  assert.equal(core.estimate(catalog,{style:'Drop-Off',guests:1}).chafers,25);
+  assert.equal(e.food,475);
+  assert.equal(core.estimate(catalog,{style:'Drop-Off',guests:1}).chafers,37.5);
+  assert.equal(core.estimate(catalog,{style:'Buffet',guests:10,mains:['Salmon']}).staff,195);
 });
 test('validates each step and specific malformed contact cases',()=>{
   const good={event:'Birthday',date:'2026-12-20',time:'18:00',guests:50,mains:['Salmon'],sides:['Rice'],street:'123 Example St',city:'Boston',state:'MA',zip:'02110',name:'Test Guest',email:'guest@example.com',phone:'(978) 555-0123',callback:'Afternoon',consent:true};
@@ -78,10 +80,10 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   const estimate=core.estimate(catalog,state);
   const html=core.quoteEmailHTML(state,estimate,{estimateNo:'CMK-27854'});
 
-  assert.equal(estimate.subtotal,10972.5);
-  assert.equal(estimate.service,2633.4);
-  assert.equal(estimate.tax,952.41);
-  assert.equal(estimate.total,14558.31);
+  assert.equal(estimate.subtotal,11902.5);
+  assert.equal(estimate.service,2856.6);
+  assert.equal(estimate.tax,1033.14);
+  assert.equal(estimate.total,15792.24);
   assert.match(html,/Your Event Estimate/);
   assert.match(html,/Estimate #:\s*CMK-27854/);
   assert.match(html,/Hiago Victor/);
@@ -96,7 +98,7 @@ test('renders the completed request as a Quote Maker style email instead of a pl
   assert.match(html,/EVENT TOTAL/);
   assert.match(html,/Example Payment Schedule/);
   assert.match(html,/20% Downpayment/);
-  for(const amount of ['$10,972.50','$2,633.40','$952.41','$14,558.31','$2,911.66','$5,095.41','$4,367.49','$2,183.75'])assert.match(html,new RegExp(amount.replace(/[$,.]/g,'\\$&')));
+  for(const amount of ['$11,902.50','$2,856.60','$1,033.14','$15,792.24','$3,158.45','$5,527.28','$4,737.67','$2,368.84'])assert.match(html,new RegExp(amount.replace(/[$,.]/g,'\\$&')));
   assert.match(html,/width="100%"[^>]+max-width:680px/);
   assert.match(html,/<td style="padding:4px"><table role="presentation" width="100%"/);
   assert.doesNotMatch(html,/width="680"/);

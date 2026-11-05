@@ -18,17 +18,19 @@ globalThis.PackageCore = (() => {
     }
     const style = c.styles[s.style];
     const tier = style.tiers.find(t => t[2] >= selected.mains.length) || style.tiers.at(-1);
-    const extraMains = Math.max(0,selected.mains.length-tier[2])*6.5;
-    const extraSides = Math.max(0,selected.sides.length-tier[3])*3.5;
-    const extraSalads = Math.max(0,selected.salads.length-1)*3.5;
+    const extraMains = Math.max(0,selected.mains.length-tier[2])*7.25;
+    const extraSides = Math.max(0,selected.sides.length-tier[3])*3.95;
+    const extraSalads = Math.max(0,selected.salads.length-1)*3.95;
     const groupPrices=Object.fromEntries(Object.keys(selected).map(k=>[k,selected[k].reduce((v,n)=>v+c[k].find(x=>x[0]===n)[1],0)]));
     const extras = extraMains+extraSides+extraSalads;
     const upgrades = Object.values(groupPrices).reduce((sum,n)=>sum+n,0);
     const food = (tier[1]+extras+upgrades)*guests;
-    const staff = style.staff*guests;
+    // Quote Maker rules: Buffet staffing floored at $195; drop-off chafers + setup
+    // are each 2.5% of food with a $37.50 minimum.
+    const staff = s.style === 'Buffet' && style.staff > 0 ? Math.max(195, style.staff*guests) : style.staff*guests;
     const drop = s.style === 'Drop-Off';
-    const chafers = drop ? Math.max(25,1.29*guests) : 0;
-    const setup = drop ? 1.2*guests : 0;
+    const chafers = drop ? Math.max(37.5,food*.025) : 0;
+    const setup = drop ? Math.max(37.5,food*.025) : 0;
     const subtotal = food+staff+chafers+setup;
     const service = drop ? 0 : subtotal*.24;
     const tax = (subtotal+service)*.07;
@@ -55,8 +57,8 @@ globalThis.PackageCore = (() => {
       e.appsPerGuest?amountRow('Appetizers',e.appsPerGuest,e.appsPerGuest*g,list('apps')):'',
       e.boardsPerGuest?amountRow('Boards & Platters',e.boardsPerGuest,e.boardsPerGuest*g,list('boards')):'',
       e.staff?amountRow('Staffing',e.staffPerGuest,e.staff):'',
-      e.chafers?flatRow('Wire chafers & sternos',e.chafers,'$1.29/guest · $25 minimum'):'',
-      e.setup?flatRow('Buffet setup',e.setup,'$1.20/guest'):''
+      e.chafers?flatRow('Wire chafers & sternos',e.chafers,'2.5% of food · $37.50 minimum'):'',
+      e.setup?flatRow('Buffet setup',e.setup,'2.5% of food · $37.50 minimum'):''
     ].join('');
     const payments=[.2,.35,.3,.15].map(p=>round(e.total*p));
     payments[3]=round(e.total-payments[0]-payments[1]-payments[2]);
