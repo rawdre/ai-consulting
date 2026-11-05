@@ -32,11 +32,12 @@ p{color:var(--muted)}
 .span-7{grid-column:span 7}
 .span-5{grid-column:span 5}
 .span-6{grid-column:span 6}
+.span-12{grid-column:span 12}
 .tag{display:inline-block;margin-bottom:12px;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .cyan{color:var(--cyan)}.lime{color:var(--lime)}.amber{color:var(--amber)}
 ul{list-style:none;display:grid;gap:10px;margin-top:14px}
 li{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.04);color:var(--muted)}
-@media(max-width:920px){.span-7,.span-5,.span-6{grid-column:span 12}}
+@media(max-width:920px){.span-7,.span-5,.span-6,.span-12{grid-column:span 12}}
 </style>
 </head>
 <body>
@@ -73,6 +74,7 @@ li{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.04);color:v
           <li>4 templates prioritarios</li>
           <li>Hub local consolidado</li>
           <li>Base inicial de leads em CSV e JSON</li>
+          <li>Pipeline EUA (53 negocios brasileiros)</li>
         </ul>
       </article>
       <article class="card span-6">
@@ -95,6 +97,14 @@ li{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.04);color:v
         <div class="links">
           <a class="chip" href="./leads/negocios-prospectados.csv">Abrir CSV</a>
           <a class="chip" href="./leads/negocios-prospectados.json">Abrir JSON</a>
+        </div>
+      </article>
+      <article class="card span-12">
+        <div class="tag lime">Leads · Estados Unidos</div>
+        <h2>Pipeline EUA — Negocios brasileiros</h2>
+        <p>53 negocios brasileiros nos EUA com quem o Andre ja falou (Close CRM, ultimos 12 meses). Pagina privada no Claude (so abre logado), com WhatsApp, Google e Instagram em um clique, status e notas por negocio.</p>
+        <div class="links">
+          <a class="chip" href="https://claude.ai/artifact/NY1LdqSiB3HPiUbrs5WqkP" target="_blank" rel="noopener">Abrir Pipeline EUA</a>
         </div>
       </article>
     </div>
