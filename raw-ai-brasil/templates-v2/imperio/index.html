@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barbearia do Império | Corte, barba e curso de barbeiro em Sobradinho - DF</title>
 <meta name="description" content="Desde 2019 em Sobradinho: corte, barba, sobrancelha, pigmentação, curso de barbeiro e Imperial Store. Agende pelo WhatsApp (61) 99228-1225.">
-<!-- Barbearia do Império · site v1.4.0 · base: template barbearia v2 · edite config.js -->
+<!-- Barbearia do Império · site v1.5.0 · base: template barbearia v2 · edite config.js -->
 <link rel="icon" href="assets/logo.jpg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -327,6 +327,20 @@ footer a:hover { color: var(--accent); }
 .ios-help { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,.75); align-items: flex-end; justify-content: center; }
 .ios-help.on { display: flex; } .ios-help div { background: var(--bg-2); border-top: 1px solid var(--accent); padding: 26px 22px 36px; width: min(560px, 100%); }
 .ios-help ol { margin: 12px 0 0 18px; display: grid; gap: 8px; color: var(--cream); } .ios-help h3 { font-family: 'Bebas Neue'; font-weight: 400; font-size: 1.8rem; letter-spacing: .05em; }
+
+/* ---------- transformação (filme no scroll) ---------- */
+.film { position: relative; height: 260vh; background: var(--bg); }
+.film-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.film-sticky canvas, .film-sticky img.poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.film-sticky::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,11,10,.78) 0%, rgba(12,11,10,.35) 50%, rgba(12,11,10,.1) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 25%); pointer-events: none; }
+.film-copy { position: absolute; left: 0; right: 0; bottom: 14vh; z-index: 2; }
+.film-copy h2 { font-size: clamp(2.6rem, 7vw, 6rem); text-transform: uppercase; max-width: 10ch; }
+.film-copy p { color: var(--cream); max-width: 480px; font-size: 1.1rem; font-weight: 300; margin: 12px 0 26px; }
+.film-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(243,234,220,.12); z-index: 3; }
+.film-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .12s linear; }
+.film-hint { position: absolute; right: 24px; bottom: 24px; z-index: 3; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .film { height: auto; } .film-sticky { position: relative; height: 80svh; } }
+@media (max-width: 760px) { .film { height: 220vh; } .film-copy { bottom: 12vh; } .film-copy h2 { max-width: 12ch; } }
 </style>
 </head>
 <body>
@@ -372,6 +386,21 @@ footer a:hover { color: var(--accent); }
   </div>
 </header>
 <div class="pole" aria-hidden="true"></div>
+
+<section class="film" id="transformacao" hidden>
+  <div class="film-sticky">
+    <img class="poster" data-img="filme.poster" alt="" aria-hidden="true">
+    <canvas aria-label="Transformação: do cabelo grande ao corte limpo"></canvas>
+    <div class="container film-copy">
+      <span class="eyebrow" data-t="filme.selo"></span>
+      <h2 class="title display" data-t="filme.titulo"></h2>
+      <p data-t="filme.texto"></p>
+      <a class="btn btn-primary" href="agenda.html">Quero o meu</a>
+    </div>
+    <div class="film-bar"><i></i></div>
+    <span class="film-hint">role para cortar ↓</span>
+  </div>
+</section>
 
 
 <section class="pad about" id="sobre">
@@ -553,6 +582,43 @@ footer a:hover { color: var(--accent); }
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script src="agenda.js"></script>
 <script>
+
+/* Império: filme no scroll (frames em assets/film/) */
+(function () {
+  var cfg = (window.SITE || {}).filme; var sec = document.getElementById('transformacao');
+  if (!cfg || !cfg.frames || !sec) return;
+  var N = Number(cfg.frames), base = cfg.base || 'assets/film/', ext = cfg.ext || 'webp';
+  var src = function (i) { return base + 'f_' + String(i).padStart(3, '0') + '.' + ext; };
+  var test = new Image();
+  test.onload = function () { sec.hidden = false; start(); };
+  test.onerror = function () { sec.remove(); };
+  test.src = src(1);
+  function start() {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canvas = sec.querySelector('canvas'), poster = sec.querySelector('img.poster'), bar = sec.querySelector('.film-bar i');
+    if (reduce) { canvas.remove(); poster.src = src(N); return; }
+    var ctx = canvas.getContext('2d'), frames = new Array(N + 1), loaded = 0, cur = -1, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function size() { canvas.width = Math.round(canvas.clientWidth * dpr); canvas.height = Math.round(canvas.clientHeight * dpr); cur = -1; draw(); }
+    function draw() {
+      var i = frameFor(); if (i === cur) return; var im = frames[i];
+      if (!im || !im.complete || !im.naturalWidth) { var j = i; while (j > 1 && !(frames[j] && frames[j].complete && frames[j].naturalWidth)) j--; im = frames[j]; if (!im || !im.naturalWidth) return; }
+      cur = i; var cw = canvas.width, ch = canvas.height, r = Math.max(cw / im.naturalWidth, ch / im.naturalHeight), w = im.naturalWidth * r, h = im.naturalHeight * r;
+      ctx.drawImage(im, (cw - w) / 2, (ch - h) / 2, w, h);
+      bar.style.width = ((i - 1) / (N - 1) * 100) + '%';
+    }
+    function frameFor() {
+      var rect = sec.getBoundingClientRect(), total = sec.offsetHeight - window.innerHeight;
+      var p = Math.min(1, Math.max(0, -rect.top / total));
+      return 1 + Math.round(p * (N - 1));
+    }
+    // carrega o 1º, depois os outros em ordem (prioriza os próximos do scroll)
+    var order = []; for (var k = 1; k <= N; k++) order.push(k);
+    function loadNext() { var k = order.shift(); if (!k) return; var im = new Image(); im.onload = im.onerror = function () { loaded++; if (k === 1) { poster.style.display = 'none'; draw(); } draw(); loadNext(); }; im.src = src(k); frames[k] = im; }
+    loadNext(); loadNext(); loadNext();
+    window.addEventListener('scroll', function () { requestAnimationFrame(draw); }, { passive: true });
+    window.addEventListener('resize', size); size();
+  }
+})();
 /* Império: links de item vindos do config (data-fhref), carrossel do Instagram, PWA */
 (function () {
   var T = window.TEMPLATE, S = window.SITE || {};

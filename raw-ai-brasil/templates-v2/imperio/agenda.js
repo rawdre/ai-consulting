@@ -195,5 +195,10 @@
       if (av) av.textContent = (c.barbeiro || 'B').trim().charAt(0).toUpperCase();
     });
   }).catch(function () {});
-  window.IMPERIO_AGENDA = { open: open, state: state, load: load, takenFor: takenFor, openDays: openDays };
+  async function dayFull(dayStr) {  // logado (barbeiro/dono): agendamentos completos do dia
+    var ini = at(dayStr, '00:00').toISOString(), fim = at(dayStr, '23:59').toISOString();
+    var q = await sb.from('imperio_appointments').select('*').gte('inicio', ini).lte('inicio', fim).neq('status', 'cancelado').order('inicio');
+    if (q.error) throw q.error; return q.data;
+  }
+  window.IMPERIO_AGENDA = { open: open, state: state, load: load, takenFor: takenFor, openDays: openDays, sb: sb, dayFull: dayFull, hm: hm, brl: brl, esc: esc, at: at };
 })();

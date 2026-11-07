@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.4.0',
+  versao: 'v1.5.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -42,6 +42,14 @@ window.SITE = {
     texto: 'Desde 2019, o melhor atendimento e conforto para você. Corte, barba, sobrancelha e produtos de cuidados pessoais no Império dos Nobres. Agende online com o seu barbeiro.',
     imagem: 'assets/hero.jpg',          // gerada no Higgsfield (sem marca). Alternativas: assets/hero-alt.jpg (salão amplo), assets/photo2.jpg (foto real)
     imagemMobile: 'assets/hero-mobile.jpg'
+  },
+
+  // Filme no scroll (seção logo abaixo do hero). Frames em assets/film/f_001.webp … f_060.webp.
+  filme: {
+    frames: 60, base: 'assets/film/', ext: 'webp', poster: 'assets/film/poster.jpg',
+    selo: 'A transformação',
+    titulo: 'Do cabelo grande ao corte limpo',
+    texto: 'Role a página e veja o corte acontecer. É assim que você sai daqui: alinhado, na régua, pronto pra semana.'
   },
 
   curso: {

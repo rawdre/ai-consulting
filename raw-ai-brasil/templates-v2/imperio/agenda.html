@@ -39,6 +39,15 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 .slot:hover{background:var(--accent);color:var(--bg);font-weight:600}
 .slot.busy{background:#2a2420;border-color:#3a322c;color:#8a7f72;cursor:default} .slot.busy:hover{background:#2a2420;color:#8a7f72;font-weight:400}
 .slot.past{background:transparent;border-color:var(--line);color:#4f4740;cursor:default} .slot.past:hover{background:transparent;color:#4f4740;font-weight:400}
+/* modo barbeiro */
+.slot.mine{cursor:pointer;text-align:left;padding:8px 8px;line-height:1.2;color:var(--cream);background:#241f1a;border-color:#4a3f33}
+.slot.mine.agendado{border-left:3px solid #e0b25f} .slot.mine.confirmado{border-left:3px solid #5fbf7a} .slot.mine.atendido{border-left:3px solid #5c7aa8;opacity:.7} .slot.mine.faltou{border-left:3px solid #e0735f;opacity:.6}
+.slot.mine small{display:block;color:var(--muted);font-size:.68rem;letter-spacing:.05em}
+.slot.mine:hover{background:#2e2721;color:var(--cream);font-weight:400}
+.mode[hidden]{display:none} .mode{display:inline-flex;gap:8px;align-items:center;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:8px 12px}
+.ed{display:grid;gap:10px} .ed label{display:grid;gap:4px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)} .ed input,.ed select{background:var(--card);border:1px solid var(--line);color:var(--cream);padding:11px;font:inherit;font-size:.95rem}
+.ed .acts{display:flex;gap:8px;flex-wrap:wrap} .ed .acts .btn{padding:10px 12px;font-size:.68rem}
+.btn-ok{border-color:#5fbf7a;color:#5fbf7a} .btn-bad{border-color:#e0735f;color:#e0735f}
 .note{color:var(--muted);font-size:.85rem;margin:18px 0 40px}
 .upd{font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 @media (max-width:720px){.grid{grid-template-columns:52px repeat(var(--n,4),1fr);gap:4px}.hcell strong{font-size:1.05rem}.hcell small{display:none}.slot{padding:9px 2px;font-size:.72rem;min-height:38px}.tcell{font-size:.7rem;padding-right:4px}}
@@ -48,7 +57,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 <div class="container">
   <div class="top">
     <a class="brand" href="./"><img src="assets/logo.jpg" alt=""><span>Barbearia do Império</span></a>
-    <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="upd" id="upd"></span><a class="btn" href="./">← Site</a></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><span class="upd" id="upd"></span><span class="mode" id="mode" hidden></span><a class="btn" id="modeLink" href="admin.html">Sou barbeiro</a><a class="btn" href="./">← Site</a></div>
   </div>
   <h1>Agenda do dia</h1>
   <p class="sub">Toque em um horário livre para reservar com o barbeiro daquela cadeira. A agenda atualiza sozinha.</p>
@@ -57,6 +66,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
   <div class="grid" id="grid"><p class="sub">Carregando…</p></div>
   <p class="note">Horários de 30 em 30 minutos. Serviços mais longos (ex.: corte + barba) precisam de dois horários seguidos livres — o sistema confere isso na hora da reserva. Reserva confirmada com sinal de 50% pelo Pix.</p>
 </div>
+<div class="ag-modal" id="edModal" role="dialog" aria-modal="true"><div class="ag-box"><button class="ag-close" id="edClose" aria-label="Fechar">✕</button><div class="ag-body" id="edBody"></div></div></div>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script src="agenda.js"></script>
@@ -68,26 +78,101 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
   var TZ = '-03:00', cur = null, timer = null;
   var at = function (d, hm) { return new Date(d + 'T' + hm + ':00' + TZ); };
   var hm = function (t) { return new Date(t).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }); };
+  var SESSION = null, svcs = [];
+  function first(n) { return (n || '').trim().split(' ')[0]; }
   async function render() {
     var S = A.state, step = Number(S.settings.slot_min || 30), chairs = S.chairs;
     grid.style.setProperty('--n', chairs.length);
-    var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
     var start = at(cur.str, cur.hours[0]).getTime(), end = at(cur.str, cur.hours[1]).getTime(), now = Date.now();
     var html = '<div class="hcell"></div>' + chairs.map(function (c) { return '<div class="hcell"><strong>' + c.barbeiro + '</strong><small>Cadeira ' + c.numero + '</small></div>'; }).join('');
-    for (var t = start; t < end; t += step * 60000) {
-      html += '<div class="tcell">' + hm(t) + '</div>';
-      chairs.forEach(function (c, i) {
-        var tf = t + step * 60000, busy = taken[i].some(function (x) { return t < x.f && tf > x.i; });
-        if (busy) html += '<div class="slot busy">Reservado</div>';
-        else if (t < now) html += '<div class="slot past">—</div>';
-        else html += '<button class="slot" data-n="' + c.numero + '">Livre</button>';
-      });
+    if (SESSION) {
+      var appts; try { appts = await A.dayFull(cur.str); } catch (e) { SESSION = null; return render(); }
+      for (var t = start; t < end; t += step * 60000) {
+        html += '<div class="tcell">' + hm(t) + '</div>';
+        chairs.forEach(function (c) {
+          var tf = t + step * 60000;
+          var ap = appts.find(function (x) { return x.chair_id === c.id && t < new Date(x.fim).getTime() && tf > new Date(x.inicio).getTime(); });
+          if (ap) { var head = new Date(ap.inicio).getTime() >= t; html += '<button class="slot mine ' + ap.status + '" data-id="' + ap.id + '">' + (head ? A.esc(first(ap.cliente_nome)) + '<small>' + A.esc(ap.servico_nome || '') + (ap.sinal_status === 'pendente' ? ' · sinal?' : '') + '</small>' : '<small>↑ ' + A.esc(first(ap.cliente_nome)) + '</small>') + '</button>'; }
+          else if (t < now) html += '<div class="slot past">—</div>';
+          else html += '<button class="slot" data-n="' + c.numero + '" data-t="' + t + '" data-c="' + c.id + '">Livre</button>';
+        });
+      }
+      grid.innerHTML = html;
+      grid.querySelectorAll('button.slot.mine').forEach(function (b) { b.addEventListener('click', function () { edit(appts.find(function (x) { return x.id === b.dataset.id; })); }); });
+      grid.querySelectorAll('button.slot:not(.mine)').forEach(function (b) { b.addEventListener('click', function () { freeClick(b); }); });
+    } else {
+      var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
+      for (var t2 = start; t2 < end; t2 += step * 60000) {
+        html += '<div class="tcell">' + hm(t2) + '</div>';
+        chairs.forEach(function (c, i) {
+          var tf2 = t2 + step * 60000, busy = taken[i].some(function (x) { return t2 < x.f && tf2 > x.i; });
+          if (busy) html += '<div class="slot busy">Reservado</div>';
+          else if (t2 < now) html += '<div class="slot past">—</div>';
+          else html += '<button class="slot" data-n="' + c.numero + '">Livre</button>';
+        });
+      }
+      grid.innerHTML = html;
+      grid.querySelectorAll('button.slot').forEach(function (b) { b.addEventListener('click', function () { A.open(b.dataset.n, cur.str); }); });
     }
-    grid.innerHTML = html;
-    grid.querySelectorAll('button.slot').forEach(function (b) { b.addEventListener('click', function () { A.open(b.dataset.n, cur.str); }); });
     upd.textContent = 'atualizado ' + hm(Date.now());
   }
-  A.load().then(function () {
+  /* ----- modo barbeiro: editar / encaixe ----- */
+  var edM = document.getElementById('edModal'), edB = document.getElementById('edBody');
+  function edOpen() { edM.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function edClose() { edM.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('edClose').addEventListener('click', edClose); edM.addEventListener('click', function (e) { if (e.target === edM) edClose(); });
+  function opts(sel) { return svcs.map(function (s) { return '<option value="' + s.id + '"' + (sel === s.id ? ' selected' : '') + '>' + A.esc(s.nome) + ' · ' + s.duracao_min + ' min</option>'; }).join(''); }
+  function freeClick(b) {
+    var c = A.state.chairs.find(function (x) { return x.id === Number(b.dataset.c); }), t = Number(b.dataset.t);
+    edB.innerHTML = '<div class="ag-head"><span class="ag-step">Horário livre</span><h3>' + hm(t) + ' · ' + A.esc(c.barbeiro) + '</h3></div><div class="ed">' +
+      '<label>Encaixe (nome do cliente)<input id="exNome" placeholder="Nome"></label><label>WhatsApp (opcional)<input id="exZap" inputmode="tel"></label><label>Serviço<select id="exSvc">' + opts() + '</select></label>' +
+      '<div class="acts"><button class="btn btn-primary" id="exSave">Encaixar agora</button><button class="btn" id="exClient">Reserva normal (cliente)</button></div><p class="ag-err" id="exErr" hidden></p></div>';
+    edOpen();
+    document.getElementById('exClient').addEventListener('click', function () { edClose(); A.open(c.numero, cur.str); });
+    document.getElementById('exSave').addEventListener('click', async function () {
+      var nome = document.getElementById('exNome').value.trim(), s = svcs.find(function (x) { return String(x.id) === document.getElementById('exSvc').value; });
+      if (!nome || !s) { document.getElementById('exErr').textContent = 'Nome e serviço.'; document.getElementById('exErr').hidden = false; return; }
+      var zap = document.getElementById('exZap').value.replace(/\D/g, ''); if (zap.length === 10 || zap.length === 11) zap = '55' + zap;
+      var r = await A.sb.from('imperio_appointments').insert({ chair_id: c.id, service_id: s.id, cliente_nome: nome, cliente_whatsapp: zap || null, inicio: new Date(t).toISOString(), fim: new Date(t + s.duracao_min * 60000).toISOString(), status: 'confirmado', origem: 'balcao', sinal_status: 'dispensado', servico_nome: s.nome, servico_preco: s.preco });
+      if (r.error) { document.getElementById('exErr').textContent = r.error.code === '23P01' ? 'Choca com outro horário.' : r.error.message; document.getElementById('exErr').hidden = false; return; }
+      edClose(); render();
+    });
+  }
+  function edit(ap) {
+    var ini = new Date(ap.inicio), fim = new Date(ap.fim);
+    edB.innerHTML = '<div class="ag-head"><span class="ag-step">' + ap.status + ' · sinal ' + ap.sinal_status + (ap.sinal_valor != null ? ' ' + A.brl(ap.sinal_valor) : '') + '</span><h3>' + A.esc(ap.cliente_nome) + '</h3><p class="ag-chair">' + hm(ini) + ' – ' + hm(fim) + ' · ' + A.esc(ap.servico_nome || '') + ' · ' + ap.origem + '</p></div><div class="ed">' +
+      '<label>Nome<input id="edNome" value="' + A.esc(ap.cliente_nome) + '"></label><label>WhatsApp<input id="edZap" value="' + A.esc(ap.cliente_whatsapp || '') + '"></label>' +
+      '<label>Serviço<select id="edSvc">' + opts(ap.service_id) + '</select></label><label>Início (HH:MM)<input id="edHora" value="' + hm(ini) + '"></label><label>Observação<input id="edObs" value="' + A.esc(ap.obs || '') + '"></label>' +
+      '<div class="acts"><button class="btn btn-primary" id="edSave">Salvar</button>' + (ap.status === 'agendado' ? '<button class="btn btn-ok" data-st="sinal">Sinal recebido</button>' : '') + (ap.status !== 'atendido' ? '<button class="btn btn-ok" data-st="atendido">Atendido</button>' : '') + '<button class="btn" data-st="faltou">Faltou</button><button class="btn btn-bad" data-st="cancelado">Cancelar horário</button>' + (ap.cliente_whatsapp ? '<a class="btn" href="https://wa.me/' + A.esc(ap.cliente_whatsapp) + '" target="_blank" rel="noopener">WhatsApp</a>' : '') + '</div><p class="ag-err" id="edErr" hidden></p></div>';
+    edOpen();
+    var err = document.getElementById('edErr');
+    document.getElementById('edSave').addEventListener('click', async function () {
+      var s = svcs.find(function (x) { return String(x.id) === document.getElementById('edSvc').value; }) || {};
+      var h = document.getElementById('edHora').value.trim(), m = h.match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) { err.textContent = 'Hora no formato HH:MM.'; err.hidden = false; return; }
+      var ni = A.at(cur.str, (m[1].length < 2 ? '0' : '') + m[1] + ':' + m[2]), dur = s.duracao_min || Math.round((fim - ini) / 60000);
+      var patch = { cliente_nome: document.getElementById('edNome').value.trim(), cliente_whatsapp: document.getElementById('edZap').value.replace(/\D/g, '') || null, service_id: s.id || ap.service_id, servico_nome: s.nome || ap.servico_nome, servico_preco: s.preco != null ? s.preco : ap.servico_preco, inicio: ni.toISOString(), fim: new Date(ni.getTime() + dur * 60000).toISOString(), obs: document.getElementById('edObs').value.trim() || null };
+      var r = await A.sb.from('imperio_appointments').update(patch).eq('id', ap.id);
+      if (r.error) { err.textContent = r.error.code === '23P01' ? 'Esse horário choca com outro agendamento.' : r.error.message; err.hidden = false; return; }
+      edClose(); render();
+    });
+    edB.querySelectorAll('[data-st]').forEach(function (b) { b.addEventListener('click', async function () {
+      var st = b.dataset.st, patch = st === 'sinal' ? { sinal_status: 'pago', status: 'confirmado' } : { status: st };
+      if (st === 'cancelado' && !confirm('Cancelar o horário de ' + ap.cliente_nome + '?')) return;
+      var r = await A.sb.from('imperio_appointments').update(patch).eq('id', ap.id);
+      if (r.error) { err.textContent = r.error.message; err.hidden = false; return; }
+      edClose(); render();
+    }); });
+  }
+  async function initMode() {
+    try { var s = await A.sb.auth.getSession(); SESSION = s.data.session || null; } catch (e) { SESSION = null; }
+    var tag = document.getElementById('mode'), link = document.getElementById('modeLink');
+    if (SESSION) { tag.textContent = '✂️ modo barbeiro'; tag.hidden = false; link.textContent = 'Admin'; svcs = A.state.services; }
+    else { tag.hidden = true; link.textContent = 'Sou barbeiro'; }
+    A.sb.auth.onAuthStateChange(function (_e, sess) { SESSION = sess || null; initMode(); if (cur) render(); });
+  }
+  A.load().then(async function () {
+    await initMode();
     var days = A.openDays();
     daysEl.innerHTML = days.map(function (d) { return '<button class="day" data-d="' + d.str + '">' + d.label + '</button>'; }).join('');
     daysEl.querySelectorAll('.day').forEach(function (b) { b.addEventListener('click', function () {
