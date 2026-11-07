@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barbearia do Império | Corte, barba e curso de barbeiro em Sobradinho - DF</title>
 <meta name="description" content="Desde 2019 em Sobradinho: corte, barba, sobrancelha, pigmentação, curso de barbeiro e Imperial Store. Agende pelo WhatsApp (61) 99228-1225.">
-<!-- Barbearia do Império · site v1.0.0 · base: template barbearia v2 · edite config.js -->
+<!-- Barbearia do Império · site v1.1.0 · base: template barbearia v2 · edite config.js -->
 <link rel="icon" href="assets/logo.jpg">
 <meta property="og:title" content="Barbearia do Império · Sobradinho - DF">
 <meta property="og:description" content="Corte, barba, curso de barbeiro e Imperial Store. Desde 2019.">
@@ -238,6 +238,41 @@ footer a:hover { color: var(--accent); }
   .chair-grid, .shop-items { grid-template-columns: 1fr; }
   .course-stats div { min-width: 0; flex: 1; }
 }
+
+/* ---------- agenda online (modal) ---------- */
+.ag-modal { position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,.72); backdrop-filter: blur(6px); display: none; align-items: flex-end; justify-content: center; padding: 0; }
+.ag-modal.open { display: flex; }
+.ag-box { position: relative; width: min(560px, 100%); max-height: 92vh; overflow: auto; background: var(--bg-2); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; padding: 30px 26px 34px; }
+@media (min-width: 640px) { .ag-modal { align-items: center; padding: 20px; } .ag-box { border-radius: 8px; border-bottom: 1px solid var(--line); } }
+.ag-close { position: absolute; top: 14px; right: 14px; background: none; border: 1px solid var(--line); color: var(--muted); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
+.ag-step { display: block; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.ag-head h3 { font-family: 'Bebas Neue'; font-weight: 400; font-size: 2.2rem; letter-spacing: .05em; line-height: 1; }
+.ag-chair { color: var(--muted); margin: 6px 0 18px; }
+.ag-sub { color: var(--muted); font-weight: 300; margin: 6px 0 16px; font-size: .95rem; }
+.ag-small { font-size: .8rem; }
+.ag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ag-opt { text-align: left; background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 14px 16px; cursor: pointer; font: inherit; display: grid; gap: 4px; transition: border-color .2s; }
+.ag-opt:hover { border-color: var(--accent); }
+.ag-opt strong { font-family: 'Bebas Neue'; font-weight: 400; font-size: 1.25rem; letter-spacing: .06em; }
+.ag-opt span { color: var(--accent); font-size: .85rem; }
+.ag-days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; scrollbar-width: thin; }
+.ag-day { flex: 0 0 auto; background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 10px 14px; cursor: pointer; font: inherit; font-size: .85rem; white-space: nowrap; }
+.ag-day.on { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+.ag-times { grid-template-columns: repeat(4, 1fr); }
+.ag-time { background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 12px 0; cursor: pointer; font: inherit; font-weight: 600; letter-spacing: .05em; }
+.ag-time:hover { border-color: var(--accent); color: var(--accent); }
+.ag-form { display: grid; gap: 14px; }
+.ag-form label { display: grid; gap: 6px; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.ag-form input { background: var(--card); border: 1px solid var(--line); color: var(--cream); padding: 14px; font: inherit; font-size: 1rem; }
+.ag-form input:focus { outline: none; border-color: var(--accent); }
+.ag-form .btn { justify-content: center; }
+.ag-err { color: #e0735f; font-size: .9rem; }
+.ag-alt { margin-top: 18px; font-size: .85rem; } .ag-alt a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+.ag-ok p { margin-bottom: 10px; } .ag-ok .btn { width: 100%; justify-content: center; margin-top: 10px; }
+.ag-pix { background: var(--card); border: 1px dashed var(--accent); padding: 16px; margin: 14px 0; display: grid; gap: 8px; }
+.ag-pix small { color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-size: .7rem; }
+.ag-pix code { font-size: 1rem; word-break: break-all; color: var(--cream); }
+.ag-copy { justify-self: start; background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 14px; cursor: pointer; font: inherit; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
 </style>
 </head>
 <body>
@@ -437,6 +472,8 @@ footer a:hover { color: var(--accent); }
 
 <script src="config.js"></script>
 <script src="engine.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<script src="agenda.js"></script>
 <script>
 /* Império: botões com mensagem de WhatsApp vinda do config (data-wa-key) */
 (function () {

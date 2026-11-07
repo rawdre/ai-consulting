@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.0.0',
+  versao: 'v1.1.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -140,6 +140,13 @@ window.SITE = {
     titulo: 'Seu estilo te espera.',
     texto: 'Agende seu horário agora pelo WhatsApp e garanta o melhor corte da região.',
     imagem: 'assets/exterior.jpg'
+  },
+
+  // Agenda online (Supabase). A chave 'anon' é pública por natureza: o banco só libera o que as
+  // políticas (RLS) permitem — ler cadeiras/serviços/horários ocupados e criar agendamento.
+  backend: {
+    url: 'https://yuovkylnxembouzkgwcw.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1b3ZreWxueGVtYm91emtnd2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDYxODksImV4cCI6MjA5ODY4MjE4OX0.I7svvzkWbZmBKb9YPIk4EA1jZP1laEDYBWQQz-VxOPs'
   },
 
   rodape: {
