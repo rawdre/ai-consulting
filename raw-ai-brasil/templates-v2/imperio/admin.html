@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Barbearia do Império</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --accent:#C9A24A; --accent-soft:rgba(201,162,74,.16); --bg:#0c0b0a; --bg-2:#141210; --card:#1a1715; --cream:#f3eadc; --muted:#a39a8e; --line:rgba(243,234,220,.1); --ok:#5fbf7a; --warn:#e0b25f; --bad:#e0735f; }
+*{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth} body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--cream);line-height:1.45;min-height:100vh}
+a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit;color:inherit}
+.container{width:min(1280px,calc(100% - 28px));margin:0 auto}
+h1,h2,h3,.display{font-family:'Bebas Neue';font-weight:400;letter-spacing:.05em;line-height:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(243,234,220,.3);background:none;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{border-color:var(--accent);color:var(--accent)} .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)} .btn-primary:hover{background:var(--cream);color:var(--bg)}
+.btn-ok{border-color:var(--ok);color:var(--ok)} .btn-bad{border-color:var(--bad);color:var(--bad)} .btn-sm{padding:7px 10px;font-size:.66rem;letter-spacing:.12em}
+.btn[disabled]{opacity:.5;cursor:wait}
+input,select,textarea{background:var(--card);border:1px solid var(--line);padding:11px 12px;width:100%;font-size:.95rem} input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+label{display:grid;gap:5px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);padding:18px}
+.muted{color:var(--muted)} .small{font-size:.82rem} .gold{color:var(--accent)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px} .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:860px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}} @media (max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+#login .card{width:min(420px,100%);padding:34px 30px;display:grid;gap:16px;text-align:center}
+#login img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);margin:0 auto}
+#login form{display:grid;gap:12px;text-align:left}
+/* app */
+#app{display:none} .topbar{position:sticky;top:0;z-index:50;background:rgba(12,11,10,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .container{display:flex;align-items:center;gap:16px;padding:10px 0;flex-wrap:wrap}
+.brand{display:inline-flex;align-items:center;gap:12px;font-family:'Bebas Neue';font-size:1.6rem;letter-spacing:.1em} .brand img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto} .tab{padding:10px 14px;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border:1px solid transparent;cursor:pointer;background:none}
+.tab.on{color:var(--accent);border-color:var(--accent)} .tab:hover{color:var(--cream)}
+.view{display:none;padding:22px 0 60px} .view.on{display:block}
+.head{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px} .head h2{font-size:2.4rem}
+/* agenda do dia */
+.daynav{display:flex;gap:8px;align-items:center} .daynav input{width:auto}
+.cols{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:12px} @media (max-width:980px){.cols{grid-template-columns:1fr 1fr}} @media (max-width:600px){.cols{grid-template-columns:1fr}}
+.col h3{font-size:1.5rem;margin-bottom:4px} .col .sub{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.appt{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--muted);padding:12px 12px 10px;margin-bottom:8px;display:grid;gap:6px}
+.appt.agendado{border-left-color:var(--warn)} .appt.confirmado{border-left-color:var(--ok)} .appt.atendido{border-left-color:#5c7aa8;opacity:.75} .appt.cancelado,.appt.faltou{border-left-color:var(--bad);opacity:.55}
+.appt .t{font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:.05em} .appt .n{font-weight:600} .appt .s{font-size:.85rem;color:var(--muted)}
+.badge{display:inline-block;padding:2px 8px;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted)}
+.badge.pago{color:var(--ok);border-color:var(--ok)} .badge.pendente{color:var(--warn);border-color:var(--warn)} .badge.dispensado{color:var(--muted)}
+.appt .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.empty{color:var(--muted);font-size:.85rem;padding:10px 0}
+/* painel */
+body.tv .topbar{display:none} body.tv #painel{padding:14px 0}
+.tvgrid{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:14px} @media (max-width:980px){.tvgrid{grid-template-columns:1fr 1fr}}
+.tvcol{background:var(--card);border:1px solid var(--line);padding:18px}
+.tvcol h3{font-size:2.4rem;color:var(--accent)} .tvcol .lbl{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.tvcol .now{font-family:'Bebas Neue';font-size:2.2rem;letter-spacing:.04em;line-height:1.05} .tvcol .next{font-size:1.35rem;font-weight:600} .tvcol .rest{color:var(--muted);font-size:.95rem;margin-top:6px;display:grid;gap:3px}
+.tvclock{font-family:'Bebas Neue';font-size:3rem;color:var(--accent)}
+/* comanda */
+.items{display:grid;gap:8px} .item{display:grid;grid-template-columns:1fr 70px 100px 36px;gap:8px;align-items:center;background:var(--bg-2);padding:8px 10px;border:1px solid var(--line)}
+.item .nm{font-weight:600} .total{font-family:'Bebas Neue';font-size:2.6rem;color:var(--accent)} .pay{display:flex;gap:8px;flex-wrap:wrap} .pay label{flex:1;display:flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--line);padding:12px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--cream)} .pay input{width:auto}
+.pix{background:var(--bg-2);border:1px dashed var(--accent);padding:12px;display:grid;gap:6px} .pix code{word-break:break-all}
+/* vendas */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px} @media (max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--card);border:1px solid var(--line);padding:16px} .kpi strong{display:block;font-family:'Bebas Neue';font-size:2.2rem;color:var(--accent);line-height:1} .kpi span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.9rem} th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)} td.r,th.r{text-align:right}
+.tbl{overflow:auto}
+/* config */
+.cfg-row{display:grid;grid-template-columns:repeat(var(--c,5),1fr) auto;gap:8px;align-items:end;padding:10px 0;border-bottom:1px solid var(--line)} @media (max-width:860px){.cfg-row{grid-template-columns:1fr 1fr}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);color:var(--cream);padding:12px 18px;z-index:200;display:none;font-size:.9rem} .toast.on{display:block}
+.err{color:var(--bad);font-size:.85rem}
+</style>
+</head>
+<body>
+<div id="login">
+  <div class="card">
+    <img src="assets/logo.jpg" alt="Barbearia do Império">
+    <h1 style="font-size:2.2rem">Barbearia do Império</h1>
+    <p class="muted small">Área do dono e dos barbeiros</p>
+    <form id="loginForm">
+      <label>E-mail<input type="email" name="email" required autocomplete="username"></label>
+      <label>Senha<input type="password" name="password" required autocomplete="current-password"></label>
+      <p class="err" id="loginErr" hidden></p>
+      <button class="btn btn-primary" type="submit">Entrar</button>
+    </form>
+    <a class="small muted" href="./">← voltar ao site</a>
+  </div>
+</div>
+
+<div id="app">
+  <div class="topbar"><div class="container">
+    <a class="brand" href="./"><img src="assets/logo.jpg" alt=""><span>Império · Admin</span></a>
+    <nav class="tabs">
+      <button class="tab on" data-v="hoje">Hoje</button><button class="tab" data-v="painel">Painel</button><button class="tab" data-v="comanda">Comanda</button><button class="tab" data-v="vendas">Vendas</button><button class="tab" data-v="config">Config</button><button class="tab" id="logout">Sair</button>
+    </nav>
+  </div></div>
+
+  <section class="view on container" id="hoje">
+    <div class="head"><div><h2>Agenda do dia</h2><p class="muted small" id="hojeInfo"></p></div>
+      <div class="daynav"><button class="btn btn-sm" id="dPrev">‹</button><input type="date" id="dPick"><button class="btn btn-sm" id="dNext">›</button><button class="btn btn-sm" id="dToday">Hoje</button><button class="btn btn-sm" id="dRefresh">↻</button></div></div>
+    <div class="cols" id="cols"></div>
+  </section>
+
+  <section class="view container" id="painel">
+    <div class="head"><div><h2>Painel das cadeiras</h2><p class="muted small">Quem está na cadeira e quem é o próximo. Atualiza a cada 30 s.</p></div>
+      <div class="row"><span class="tvclock" id="tvClock"></span><button class="btn btn-sm" id="tvFull">Tela cheia</button></div></div>
+    <div class="tvgrid" id="tvgrid"></div>
+  </section>
+
+  <section class="view container" id="comanda">
+    <div class="head"><div><h2>Comanda</h2><p class="muted small" id="cmdInfo">Feche a conta do cliente: serviços, produtos, forma de pagamento.</p></div><button class="btn btn-sm" id="cmdNew">Nova comanda</button></div>
+    <div class="grid2">
+      <div class="card" style="display:grid;gap:12px">
+        <label>Cadeira / barbeiro<select id="cmdChair"></select></label>
+        <div class="row"><label style="flex:1">Adicionar serviço<select id="cmdSvc"></select></label><button class="btn btn-sm" id="cmdAddSvc">+ Serviço</button></div>
+        <div class="row"><label style="flex:1">Adicionar produto<select id="cmdProd"></select></label><button class="btn btn-sm" id="cmdAddProd">+ Produto</button></div>
+        <div class="row"><label style="flex:2">Outro item (ex.: Curso, matrícula)<input id="cmdOtherName" placeholder="Descrição"></label><label style="flex:1">R$<input id="cmdOtherPrice" type="number" step="0.01" min="0"></label><button class="btn btn-sm" id="cmdAddOther">+ Item</button></div>
+        <div class="items" id="cmdItems"></div>
+        <label>Observação<input id="cmdObs" placeholder="opcional"></label>
+      </div>
+      <div class="card" style="display:grid;gap:14px;align-content:start">
+        <div><span class="muted small">Total da comanda</span><div class="total" id="cmdTotal">R$ 0,00</div><p class="small muted" id="cmdDeposit"></p></div>
+        <div class="pay"><label><input type="radio" name="pay" value="pix" checked> Pix</label><label><input type="radio" name="pay" value="cartao"> Cartão</label><label><input type="radio" name="pay" value="dinheiro"> Dinheiro</label></div>
+        <div class="pix" id="cmdPix"></div>
+        <p class="err" id="cmdErr" hidden></p>
+        <button class="btn btn-primary" id="cmdSave">Fechar comanda</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="view container" id="vendas">
+    <div class="head"><div><h2>Vendas</h2><p class="muted small" id="vInfo"></p></div>
+      <div class="row"><button class="btn btn-sm" data-p="hoje">Hoje</button><button class="btn btn-sm" data-p="semana">Semana</button><button class="btn btn-sm" data-p="mes">Mês</button><input type="date" id="vFrom" style="width:auto"><input type="date" id="vTo" style="width:auto"><button class="btn btn-sm" id="vGo">Filtrar</button><button class="btn btn-sm" id="vCsv">CSV</button></div></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2" style="margin-bottom:16px"><div class="card tbl" id="vByChair"></div><div class="card tbl" id="vByPay"></div></div>
+    <div class="card tbl" id="vList"></div>
+  </section>
+
+  <section class="view container" id="config">
+    <div class="head"><div><h2>Configurações</h2><p class="muted small">Cadeiras, serviços, produtos, Pix e horários. Tudo que o site e a agenda usam.</p></div></div>
+    <div class="card" style="margin-bottom:14px"><h3 style="font-size:1.6rem;margin-bottom:8px">Cadeiras & barbeiros</h3><div id="cfgChairs"></div></div>
+    <div class="card" style="margin-bottom:14px"><h3 style="font-size:1.6rem;margin-bottom:8px">Serviços</h3><div id="cfgSvcs"></div><button class="btn btn-sm" id="cfgAddSvc" style="margin-top:10px">+ Novo serviço</button></div>
+    <div class="card" style="margin-bottom:14px"><h3 style="font-size:1.6rem;margin-bottom:8px">Produtos (Imperial Store)</h3><div id="cfgProds"></div><button class="btn btn-sm" id="cfgAddProd" style="margin-top:10px">+ Novo produto</button></div>
+    <div class="grid2">
+      <div class="card" style="display:grid;gap:10px"><h3 style="font-size:1.6rem">Pix & sinal</h3>
+        <label>Chave Pix<input id="sPix"></label><label>Nome do recebedor<input id="sPixNome"></label><label>Sinal (% do serviço)<input id="sSinal" type="number" min="0" max="100"></label>
+        <label>WhatsApp (só números, com 55)<input id="sZap"></label><button class="btn btn-primary btn-sm" id="sSave1">Salvar</button></div>
+      <div class="card" style="display:grid;gap:10px"><h3 style="font-size:1.6rem">Agenda</h3>
+        <label>Grade (min)<input id="sSlot" type="number" min="10" step="5"></label><label>Antecedência mínima (min)<input id="sLead" type="number" min="0"></label><label>Dias abertos à frente<input id="sDays" type="number" min="1" max="60"></label>
+        <div id="sHours" style="display:grid;gap:6px"></div><button class="btn btn-primary btn-sm" id="sSave2">Salvar</button></div>
+    </div>
+    <div class="card" style="margin-top:14px;display:grid;gap:10px;max-width:420px"><h3 style="font-size:1.6rem">Trocar senha</h3><label>Nova senha<input id="newPw" type="password" minlength="8"></label><button class="btn btn-sm" id="pwSave">Atualizar senha</button></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

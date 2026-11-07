@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda do dia · Barbearia do Império</title>
+<meta name="description" content="Veja os horários livres de cada cadeira da Barbearia do Império e reserve o seu.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="stylesheet" href="agenda.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --accent:#C9A24A; --accent-soft:rgba(201,162,74,.16); --bg:#0c0b0a; --bg-2:#141210; --card:#1a1715; --cream:#f3eadc; --muted:#a39a8e; --line:rgba(243,234,220,.09); }
+*{margin:0;padding:0;box-sizing:border-box} body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--cream);line-height:1.5;min-height:100vh}
+a{color:inherit;text-decoration:none} .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:inline-flex;align-items:center;gap:14px;font-family:'Bebas Neue';font-size:2rem;letter-spacing:.12em}
+.brand img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:1px solid var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;font-size:.76rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(243,234,220,.35);cursor:pointer;transition:all .25s;background:none;color:var(--cream);font-family:inherit}
+.btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)} .btn:hover{border-color:var(--accent);color:var(--accent)} .btn-primary:hover{background:var(--cream);color:var(--bg)}
+h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);letter-spacing:.04em;line-height:1;margin:26px 0 6px}
+.sub{color:var(--muted);font-weight:300;margin-bottom:18px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:thin}
+.day{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--cream);padding:10px 14px;cursor:pointer;font:inherit;font-size:.85rem;white-space:nowrap}
+.day.on{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-bottom:14px}
+.legend i{display:inline-block;width:12px;height:12px;border:1px solid var(--accent);margin-right:6px;vertical-align:-1px} .legend i.b{background:#2a2420;border-color:#3a322c} .legend i.p{background:transparent;border-color:var(--line)}
+.grid{display:grid;grid-template-columns:72px repeat(var(--n,4),1fr);gap:6px;align-items:stretch}
+.hcell{position:sticky;top:0;z-index:2;background:var(--bg-2);border:1px solid var(--line);padding:12px 8px;text-align:center}
+.hcell strong{display:block;font-family:'Bebas Neue';font-weight:400;font-size:1.35rem;letter-spacing:.06em} .hcell small{color:var(--muted);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase}
+.tcell{font-size:.78rem;color:var(--muted);text-align:right;padding:10px 8px 0 0;font-weight:600}
+.slot{border:1px solid var(--accent);background:var(--accent-soft);color:var(--cream);padding:10px 6px;text-align:center;font-size:.8rem;cursor:pointer;font:inherit;transition:background .2s;min-height:42px}
+.slot:hover{background:var(--accent);color:var(--bg);font-weight:600}
+.slot.busy{background:#2a2420;border-color:#3a322c;color:#8a7f72;cursor:default} .slot.busy:hover{background:#2a2420;color:#8a7f72;font-weight:400}
+.slot.past{background:transparent;border-color:var(--line);color:#4f4740;cursor:default} .slot.past:hover{background:transparent;color:#4f4740;font-weight:400}
+.note{color:var(--muted);font-size:.85rem;margin:18px 0 40px}
+.upd{font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:720px){.grid{grid-template-columns:52px repeat(var(--n,4),1fr);gap:4px}.hcell strong{font-size:1.05rem}.hcell small{display:none}.slot{padding:9px 2px;font-size:.72rem;min-height:38px}.tcell{font-size:.7rem;padding-right:4px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top">
+    <a class="brand" href="./"><img src="assets/logo.jpg" alt=""><span>Barbearia do Império</span></a>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="upd" id="upd"></span><a class="btn" href="./">← Site</a></div>
+  </div>
+  <h1>Agenda do dia</h1>
+  <p class="sub">Toque em um horário livre para reservar com o barbeiro daquela cadeira. A agenda atualiza sozinha.</p>
+  <div class="days" id="days"></div>
+  <div class="legend"><span><i></i> Livre</span><span><i class="b"></i> Reservado</span><span><i class="p"></i> Já passou</span></div>
+  <div class="grid" id="grid"><p class="sub">Carregando…</p></div>
+  <p class="note">Horários de 30 em 30 minutos. Serviços mais longos (ex.: corte + barba) precisam de dois horários seguidos livres — o sistema confere isso na hora da reserva. Reserva confirmada com sinal de 50% pelo Pix.</p>
+</div>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<script src="agenda.js"></script>
+<script>
+(function () {
+  var A = window.IMPERIO_AGENDA; var grid = document.getElementById('grid'), daysEl = document.getElementById('days'), upd = document.getElementById('upd');
+  if (!A) { grid.innerHTML = '<p class="sub">Agenda indisponível. Agende pelo WhatsApp (61) 99228-1225.</p>'; return; }
+  var TZ = '-03:00', cur = null, timer = null;
+  var at = function (d, hm) { return new Date(d + 'T' + hm + ':00' + TZ); };
+  var hm = function (t) { return new Date(t).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }); };
+  async function render() {
+    var S = A.state, step = Number(S.settings.slot_min || 30), chairs = S.chairs;
+    grid.style.setProperty('--n', chairs.length);
+    var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
+    var start = at(cur.str, cur.hours[0]).getTime(), end = at(cur.str, cur.hours[1]).getTime(), now = Date.now();
+    var html = '<div class="hcell"></div>' + chairs.map(function (c) { return '<div class="hcell"><strong>' + c.barbeiro + '</strong><small>Cadeira ' + c.numero + '</small></div>'; }).join('');
+    for (var t = start; t < end; t += step * 60000) {
+      html += '<div class="tcell">' + hm(t) + '</div>';
+      chairs.forEach(function (c, i) {
+        var tf = t + step * 60000, busy = taken[i].some(function (x) { return t < x.f && tf > x.i; });
+        if (busy) html += '<div class="slot busy">Reservado</div>';
+        else if (t < now) html += '<div class="slot past">—</div>';
+        else html += '<button class="slot" data-n="' + c.numero + '">Livre</button>';
+      });
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('button.slot').forEach(function (b) { b.addEventListener('click', function () { A.open(b.dataset.n, cur.str); }); });
+    upd.textContent = 'atualizado ' + hm(Date.now());
+  }
+  A.load().then(function () {
+    var days = A.openDays();
+    daysEl.innerHTML = days.map(function (d) { return '<button class="day" data-d="' + d.str + '">' + d.label + '</button>'; }).join('');
+    daysEl.querySelectorAll('.day').forEach(function (b) { b.addEventListener('click', function () {
+      daysEl.querySelectorAll('.day').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
+      cur = days.find(function (d) { return d.str === b.dataset.d; }); render();
+    }); });
+    daysEl.querySelector('.day').click();
+    timer = setInterval(function () { if (!document.hidden && cur) render(); }, 60000);
+  }).catch(function () { grid.innerHTML = '<p class="sub">Não consegui carregar a agenda. Agende pelo WhatsApp (61) 99228-1225.</p>'; });
+})();
+</script>
+</body>
+</html>

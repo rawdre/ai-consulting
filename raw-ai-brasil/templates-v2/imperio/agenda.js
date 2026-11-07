@@ -13,7 +13,7 @@
   var DIAS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
   var DIAS_LABEL = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-  var state = { chairs: [], services: [], settings: {}, chair: null, service: null, day: null, slot: null, booking: null };
+  var state = { chairs: [], services: [], settings: {}, chair: null, service: null, day: null, slot: null, booking: null, preDay: null };
   var brl = function (v) { return v == null ? '—' : 'R$ ' + Number(v).toFixed(2).replace('.', ','); };
   var pad = function (n) { return String(n).padStart(2, '0'); };
   var ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
@@ -24,7 +24,7 @@
   /* ---------- dados ---------- */
   async function load() {
     var r = await Promise.all([
-      sb.from('imperio_chairs').select('id,numero,barbeiro,especialidade').eq('ativo', true).order('ordem'),
+      sb.from('imperio_chairs').select('id,numero,barbeiro,especialidade,dias').eq('ativo', true).order('ordem'),
       sb.from('imperio_services').select('id,nome,preco,duracao_min').eq('ativo', true).order('ordem'),
       sb.from('imperio_settings').select('key,value')
     ]);
@@ -97,7 +97,8 @@
       body.querySelectorAll('.ag-day').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
       state.day = days.find(function (d) { return d.str === b.dataset.d; }); showSlots();
     }); });
-    if (days[0]) body.querySelector('.ag-day').click();
+    var pre = state.preDay && body.querySelector('.ag-day[data-d="' + state.preDay + '"]');
+    (pre || body.querySelector('.ag-day')) && (pre || body.querySelector('.ag-day')).click();
   }
   async function showSlots() {
     var box = body.querySelector('.ag-slots'); box.innerHTML = '<p class="ag-sub">Buscando horários…</p>';
@@ -155,7 +156,8 @@
     if (cp) cp.addEventListener('click', function () { navigator.clipboard && navigator.clipboard.writeText(pix).then(function () { cp.textContent = 'Copiado ✓'; }); });
   }
 
-  async function open(numero) {
+  async function open(numero, preDay) {
+    state.preDay = preDay || null;
     modal.classList.add('open'); document.body.style.overflow = 'hidden';
     body.innerHTML = '<p class="ag-sub" style="padding:30px 0">Carregando agenda…</p>';
     try {
@@ -174,5 +176,16 @@
     btn.textContent = 'Agendar nesta cadeira';
     btn.addEventListener('click', function (e) { e.preventDefault(); open(numEl ? numEl.textContent.trim() : ''); });
   });
-  window.IMPERIO_AGENDA = { open: open };
+  /* nomes/especialidades dos cards vêm do banco (admin → Config) assim que ele responde */
+  load().then(function () {
+    document.querySelectorAll('.chair').forEach(function (card) {
+      var numEl = card.querySelector('.num span'); if (!numEl) return;
+      var c = state.chairs.find(function (x) { return x.numero === numEl.textContent.trim(); });
+      if (!c) { card.style.display = 'none'; return; }
+      var h = card.querySelector('h3'), sp = card.querySelector('.spec'), dy = card.querySelector('.days'), av = card.querySelector('.avatar');
+      if (h) h.textContent = c.barbeiro; if (sp && c.especialidade) sp.textContent = c.especialidade; if (dy && c.dias) dy.textContent = c.dias;
+      if (av) av.textContent = (c.barbeiro || 'B').trim().charAt(0).toUpperCase();
+    });
+  }).catch(function () {});
+  window.IMPERIO_AGENDA = { open: open, state: state, load: load, takenFor: takenFor, openDays: openDays };
 })();

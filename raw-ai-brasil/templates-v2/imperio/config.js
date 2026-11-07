@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.2.0',
+  versao: 'v1.3.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -92,10 +92,10 @@ window.SITE = {
     titulo: 'Escolha seu barbeiro',
     texto: 'Cada cadeira tem um profissional. Toque na cadeira e agende direto com ele pelo WhatsApp.',
     lista: [
-      { numero: '01', barbeiro: 'Barbeiro 1', inicial: 'B', especialidade: 'Degradê & navalhado', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 01 (Barbeiro 1) da Barbearia do Império.' },
-      { numero: '02', barbeiro: 'Barbeiro 2', inicial: 'B', especialidade: 'Barba & pigmentação', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 02 (Barbeiro 2) da Barbearia do Império.' },
-      { numero: '03', barbeiro: 'Barbeiro 3', inicial: 'B', especialidade: 'Corte social & moderno', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 03 (Barbeiro 3) da Barbearia do Império.' },
-      { numero: '04', barbeiro: 'Barbeiro 4', inicial: 'B', especialidade: 'Corte + barba completo', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 04 (Barbeiro 4) da Barbearia do Império.' }
+      { numero: '01', barbeiro: 'William', inicial: 'W', especialidade: 'Degradê & navalhado', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 01 (William) da Barbearia do Império.' },
+      { numero: '02', barbeiro: 'Adonai', inicial: 'A', especialidade: 'Barba & pigmentação', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 02 (Adonai) da Barbearia do Império.' },
+      { numero: '03', barbeiro: 'Mateus', inicial: 'M', especialidade: 'Corte social & moderno', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 03 (Mateus) da Barbearia do Império.' },
+      { numero: '04', barbeiro: 'Emanuel', inicial: 'E', especialidade: 'Corte + barba completo', dias: 'Seg a sáb · 08:30 às 20:00', wa: 'Olá! Quero agendar um horário na Cadeira 04 (Emanuel) da Barbearia do Império.' }
     ]
   },
 
