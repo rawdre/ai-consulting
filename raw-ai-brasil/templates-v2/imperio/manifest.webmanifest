@@ -16,6 +16,7 @@
   ],
   "shortcuts": [
     { "name": "Agendar horário", "url": "./agenda.html?src=pwa", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Admin (barbeiros)", "url": "./admin.html", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "WhatsApp", "url": "https://wa.me/5561992281225" }
   ]
 }
