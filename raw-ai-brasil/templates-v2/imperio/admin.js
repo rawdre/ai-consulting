@@ -211,6 +211,7 @@
     $$('#vendas [data-p]').forEach(function (b) { b.addEventListener('click', function () { period(b.dataset.p); }); });
     $('#vGo').addEventListener('click', function () { V.from = $('#vFrom').value || V.from; V.to = $('#vTo').value || V.to; loadVendas(); });
     $('#vCsv').addEventListener('click', csv);
+    $('#vRep').addEventListener('click', function () { window.open('relatorio.html?de=' + ($('#vFrom').value || V.from) + '&ate=' + ($('#vTo').value || V.to), '_blank'); });
   }
   function period(p) {
     var d = new Date(), f = new Date(d);

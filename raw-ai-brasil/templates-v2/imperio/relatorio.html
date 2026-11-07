@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório · Barbearia do Império</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#C9A24A;--bg:#0c0b0a;--card:#1a1715;--cream:#f3eadc;--muted:#a39a8e;--line:rgba(243,234,220,.12)}
+*{margin:0;padding:0;box-sizing:border-box} body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--cream);line-height:1.45}
+.wrap{width:min(960px,calc(100% - 28px));margin:0 auto;padding:22px 0 60px}
+h1,h2,h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.05em;line-height:1}
+.head{display:flex;align-items:center;gap:16px;margin-bottom:6px} .head img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+.head h1{font-size:2.4rem} .head p{color:var(--muted)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(243,234,220,.3);background:none;color:var(--cream);cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px} .kpi{background:var(--card);border:1px solid var(--line);padding:14px} .kpi strong{display:block;font-family:'Bebas Neue';font-size:2rem;color:var(--accent);line-height:1} .kpi span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);padding:16px;margin-bottom:14px} .card h2{font-size:1.5rem;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:.9rem} th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)} td.r,th.r{text-align:right} tr.tot td{font-weight:700;color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:.82rem}
+pre.wa{white-space:pre-wrap;background:#0f0e0c;border:1px dashed var(--accent);padding:14px;font-family:inherit;font-size:.9rem}
+@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}}
+@media print{body{background:#fff;color:#111}:root{--card:#fff;--cream:#111;--muted:#555;--line:#ddd;--accent:#8a6a1e}.tools,.wa-card{display:none}.card,.kpi{border:1px solid #ddd;break-inside:avoid}.head img{border-color:#8a6a1e}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><img src="assets/logo.jpg" alt=""><div><h1>Barbearia do Império</h1><p id="sub">Relatório</p></div></div>
+  <div class="tools"><button class="btn btn-primary" onclick="window.print()">🖨 Imprimir / salvar PDF</button><button class="btn" id="copyWa">Copiar resumo (WhatsApp)</button><a class="btn" href="admin.html#vendas">← Admin</a></div>
+  <div id="out"><p class="muted">Carregando…</p></div>
+</div>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  var B = (window.SITE || {}).backend || {}, sb = window.supabase.createClient(B.url, B.anonKey);
+  var $ = function (s) { return document.querySelector(s); }, TZ = '-03:00';
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var brl = function (v) { return 'R$ ' + Number(v || 0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var dmy = function (x) { return new Date(x).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }); };
+  var hm = function (x) { return new Date(x).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }); };
+  var ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  var q = new URLSearchParams(location.search), per = q.get('periodo') || 'dia', now = new Date(), from, to = ymd(now), label;
+  if (q.get('de') && q.get('ate')) { from = q.get('de'); to = q.get('ate'); label = 'Período ' + dmy(from + 'T12:00:00') + ' a ' + dmy(to + 'T12:00:00'); }
+  else if (per === 'semana') { var f = new Date(now); f.setDate(now.getDate() - now.getDay()); from = ymd(f); label = 'Semana de ' + dmy(from + 'T12:00:00') + ' a ' + dmy(to + 'T12:00:00'); }
+  else if (per === 'mes') { from = ymd(new Date(now.getFullYear(), now.getMonth(), 1)); label = 'Mês de ' + now.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }); }
+  else { from = to; label = 'Dia ' + dmy(from + 'T12:00:00'); }
+  $('#sub').textContent = 'Relatório · ' + label + ' · gerado ' + dmy(now) + ' ' + hm(now);
+  document.title = 'Relatório ' + label + ' · Império';
+  var r0 = new Date(from + 'T00:00:00' + TZ).toISOString(), r1 = new Date(to + 'T23:59:59' + TZ).toISOString();
+  var WA = '';
+  async function run() {
+    var s = await sb.auth.getSession(); if (!s.data.session) { $('#out').innerHTML = '<p>Faça login no <a href="admin.html" style="color:var(--accent)">admin</a> e abra o relatório de novo.</p>'; return; }
+    var r = await Promise.all([
+      sb.from('imperio_chairs').select('id,barbeiro,comissao_pct').order('ordem'),
+      sb.from('imperio_sales').select('*').gte('data', r0).lte('data', r1).order('data'),
+      sb.from('imperio_appointments').select('chair_id,status,sinal_status,sinal_valor,origem,inicio').gte('inicio', r0).lte('inicio', r1)
+    ]);
+    if (r[0].error || r[1].error || r[2].error) { $('#out').innerHTML = '<p>Erro: ' + esc((r[0].error || r[1].error || r[2].error).message) + '</p>'; return; }
+    var chairs = r[0].data, sales = r[1].data, appts = r[2].data, name = function (id) { var c = chairs.find(function (x) { return x.id === id; }); return c ? c.barbeiro : '—'; };
+    var tot = sales.reduce(function (a, x) { return a + Number(x.total); }, 0), com = sales.reduce(function (a, x) { return a + Number(x.comissao_valor || 0); }, 0);
+    var byC = {}, byP = { pix: 0, cartao: 0, dinheiro: 0 }, items = {};
+    sales.forEach(function (x) { var k = name(x.chair_id); byC[k] = byC[k] || { n: 0, t: 0, c: 0, pix: 0, cartao: 0, dinheiro: 0 }; byC[k].n++; byC[k].t += Number(x.total); byC[k].c += Number(x.comissao_valor || 0); byC[k][x.pagamento] += Number(x.total); byP[x.pagamento] += Number(x.total);
+      (x.itens || []).forEach(function (i) { var kk = (i.tipo || 'item') + '|' + i.nome; items[kk] = items[kk] || { tipo: i.tipo, nome: i.nome, q: 0, v: 0 }; items[kk].q += Number(i.qtd || 1); items[kk].v += Number(i.preco) * Number(i.qtd || 1); }); });
+    chairs.forEach(function (c) { byC[c.barbeiro] = byC[c.barbeiro] || { n: 0, t: 0, c: 0, pix: 0, cartao: 0, dinheiro: 0 }; });
+    var st = { agendado: 0, confirmado: 0, atendido: 0, faltou: 0, cancelado: 0 }; appts.forEach(function (a) { st[a.status] = (st[a.status] || 0) + 1; });
+    var sinais = appts.filter(function (a) { return a.sinal_status === 'pago'; }).reduce(function (a, x) { return a + Number(x.sinal_valor || 0); }, 0);
+    var online = appts.filter(function (a) { return a.origem === 'site'; }).length;
+    var html = '<div class="kpis">' + [[brl(tot), 'faturamento'], [sales.length, 'comandas'], [brl(sales.length ? tot / sales.length : 0), 'ticket médio'], [brl(com), 'comissões'], [brl(tot - com), 'fica na casa']].map(function (k) { return '<div class="kpi"><strong>' + k[0] + '</strong><span>' + k[1] + '</span></div>'; }).join('') + '</div>';
+    html += '<div class="card"><h2>Por barbeiro</h2><table><tr><th>Barbeiro</th><th class="r">Comandas</th><th class="r">Pix</th><th class="r">Cartão</th><th class="r">Dinheiro</th><th class="r">Total</th><th class="r">Comissão</th><th class="r">Casa</th></tr>' +
+      Object.keys(byC).map(function (k) { var x = byC[k]; return '<tr><td>' + esc(k) + '</td><td class="r">' + x.n + '</td><td class="r">' + brl(x.pix) + '</td><td class="r">' + brl(x.cartao) + '</td><td class="r">' + brl(x.dinheiro) + '</td><td class="r">' + brl(x.t) + '</td><td class="r">' + brl(x.c) + '</td><td class="r">' + brl(x.t - x.c) + '</td></tr>'; }).join('') +
+      '<tr class="tot"><td>Total</td><td class="r">' + sales.length + '</td><td class="r">' + brl(byP.pix) + '</td><td class="r">' + brl(byP.cartao) + '</td><td class="r">' + brl(byP.dinheiro) + '</td><td class="r">' + brl(tot) + '</td><td class="r">' + brl(com) + '</td><td class="r">' + brl(tot - com) + '</td></tr></table></div>';
+    var it = Object.values(items).sort(function (a, b) { return b.v - a.v; });
+    html += '<div class="card"><h2>Serviços e produtos vendidos</h2>' + (it.length ? '<table><tr><th>Item</th><th>Tipo</th><th class="r">Qtd</th><th class="r">Valor</th></tr>' + it.map(function (i) { return '<tr><td>' + esc(i.nome) + '</td><td>' + esc(i.tipo) + '</td><td class="r">' + i.q + '</td><td class="r">' + brl(i.v) + '</td></tr>'; }).join('') + '</table>' : '<p class="muted">Nenhum item no período.</p>') + '</div>';
+    html += '<div class="card"><h2>Agenda</h2><table><tr><th>Agendamentos</th><th class="r">Online (site)</th><th class="r">Atendidos</th><th class="r">Confirmados</th><th class="r">Aguardando sinal</th><th class="r">Faltas</th><th class="r">Cancelados</th><th class="r">Sinais recebidos</th></tr><tr><td>' + appts.length + '</td><td class="r">' + online + '</td><td class="r">' + st.atendido + '</td><td class="r">' + st.confirmado + '</td><td class="r">' + st.agendado + '</td><td class="r">' + st.faltou + '</td><td class="r">' + st.cancelado + '</td><td class="r">' + brl(sinais) + '</td></tr></table></div>';
+    html += '<div class="card"><h2>Comandas (' + sales.length + ')</h2>' + (sales.length ? '<table><tr><th>Data</th><th>Barbeiro</th><th>Itens</th><th>Pgto</th><th class="r">Total</th></tr>' + sales.map(function (x) { return '<tr><td>' + dmy(x.data) + ' ' + hm(x.data) + '</td><td>' + esc(name(x.chair_id)) + '</td><td>' + (x.itens || []).map(function (i) { return esc(i.nome) + (i.qtd > 1 ? ' ×' + i.qtd : ''); }).join(', ') + (x.obs ? '<br><span class="muted small">' + esc(x.obs) + '</span>' : '') + '</td><td>' + x.pagamento + '</td><td class="r">' + brl(x.total) + '</td></tr>'; }).join('') + '</table>' : '<p class="muted">Nenhuma comanda no período.</p>') + '</div>';
+    WA = '💈 *Barbearia do Império — ' + label + '*\n\n💰 Faturamento: ' + brl(tot) + '\n🧾 Comandas: ' + sales.length + ' · ticket médio ' + brl(sales.length ? tot / sales.length : 0) + '\n💳 Pix ' + brl(byP.pix) + ' · Cartão ' + brl(byP.cartao) + ' · Dinheiro ' + brl(byP.dinheiro) + '\n\n*Por barbeiro:*\n' + Object.keys(byC).map(function (k) { var x = byC[k]; return '• ' + k + ': ' + x.n + ' comandas · ' + brl(x.t) + ' (comissão ' + brl(x.c) + ')'; }).join('\n') + '\n\n📅 Agenda: ' + appts.length + ' agendamentos · ' + st.atendido + ' atendidos · ' + st.faltou + ' faltas · ' + st.cancelado + ' cancelados\n🏠 Fica na casa: ' + brl(tot - com);
+    html += '<div class="card wa-card"><h2>Resumo para WhatsApp</h2><pre class="wa">' + esc(WA) + '</pre></div>';
+    $('#out').innerHTML = html;
+  }
+  $('#copyWa').addEventListener('click', function () { if (!WA) return; navigator.clipboard.writeText(WA).then(function () { $('#copyWa').textContent = 'Copiado ✓'; }); });
+  run().catch(function (e) { $('#out').innerHTML = '<p>Erro: ' + esc(e.message) + '</p>'; });
+})();
+</script>
+</body>
+</html>

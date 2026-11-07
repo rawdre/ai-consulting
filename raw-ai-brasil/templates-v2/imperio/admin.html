@@ -130,7 +130,7 @@ table{width:100%;border-collapse:collapse;font-size:.9rem} th,td{padding:9px 8px
 
   <section class="view container" id="vendas">
     <div class="head"><div><h2>Vendas</h2><p class="muted small" id="vInfo"></p></div>
-      <div class="row"><button class="btn btn-sm" data-p="hoje">Hoje</button><button class="btn btn-sm" data-p="semana">Semana</button><button class="btn btn-sm" data-p="mes">Mês</button><input type="date" id="vFrom" style="width:auto"><input type="date" id="vTo" style="width:auto"><button class="btn btn-sm" id="vGo">Filtrar</button><button class="btn btn-sm" id="vCsv">CSV</button></div></div>
+      <div class="row"><a class="btn btn-sm btn-primary" href="relatorio.html?periodo=dia" target="_blank">📄 Relatório do dia</a><a class="btn btn-sm btn-primary" href="relatorio.html?periodo=semana" target="_blank">📄 da semana</a><a class="btn btn-sm btn-primary" href="relatorio.html?periodo=mes" target="_blank">📄 do mês</a><span style="width:12px"></span><button class="btn btn-sm" data-p="hoje">Hoje</button><button class="btn btn-sm" data-p="semana">Semana</button><button class="btn btn-sm" data-p="mes">Mês</button><input type="date" id="vFrom" style="width:auto"><input type="date" id="vTo" style="width:auto"><button class="btn btn-sm" id="vGo">Filtrar</button><button class="btn btn-sm" id="vRep">📄 Relatório do período</button><button class="btn btn-sm" id="vCsv">CSV</button></div></div>
     <div class="kpis" id="kpis"></div>
     <div class="grid2" style="margin-bottom:16px"><div class="card tbl" id="vByChair"></div><div class="card tbl" id="vByPay"></div></div>
     <div class="card tbl" style="margin-bottom:16px"><h3 style="font-size:1.4rem;margin-bottom:8px">Fechamento por dia e barbeiro</h3><div id="vByDay"></div></div>
