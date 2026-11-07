@@ -26,10 +26,11 @@
     var r = await Promise.all([
       sb.from('imperio_chairs').select('id,numero,barbeiro,especialidade,dias').eq('ativo', true).order('ordem'),
       sb.from('imperio_services').select('id,nome,preco,duracao_min').eq('ativo', true).order('ordem'),
-      sb.from('imperio_settings').select('key,value')
+      sb.from('imperio_settings').select('key,value'),
+      sb.from('imperio_products').select('nome,categoria,preco').eq('ativo', true).order('categoria').order('nome')
     ]);
     if (r[0].error || r[1].error || r[2].error) throw (r[0].error || r[1].error || r[2].error);
-    state.chairs = r[0].data; state.services = r[1].data;
+    state.chairs = r[0].data; state.services = r[1].data; state.products = (r[3] && r[3].data) || [];
     state.settings = {}; r[2].data.forEach(function (s) { state.settings[s.key] = s.value; });
     return state;
   }
@@ -178,6 +179,13 @@
   });
   /* nomes/especialidades dos cards vêm do banco (admin → Config) assim que ele responde */
   load().then(function () {
+    var box = document.getElementById('loja-produtos');
+    if (box && state.products.length) {
+      box.querySelector('.prod-list').innerHTML = state.products.map(function (p) {
+        return '<div class="prod"><div>' + esc(p.nome) + '<span>' + esc(p.categoria || '') + '</span></div><strong>' + (Number(p.preco) > 0 ? brl(p.preco) : 'Consulte') + '</strong></div>';
+      }).join('');
+      box.hidden = false;
+    }
     document.querySelectorAll('.chair').forEach(function (card) {
       var numEl = card.querySelector('.num span'); if (!numEl) return;
       var c = state.chairs.find(function (x) { return x.numero === numEl.textContent.trim(); });

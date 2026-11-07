@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.3.0',
+  versao: 'v1.4.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -39,8 +39,9 @@ window.SITE = {
     selo: 'Desde 2019 · Tradição & Estilo · {bairro}',
     titulo: '{nome}',
     subtitulo: 'Cliente é nossa prioridade',
-    texto: 'Desde 2019, o melhor atendimento e conforto para você. Cortes, barba, cursos profissionalizantes e produtos de cuidados pessoais, tudo no Império dos Nobres.',
-    imagem: 'assets/photo2.jpg'   // alternativa mais cinematográfica: 'assets/photo2-moody.jpg'
+    texto: 'Desde 2019, o melhor atendimento e conforto para você. Corte, barba, sobrancelha e produtos de cuidados pessoais no Império dos Nobres. Agende online com o seu barbeiro.',
+    imagem: 'assets/hero.jpg',          // gerada no Higgsfield (sem marca). Alternativas: assets/hero-alt.jpg (salão amplo), assets/photo2.jpg (foto real)
+    imagemMobile: 'assets/hero-mobile.jpg'
   },
 
   curso: {
@@ -111,6 +112,18 @@ window.SITE = {
       { icone: '✨', titulo: 'Minoxidil & tratamentos', texto: 'Tratamentos capilares, Minoxidil, shampoos Fox e produtos de crescimento.' }
     ],
     wa: 'Olá! Quero saber sobre os produtos da Imperial Store (Barbearia do Império).'
+  },
+
+  // Instagram: troque as fotos em assets/ig/ e o link de cada post (botão abre o post ou o perfil)
+  instagram: {
+    texto: 'Cortes da semana, bastidores e a Imperial Store. Siga e marque a gente no seu corte.',
+    posts: [
+      { imagem: 'assets/ig/DRzdb5EEbTd.jpg', legenda: 'Na cadeira do Império', link: 'https://www.instagram.com/p/DRzdb5EEbTd/' },
+      { imagem: 'assets/ig/CWyFJB3rHWl.jpg', legenda: 'Degradê com risco', link: 'https://www.instagram.com/p/CWyFJB3rHWl/' },
+      { imagem: 'assets/ig/CXUitQdF35Y.jpg', legenda: 'Platinado', link: 'https://www.instagram.com/reel/CXUitQdF35Y/' },
+      { imagem: 'assets/ig/CFTXzeCnNiG.jpg', legenda: 'Corte infantil com desenho', link: 'https://www.instagram.com/p/CFTXzeCnNiG/' },
+      { imagem: 'assets/exterior.jpg', legenda: 'Cond. Império dos Nobres', link: 'https://instagram.com/barbeariadoimperio' }
+    ]
   },
 
   galeria: [

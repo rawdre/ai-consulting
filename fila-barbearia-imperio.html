@@ -760,28 +760,28 @@
                 barbers: [
                     {
                         id: 1,
-                        name: 'Barbeiro 1',
+                        name: 'William',
                         status: 'disponivel',
                         queue: [],
                         avgCutTime: 30
                     },
                     {
                         id: 2,
-                        name: 'Barbeiro 2',
+                        name: 'Adonai',
                         status: 'disponivel',
                         queue: [],
                         avgCutTime: 30
                     },
                     {
                         id: 3,
-                        name: 'Barbeiro 3',
+                        name: 'Mateus',
                         status: 'disponivel',
                         queue: [],
                         avgCutTime: 30
                     },
                     {
                         id: 4,
-                        name: 'Barbeiro 4',
+                        name: 'Emanuel',
                         status: 'disponivel',
                         queue: [],
                         avgCutTime: 30
@@ -816,7 +816,13 @@
         }
 
         function getData() {
-            return JSON.parse(localStorage.getItem('barbearia-imperio-data') || '{}');
+            const d = JSON.parse(localStorage.getItem('barbearia-imperio-data') || '{}');
+            // 2026-11-07: nomes reais dos barbeiros (migra dados antigos salvos no navegador)
+            const REAL = { 1: 'William', 2: 'Adonai', 3: 'Mateus', 4: 'Emanuel' };
+            let changed = false;
+            (d.barbers || []).forEach(b => { if (/^Barbeiro \d$/.test(b.name) && REAL[b.id]) { b.name = REAL[b.id]; changed = true; } });
+            if (changed) localStorage.setItem('barbearia-imperio-data', JSON.stringify(d));
+            return d;
         }
 
         function saveData(data) {

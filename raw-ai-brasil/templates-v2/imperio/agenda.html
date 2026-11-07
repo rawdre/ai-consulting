@@ -7,6 +7,11 @@
 <meta name="description" content="Veja os horários livres de cada cadeira da Barbearia do Império e reserve o seu.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/logo.jpg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#0c0b0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Império">
 <link rel="stylesheet" href="agenda.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -56,6 +61,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
 <script src="agenda.js"></script>
 <script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
 (function () {
   var A = window.IMPERIO_AGENDA; var grid = document.getElementById('grid'), daysEl = document.getElementById('days'), upd = document.getElementById('upd');
   if (!A) { grid.innerHTML = '<p class="sub">Agenda indisponível. Agende pelo WhatsApp (61) 99228-1225.</p>'; return; }
