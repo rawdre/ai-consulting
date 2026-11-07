@@ -15,21 +15,21 @@ h1,h2,h3{font-family:'Bebas Neue';font-weight:400;letter-spacing:.05em;line-heig
 .head{display:flex;align-items:center;gap:16px;margin-bottom:6px} .head img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
 .head h1{font-size:2.4rem} .head p{color:var(--muted)}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(243,234,220,.3);background:none;color:var(--cream);cursor:pointer;font-family:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(243,234,220,.3);background:none;color:var(--cream);cursor:pointer;font-family:inherit}
 .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px} .kpi{background:var(--card);border:1px solid var(--line);padding:14px} .kpi strong{display:block;font-family:'Bebas Neue';font-size:2rem;color:var(--accent);line-height:1} .kpi span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .card{background:var(--card);border:1px solid var(--line);padding:16px;margin-bottom:14px} .card h2{font-size:1.5rem;margin-bottom:10px}
 table{width:100%;border-collapse:collapse;font-size:.9rem} th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)} td.r,th.r{text-align:right} tr.tot td{font-weight:700;color:var(--accent)}
 .muted{color:var(--muted)} .small{font-size:.82rem}
 pre.wa{white-space:pre-wrap;background:#0f0e0c;border:1px dashed var(--accent);padding:14px;font-family:inherit;font-size:.9rem}
-@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.kpis{grid-template-columns:1fr 1fr}.tools{display:grid;grid-template-columns:1fr 1fr}.tools .btn-primary{grid-column:1/-1;padding:16px}.card{overflow-x:auto}table{min-width:520px}.head h1{font-size:1.8rem}}
 @media print{body{background:#fff;color:#111}:root{--card:#fff;--cream:#111;--muted:#555;--line:#ddd;--accent:#8a6a1e}.tools,.wa-card{display:none}.card,.kpi{border:1px solid #ddd;break-inside:avoid}.head img{border-color:#8a6a1e}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="head"><img src="assets/logo.jpg" alt=""><div><h1>Barbearia do Império</h1><p id="sub">Relatório</p></div></div>
-  <div class="tools"><button class="btn btn-primary" onclick="window.print()">🖨 Imprimir / salvar PDF</button><button class="btn" id="copyWa">Copiar resumo (WhatsApp)</button><a class="btn" href="admin.html#vendas">← Admin</a></div>
+  <div class="tools"><button class="btn btn-primary" id="shareWa">📲 Enviar no WhatsApp</button><button class="btn" id="copyWa">Copiar resumo</button><button class="btn" onclick="window.print()">🖨 PDF</button><a class="btn" href="admin.html#vendas">← Admin</a></div>
   <div id="out"><p class="muted">Carregando…</p></div>
 </div>
 <script src="config.js"></script>
@@ -82,6 +82,11 @@ pre.wa{white-space:pre-wrap;background:#0f0e0c;border:1px dashed var(--accent);p
     html += '<div class="card wa-card"><h2>Resumo para WhatsApp</h2><pre class="wa">' + esc(WA) + '</pre></div>';
     $('#out').innerHTML = html;
   }
+  $('#shareWa').addEventListener('click', function () {
+    if (!WA) return;
+    if (navigator.share) navigator.share({ text: WA }).catch(function () {});
+    else window.open('https://wa.me/?text=' + encodeURIComponent(WA), '_blank');
+  });
   $('#copyWa').addEventListener('click', function () { if (!WA) return; navigator.clipboard.writeText(WA).then(function () { $('#copyWa').textContent = 'Copiado ✓'; }); });
   run().catch(function (e) { $('#out').innerHTML = '<p>Erro: ' + esc(e.message) + '</p>'; });
 })();
