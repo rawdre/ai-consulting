@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.1.0',
+  versao: 'v1.2.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -40,7 +40,7 @@ window.SITE = {
     titulo: '{nome}',
     subtitulo: 'Cliente é nossa prioridade',
     texto: 'Desde 2019, o melhor atendimento e conforto para você. Cortes, barba, cursos profissionalizantes e produtos de cuidados pessoais, tudo no Império dos Nobres.',
-    imagem: 'assets/photo2.jpg'
+    imagem: 'assets/photo2.jpg'   // alternativa mais cinematográfica: 'assets/photo2-moody.jpg'
   },
 
   curso: {
