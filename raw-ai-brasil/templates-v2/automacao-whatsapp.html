@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Automação WhatsApp com IA — Raw AI Brasil</title>
+<meta name="description" content="Material de venda: atendente de IA no WhatsApp para negócios locais (barbearia, pet shop, dentista...).">
+<!-- Automação WhatsApp · v1.0.0 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #0b0f16; --panel: #121925; --line: rgba(255,255,255,.08); --text: #eef3fa; --muted: #93a1b5; --accent: #63d8ff; --green: #25D366; --gold: #C9A24A; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Space Grotesk', sans-serif; background: radial-gradient(circle at 10% 0%, rgba(37,211,102,.12), transparent 30%), var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+a { color: var(--accent); text-decoration: none; }
+.container { width: min(1040px, 100% - 32px); margin-inline: auto; padding-block: 32px; }
+.crumbs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+.crumbs a { font-size: .85rem; color: var(--muted); border: 1px solid var(--line); padding: 7px 14px; border-radius: 999px; }
+.crumbs a:hover { color: var(--text); border-color: var(--accent); }
+.kicker { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--green); font-weight: 700; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; margin: 8px 0 12px; }
+.version { display: inline-block; margin-left: 8px; font-size: .75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; vertical-align: middle; }
+h2 { font-size: 1.25rem; margin: 36px 0 12px; color: var(--text); }
+p, li { color: var(--muted); }
+p b, li b { color: var(--text); }
+.lead { font-size: 1.1rem; color: var(--text); }
+.rule { border: 1px solid rgba(255,122,122,.5); background: rgba(255,122,122,.08); border-radius: 14px; padding: 14px 18px; margin: 18px 0; color: #ffb3b3; }
+.quote { border-left: 3px solid var(--green); background: var(--panel); border-radius: 0 14px 14px 0; padding: 16px 20px; color: var(--text); font-size: 1.05rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+.card h3 { font-size: 1rem; margin-bottom: 8px; }
+.card .price { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+.card .price small { font-size: .85rem; color: var(--muted); font-weight: 400; }
+.card.hot { border-color: var(--green); box-shadow: 0 0 0 1px rgba(37,211,102,.25); }
+ol, ul { padding-left: 22px; } li { margin: 6px 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--text); font-weight: 500; }
+.check li { list-style: none; } .check li::before { content: "☐ "; color: var(--accent); }
+.wa { display: inline-block; background: var(--green); color: #06130b; font-weight: 700; padding: 12px 22px; border-radius: 999px; margin-top: 10px; }
+footer { color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); margin-top: 40px; }
+@media (max-width: 640px) { .container { padding-block: 24px; } th, td { padding: 8px; font-size: .88rem; } }
+</style>
+</head>
+<body>
+<header class="container">
+  <nav class="crumbs">
+    <a href="index.html">← Biblioteca de Templates</a>
+    <a href="../index.html">Hub Raw AI Brasil</a>
+    <a href="../brasil/index.html">Landing comercial</a>
+  </nav>
+  <span class="kicker">Raw AI Brasil · Material de venda</span>
+  <h1>Automação WhatsApp com IA <span class="version">v1.0.0</span></h1>
+  <p class="lead">Um atendente de IA no WhatsApp do negócio: responde em segundos, 24h, chama o cliente pelo nome, passa preço, oferece três horários livres de verdade e marca sozinho. O dono só recebe o cliente na cadeira.</p>
+  <div class="rule"><b>Regra interna:</b> nada é construído sem entrada paga (50% do setup). Barbearia do Império em particular: zero trabalho novo sem dinheiro na mesa.</div>
+</header>
+
+<main class="container">
+  <section>
+    <h2>Prova real para mostrar no celular</h2>
+    <p>Exemplo vivido pelo André em 9/11/2026 com a <b>WS Ar Condicionados</b> (Brasília): entrou às 19:57 de domingo, indicado por um amigo. A IA respondeu em segundos, cortou a objeção de "usado", mostrou 3 modelos com preço, explicou instalação com valor fechado e pediu um vídeo do local para orçar. Nenhum humano até o fechamento de um orçamento de R$ 2.400.</p>
+    <ul>
+      <li><b>Responde em menos de 1 minuto</b>, fora do horário comercial.</li>
+      <li><b>Chama pelo nome</b> e cita quem indicou.</li>
+      <li><b>Não inventa:</b> "não temos usado", preço fechado só com preparação pronta, "a equipe confirma o estoque".</li>
+      <li><b>Fecha sempre com uma pergunta</b> e um próximo passo.</li>
+    </ul>
+    <p>O print está no Obsidian: <i>02 - Areas / Raw AI Brasil / Fonte / ws-ar-condicionados-whatsapp-ia-2026-11-09.png</i>.</p>
+  </section>
+
+  <section>
+    <h2>Pitch de 60 segundos</h2>
+    <div class="quote">"Quantos clientes te chamam no WhatsApp enquanto você está cortando? Esses ficam 20, 30 minutos sem resposta e marcam em outro lugar. Eu coloco um atendente de IA no seu número: responde em segundos, passa preço, oferece horário livre e marca. Olha aqui como funciona. Isso é um negócio de Brasília que fechou um orçamento de R$ 2.400 às 20h de domingo sem ninguém no celular. Pra barbearia é mais simples ainda: corte, barba, horário. Setup de R$ 2.497 e R$ 297 por mês. Se recuperar dois clientes por semana já pagou. Quer que eu monte com os seus preços e te mostre no seu próprio WhatsApp?"</div>
+  </section>
+
+  <section>
+    <h2>Como funciona (explicação para o dono)</h2>
+    <ol>
+      <li>O número do negócio vira WhatsApp Business API oficial da Meta. Continua o mesmo número, continua no celular dele.</li>
+      <li>Cada mensagem passa por um cérebro de IA que conhece o negócio: serviços, preços, profissionais, horários, endereço, regras.</li>
+      <li>O cérebro consulta a agenda real e oferece só horário livre. Cliente escolhe, ele grava e confirma.</li>
+      <li>Lembrete automático 2h antes. Remarcação e cancelamento pelo próprio WhatsApp.</li>
+      <li>Cliente pediu uma pessoa, reclamou ou saiu da tabela: a IA para e avisa o dono.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Preço</h2>
+    <div class="grid">
+      <div class="card"><h3>Atendente</h3><div class="price">R$ 1.497 <small>setup</small></div><div class="price" style="font-size:1.1rem">R$ 197 <small>/ mês</small></div><p>FAQ, preços, endereço, horários. Encaminha o agendamento para o WhatsApp do profissional.</p></div>
+      <div class="card hot"><h3>Agenda (recomendado)</h3><div class="price">R$ 2.497 <small>setup</small></div><div class="price" style="font-size:1.1rem">R$ 297 <small>/ mês</small></div><p>Tudo do Atendente + agenda real por profissional + lembrete 2h antes + remarcação + pedido de avaliação no Google.</p></div>
+      <div class="card"><h3>Agenda + Site</h3><div class="price">R$ 2.997 <small>setup</small></div><div class="price" style="font-size:1.1rem">R$ 297 <small>/ mês</small></div><p>Pacote com o site white-label da biblioteca (sozinho sai por R$ 997 a R$ 1.497).</p></div>
+    </div>
+    <p style="margin-top:12px"><b>Regra de ouro:</b> 50% do setup para começar, 50% na entrega. Mensal a partir do mês 2. Suporte de ajuste por 30 dias incluído.</p>
+  </section>
+
+  <section>
+    <h2>Objeções</h2>
+    <table>
+      <tr><th>"Meu cliente gosta de falar comigo."</th><td>Continua falando. A IA cobre quando você está com a tesoura na mão. "Quero falar com o William" vai direto pra você.</td></tr>
+      <tr><th>"E se marcar errado?"</th><td>Ela só oferece horário que está livre na agenda. Na dúvida ela pergunta, não chuta.</td></tr>
+      <tr><th>"Tá caro."</th><td>R$ 297 por mês são 4 combos. Quantos clientes você perde por semana por não responder?</td></tr>
+      <tr><th>"Vou pensar."</th><td>Fechado. Me passa a lista de serviços que eu te mando a demo no seu número e você decide vendo funcionar. (Demo só com entrada paga, ou em número de teste nosso.)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Checklist para assinar</h2>
+    <ul class="check">
+      <li>Serviços com preço e duração (ex.: corte R$ 35 / 30 min, combo R$ 70 / 60 min).</li>
+      <li>Profissionais, dias e horários de cada um.</li>
+      <li>Horário de funcionamento e feriados.</li>
+      <li>Endereço, mapa, formas de pagamento, política de atraso e cancelamento.</li>
+      <li>Acesso ao WhatsApp Business ou aceite para migrar o número para a API oficial.</li>
+      <li>Um responsável para receber os alertas de "cliente pediu humano".</li>
+      <li>Logo e tom de voz (formal, parceiro, descontraído).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Stack (interno)</h2>
+    <table>
+      <tr><th>Canal</th><td>WhatsApp Cloud API (Meta, oficial). Sem risco de banir; conversa iniciada pelo cliente é grátis na janela de 24h. Para DEMO rápida: Evolution API no número atual (não oficial, nunca em cliente pagante).</td></tr>
+      <tr><th>Servidor</th><td>Node no Render, mesmo padrão do Command Center. Um servidor atende vários clientes.</td></tr>
+      <tr><th>Cérebro</th><td>Claude Haiku 5.5 (Sonnet 5.5 se precisar de mais juízo). Config por cliente em JSON: serviços, profissionais, horários, regras, tom.</td></tr>
+      <tr><th>Dados</th><td>Supabase: agenda, clientes, histórico. A pasta <i>imperio/supabase/</i> já tem agenda de cadeiras.</td></tr>
+      <tr><th>Lembretes</th><td>Cron no Render + mensagem template aprovada pela Meta (fora da janela de 24h só template passa).</td></tr>
+      <tr><th>Guardrails</th><td>Nunca inventar horário; só confirma após gravar. Nunca dizer que enviou o que não enviou. Pediu humano, reclamou ou pediu desconto fora da tabela: para e avisa o dono. Sem envio em massa.</td></tr>
+      <tr><th>Custo nosso</th><td>Meta ~R$ 0, Claude R$ 10 a 30/mês, Render ~R$ 35/mês compartilhado, Supabase grátis. Margem do mensal acima de 80%.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Quando alguém disser sim</h2>
+    <ol>
+      <li>Receber a entrada (50% do setup).</li>
+      <li>Preencher o checklist acima.</li>
+      <li>Criar o repo do atendente com o config do cliente.</li>
+      <li>Subir no Render, ligar o Supabase, testar com o dono em número de teste.</li>
+      <li>Migrar o número para a Cloud API e ir ao ar. Semana 1: config e agenda. Semana 2: migração, lembretes, go-live.</li>
+    </ol>
+  </section>
+</main>
+
+<footer class="container">Raw AI Brasil · material interno de venda · Automação WhatsApp v1.0.0</footer>
+</body>
+</html>
