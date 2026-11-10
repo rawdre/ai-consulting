@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Planner — Weddings, Sweet 15 & 16, Showers</title>
+<meta name="description" content="Full planning, partial planning and day-of coordination for weddings, Sweet 15 & 16, showers and corporate events. Message us on WhatsApp.">
+<meta name="theme-color" content="#1F3D2B">
+<!-- Template white-label Raw AI · v2.8.0 · USA · edit config.js -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #1F3D2B;
+  --gold: #B8964F;
+  --champagne: #E4D3AE;
+  --ink: #17201B;
+  --ink-soft: #4F5A53;
+  --muted: #8A948D;
+  --cream: #FAF7F1;
+  --sand: #F0EAE0;
+  --card: #ffffff;
+  --line: rgba(23,32,27,.12);
+  --line-dark: rgba(250,247,241,.16);
+  --radius: 6px;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; font-weight: 400; background: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; line-height: 1.02; letter-spacing: -0.015em; }
+em { font-style: italic; color: var(--gold); }
+.container { width: min(1200px, calc(100% - 48px)); margin: 0 auto; }
+section { position: relative; }
+.pad { padding: 120px 0; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: .72rem; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.eyebrow::before { content: ''; width: 34px; height: 1px; background: currentColor; }
+.title { font-size: clamp(2.3rem, 5.4vw, 4rem); margin-bottom: 18px; }
+.lead { color: var(--ink-soft); max-width: 540px; font-size: 1.05rem; font-weight: 300; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 60px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; border-radius: 999px; font-family: 'Jost'; font-weight: 500; font-size: .88rem; letter-spacing: .1em; text-transform: uppercase; transition: transform .3s var(--ease), background .3s, color .3s, border-color .3s; border: 1px solid transparent; cursor: pointer; }
+.btn:hover { transform: translateY(-2px); }
+.btn svg { width: 19px; height: 19px; fill: currentColor; flex: none; }
+.btn-light { background: var(--cream); color: var(--ink); }
+.btn-light:hover { background: var(--champagne); }
+.btn-ghost { border-color: rgba(250,247,241,.4); color: var(--cream); }
+.btn-ghost:hover { border-color: var(--champagne); color: var(--champagne); }
+.btn-dark { background: var(--accent); color: var(--cream); }
+.btn-dark:hover { background: var(--ink); }
+.btn-line { border-color: var(--ink); color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: var(--cream); }
+
+/* nav */
+.nav { position: fixed; inset: 0 0 auto; z-index: 100; padding: 22px 0; transition: background .4s, padding .4s, border-color .4s; border-bottom: 1px solid transparent; }
+.nav.scrolled { background: rgba(23,32,27,.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding: 12px 0; border-color: var(--line-dark); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; color: var(--cream); min-width: 0; }
+.brand-mark { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(228,211,174,.6); display: grid; place-items: center; color: var(--champagne); font-family: 'Cormorant Garamond'; font-size: 1.1rem; }
+.brand strong { display: block; font-family: 'Cormorant Garamond'; font-weight: 600; font-size: 1.25rem; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand small { display: block; font-size: .64rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(250,247,241,.62); }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { color: rgba(250,247,241,.8); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; transition: color .25s; }
+.nav-links a:hover { color: var(--champagne); }
+.nav-links .cta { color: var(--ink); background: var(--cream); padding: 10px 20px; border-radius: 999px; font-weight: 500; }
+.nav-links .cta:hover { background: var(--champagne); }
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--cream); margin: 6px 0; }
+
+/* hero */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--cream); padding: 150px 0 80px; overflow: hidden; background: var(--ink); }
+.hero-media { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.1); animation: kenburns 24s var(--ease) forwards; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background:
+  linear-gradient(90deg, rgba(23,32,27,.86) 0%, rgba(23,32,27,.5) 50%, rgba(23,32,27,.1) 100%),
+  linear-gradient(0deg, rgba(23,32,27,.92) 0%, transparent 50%); }
+@keyframes kenburns { to { transform: scale(1); } }
+.hero .container { position: relative; z-index: 2; }
+.hero-content { max-width: 700px; }
+.hero .eyebrow { color: var(--champagne); margin-bottom: 28px; }
+.hero h1 { font-size: clamp(3rem, 8.5vw, 6.8rem); line-height: .98; margin-bottom: 26px; }
+.hero h1 > span { display: block; animation: rise 1.2s var(--ease) both; }
+.hero h1 em { display: block; color: var(--champagne); animation: rise 1.2s .15s var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+.hero p { font-size: clamp(1rem, 1.8vw, 1.15rem); font-weight: 300; color: rgba(250,247,241,.82); max-width: 520px; margin-bottom: 38px; animation: rise 1.2s .3s var(--ease) both; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; animation: rise 1.2s .45s var(--ease) both; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 10px 28px; border-top: 1px solid var(--line-dark); padding-top: 22px; animation: rise 1.2s .6s var(--ease) both; }
+.hero-tags span { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(250,247,241,.72); }
+
+/* marquee */
+.marquee { background: var(--accent); color: var(--champagne); overflow: hidden; padding: 20px 0; }
+.marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+.marquee-row { display: flex; flex: none; }
+.marquee-row span { font-family: 'Cormorant Garamond'; font-style: italic; font-size: clamp(1.4rem, 3vw, 2.1rem); padding: 0 28px; white-space: nowrap; display: flex; align-items: center; gap: 56px; }
+.marquee-row span::after { content: '✦'; font-style: normal; font-size: .85rem; color: var(--gold); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* services */
+.services-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 70px; align-items: start; }
+.services { border-top: 1px solid var(--line); }
+.service { position: relative; display: grid; grid-template-columns: 52px 1fr auto; gap: 6px 24px; align-items: baseline; padding: 30px 0; border-bottom: 1px solid var(--line); }
+.service::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 0; background: var(--gold); transition: width .7s var(--ease); }
+.service:hover::after { width: 100%; }
+.service .num { font-family: 'Cormorant Garamond'; font-style: italic; color: var(--muted); font-size: 1rem; }
+.service h3 { font-size: clamp(1.5rem, 3.2vw, 2.2rem); transition: color .3s, transform .5s var(--ease); }
+.service:hover h3 { color: var(--accent); transform: translateX(6px); }
+.service .price { font-family: 'Cormorant Garamond'; font-size: clamp(1.05rem, 2vw, 1.3rem); white-space: nowrap; text-align: right; color: var(--ink-soft); }
+.service p { grid-column: 2 / 3; color: var(--ink-soft); font-weight: 300; font-size: .98rem; max-width: 460px; }
+.service .link { grid-column: 3 / 4; justify-self: end; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.services-photo { position: sticky; top: 110px; }
+.arch { border-radius: 999px 999px var(--radius) var(--radius); overflow: hidden; aspect-ratio: 3/4; background: var(--sand); }
+.arch img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.services-photo:hover .arch img { transform: scale(1.05); }
+.services-photo figcaption { margin-top: 18px; font-family: 'Cormorant Garamond'; font-style: italic; color: var(--ink-soft); font-size: 1.1rem; text-align: center; }
+
+/* package */
+.package { background: var(--accent); color: var(--cream); overflow: hidden; }
+.package::before { content: ''; position: absolute; width: 560px; height: 560px; right: -160px; top: -200px; border-radius: 50%; background: radial-gradient(circle, rgba(184,150,79,.3), transparent 70%); pointer-events: none; }
+.package-inner { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px; align-items: center; }
+.package .eyebrow { color: var(--champagne); }
+.package h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 18px; }
+.package p { color: rgba(250,247,241,.74); font-weight: 300; max-width: 520px; }
+.package-price { border-left: 1px solid var(--line-dark); padding-left: 50px; }
+.package-price strong { display: block; font-family: 'Cormorant Garamond'; font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--champagne); line-height: 1.1; margin-bottom: 26px; }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 260px; gap: 14px; grid-auto-flow: dense; }
+.gallery figure { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--sand); }
+.gallery figure:nth-of-type(1) { grid-column: span 2; }
+.gallery figure:nth-of-type(2) { grid-row: span 2; }
+.gallery figure:nth-of-type(4) { grid-column: span 2; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.gallery figure::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(23,32,27,.62), transparent 45%); opacity: 0; transition: opacity .5s; }
+.gallery figure:hover img { transform: scale(1.06); }
+.gallery figure:hover::after { opacity: 1; }
+.gallery figcaption { position: absolute; z-index: 2; left: 20px; bottom: 16px; font-family: 'Cormorant Garamond'; font-style: italic; color: var(--cream); font-size: 1.15rem; opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s var(--ease); }
+.gallery figure:hover figcaption { opacity: 1; transform: none; }
+
+/* process */
+.process { background: var(--sand); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); counter-reset: step; }
+.step { counter-increment: step; padding: 36px 28px 36px 0; border-right: 1px solid var(--line); margin-right: 28px; }
+.step:last-child { border-right: 0; margin-right: 0; }
+.step::before { content: '0' counter(step); display: block; font-family: 'Cormorant Garamond'; font-style: italic; font-size: 2.6rem; color: var(--gold); line-height: 1; margin-bottom: 18px; }
+.step h3 { font-size: 1.6rem; margin-bottom: 10px; }
+.step p { color: var(--ink-soft); font-weight: 300; font-size: .98rem; }
+
+/* about */
+.about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+.about-photo { position: relative; }
+.about-photo .arch { aspect-ratio: 4/5; }
+.about-photo::before { content: ''; position: absolute; inset: 26px -26px -26px 26px; border: 1px solid var(--gold); border-radius: 999px 999px var(--radius) var(--radius); opacity: .55; pointer-events: none; }
+.about p.body { color: var(--ink-soft); font-weight: 300; font-size: 1.05rem; margin-bottom: 18px; max-width: 540px; }
+.signature { font-family: 'Cormorant Garamond'; font-style: italic; font-size: 1.3rem; color: var(--accent); margin: 26px 0 40px; }
+.numbers { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.numbers div { padding: 24px 16px 0 0; }
+.numbers strong { display: block; font-family: 'Cormorant Garamond'; font-weight: 500; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; margin-bottom: 8px; }
+.numbers span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+
+/* reviews */
+.reviews-head { text-align: center; margin-bottom: 60px; }
+.reviews-head .eyebrow::after { content: ''; width: 34px; height: 1px; background: currentColor; }
+.score { display: inline-flex; align-items: baseline; gap: 14px; margin-top: 8px; color: var(--ink-soft); }
+.score strong { font-family: 'Cormorant Garamond'; font-weight: 500; font-size: 3rem; color: var(--ink); line-height: 1; }
+.score .stars { color: var(--gold); letter-spacing: 4px; }
+.reviews { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.review { padding: 44px 36px 10px; border-right: 1px solid var(--line); }
+.review:last-of-type { border-right: 0; }
+.review .q { font-family: 'Cormorant Garamond'; font-size: 4rem; line-height: .6; color: var(--gold); display: block; height: 30px; }
+.review p { font-family: 'Cormorant Garamond'; font-size: 1.3rem; line-height: 1.4; margin-bottom: 22px; }
+.review .who { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.review .who::before { content: '★★★★★'; color: var(--gold); letter-spacing: 3px; margin-right: 12px; }
+
+/* inquiry */
+.inquiry { background: var(--ink); color: var(--cream); }
+.inquiry .eyebrow { color: var(--champagne); }
+.inq-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 60px; align-items: start; }
+.inquiry .lead { color: rgba(250,247,241,.74); }
+.contact { margin-top: 28px; display: grid; gap: 18px; }
+.contact div small { display: block; font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: var(--champagne); margin-bottom: 4px; }
+.contact div p, .contact div a { color: rgba(250,247,241,.84); font-weight: 300; }
+.contact a:hover { color: var(--champagne); }
+.inquiry form { display: grid; gap: 22px; padding: clamp(20px, 3vw, 32px); background: rgba(250,247,241,.05); border: 1px solid var(--line-dark); border-radius: var(--radius); }
+.field { display: grid; gap: 8px; font-weight: 500; font-size: .95rem; }
+.field input { font: 300 1.05rem 'Jost'; padding: 13px 14px; color: var(--cream); background: rgba(0,0,0,.25); border: 1px solid var(--line-dark); border-radius: var(--radius); color-scheme: dark; }
+.field input:focus-visible { outline: 2px solid var(--champagne); outline-offset: 1px; }
+.error { color: var(--champagne); font-size: .9rem; margin-top: -12px; }
+.chips { border: 0; }
+.chips legend { font-weight: 500; font-size: .95rem; margin-bottom: 10px; }
+.chips > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { cursor: pointer; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span { display: inline-block; padding: 9px 14px; font-size: .92rem; font-weight: 300; border: 1px solid var(--line-dark); border-radius: 999px; }
+.chips input:checked + span { background: var(--champagne); color: var(--ink); border-color: var(--champagne); font-weight: 500; }
+.chips input:focus-visible + span { outline: 2px solid var(--champagne); outline-offset: 2px; }
+.preview { white-space: pre-wrap; font: 300 .9rem/1.6 'Jost'; color: rgba(250,247,241,.7); padding: 14px; border: 1px dashed var(--line-dark); border-radius: var(--radius); }
+.send-cta { width: 100%; }
+
+/* area */
+.area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.area-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-top: 26px; }
+.area-list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-weight: 300; }
+.area-list li::before { content: '✦ '; color: var(--gold); }
+.map { border-radius: var(--radius); overflow: hidden; min-height: 400px; border: 1px solid var(--line); }
+.map iframe { width: 100%; height: 100%; min-height: 400px; border: 0; filter: grayscale(.6) sepia(.1); }
+
+/* cta */
+.cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; color: var(--cream); overflow: hidden; text-align: center; background: var(--ink); background-size: cover; background-position: center; }
+.cta-band::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(23,32,27,.85), rgba(23,32,27,.45)); }
+.cta-band .container { position: relative; z-index: 1; }
+.cta-band h2 { font-size: clamp(2.6rem, 7vw, 5.4rem); margin-bottom: 20px; }
+.cta-band p { color: rgba(250,247,241,.84); font-weight: 300; font-size: 1.1rem; max-width: 520px; margin: 0 auto 38px; }
+
+footer { background: #121915; color: rgba(250,247,241,.5); padding: 44px 0; font-size: .85rem; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 16px 30px; flex-wrap: wrap; }
+footer strong { color: var(--cream); font-family: 'Cormorant Garamond'; font-weight: 500; font-size: 1.2rem; }
+footer a { border-bottom: 1px solid rgba(250,247,241,.25); }
+footer a:hover { color: var(--champagne); }
+
+.wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 120; width: 60px; height: 60px; border-radius: 50%; background: #25D366; display: grid; place-items: center; box-shadow: 0 14px 34px rgba(37,211,102,.4); transition: transform .3s var(--ease); }
+.wa-float::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #25D366; animation: pulse 2.6s ease-out infinite; z-index: -1; }
+@keyframes pulse { from { transform: scale(1); opacity: .5; } to { transform: scale(1.6); opacity: 0; } }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .reveal { opacity: 1; transform: none; }
+  .hero-media { transform: none; }
+}
+@media (max-width: 1000px) {
+  .services-grid, .about-grid, .inq-grid, .package-inner, .area-grid { grid-template-columns: 1fr; }
+  .services-grid { gap: 50px; }
+  .services-photo { position: relative; top: 0; max-width: 460px; margin: 0 auto; width: 100%; }
+  .about-photo { max-width: 460px; width: calc(100% - 26px); }
+  .package-price { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-dark); padding-top: 34px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .step:nth-child(2) { border-right: 0; margin-right: 0; }
+  .reviews { grid-template-columns: 1fr; }
+  .review { border-right: 0; border-bottom: 1px solid var(--line); padding: 36px 0 30px; }
+  .review:last-of-type { border-bottom: 0; }
+}
+@media (max-width: 760px) {
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 20px; padding: 26px 16px 30px; background: rgba(23,32,27,.97); border-bottom: 1px solid var(--line-dark); }
+  .nav.open .nav-links { display: flex; }
+  .nav.open { background: rgba(23,32,27,.97); }
+  .nav-toggle { display: block; }
+  .container { width: calc(100% - 32px); }
+  .pad { padding: 84px 0; }
+  .hero { padding: 130px 0 56px; }
+  .hero::before { background: linear-gradient(0deg, rgba(23,32,27,.95) 0%, rgba(23,32,27,.6) 55%, rgba(23,32,27,.25) 100%); }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .head { margin-bottom: 40px; }
+  .service { grid-template-columns: 1fr auto; padding: 24px 0; }
+  .service .num, .service p { grid-column: 1 / -1; }
+  .service .link { grid-column: 1 / -1; justify-self: start; margin-top: 8px; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; gap: 10px; }
+  .gallery figure:nth-of-type(1) { grid-column: span 2; }
+  .gallery figure:nth-of-type(2) { grid-row: auto; }
+  .gallery figure:nth-of-type(4) { grid-column: span 2; }
+  .gallery figcaption { opacity: 1; transform: none; font-size: .95rem; left: 14px; bottom: 10px; }
+  .gallery figure::after { opacity: 1; }
+  .steps { grid-template-columns: 1fr; }
+  .step { border-right: 0; margin-right: 0; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .area-list { grid-template-columns: 1fr; }
+  .map, .map iframe { min-height: 300px; }
+  .cta-band { min-height: 64vh; }
+  .foot { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 380px) { .brand small { display: none; } .btn { padding: 15px 22px; letter-spacing: .06em; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span><strong data-t="negocio.nome">Your Event Co.</strong><small data-t="negocio.slogan">Event planning & design</small></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a class="cta" href="#inquiry">Get a quote</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-media" data-img="hero.imagem" role="img" aria-label="Tented wedding reception at golden hour"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow" data-t="hero.selo">Event planning</div>
+      <h1><span data-t="hero.titulo1">Your day,</span><em data-t="hero.titulo2">beautifully handled.</em></h1>
+      <p data-t="hero.texto"></p>
+      <div class="hero-actions">
+        <a class="btn btn-light" data-wa="Hi {nome}! I found you through your website and I would like to talk about my event.">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+          Message on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#services">Services & pricing</a>
+      </div>
+      <div class="hero-tags" data-list="hero.destaques"><template><span data-f="."></span></template></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-row" data-list="faixa"><template><span data-f="."></span></template></div>
+    <div class="marquee-row" data-list="faixa"><template><span data-f="."></span></template></div>
+  </div>
+</div>
+
+<section class="pad" id="services">
+  <div class="container">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Services & pricing</span>
+        <h2 class="title">As much help <em>as you need,</em><br>and not a dollar more.</h2>
+      </div>
+      <p class="lead">Starting prices for reference. Every event gets a written proposal with real vendor numbers before you commit.</p>
+    </div>
+    <div class="services-grid">
+      <div class="services" data-list="servicos">
+        <template>
+          <article class="service reveal">
+            <span class="num" data-f="numero"></span>
+            <h3 data-f="titulo"></h3>
+            <span class="price" data-f="preco"></span>
+            <p data-f="texto"></p>
+            <a class="link" data-fwa="whatsapp">Ask about this →</a>
+          </article>
+        </template>
+      </div>
+      <figure class="services-photo reveal">
+        <div class="arch"><img data-img="servicosImagem" alt="Event planner adjusting a reception table" loading="lazy"></div>
+        <figcaption>Every detail, checked twice.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="pad package" data-show="pacote.titulo">
+  <div class="container package-inner">
+    <div class="reveal">
+      <span class="eyebrow" data-t="pacote.selo">Most booked</span>
+      <h2 data-t="pacote.titulo"></h2>
+      <p data-t="pacote.texto"></p>
+    </div>
+    <div class="package-price reveal">
+      <strong data-t="pacote.preco"></strong>
+      <a class="btn btn-light" data-wa="Hi {nome}! I would like to know more about the Design + Day-of package.">I want this one</a>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="portfolio">
+  <div class="container">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Portfolio</span>
+        <h2 class="title">Rooms we have <em>turned into memories.</em></h2>
+      </div>
+      <a class="btn btn-line" data-href="contato.instagram" target="_blank" rel="noopener">More on Instagram</a>
+    </div>
+    <div class="gallery" data-list="galeria">
+      <template><figure class="reveal"><img data-fimg="imagem" alt="Event designed by the planner" loading="lazy"><figcaption data-f="legenda"></figcaption></figure></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad process" id="process">
+  <div class="container">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">How it works</span>
+        <h2 class="title">Four steps, <em>zero chaos.</em></h2>
+      </div>
+    </div>
+    <div class="steps" data-list="processo">
+      <template><div class="step reveal"><h3 data-f="titulo"></h3><p data-f="texto"></p></div></template>
+    </div>
+  </div>
+</section>
+
+<section class="pad about" id="about">
+  <div class="container about-grid">
+    <figure class="about-photo reveal">
+      <div class="arch"><img data-img="sobre.imagem" alt="The planning team at work" loading="lazy"></div>
+    </figure>
+    <div class="reveal">
+      <span class="eyebrow">About us</span>
+      <h2 class="title" data-t="sobre.titulo"></h2>
+      <p class="body" data-t="sobre.texto1"></p>
+      <p class="body" data-t="sobre.texto2"></p>
+      <p class="signature" data-t="sobre.assinatura"></p>
+      <div class="numbers" data-list="sobre.numeros">
+        <template><div><strong data-f="valor"></strong><span data-f="rotulo"></span></div></template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="reviews">
+  <div class="container">
+    <div class="reviews-head reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="title">What our clients <em>say.</em></h2>
+      <div class="score"><strong data-t="avaliacoes.nota">5.0</strong><span class="stars">★★★★★</span><span data-t="avaliacoes.total"></span></div>
+    </div>
+    <div class="reviews" data-list="avaliacoes.lista">
+      <template>
+        <blockquote class="review reveal"><span class="q" aria-hidden="true">“</span><p data-f="texto"></p><div class="who" data-f="nome"></div></blockquote>
+      </template>
+    </div>
+  </div>
+</section>
+
+<section class="pad inquiry" id="inquiry">
+  <div class="container inq-grid">
+    <div class="reveal">
+      <span class="eyebrow">Start here</span>
+      <h2 class="title" data-t="inquiry.titulo"></h2>
+      <p class="lead" data-t="inquiry.texto"></p>
+      <div class="contact">
+        <div><small>WhatsApp / phone</small><p data-t="contato.telefone"></p></div>
+        <div data-show="contato.email"><small>Email</small><p data-t="contato.email"></p></div>
+        <div data-show="contato.instagram"><small>Instagram</small><a data-href="contato.instagram" target="_blank" rel="noopener" data-t="contato.instagramUser"></a></div>
+        <div data-show="contato.idiomas"><small>We speak</small><p data-t="contato.idiomas"></p></div>
+      </div>
+    </div>
+    <form id="leadForm" class="reveal" novalidate>
+      <label class="field" for="leadName">Your name
+        <input id="leadName" type="text" autocomplete="given-name" maxlength="60" aria-describedby="leadNameError">
+      </label>
+      <p id="leadNameError" class="error" hidden>Add your name so we know who we are talking to.</p>
+      <div id="leadFields" style="display:grid;gap:22px"></div>
+      <pre class="preview" id="leadPreview" aria-live="polite"></pre>
+      <a class="btn btn-light send-cta" id="leadSend" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+        Send on WhatsApp
+      </a>
+    </form>
+  </div>
+</section>
+
+<section class="pad" id="area">
+  <div class="container area-grid">
+    <div class="reveal">
+      <span class="eyebrow">Service area</span>
+      <h2 class="title" data-t="area.titulo"></h2>
+      <p class="lead" data-t="area.texto"></p>
+      <ul class="area-list" data-list="area.lista"><template><li data-f="."></li></template></ul>
+    </div>
+    <div class="map reveal"><iframe data-map loading="lazy" title="Service area map" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</section>
+
+<section class="cta-band" data-img="cta.imagem">
+  <div class="container reveal">
+    <span class="eyebrow" style="color:var(--champagne)">Ready?</span>
+    <h2 data-t="cta.titulo"></h2>
+    <p data-t="cta.texto"></p>
+    <a class="btn btn-light" data-wa="Hi {nome}! I would like to check your availability for my event.">Message on WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div><strong data-t="negocio.nome"></strong> · <span data-t="negocio.bairro"></span>, <span data-t="negocio.cidade"></span></div>
+    <div>© <span data-year></span> <span data-t="negocio.nome"></span>. <a data-href="rodape.creditoLink" target="_blank" rel="noopener" data-t="rodape.credito"></a></div>
+  </div>
+</footer>
+
+<a class="wa-float" aria-label="WhatsApp" data-wa="Hi {nome}! I found you through your website.">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.3-.9a11.3 11.3 0 0 1-4.4-3.9 5 5 0 0 1-1-2.7 3 3 0 0 1 .9-2.2 1 1 0 0 1 .7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6a8.6 8.6 0 0 0 1.6 2 7.8 7.8 0 0 0 2.3 1.4c.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.4a2.4 2.4 0 0 1-.1 1.1Z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="engine.js"></script>
+<script src="inquiry.js"></script>
+</body>
+</html>
