@@ -6,7 +6,7 @@
 <title>Aroma Grill — Brazilian BBQ · Book the trailer</title>
 <meta name="description" content="Aroma Grill: Brazilian BBQ skewers grilled over fire. Tell us about your event and claim your treat at the trailer.">
 <meta name="theme-color" content="#0b0a09">
-<!-- Aroma Grill lead page · v1.0.0 · built 2026-11-10 from the Comeketo Expo v2.0.0 pattern · facts from aroma-grill/docs/discovery/FACTS.md only -->
+<!-- Aroma Grill lead page · v1.1.0 · built 2026-11-10 from the Comeketo Expo v2.0.0 pattern · facts from aroma-grill/docs/discovery/FACTS.md only -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -99,6 +99,12 @@ select.form-input { background-image: linear-gradient(45deg, transparent 50%, va
 .success-screen .social-links { margin-top: 22px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .success-screen .social-links a { color: var(--gold-light); text-decoration: none; padding: 10px 16px; border: 1px solid rgba(217,164,65,.35); border-radius: 999px; font-size: .88rem; }
 
+.share { margin-top: 26px; display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; padding: 16px; border: 1px solid rgba(217,164,65,.45); border-radius: var(--radius); background: linear-gradient(135deg, rgba(217,164,65,.12), rgba(255,90,31,.08)); }
+.share img { width: 140px; height: 140px; border-radius: 12px; background: #fff; padding: 6px; }
+.share h4 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; letter-spacing: .02em; color: var(--gold-light); }
+.share p { font-size: .86rem; color: var(--ink-soft); margin-top: 4px; }
+.share a { display: inline-block; margin-top: 8px; font-size: .8rem; color: var(--gold-light); }
+@media (max-width: 380px) { .share { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
 footer { text-align: center; padding: 30px 16px calc(28px + env(safe-area-inset-bottom)); margin-top: 28px; border-top: 1px solid var(--line); }
 footer .contact-row { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
 footer a { color: var(--ink-soft); text-decoration: none; font-size: .88rem; }
@@ -213,6 +219,10 @@ footer .ver { color: var(--muted); font-size: .66rem; letter-spacing: .08em; mar
       <li><span data-i18n="m6">Fried yuca</span><b>$6 / $9</b></li>
     </ul>
   </div>
+  <div class="share" id="share">
+    <img src="qr-code.png" alt="QR code for this page">
+    <div><h4 data-i18n="shareTitle">Scan to open this page</h4><p data-i18n="shareSub">Show this to a friend at the trailer, or send them the link.</p><a href="qr-code-print.png" target="_blank" rel="noopener" data-i18n="shareLink">Open the print-size QR</a></div>
+  </div>
 </main>
 
 <footer>
@@ -222,7 +232,7 @@ footer .ver { color: var(--muted); font-size: .66rem; letter-spacing: .08em; mar
   </div>
   <a href="https://www.instagram.com/_aromagrill/" target="_blank" rel="noopener" style="color:var(--gold-light);">@_aromagrill</a>
   <p class="legal">© 2026 Aroma Grill · Brazilian BBQ · Massachusetts</p>
-  <p class="ver">v1.0.0</p>
+  <p class="ver">v1.1.0</p>
 </footer>
 
 <script>
@@ -319,6 +329,7 @@ document.querySelectorAll('.form-input').forEach(el => { el.addEventListener('in
 
 const translations = {
   en: {
+    shareTitle: 'Scan to open this page', shareSub: 'Show this to a friend at the trailer, or send them the link.', shareLink: 'Open the print-size QR',
     heroTagline: 'Authentic flavor, authentic experience', heroH1: 'Brazilian BBQ <em>grilled over fire.</em>',
     heroSub: 'Premium skewers, freshly grilled in front of you. Festivals, corporate and executive events, private parties, catering.',
     chip1: 'Food trailer · live now', chip2: 'Massachusetts', chip3: 'Restaurant coming soon',
@@ -335,6 +346,7 @@ const translations = {
     menuTitle: 'On the trailer', menuSub: 'Skewers grilled to order. Sides to build your plate.', m1: 'Beef skewer', m2: 'Chicken skewer', m3: 'Rice · Farofa', m4: 'Vinaigrette', m5: 'Fries', m6: 'Fried yuca'
   },
   pt: {
+    shareTitle: 'Escaneie para abrir esta página', shareSub: 'Mostre para um amigo no trailer ou mande o link.', shareLink: 'Abrir o QR em tamanho de impressão',
     heroTagline: 'Sabor autêntico, experiência autêntica', heroH1: 'Churrasco brasileiro <em>na brasa de verdade.</em>',
     heroSub: 'Espetinhos premium grelhados na hora, na sua frente. Festivais, eventos corporativos, festas particulares e catering.',
     chip1: 'Food trailer · em atividade', chip2: 'Massachusetts', chip3: 'Restaurante em breve',
@@ -351,6 +363,7 @@ const translations = {
     menuTitle: 'No trailer', menuSub: 'Espetinhos na hora. Acompanhamentos pra montar o prato.', m1: 'Espeto de carne', m2: 'Espeto de frango', m3: 'Arroz · Farofa', m4: 'Vinagrete', m5: 'Batata frita', m6: 'Mandioca frita'
   },
   es: {
+    shareTitle: 'Escanea para abrir esta página', shareSub: 'Muéstralo a un amigo en el trailer o envíale el enlace.', shareLink: 'Abrir el QR para imprimir',
     heroTagline: 'Sabor auténtico, experiencia auténtica', heroH1: 'BBQ brasileño <em>a la brasa.</em>',
     heroSub: 'Brochetas premium a la parrilla, frente a ti. Festivales, eventos corporativos, fiestas privadas y catering.',
     chip1: 'Food trailer · en servicio', chip2: 'Massachusetts', chip3: 'Restaurante muy pronto',
