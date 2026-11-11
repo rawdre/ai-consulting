@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aroma Grill — Brazilian BBQ · Book the trailer</title>
+<meta name="description" content="Aroma Grill: Brazilian BBQ skewers grilled over fire. Tell us about your event and claim your treat at the trailer.">
+<meta name="theme-color" content="#0b0a09">
+<!-- Aroma Grill lead page · v1.0.0 · built 2026-11-10 from the Comeketo Expo v2.0.0 pattern · facts from aroma-grill/docs/discovery/FACTS.md only -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0a09; --bg-2: #15120f; --card: #1a1613; --line: rgba(255,214,170,.14);
+  --ink: #f7f1e8; --ink-soft: rgba(247,241,232,.78); --muted: rgba(247,241,232,.55);
+  --gold: #d9a441; --gold-light: #f0c86a; --gold-ink: #1a1206; --ember: #ff5a1f; --ember-deep: #b8321a;
+  --red: #ff6b5c; --green: #5fd38f;
+  --display: 'Bebas Neue', Impact, sans-serif; --body: 'Inter', system-ui, sans-serif;
+  --radius: 16px; --ease: cubic-bezier(.2,.8,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--bg); color: var(--ink); line-height: 1.55; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+.wrap { width: min(560px, 100% - 32px); margin: 0 auto; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes successPop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes confetti { 0% { opacity: 1; transform: translateY(0) rotate(0deg); } 100% { opacity: 0; transform: translateY(-220px) rotate(720deg); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes flicker { 0%,100% { opacity: .55; } 50% { opacity: .85; } }
+
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px max(16px, env(safe-area-inset-right)) 8px max(16px, env(safe-area-inset-left)); background: rgba(11,10,9,.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+.brand img { height: 40px; width: auto; }
+.brand small { display: block; font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 44vw; }
+.lang-toggle { display: flex; gap: 4px; }
+.lang-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 6px 9px; border-radius: 999px; font: 600 .72rem var(--body); cursor: pointer; transition: all .25s; }
+.lang-btn:hover, .lang-btn.active { color: var(--gold-light); border-color: var(--gold); background: rgba(217,164,65,.12); }
+
+.hero { position: relative; isolation: isolate; min-height: 76svh; display: flex; align-items: flex-end; padding: 56px 0 28px; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; z-index: -2; background: url('img/hero-trailer.jpg') center 35% / cover no-repeat; transform: scale(1.04); }
+.hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 40% at 50% 100%, rgba(255,90,31,.22), transparent 70%), linear-gradient(180deg, rgba(11,10,9,.3) 0%, rgba(11,10,9,.1) 30%, rgba(11,10,9,.86) 72%, var(--bg) 100%); }
+.hero-logo { height: 110px; width: auto; margin-bottom: 14px; filter: drop-shadow(0 6px 24px rgba(0,0,0,.6)); animation: rise .8s var(--ease) both; }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.8rem, 12vw, 4.4rem); line-height: .92; letter-spacing: .01em; text-transform: uppercase; text-wrap: balance; animation: rise .8s .08s var(--ease) both; }
+.hero h1 em { font-style: normal; color: var(--gold-light); }
+.hero p { margin-top: 12px; color: var(--ink-soft); font-size: 1rem; max-width: 36ch; animation: rise .8s .16s var(--ease) both; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; animation: rise .8s .24s var(--ease) both; }
+.chips span { font-size: .74rem; font-weight: 600; letter-spacing: .04em; padding: 6px 11px; border-radius: 999px; border: 1px solid rgba(247,241,232,.22); background: rgba(11,10,9,.5); backdrop-filter: blur(6px); }
+.chips span.hot { border-color: rgba(255,90,31,.7); color: #ffb08a; }
+
+.prize { display: flex; align-items: center; gap: 14px; margin: 18px auto 0; padding: 14px 16px; border-radius: var(--radius); background: linear-gradient(135deg, rgba(217,164,65,.2), rgba(255,90,31,.14)); border: 1px solid rgba(217,164,65,.45); animation: rise .8s .3s var(--ease) both; }
+.prize .ico { font-size: 1.9rem; line-height: 1; }
+.prize h2 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1; letter-spacing: .02em; color: var(--gold-light); }
+.prize p { font-size: .84rem; color: var(--ink-soft); margin-top: 3px; }
+
+.form-card { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 24px 20px; box-shadow: 0 20px 60px rgba(0,0,0,.45); animation: rise .8s .36s var(--ease) both; }
+.form-card h3 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; letter-spacing: .02em; margin-bottom: 14px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: .8rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 6px; letter-spacing: .02em; }
+.form-group label .required { color: var(--gold); }
+.form-input { width: 100%; padding: 14px 15px; background: var(--bg-2); border: 1px solid var(--line); color: var(--ink); border-radius: 12px; font: 400 1.02rem var(--body); transition: border-color .25s, box-shadow .25s; appearance: none; }
+select.form-input { background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
+.form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,164,65,.18); }
+.form-input::placeholder { color: var(--muted); }
+.permission-group { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: rgba(217,164,65,.06); border: 1px solid rgba(217,164,65,.25); border-radius: 12px; margin: 4px 0 16px; cursor: pointer; }
+.permission-group input[type="checkbox"] { accent-color: var(--gold); width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+.permission-group .perm-text { font-size: .86rem; color: var(--ink-soft); line-height: 1.4; }
+.permission-group .perm-text small { display: block; color: var(--muted); font-size: .74rem; margin-top: 2px; }
+.btn-submit { width: 100%; padding: 17px; background: linear-gradient(135deg, var(--ember-deep), var(--ember)); color: #fff; border: 0; border-radius: 14px; font: 700 1.08rem var(--body); cursor: pointer; box-shadow: 0 10px 28px rgba(255,90,31,.3); transition: transform .3s var(--ease), box-shadow .3s; position: relative; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(255,90,31,.4); }
+.btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btn-submit .spinner { display: none; width: 20px; height: 20px; border: 3px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto; }
+.btn-submit.loading .btn-text { display: none; }
+.btn-submit.loading .spinner { display: block; }
+.form-input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(255,107,92,.18); }
+.error-msg { color: var(--red); font-size: .76rem; margin-top: 4px; display: none; }
+.error-msg.visible { display: block; }
+
+.tiles { margin-top: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tiles figure { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: var(--bg-2); }
+.tiles img { width: 100%; height: 100%; object-fit: cover; }
+.tiles figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 8px 8px; font-size: .68rem; font-weight: 600; line-height: 1.2; background: linear-gradient(0deg, rgba(11,10,9,.92), transparent); }
+
+.menu { margin-top: 26px; padding: 18px 18px 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+.menu h4 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; letter-spacing: .02em; margin-bottom: 6px; }
+.menu p { font-size: .82rem; color: var(--muted); margin-bottom: 10px; }
+.menu ul { list-style: none; }
+.menu li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem; color: var(--ink-soft); }
+.menu li b { color: var(--gold-light); font-weight: 600; white-space: nowrap; }
+
+.success-screen { display: none; text-align: center; padding: 40px 10px; animation: successPop .6s var(--ease); }
+.success-screen.show { display: block; }
+.success-icon { font-size: 4rem; display: block; margin-bottom: 12px; }
+.success-screen h2 { font-family: var(--display); font-weight: 400; font-size: 2.6rem; color: var(--gold-light); margin-bottom: 10px; }
+.success-screen p { color: var(--ink-soft); font-size: 1rem; margin-bottom: 8px; }
+.success-screen .prize-note { background: rgba(95,211,143,.1); border: 1px solid rgba(95,211,143,.35); border-radius: 12px; padding: 16px; margin-top: 18px; font-size: .95rem; font-weight: 600; color: var(--green); }
+.success-screen .social-links { margin-top: 22px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.success-screen .social-links a { color: var(--gold-light); text-decoration: none; padding: 10px 16px; border: 1px solid rgba(217,164,65,.35); border-radius: 999px; font-size: .88rem; }
+
+footer { text-align: center; padding: 30px 16px calc(28px + env(safe-area-inset-bottom)); margin-top: 28px; border-top: 1px solid var(--line); }
+footer .contact-row { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+footer a { color: var(--ink-soft); text-decoration: none; font-size: .88rem; }
+footer a:hover { color: var(--gold-light); }
+footer .legal { color: var(--muted); font-size: .74rem; margin-top: 10px; }
+footer .ver { color: var(--muted); font-size: .66rem; letter-spacing: .08em; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (min-width: 720px) { .hero { min-height: 62vh; padding-top: 80px; } .hero-media { background-position: center 40%; } .hero h1 { font-size: 5rem; } .tiles figcaption { font-size: .78rem; } }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="#"><img src="img/logo.webp" alt="Aroma Grill"><small data-i18n="heroTagline">Authentic flavor, authentic experience</small></a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-media" role="img" aria-label="The Aroma Grill trailer at golden hour"></div>
+  <div class="wrap">
+    <img src="img/logo.webp" alt="Aroma Grill · Brazilian BBQ" class="hero-logo">
+    <h1 data-i18n="heroH1">Brazilian BBQ <em>grilled over fire.</em></h1>
+    <p data-i18n="heroSub">Premium skewers, freshly grilled in front of you. Festivals, corporate and executive events, private parties, catering.</p>
+    <div class="chips"><span data-i18n="chip1">Food trailer · live now</span><span data-i18n="chip2">Massachusetts</span><span class="hot" data-i18n="chip3">Restaurant coming soon</span></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="prize" id="prizeBanner">
+    <span class="ico">🔥</span>
+    <div><h2 data-i18n="prizeTitle">Tell us about your event, claim a treat</h2><p data-i18n="prizeSub">30 seconds. Show the next screen at the trailer.</p></div>
+  </div>
+
+  <div class="form-card" id="formCard">
+    <h3 data-i18n="formTitle">Book the trailer for your event</h3>
+    <form id="leadForm" onsubmit="return handleSubmit(event)">
+      <input type="text" name="_honey" style="display:none">
+      <div class="form-group">
+        <label data-i18n="labelName">Full Name <span class="required">*</span></label>
+        <input type="text" class="form-input" id="fullName" name="Full Name" placeholder="Maria Silva" required autocomplete="name">
+        <div class="error-msg" id="nameError" data-i18n="errorName">Please enter your name</div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="labelPhone">Phone Number <span class="required">*</span></label>
+        <input type="tel" class="form-input" id="phone" name="Phone" placeholder="(617) 555-0123" required autocomplete="tel">
+        <div class="error-msg" id="phoneError" data-i18n="errorPhone">Please enter your phone number</div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="labelEmail">Email <span class="required">*</span></label>
+        <input type="email" class="form-input" id="email" name="Email" placeholder="maria@example.com" required autocomplete="email">
+        <div class="error-msg" id="emailError" data-i18n="errorEmail">Please enter a valid email</div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="labelType">What are you planning?</label>
+        <select class="form-input" id="eventType" name="Event Type">
+          <option value="" data-i18n="optPick">Pick one</option>
+          <option value="Private party / birthday" data-i18n="optParty">Private party / birthday</option>
+          <option value="Wedding" data-i18n="optWedding">Wedding</option>
+          <option value="Corporate / office event" data-i18n="optCorporate">Corporate / office event</option>
+          <option value="Festival / fair" data-i18n="optFestival">Festival / fair</option>
+          <option value="Church / community" data-i18n="optChurch">Church / community</option>
+          <option value="Just want updates" data-i18n="optUpdates">Just want updates</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-i18n="labelDate">Approximate date & town</label>
+        <input type="text" class="form-input" id="eventDate" name="Event Date" placeholder="e.g. June 2027, Framingham">
+      </div>
+      <div class="form-group">
+        <label data-i18n="labelGuests">How many people?</label>
+        <input type="text" class="form-input" id="guests" name="Guests" placeholder="e.g. 50">
+      </div>
+      <label class="permission-group">
+        <input type="checkbox" id="emailPermission" name="Email Permission" value="Yes">
+        <span class="perm-text"><span data-i18n="permLabel">Yes! Send me the menu and where the trailer is next 🔥</span><small data-i18n="permSub">One quick email with our menu and how booking works. No spam.</small></span>
+      </label>
+      <button type="submit" class="btn-submit" id="submitBtn"><span class="btn-text" data-i18n="submitBtn">🔥 Send & claim my treat</span><div class="spinner"></div></button>
+    </form>
+  </div>
+
+  <div class="success-screen" id="successScreen">
+    <span class="success-icon">🎉</span>
+    <h2 data-i18n="successTitle">You're in!</h2>
+    <p data-i18n="successMsg">Thanks for stopping by the trailer. We'll be in touch soon.</p>
+    <div class="prize-note"><span data-i18n="prizeInstructions">🔥 Show this screen at the trailer to claim your treat!</span></div>
+    <div class="social-links">
+      <a href="tel:+16174580050">📞 (617) 458-0050</a>
+      <a href="https://wa.me/16174580050" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="https://www.instagram.com/_aromagrill/" target="_blank" rel="noopener">📸 @_aromagrill</a>
+    </div>
+  </div>
+
+  <div class="tiles" aria-label="From the grill">
+    <figure><img src="img/beef-skewer.jpg" alt="Beef skewer on the grill" loading="lazy"><figcaption data-i18n="tile1">Beef skewer · $10</figcaption></figure>
+    <figure><img src="img/chicken-skewers.jpg" alt="Chicken skewers on the grill" loading="lazy"><figcaption data-i18n="tile2">Chicken skewer · $8</figcaption></figure>
+    <figure><img src="img/sandwich-grill.jpg" alt="Churrasco plate over the grill by the ocean" loading="lazy"><figcaption data-i18n="tile3">Fresh off the fire, every time</figcaption></figure>
+  </div>
+
+  <div class="menu">
+    <h4 data-i18n="menuTitle">On the trailer</h4>
+    <p data-i18n="menuSub">Skewers grilled to order. Sides to build your plate.</p>
+    <ul>
+      <li><span data-i18n="m1">Beef skewer</span><b>$10</b></li>
+      <li><span data-i18n="m2">Chicken skewer</span><b>$8</b></li>
+      <li><span data-i18n="m3">Rice · Farofa</span><b>$3 / $5</b></li>
+      <li><span data-i18n="m4">Vinaigrette</span><b>$2 / $4</b></li>
+      <li><span data-i18n="m5">Fries</span><b>$5 / $8</b></li>
+      <li><span data-i18n="m6">Fried yuca</span><b>$6 / $9</b></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="contact-row">
+    <a href="tel:+16174580050">📞 (617) 458-0050</a>
+    <a href="mailto:info@aromafiregrill.com">✉️ info@aromafiregrill.com</a>
+  </div>
+  <a href="https://www.instagram.com/_aromagrill/" target="_blank" rel="noopener" style="color:var(--gold-light);">@_aromagrill</a>
+  <p class="legal">© 2026 Aroma Grill · Brazilian BBQ · Massachusetts</p>
+  <p class="ver">v1.0.0</p>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const fields = [
+    { id: 'fullName', errorId: 'nameError', validate: v => v.trim().length > 0 },
+    { id: 'email', errorId: 'emailError', validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'phone', errorId: 'phoneError', validate: v => v.replace(/\D/g, '').length >= 7 }
+  ];
+  let valid = true;
+  fields.forEach(f => {
+    const input = document.getElementById(f.id), error = document.getElementById(f.errorId);
+    if (!f.validate(input.value)) { input.classList.add('error'); error.classList.add('visible'); valid = false; }
+    else { input.classList.remove('error'); error.classList.remove('visible'); }
+  });
+  if (!valid) return false;
+  const btn = document.getElementById('submitBtn'); btn.classList.add('loading'); btn.disabled = true;
+  const fullName = document.getElementById('fullName').value.trim();
+  const emailPermission = document.getElementById('emailPermission').checked;
+  const formData = new FormData();
+  formData.append('Full Name', fullName);
+  formData.append('Phone', document.getElementById('phone').value.trim());
+  formData.append('Email', document.getElementById('email').value.trim());
+  formData.append('Event Type', document.getElementById('eventType').value);
+  formData.append('Event Date', document.getElementById('eventDate').value.trim());
+  formData.append('Guests', document.getElementById('guests').value.trim());
+  formData.append('Email Permission', emailPermission ? 'Yes' : 'No');
+  formData.append('Source', 'Aroma Grill trailer · fair');
+  formData.append('Language', currentLang);
+  formData.append('Captured At', new Date().toISOString());
+  formData.append('_subject', '🔥 New Aroma Grill lead: ' + fullName);
+  formData.append('_cc', 'tech@comeketocatering.com');
+  formData.append('_captcha', 'false');
+  formData.append('_template', 'table');
+  if (emailPermission) {
+    formData.append('_autoresponse',
+`Hi ${fullName.split(' ')[0]}!
+
+Thanks for stopping by the Aroma Grill trailer. Great to meet you! 🔥
+
+We bring the Brazilian BBQ to you: premium skewers, freshly grilled over fire in front of your guests.
+• Corporate & executive events
+• Catering
+• Private parties
+• Festivals
+
+On the trailer: beef skewer $10, chicken skewer $8, rice & farofa, vinaigrette, fries and fried yuca.
+
+Follow the trailer: https://www.instagram.com/_aromagrill/
+Book your event: call or text (617) 458-0050 · WhatsApp https://wa.me/16174580050 · info@aromafiregrill.com
+
+Authentic flavor, authentic experience.
+Aroma Grill · Brazilian BBQ`);
+  }
+  fetch('https://formsubmit.co/ajax/info@aromafiregrill.com', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
+    .then(r => r.json())
+    .then(data => { if (data.success) showSuccess(); else { console.log('FormSubmit response:', data); storeLocally(); showSuccess(); } })
+    .catch(err => { console.error('Submit error:', err); storeLocally(); showSuccess(); });
+  return false;
+}
+function showSuccess() {
+  document.getElementById('formCard').style.display = 'none';
+  document.getElementById('prizeBanner').style.display = 'none';
+  document.getElementById('successScreen').classList.add('show');
+  createConfetti();
+}
+function storeLocally() {
+  const lead = { fullName: document.getElementById('fullName').value.trim(), phone: document.getElementById('phone').value.trim(), email: document.getElementById('email').value.trim(), eventType: document.getElementById('eventType').value, eventDate: document.getElementById('eventDate').value.trim(), guests: document.getElementById('guests').value.trim(), emailPermission: document.getElementById('emailPermission').checked ? 'Yes' : 'No', capturedAt: new Date().toISOString() };
+  const leads = JSON.parse(localStorage.getItem('aromagrill_leads') || '[]'); leads.push(lead); localStorage.setItem('aromagrill_leads', JSON.stringify(leads));
+}
+function exportLeads() {
+  const leads = JSON.parse(localStorage.getItem('aromagrill_leads') || '[]');
+  if (!leads.length) { alert('No leads stored'); return; }
+  const h = Object.keys(leads[0]);
+  const csv = [h.join(','), ...leads.map(l => h.map(k => '"' + (l[k] || '').replace(/"/g, '""') + '"').join(','))].join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'aromagrill-leads-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
+}
+function createConfetti() {
+  const colors = ['#d9a441', '#f0c86a', '#ff5a1f', '#ffb08a', '#5fd38f', '#ffffff'];
+  for (let i = 0; i < 40; i++) {
+    const c = document.createElement('div');
+    c.style.cssText = `position:fixed;width:${Math.random()*10+5}px;height:${Math.random()*10+5}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:100vh;border-radius:${Math.random()>0.5?'50%':'2px'};pointer-events:none;z-index:9999;animation:confetti ${Math.random()*2+1.5}s ease-out forwards;animation-delay:${Math.random()*0.5}s;`;
+    document.body.appendChild(c); setTimeout(() => c.remove(), 4000);
+  }
+}
+document.getElementById('phone').addEventListener('input', function (e) {
+  let val = e.target.value.replace(/\D/g, ''); if (val.length > 10) val = val.slice(0, 10);
+  if (val.length >= 7) e.target.value = `(${val.slice(0,3)}) ${val.slice(3,6)}-${val.slice(6)}`;
+  else if (val.length >= 4) e.target.value = `(${val.slice(0,3)}) ${val.slice(3)}`;
+  else if (val.length >= 1) e.target.value = `(${val}`;
+});
+document.querySelectorAll('.form-input').forEach(el => { el.addEventListener('input', function () { this.classList.remove('error'); const err = this.closest('.form-group').querySelector('.error-msg'); if (err) err.classList.remove('visible'); }); });
+
+const translations = {
+  en: {
+    heroTagline: 'Authentic flavor, authentic experience', heroH1: 'Brazilian BBQ <em>grilled over fire.</em>',
+    heroSub: 'Premium skewers, freshly grilled in front of you. Festivals, corporate and executive events, private parties, catering.',
+    chip1: 'Food trailer · live now', chip2: 'Massachusetts', chip3: 'Restaurant coming soon',
+    prizeTitle: 'Tell us about your event, claim a treat', prizeSub: '30 seconds. Show the next screen at the trailer.',
+    formTitle: 'Book the trailer for your event',
+    labelName: 'Full Name <span class="required">*</span>', labelPhone: 'Phone Number <span class="required">*</span>', labelEmail: 'Email <span class="required">*</span>',
+    labelType: 'What are you planning?', optPick: 'Pick one', optParty: 'Private party / birthday', optWedding: 'Wedding', optCorporate: 'Corporate / office event', optFestival: 'Festival / fair', optChurch: 'Church / community', optUpdates: 'Just want updates',
+    labelDate: 'Approximate date & town', labelGuests: 'How many people?',
+    errorName: 'Please enter your name', errorEmail: 'Please enter a valid email', errorPhone: 'Please enter your phone number',
+    permLabel: 'Yes! Send me the menu and where the trailer is next 🔥', permSub: 'One quick email with our menu and how booking works. No spam.',
+    submitBtn: '🔥 Send & claim my treat', successTitle: "You're in!", successMsg: "Thanks for stopping by the trailer. We'll be in touch soon.",
+    prizeInstructions: '🔥 Show this screen at the trailer to claim your treat!',
+    tile1: 'Beef skewer · $10', tile2: 'Chicken skewer · $8', tile3: 'Fresh off the fire, every time',
+    menuTitle: 'On the trailer', menuSub: 'Skewers grilled to order. Sides to build your plate.', m1: 'Beef skewer', m2: 'Chicken skewer', m3: 'Rice · Farofa', m4: 'Vinaigrette', m5: 'Fries', m6: 'Fried yuca'
+  },
+  pt: {
+    heroTagline: 'Sabor autêntico, experiência autêntica', heroH1: 'Churrasco brasileiro <em>na brasa de verdade.</em>',
+    heroSub: 'Espetinhos premium grelhados na hora, na sua frente. Festivais, eventos corporativos, festas particulares e catering.',
+    chip1: 'Food trailer · em atividade', chip2: 'Massachusetts', chip3: 'Restaurante em breve',
+    prizeTitle: 'Conta do seu evento e ganhe um mimo', prizeSub: '30 segundos. Mostre a próxima tela no trailer.',
+    formTitle: 'Leve o trailer pro seu evento',
+    labelName: 'Nome completo <span class="required">*</span>', labelPhone: 'Telefone <span class="required">*</span>', labelEmail: 'Email <span class="required">*</span>',
+    labelType: 'O que você está planejando?', optPick: 'Escolha', optParty: 'Festa particular / aniversário', optWedding: 'Casamento', optCorporate: 'Evento corporativo', optFestival: 'Festival / feira', optChurch: 'Igreja / comunidade', optUpdates: 'Só quero novidades',
+    labelDate: 'Data aproximada e cidade', labelGuests: 'Quantas pessoas?',
+    errorName: 'Por favor insira seu nome', errorEmail: 'Por favor insira um email válido', errorPhone: 'Por favor insira seu telefone',
+    permLabel: 'Sim! Me manda o cardápio e onde o trailer vai estar 🔥', permSub: 'Um email rápido com o cardápio e como funciona a reserva. Sem spam.',
+    submitBtn: '🔥 Enviar e pegar meu mimo', successTitle: 'Tá dentro!', successMsg: 'Valeu por passar no trailer. A gente entra em contato.',
+    prizeInstructions: '🔥 Mostra essa tela no trailer pra pegar seu mimo!',
+    tile1: 'Espeto de carne · $10', tile2: 'Espeto de frango · $8', tile3: 'Saindo da brasa, sempre',
+    menuTitle: 'No trailer', menuSub: 'Espetinhos na hora. Acompanhamentos pra montar o prato.', m1: 'Espeto de carne', m2: 'Espeto de frango', m3: 'Arroz · Farofa', m4: 'Vinagrete', m5: 'Batata frita', m6: 'Mandioca frita'
+  },
+  es: {
+    heroTagline: 'Sabor auténtico, experiencia auténtica', heroH1: 'BBQ brasileño <em>a la brasa.</em>',
+    heroSub: 'Brochetas premium a la parrilla, frente a ti. Festivales, eventos corporativos, fiestas privadas y catering.',
+    chip1: 'Food trailer · en servicio', chip2: 'Massachusetts', chip3: 'Restaurante muy pronto',
+    prizeTitle: 'Cuéntanos de tu evento y llévate un regalo', prizeSub: '30 segundos. Muestra la siguiente pantalla en el trailer.',
+    formTitle: 'Lleva el trailer a tu evento',
+    labelName: 'Nombre completo <span class="required">*</span>', labelPhone: 'Teléfono <span class="required">*</span>', labelEmail: 'Correo <span class="required">*</span>',
+    labelType: '¿Qué estás planeando?', optPick: 'Elige una', optParty: 'Fiesta privada / cumpleaños', optWedding: 'Boda', optCorporate: 'Evento corporativo', optFestival: 'Festival / feria', optChurch: 'Iglesia / comunidad', optUpdates: 'Solo quiero novedades',
+    labelDate: 'Fecha aproximada y ciudad', labelGuests: '¿Cuántas personas?',
+    errorName: 'Por favor ingresa tu nombre', errorEmail: 'Por favor ingresa un correo válido', errorPhone: 'Por favor ingresa tu teléfono',
+    permLabel: '¡Sí! Envíenme el menú y dónde estará el trailer 🔥', permSub: 'Un correo rápido con el menú y cómo reservar. Sin spam.',
+    submitBtn: '🔥 Enviar y reclamar mi regalo', successTitle: '¡Estás dentro!', successMsg: 'Gracias por visitar el trailer. Te contactamos pronto.',
+    prizeInstructions: '🔥 ¡Muestra esta pantalla en el trailer para tu regalo!',
+    tile1: 'Brocheta de res · $10', tile2: 'Brocheta de pollo · $8', tile3: 'Recién salido del fuego, siempre',
+    menuTitle: 'En el trailer', menuSub: 'Brochetas al momento. Acompañamientos para armar tu plato.', m1: 'Brocheta de res', m2: 'Brocheta de pollo', m3: 'Arroz · Farofa', m4: 'Vinagreta', m5: 'Papas fritas', m6: 'Yuca frita'
+  }
+};
+let currentLang = 'en';
+function setLang(lang) {
+  currentLang = lang; const t = translations[lang]; if (!t) return;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n; if (t[key] === undefined) return;
+    if (key.startsWith('label') || key.startsWith('error') || key === 'prizeInstructions' || key === 'heroH1') el.innerHTML = t[key]; else el.textContent = t[key];
+  });
+}
+if (/^pt/i.test(navigator.language)) setLang('pt'); else if (/^es/i.test(navigator.language)) setLang('es');
+</script>
+</body>
+</html>
