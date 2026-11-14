@@ -79,7 +79,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 <div class="ag-modal" id="edModal" role="dialog" aria-modal="true"><div class="ag-box"><button class="ag-close" id="edClose" aria-label="Fechar">✕</button><div class="ag-body" id="edBody"></div></div></div>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-<script src="agenda.js?v=1.9.1"></script>
+<script src="agenda.js?v=1.9.2"></script>
 <script>
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
 (function () {
@@ -200,12 +200,21 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       edClose(); render();
     }); });
   }
-  async function initMode() {
-    try { var s = await A.sb.auth.getSession(); SESSION = s.data.session || null; } catch (e) { SESSION = null; }
+  function paintMode() {
     var tag = document.getElementById('mode'), link = document.getElementById('modeLink');
     if (SESSION) { tag.textContent = '✂️ modo barbeiro'; tag.hidden = false; link.textContent = 'Admin'; svcs = A.state.services; }
     else { tag.hidden = true; link.textContent = 'Sou barbeiro'; }
-    A.sb.auth.onAuthStateChange(function (_e, sess) { SESSION = sess || null; initMode(); if (cur) render(); });
+  }
+  var authHooked = false;
+  async function initMode() {
+    try { var s = await A.sb.auth.getSession(); SESSION = s.data.session || null; } catch (e) { SESSION = null; }
+    paintMode();
+    if (authHooked) return; authHooked = true; // registra o ouvinte UMA vez (antes criava um novo a cada chamada → loop infinito de requisições)
+    A.sb.auth.onAuthStateChange(function (ev, sess) {
+      if (ev === 'INITIAL_SESSION' || ev === 'TOKEN_REFRESHED') return;
+      var had = !!SESSION; SESSION = sess || null; paintMode();
+      if (had !== !!SESSION && cur) render();
+    });
   }
   A.load().then(async function () {
     await initMode();
