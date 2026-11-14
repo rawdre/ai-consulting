@@ -79,7 +79,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 <div class="ag-modal" id="edModal" role="dialog" aria-modal="true"><div class="ag-box"><button class="ag-close" id="edClose" aria-label="Fechar">✕</button><div class="ag-body" id="edBody"></div></div></div>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
-<script src="agenda.js"></script>
+<script src="agenda.js?v=1.8.2"></script>
 <script>
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
 (function () {
@@ -110,13 +110,16 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
     }).join('');
     box.hidden = false; h.hidden = false;
   }
+  var renderSeq = 0;
   async function render() {
+    var my = ++renderSeq, day = cur;
     var S = A.state, step = Number(S.settings.slot_min || 30), chairs = S.chairs;
     grid.style.setProperty('--n', chairs.length);
     var start = at(cur.str, cur.hours[0]).getTime(), end = at(cur.str, cur.hours[1]).getTime(), now = Date.now();
     var html = '<div class="hcell"></div>' + chairs.map(function (c) { return '<div class="hcell"><strong>' + c.barbeiro + '</strong><small>Cadeira ' + c.numero + '</small></div>'; }).join('');
     if (SESSION) {
       var appts; try { appts = await A.dayFull(cur.str); } catch (e) { SESSION = null; return render(); }
+      if (my !== renderSeq || day !== cur) return;
       renderFila(chairs, chairs.map(function (c) { return appts.filter(function (x) { return x.chair_id === c.id && ['cancelado','faltou'].indexOf(x.status) < 0; }).map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime() }; }); }), cur.str === todayStr(), now, end, start);
       for (var t = start; t < end; t += step * 60000) {
         html += '<div class="tcell">' + hm(t) + '</div>';
@@ -133,12 +136,13 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       grid.querySelectorAll('button.slot:not(.mine)').forEach(function (b) { b.addEventListener('click', function () { freeClick(b); }); });
     } else {
       var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
+      if (my !== renderSeq || day !== cur) return; // outro dia foi clicado enquanto carregava
       renderFila(chairs, taken, cur.str === todayStr(), now, end, start);
       for (var t2 = start; t2 < end; t2 += step * 60000) {
         html += '<div class="tcell">' + hm(t2) + '</div>';
         chairs.forEach(function (c, i) {
-          var tf2 = t2 + step * 60000, busy = taken[i].some(function (x) { return t2 < x.f && tf2 > x.i; });
-          if (busy) html += '<div class="slot busy">Reservado</div>';
+          var tf2 = t2 + step * 60000, bk = taken[i].find(function (x) { return t2 < x.f && tf2 > x.i; });
+          if (bk) html += '<div class="slot busy">' + (bk.i >= t2 ? (A.esc(bk.n) || 'Reservado') + '<small style="display:block;font-size:.66rem;opacity:.7">reservado</small>' : '<small>↳ ' + (A.esc(bk.n) || 'reservado') + '</small>') + '</div>';
           else if (t2 < now) html += '<div class="slot past">—</div>';
           else html += '<button class="slot" data-n="' + c.numero + '">Livre</button>';
         });
@@ -209,7 +213,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
     daysEl.innerHTML = days.map(function (d) { return '<button class="day" data-d="' + d.str + '">' + d.label + '</button>'; }).join('');
     daysEl.querySelectorAll('.day').forEach(function (b) { b.addEventListener('click', function () {
       daysEl.querySelectorAll('.day').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
-      cur = days.find(function (d) { return d.str === b.dataset.d; }); render();
+      cur = days.find(function (d) { return d.str === b.dataset.d; }); grid.innerHTML = '<p class="sub">Carregando…</p>'; render();
     }); });
     daysEl.querySelector('.day').click();
     timer = setInterval(function () { if (!document.hidden && cur) render(); }, 30000);

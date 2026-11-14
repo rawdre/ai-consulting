@@ -36,9 +36,9 @@
   }
   async function takenFor(chairId, dayStr) {
     var ini = at(dayStr, '00:00').toISOString(), fim = at(dayStr, '23:59').toISOString();
-    var q = await sb.from('imperio_slots_taken').select('inicio,fim').eq('chair_id', chairId).gte('inicio', ini).lte('inicio', fim);
+    var q = await sb.from('imperio_slots_taken').select('inicio,fim,cliente_label').eq('chair_id', chairId).gte('inicio', ini).lte('inicio', fim);
     if (q.error) throw q.error;
-    return q.data.map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime() }; });
+    return q.data.map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime(), n: x.cliente_label || '' }; });
   }
   function openDays() {
     var n = Number(state.settings.dias_a_frente || 14), hor = state.settings.horario || {}, out = [];
@@ -101,15 +101,18 @@
     var pre = state.preDay && body.querySelector('.ag-day[data-d="' + state.preDay + '"]');
     (pre || body.querySelector('.ag-day')) && (pre || body.querySelector('.ag-day')).click();
   }
+  var slotSeq = 0;
   async function showSlots() {
+    var my = ++slotSeq, day = state.day;
     var box = body.querySelector('.ag-slots'); box.innerHTML = '<p class="ag-sub">Buscando horários…</p>';
     try {
       var taken; try { taken = await takenFor(state.chair.id, state.day.str); } catch (e1) { await new Promise(function (r) { setTimeout(r, 1500); }); taken = await takenFor(state.chair.id, state.day.str); }
+      if (my !== slotSeq || day !== state.day) return; // outro dia foi clicado enquanto carregava
       var slots = freeSlots(state.day, taken);
       if (!slots.length) { box.innerHTML = '<p class="ag-sub">Nenhum horário livre nesse dia. Tente outro dia.</p>'; return; }
       box.innerHTML = '<div class="ag-grid ag-times">' + slots.map(function (t) { return '<button class="ag-time" data-t="' + t + '">' + hm(new Date(t)) + '</button>'; }).join('') + '</div>';
       box.querySelectorAll('.ag-time').forEach(function (b) { b.addEventListener('click', function () { state.slot = Number(b.dataset.t); stepClient(); }); });
-    } catch (e) { box.innerHTML = '<p class="ag-sub">Não consegui carregar os horários agora. <button class="ag-link" id="agRetry" style="background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;padding:0">Tentar de novo</button> ou <a href="' + waFallback('Olá! Quero agendar na Cadeira ' + state.chair.numero + '.') + '" target="_blank">agendar pelo WhatsApp →</a></p>'; var rb = box.querySelector('#agRetry'); if (rb) rb.addEventListener('click', showSlots); }
+    } catch (e) { if (my !== slotSeq) return; box.innerHTML = '<p class="ag-sub">Não consegui carregar os horários agora. <button class="ag-link" id="agRetry" style="background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;padding:0">Tentar de novo</button> ou <a href="' + waFallback('Olá! Quero agendar na Cadeira ' + state.chair.numero + '.') + '" target="_blank">agendar pelo WhatsApp →</a></p>'; var rb = box.querySelector('#agRetry'); if (rb) rb.addEventListener('click', showSlots); }
   }
   function stepClient() {
     var when = new Date(state.slot);
