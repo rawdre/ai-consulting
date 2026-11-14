@@ -145,6 +145,27 @@
       stepDeposit();
     });
   }
+  /* ---- Adicionar à agenda do celular (Google / Apple / Outlook) ---- */
+  function calStamp(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  function calInfo() {
+    var b = state.booking, end = new Date(b.when.getTime() + Number(state.service.duracao_min || 30) * 60000);
+    var addr = ((SITE.contato || {}).endereco || SITE.endereco || 'Barbearia do Império, Sobradinho - DF');
+    return { ini: b.when, fim: end, title: state.service.nome + ' · Barbearia do Império (' + state.chair.barbeiro + ')',
+      desc: 'Cadeira ' + state.chair.numero + ' com ' + state.chair.barbeiro + '. Agendado pelo site. Para remarcar, chame no WhatsApp (61) 99228-1225.', loc: addr };
+  }
+  function googleCalUrl() {
+    var c = calInfo();
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(c.title) + '&dates=' + calStamp(c.ini) + '/' + calStamp(c.fim) +
+      '&details=' + encodeURIComponent(c.desc) + '&location=' + encodeURIComponent(c.loc) + '&ctz=America/Sao_Paulo';
+  }
+  function icsUrl() {
+    var c = calInfo(), e = function (t) { return String(t).replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n'); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Barbearia do Imperio//Agenda//PT', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+      'UID:' + calStamp(c.ini) + '-' + state.chair.numero + '@barbeariadoimperio', 'DTSTAMP:' + calStamp(new Date()), 'DTSTART:' + calStamp(c.ini), 'DTEND:' + calStamp(c.fim),
+      'SUMMARY:' + e(c.title), 'DESCRIPTION:' + e(c.desc), 'LOCATION:' + e(c.loc),
+      'BEGIN:VALARM', 'TRIGGER:-PT1H', 'ACTION:DISPLAY', 'DESCRIPTION:' + e(c.title), 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  }
   function stepDeposit() {
     var b = state.booking, s = state.settings, pix = (typeof s.pix_chave === 'string' ? s.pix_chave : '') || '';
     var quando = state.day.label + ' às ' + hm(b.when);
@@ -156,6 +177,8 @@
       (pix ? '<div class="ag-pix"><small>Chave Pix · ' + esc(typeof s.pix_nome === 'string' ? s.pix_nome : '') + '</small><code>' + esc(pix) + '</code><button class="ag-copy" type="button">Copiar chave</button></div>'
            : '<p class="ag-sub">A chave Pix será enviada pelo WhatsApp.</p>') +
       '<a class="btn btn-primary" href="' + waFallback(msg) + '" target="_blank" rel="noopener">Enviar comprovante no WhatsApp</a>' +
+      '<div class="ag-cal" style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px"><a class="btn btn-line" style="flex:1;justify-content:center" href="' + googleCalUrl() + '" target="_blank" rel="noopener">📅 Google Agenda</a><a class="btn btn-line" style="flex:1;justify-content:center" href="' + icsUrl() + '" download="barbearia-imperio.ics">🍎 iPhone / Outlook</a></div>' +
+      '<p class="ag-sub ag-small">Salve na agenda do celular: você recebe um lembrete 1 hora antes.</p>' +
       '<p class="ag-sub ag-small">Sem o sinal em até 2 horas o horário pode ser liberado.</p></div>';
     var cp = body.querySelector('.ag-copy');
     if (cp) cp.addEventListener('click', function () { navigator.clipboard && navigator.clipboard.writeText(pix).then(function () { cp.textContent = 'Copiado ✓'; }); });
