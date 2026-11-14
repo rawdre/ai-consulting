@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.8.2',
+  versao: 'v1.9.0',
 
   negocio: {
     nome: 'Barbearia do Império',
@@ -24,7 +24,7 @@ window.SITE = {
     google: 'https://www.google.com/maps/place/Barbearia+do+Imperio',
     instagram: 'https://instagram.com/barbeariadoimperio',
     instagramUser: '@barbeariadoimperio',
-    fila: '../../../fila-barbearia-imperio.html',   // fila digital (página existente)
+    fila: 'agenda.html',   // a fila digital antiga foi substituída pela agenda + Fila agora (v1.9.0)
     agendamento: ''                                  // app de agenda (em breve: sistema de cadeiras)
   },
 

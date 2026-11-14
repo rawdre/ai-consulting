@@ -16,6 +16,7 @@
   var hm = function (x) { return new Date(x).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }); };
   var dmy = function (x) { return new Date(x).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit' }); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var brDay = function (iso) { return new Date(iso).toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' }); };
   var dayRange = function (d) { return [new Date(d + 'T00:00:00' + TZ).toISOString(), new Date(d + 'T23:59:59' + TZ).toISOString()]; };
   var toast = function (m, bad) { var t = $('#toast'); t.textContent = m; t.style.borderColor = bad ? 'var(--bad)' : 'var(--accent)'; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('on'); }, 2600); };
   var fail = function (e) { console.error(e); toast((e && e.message) || 'Erro', true); };
@@ -82,6 +83,15 @@
     var cols = $('#cols'); cols.style.setProperty('--n', D.chairs.filter(function (c) { return c.ativo; }).length);
     try { H.appts = await fetchAppts(H.day); } catch (e) { fail(e); return; }
     var d = new Date(H.day + 'T12:00:00'); $('#hojeInfo').textContent = DIAS_L[d.getDay()] + ', ' + dmy(d) + ' · ' + H.appts.filter(function (a) { return a.status !== 'cancelado'; }).length + ' agendamentos';
+    var nb = $('#nextBox');
+    if (nb) {
+      if (H.next) {
+        var n = H.next, ch = D.chairs.find(function (x) { return x.id === n.chair_id; }) || {};
+        nb.innerHTML = n.none ? '<strong>✓ ' + esc(ch.barbeiro || '') + ' terminou.</strong> Ninguém mais agendado hoje nessa cadeira — use “+ Encaixe” para quem chegar.' :
+          '<strong>▶ Próximo do ' + esc(ch.barbeiro || '') + ':</strong> ' + esc(n.cliente_nome) + ' · ' + hm(n.inicio) + ' · ' + esc(n.servico_nome || '') + (n.cliente_whatsapp ? ' · ' + esc(fone(n.cliente_whatsapp)) + ' <a class="btn btn-sm btn-ok" target="_blank" rel="noopener" href="' + waLink(n.cliente_whatsapp, 'Olá ' + n.cliente_nome.split(' ')[0] + '! É a sua vez com o ' + (ch.barbeiro || 'barbeiro') + ' na Barbearia do Império. Pode vir! ✂️') + '">Chamar no WhatsApp</a>' : '');
+        nb.hidden = false; H.next = null;
+      } else nb.hidden = true;
+    }
     cols.innerHTML = D.chairs.filter(function (c) { return c.ativo; }).map(function (c) {
       var list = H.appts.filter(function (a) { return a.chair_id === c.id; });
       return '<div class="col"><h3>' + esc(c.barbeiro) + '</h3><div class="sub">Cadeira ' + esc(c.numero) + ' · ' + list.filter(function (a) { return a.status !== 'cancelado'; }).length + ' hoje</div>' +
@@ -91,15 +101,17 @@
     $$('[data-act]', cols).forEach(function (b) { b.addEventListener('click', function () { act(b.dataset.act, b.dataset.id); }); });
     $$('[data-encaixe]', cols).forEach(function (b) { b.addEventListener('click', function () { encaixe(Number(b.dataset.encaixe)); }); });
   }
+  function fone(z) { var d = String(z || '').replace(/\D/g, ''); if (d.indexOf('55') === 0 && d.length >= 12) d = d.slice(2); return d.length === 11 ? '(' + d.slice(0, 2) + ') ' + d.slice(2, 3) + ' ' + d.slice(3, 7) + '-' + d.slice(7) : d.length === 10 ? '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6) : (z || ''); }
+  function waLink(z, msg) { var d = String(z || '').replace(/\D/g, ''); if (d && d.indexOf('55') !== 0) d = '55' + d; return 'https://wa.me/' + d + (msg ? '?text=' + encodeURIComponent(msg) : ''); }
   function apptCard(a) {
     var sinal = a.sinal_valor != null ? brl(a.sinal_valor) : '—';
-    var acts = '';
-    if (a.status === 'agendado') acts = btn('sinal', a.id, 'Sinal recebido', 'btn-ok') + btn('cancel', a.id, 'Cancelar', 'btn-bad');
-    else if (a.status === 'confirmado') acts = btn('comanda', a.id, 'Atendido → comanda', 'btn-primary') + btn('faltou', a.id, 'Faltou') + btn('cancel', a.id, 'Cancelar', 'btn-bad');
+    var acts = '', open = a.status === 'agendado' || a.status === 'confirmado';
+    if (open && !a.chegou_em) acts = btn('chegou', a.id, '✅ Chegou', 'btn-ok') + btn('faltou', a.id, 'Não veio') + (a.status === 'agendado' && a.sinal_status === 'pendente' ? btn('sinal', a.id, 'Sinal recebido') : '') + btn('cancel', a.id, 'Cancelar', 'btn-bad');
+    else if (open) acts = '<span class="badge ok">chegou ' + hm(a.chegou_em) + '</span>' + btn('comanda', a.id, '✂️ Concluído → comanda', 'btn-primary') + btn('faltou', a.id, 'Não veio');
     else if (a.status === 'atendido') acts = '<span class="badge">atendido ✓</span>';
     else acts = '<span class="badge">' + a.status + '</span>' + btn('reabrir', a.id, 'Reabrir');
-    return '<div class="appt ' + a.status + '"><div class="row" style="justify-content:space-between"><span class="t">' + hm(a.inicio) + ' – ' + hm(a.fim) + '</span><span class="badge ' + a.sinal_status + '">sinal ' + a.sinal_status + (a.sinal_valor != null ? ' · ' + sinal : '') + '</span></div>' +
-      '<div class="n">' + esc(a.cliente_nome) + (a.cliente_whatsapp ? ' <a class="small gold" href="https://wa.me/' + esc(a.cliente_whatsapp) + '" target="_blank" rel="noopener">WhatsApp</a>' : '') + '</div>' +
+    return '<div class="appt ' + a.status + (a.chegou_em && open ? ' chegou' : '') + '"><div class="row" style="justify-content:space-between"><span class="t">' + hm(a.inicio) + ' – ' + hm(a.fim) + '</span><span class="badge ' + a.sinal_status + '">sinal ' + a.sinal_status + (a.sinal_valor != null ? ' · ' + sinal : '') + '</span></div>' +
+      '<div class="n">' + esc(a.cliente_nome) + '</div>' + (a.cliente_whatsapp ? '<div class="small">📞 <a class="gold" href="tel:+' + esc(String(a.cliente_whatsapp).replace(/\D/g, '')) + '">' + esc(fone(a.cliente_whatsapp)) + '</a> · <a class="gold" href="' + waLink(a.cliente_whatsapp) + '" target="_blank" rel="noopener">WhatsApp</a></div>' : '<div class="small muted">sem telefone</div>') +
       '<div class="s">' + esc(a.servico_nome || '') + (a.servico_preco != null ? ' · ' + brl(a.servico_preco) : '') + ' · ' + a.origem + (a.obs ? ' · ' + esc(a.obs) : '') + '</div><div class="acts">' + acts + '</div></div>';
   }
   function btn(act, id, label, cls) { return '<button class="btn btn-sm ' + (cls || '') + '" data-act="' + act + '" data-id="' + id + '">' + label + '</button>'; }
@@ -108,8 +120,9 @@
     var patch = null;
     if (kind === 'sinal') patch = { sinal_status: 'pago', status: 'confirmado' };
     if (kind === 'cancel') { if (!confirm('Cancelar o horário de ' + a.cliente_nome + '?')) return; patch = { status: 'cancelado' }; }
-    if (kind === 'faltou') patch = { status: 'faltou' };
-    if (kind === 'reabrir') patch = { status: 'confirmado' };
+    if (kind === 'chegou') patch = { chegou_em: new Date().toISOString(), status: 'confirmado' };
+    if (kind === 'faltou') { if (!confirm(a.cliente_nome + ' não veio?')) return; patch = { status: 'faltou' }; }
+    if (kind === 'reabrir') patch = { status: 'confirmado', chegou_em: null };
     if (kind === 'comanda') { openComandaFor(a); show('comanda'); return; }
     var r = await sb.from('imperio_appointments').update(patch).eq('id', id);
     if (r.error) return fail(r.error);
@@ -235,8 +248,14 @@
     var r = await sb.from('imperio_sales').insert({ chair_id: chairId, appointment_id: C.appt ? C.appt.id : null, itens: C.items, total: t, pagamento: pay, cliente_nome: $('#cmdCli').value.trim() || null, cliente_whatsapp: zapDigits() || null, comissao_pct: pct, comissao_valor: Math.round(t * pct) / 100, obs: obs || null });
     if (r.error) { b.disabled = false; return fail(r.error); }
     if (C.appt) await sb.from('imperio_appointments').update({ status: 'atendido' }).eq('id', C.appt.id);
+    var doneAppt = C.appt;
+    if (doneAppt) {
+      var nx = await sb.from('imperio_appointments').select('*').eq('chair_id', doneAppt.chair_id).in('status', ['agendado', 'confirmado']).gt('inicio', doneAppt.inicio).lte('inicio', dayRange(brDay(doneAppt.inicio))[1]).order('inicio').limit(1);
+      H.next = (!nx.error && nx.data && nx.data[0]) ? nx.data[0] : { none: true, chair_id: doneAppt.chair_id };
+    }
     b.disabled = false; toast('Comanda fechada: ' + brl(t) + ' · comissão ' + brl(Math.round(t * pct) / 100));
     C.items = []; C.appt = null; renderComanda();
+    if (doneAppt) { H.day = brDay(doneAppt.inicio); show('hoje'); }
   }
 
   /* ================= VENDAS ================= */
