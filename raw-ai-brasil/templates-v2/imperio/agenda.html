@@ -50,6 +50,14 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
 .btn-ok{border-color:#5fbf7a;color:#5fbf7a} .btn-bad{border-color:#e0735f;color:#e0735f}
 .note{color:var(--muted);font-size:.85rem;margin:18px 0 40px}
 .upd{font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fila{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:10px;margin:6px 0 18px}
+.fila .fc{border:1px solid var(--line);background:#16130f;padding:12px 12px 10px;min-width:0}
+.fila .fc strong{display:block;font-size:1.05rem;letter-spacing:.03em}
+.fila .st{display:inline-block;margin:6px 0 4px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:1px solid}
+.fila .st.ok{color:#5fbf7a;border-color:#2f5a3b}.fila .st.busy{color:#e0b25f;border-color:#5a4726}.fila .st.off{color:var(--muted);border-color:var(--line)}
+.fila small{display:block;color:var(--muted);font-size:.78rem;line-height:1.4}
+.fila-h{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:14px 0 6px}
+@media (max-width:720px){.fila{grid-template-columns:1fr 1fr}}
 @media (max-width:720px){.grid{grid-template-columns:52px repeat(var(--n,4),1fr);gap:4px}.hcell strong{font-size:1.05rem}.hcell small{display:none}.slot{padding:9px 2px;font-size:.72rem;min-height:38px}.tcell{font-size:.7rem;padding-right:4px}}
 </style>
 </head>
@@ -61,6 +69,7 @@ h1{font-family:'Bebas Neue';font-weight:400;font-size:clamp(2.4rem,6vw,3.8rem);l
   </div>
   <h1>Agenda do dia</h1>
   <p class="sub">Toque em um horário livre para reservar com o barbeiro daquela cadeira. A agenda atualiza sozinha.</p>
+  <div class="fila-h" id="filaH" hidden>Fila agora</div><div class="fila" id="fila" hidden></div>
   <div class="days" id="days"></div>
   <div class="legend"><span><i></i> Livre</span><span><i class="b"></i> Reservado</span><span><i class="p"></i> Já passou</span></div>
   <div class="grid" id="grid"><p class="sub">Carregando…</p></div>
@@ -80,6 +89,24 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
   var hm = function (t) { return new Date(t).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }); };
   var SESSION = null, svcs = [];
   function first(n) { return (n || '').trim().split(' ')[0]; }
+  function todayStr() { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' }); }
+  function renderFila(chairs, taken, isToday, now, dayEnd) {
+    var box = document.getElementById('fila'), h = document.getElementById('filaH');
+    if (!isToday) { box.hidden = true; h.hidden = true; return; }
+    box.style.setProperty('--n', chairs.length);
+    box.innerHTML = chairs.map(function (c, i) {
+      var iv = taken[i].slice().sort(function (a, b) { return a.i - b.i; });
+      var cur = iv.find(function (x) { return x.i <= now && now < x.f; });
+      var ahead = iv.filter(function (x) { return x.i > now; }).length;
+      var freeAt = now; iv.forEach(function (x) { if (x.i <= freeAt && freeAt < x.f) freeAt = x.f; });
+      var st, line2;
+      if (freeAt >= dayEnd) { st = '<span class="st off">Lotado hoje</span>'; line2 = 'Sem horários livres hoje'; }
+      else if (cur) { st = '<span class="st busy">Atendendo</span>'; line2 = 'Livre às <b>' + hm(freeAt) + '</b>'; }
+      else { st = '<span class="st ok">Livre agora</span>'; line2 = 'Pode chegar 👊'; }
+      return '<div class="fc"><strong>' + c.barbeiro + '</strong>' + st + '<small>' + line2 + '</small><small>' + (ahead ? ahead + (ahead === 1 ? ' pessoa' : ' pessoas') + ' na fila hoje' : 'Ninguém na fila') + '</small></div>';
+    }).join('');
+    box.hidden = false; h.hidden = false;
+  }
   async function render() {
     var S = A.state, step = Number(S.settings.slot_min || 30), chairs = S.chairs;
     grid.style.setProperty('--n', chairs.length);
@@ -87,6 +114,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
     var html = '<div class="hcell"></div>' + chairs.map(function (c) { return '<div class="hcell"><strong>' + c.barbeiro + '</strong><small>Cadeira ' + c.numero + '</small></div>'; }).join('');
     if (SESSION) {
       var appts; try { appts = await A.dayFull(cur.str); } catch (e) { SESSION = null; return render(); }
+      renderFila(chairs, chairs.map(function (c) { return appts.filter(function (x) { return x.chair_id === c.id && ['cancelado','faltou'].indexOf(x.status) < 0; }).map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime() }; }); }), cur.str === todayStr(), now, end);
       for (var t = start; t < end; t += step * 60000) {
         html += '<div class="tcell">' + hm(t) + '</div>';
         chairs.forEach(function (c) {
@@ -102,6 +130,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       grid.querySelectorAll('button.slot:not(.mine)').forEach(function (b) { b.addEventListener('click', function () { freeClick(b); }); });
     } else {
       var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
+      renderFila(chairs, taken, cur.str === todayStr(), now, end);
       for (var t2 = start; t2 < end; t2 += step * 60000) {
         html += '<div class="tcell">' + hm(t2) + '</div>';
         chairs.forEach(function (c, i) {
@@ -180,7 +209,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       cur = days.find(function (d) { return d.str === b.dataset.d; }); render();
     }); });
     daysEl.querySelector('.day').click();
-    timer = setInterval(function () { if (!document.hidden && cur) render(); }, 60000);
+    timer = setInterval(function () { if (!document.hidden && cur) render(); }, 30000);
   }).catch(function () { grid.innerHTML = '<p class="sub">Não consegui carregar a agenda. Agende pelo WhatsApp (61) 99228-1225.</p>'; });
 })();
 </script>
