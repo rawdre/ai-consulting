@@ -90,7 +90,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
   var SESSION = null, svcs = [];
   function first(n) { return (n || '').trim().split(' ')[0]; }
   function todayStr() { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' }); }
-  function renderFila(chairs, taken, isToday, now, dayEnd) {
+  function renderFila(chairs, taken, isToday, now, dayEnd, dayStart) {
     var box = document.getElementById('fila'), h = document.getElementById('filaH');
     if (!isToday) { box.hidden = true; h.hidden = true; return; }
     box.style.setProperty('--n', chairs.length);
@@ -100,6 +100,8 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       var ahead = iv.filter(function (x) { return x.i > now; }).length;
       var freeAt = now; iv.forEach(function (x) { if (x.i <= freeAt && freeAt < x.f) freeAt = x.f; });
       var st, line2;
+      if (now >= dayEnd) { return '<div class="fc"><strong>' + c.barbeiro + '</strong><span class="st off">Encerrado</span><small>Reserve para outro dia abaixo</small></div>'; }
+      if (now < dayStart) { freeAt = dayStart; iv.forEach(function (x) { if (x.i <= freeAt && freeAt < x.f) freeAt = x.f; }); return '<div class="fc"><strong>' + c.barbeiro + '</strong><span class="st off">Abre às ' + hm(dayStart) + '</span><small>' + (freeAt >= dayEnd ? 'Lotado hoje' : 'Primeiro livre: <b>' + hm(freeAt) + '</b>') + '</small><small>' + (iv.length ? iv.length + (iv.length === 1 ? ' reserva' : ' reservas') + ' hoje' : 'Nenhuma reserva ainda') + '</small></div>'; }
       if (freeAt >= dayEnd) { st = '<span class="st off">Lotado hoje</span>'; line2 = 'Sem horários livres hoje'; }
       else if (cur) { st = '<span class="st busy">Atendendo</span>'; line2 = 'Livre às <b>' + hm(freeAt) + '</b>'; }
       else { st = '<span class="st ok">Livre agora</span>'; line2 = 'Pode chegar 👊'; }
@@ -114,7 +116,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
     var html = '<div class="hcell"></div>' + chairs.map(function (c) { return '<div class="hcell"><strong>' + c.barbeiro + '</strong><small>Cadeira ' + c.numero + '</small></div>'; }).join('');
     if (SESSION) {
       var appts; try { appts = await A.dayFull(cur.str); } catch (e) { SESSION = null; return render(); }
-      renderFila(chairs, chairs.map(function (c) { return appts.filter(function (x) { return x.chair_id === c.id && ['cancelado','faltou'].indexOf(x.status) < 0; }).map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime() }; }); }), cur.str === todayStr(), now, end);
+      renderFila(chairs, chairs.map(function (c) { return appts.filter(function (x) { return x.chair_id === c.id && ['cancelado','faltou'].indexOf(x.status) < 0; }).map(function (x) { return { i: new Date(x.inicio).getTime(), f: new Date(x.fim).getTime() }; }); }), cur.str === todayStr(), now, end, start);
       for (var t = start; t < end; t += step * 60000) {
         html += '<div class="tcell">' + hm(t) + '</div>';
         chairs.forEach(function (c) {
@@ -130,7 +132,7 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
       grid.querySelectorAll('button.slot:not(.mine)').forEach(function (b) { b.addEventListener('click', function () { freeClick(b); }); });
     } else {
       var taken = await Promise.all(chairs.map(function (c) { return A.takenFor(c.id, cur.str); }));
-      renderFila(chairs, taken, cur.str === todayStr(), now, end);
+      renderFila(chairs, taken, cur.str === todayStr(), now, end, start);
       for (var t2 = start; t2 < end; t2 += step * 60000) {
         html += '<div class="tcell">' + hm(t2) + '</div>';
         chairs.forEach(function (c, i) {
