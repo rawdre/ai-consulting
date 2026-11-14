@@ -161,6 +161,7 @@
     $('#cmdAddOther').addEventListener('click', function () { var n = $('#cmdOtherName').value.trim(), v = Number($('#cmdOtherPrice').value); if (n && v >= 0) { addItem('outro', n, v); $('#cmdOtherName').value = ''; $('#cmdOtherPrice').value = ''; } });
     $$('input[name=pay]').forEach(function (r) { r.addEventListener('change', renderTotals); });
     $('#cmdSave').addEventListener('click', saveComanda);
+    var lt; $('#cmdZap').addEventListener('input', function () { clearTimeout(lt); lt = setTimeout(loyalty, 400); });
   }
   function openComandaFor(a) { C.appt = a; C.items = []; if (a.servico_nome) C.items.push({ tipo: 'servico', nome: a.servico_nome, preco: Number(a.servico_preco || 0), qtd: 1 }); renderComanda(); $('#cmdChair').value = a.chair_id; }
   function addItem(tipo, nome, preco) { var ex = C.items.find(function (i) { return i.tipo === tipo && i.nome === nome && i.preco === Number(preco); }); if (ex) ex.qtd++; else C.items.push({ tipo: tipo, nome: nome, preco: Number(preco), qtd: 1 }); renderItems(); }
@@ -171,16 +172,18 @@
     if (C.appt) { $('#cmdChair').value = C.appt.chair_id; $('#cmdInfo').textContent = 'Cliente: ' + C.appt.cliente_nome + ' · ' + hm(C.appt.inicio) + (C.appt.sinal_status === 'pago' ? ' · sinal de ' + brl(C.appt.sinal_valor) + ' já pago' : ''); }
     else $('#cmdInfo').textContent = 'Feche a conta do cliente: serviços, produtos, forma de pagamento.';
     $('#cmdObs').value = ''; $('#cmdErr').hidden = true;
-    renderItems();
+    $('#cmdCli').value = C.appt ? C.appt.cliente_nome || '' : ''; $('#cmdZap').value = C.appt ? C.appt.cliente_whatsapp || '' : '';
+    C.loyal = null; renderItems(); loyalty();
   }
   function renderItems() {
     var box = $('#cmdItems');
     box.innerHTML = C.items.length ? C.items.map(function (i, k) {
+      if (i.tipo === 'fidelidade') return '<div class="item"><span class="nm">⭐ ' + esc(i.nome) + '</span><span></span><strong>' + brl(i.preco) + '</strong><button class="btn btn-sm btn-bad" data-rm="' + k + '">✕</button></div>';
       return '<div class="item"><span class="nm">' + esc(i.nome) + ' <span class="muted small">' + i.tipo + '</span></span><input type="number" min="1" value="' + i.qtd + '" data-k="' + k + '" data-f="qtd"><input type="number" step="0.01" min="0" value="' + i.preco + '" data-k="' + k + '" data-f="preco"><button class="btn btn-sm btn-bad" data-rm="' + k + '">✕</button></div>';
     }).join('') : '<p class="empty">Adicione serviços ou produtos.</p>';
     $$('input[data-k]', box).forEach(function (inp) { inp.addEventListener('change', function () { C.items[Number(inp.dataset.k)][inp.dataset.f] = Number(inp.value); renderTotals(); }); });
     $$('[data-rm]', box).forEach(function (b) { b.addEventListener('click', function () { C.items.splice(Number(b.dataset.rm), 1); renderItems(); }); });
-    renderTotals();
+    renderTotals(); if (C.loyal !== undefined) { var lb = $('#cmdLoyal'); if (lb && C.loyal && !C.loyal.ready) loyalty(); }
   }
   function total() { return C.items.reduce(function (s, i) { return s + i.preco * i.qtd; }, 0); }
   function renderTotals() {
@@ -189,8 +192,39 @@
     $('#cmdDeposit').textContent = paid ? 'Sinal já pago: ' + brl(paid) + ' → a receber agora: ' + brl(Math.max(0, t - paid)) : '';
     var pay = ($('input[name=pay]:checked') || {}).value, pix = typeof D.settings.pix_chave === 'string' ? D.settings.pix_chave : '';
     $('#cmdPix').style.display = pay === 'pix' ? 'grid' : 'none';
-    $('#cmdPix').innerHTML = pix ? '<small class="muted">Chave Pix · ' + esc(D.settings.pix_nome || '') + '</small><code>' + esc(pix) + '</code><button class="btn btn-sm" id="pixCopy">Copiar</button>' : '<span class="muted small">Cadastre a chave Pix em Config.</span>';
-    var cp = $('#pixCopy'); if (cp) cp.addEventListener('click', function () { navigator.clipboard.writeText(pix); cp.textContent = 'Copiado ✓'; });
+    var due = Math.max(0, t - paid), code = pix ? pixPayload(pix, D.settings.pix_nome, D.settings.pix_cidade || 'Sobradinho', due) : '';
+    $('#cmdPix').innerHTML = pix ? '<small class="muted">Cliente paga ' + brl(due) + ' no Pix · ' + esc(D.settings.pix_nome || '') + ' (Mercado Pago)</small><div class="pixqr" id="pixQr"></div><small class="muted">Pix copia e cola</small><code>' + esc(code) + '</code><button class="btn btn-sm" id="pixCopy">Copiar código Pix</button>' : '<span class="muted small">Cadastre a chave Pix (Mercado Pago) em Config.</span>';
+    if (pix && window.qrcode) { try { var qr = qrcode(0, 'M'); qr.addData(code); qr.make(); $('#pixQr').innerHTML = qr.createImgTag(6, 0); } catch (e) { $('#pixQr').textContent = 'QR indisponível'; } }
+    var cp = $('#pixCopy'); if (cp) cp.addEventListener('click', function () { (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject()).then(function () { cp.textContent = 'Copiado ✓'; }).catch(function () { cp.textContent = 'Selecione o código acima'; }); });
+  }
+  /* ---- Cartão fidelidade: a cada 10 cortes, o próximo sai com 50% OFF ---- */
+  var FID_META = 10, FID_PCT = 50;
+  function zapDigits() { var d = ($('#cmdZap').value || '').replace(/\D/g, ''); if (d.length === 10 || d.length === 11) d = '55' + d; return d.length >= 12 ? d : ''; }
+  function isCut(i) { return i.tipo === 'servico' && /corte/i.test(i.nome); }
+  function stampsFrom(rows) { var n = 0; rows.forEach(function (r) { var it = r.itens || []; if (it.some(function (i) { return i.tipo === 'fidelidade'; })) n = 0; else if (it.some(isCut)) n++; }); return n; }
+  async function loyalty() {
+    var box = $('#cmdLoyal'), z = zapDigits(); box.className = 'loyal';
+    if (!z) { C.loyal = null; box.innerHTML = '<span class="muted small">⭐ Informe o WhatsApp do cliente para marcar o cartão fidelidade (10 cortes = 50% OFF no próximo).</span>'; return; }
+    var q = await sb.from('imperio_sales').select('itens,data').eq('cliente_whatsapp', z).order('data', { ascending: true });
+    if (q.error) { box.innerHTML = '<span class="muted small">Cartão indisponível: ' + esc(q.error.message) + '</span>'; return; }
+    var n = stampsFrom(q.data), ready = n >= FID_META, applied = C.items.some(function (i) { return i.tipo === 'fidelidade'; });
+    C.loyal = { n: n, ready: ready };
+    var dots = ''; for (var k = 1; k <= FID_META; k++) dots += '<i class="' + (k <= Math.min(n, FID_META) ? 'on' : '') + '"></i>';
+    box.className = 'loyal' + (ready ? ' ready' : '');
+    box.innerHTML = '<div><strong>⭐ Cartão fidelidade: ' + Math.min(n, FID_META) + '/' + FID_META + ' cortes</strong> <span class="muted small">' + (ready ? '· cartão completo!' : '· faltam ' + (FID_META - n) + ' para 50% OFF') + '</span></div><div class="dots">' + dots + '</div>' +
+      (ready ? (applied ? '<span class="small">✓ 50% OFF aplicado nesta comanda.</span>' : '<button class="btn btn-sm btn-primary" id="fidApply">Aplicar 50% OFF no corte</button>') : '<span class="muted small">Esta comanda ' + (C.items.some(isCut) ? 'conta +1 corte.' : 'conta +1 se tiver corte.') + '</span>');
+    var b = $('#fidApply'); if (b) b.addEventListener('click', function () {
+      var cut = C.items.find(isCut); if (!cut) { toast('Adicione o corte na comanda primeiro.'); return; }
+      C.items.push({ tipo: 'fidelidade', nome: 'Cartão fidelidade · ' + FID_PCT + '% OFF (' + cut.nome + ')', preco: -Math.round(cut.preco * FID_PCT) / 100, qtd: 1 }); renderItems(); loyalty();
+    });
+  }
+  /* ---- Pix copia-e-cola com valor (BR Code estático) ---- */
+  function emv(id, v) { return id + String(v.length).padStart(2, '0') + v; }
+  function crc16(str) { var c = 0xFFFF; for (var i = 0; i < str.length; i++) { c ^= str.charCodeAt(i) << 8; for (var j = 0; j < 8; j++) c = (c & 0x8000) ? ((c << 1) ^ 0x1021) & 0xFFFF : (c << 1) & 0xFFFF; } return c.toString(16).toUpperCase().padStart(4, '0'); }
+  function plain(t, max) { return (t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9 ]/g, '').toUpperCase().slice(0, max).trim(); }
+  function pixPayload(key, nome, cidade, valor) {
+    var p = emv('00', '01') + emv('26', emv('00', 'br.gov.bcb.pix') + emv('01', key)) + emv('52', '0000') + emv('53', '986') + (valor > 0 ? emv('54', valor.toFixed(2)) : '') + emv('58', 'BR') + emv('59', plain(nome, 25) || 'BARBEARIA DO IMPERIO') + emv('60', plain(cidade, 15) || 'BRASILIA') + emv('62', emv('05', '***')) + '6304';
+    return p + crc16(p);
   }
   async function saveComanda() {
     var err = $('#cmdErr'); err.hidden = true;
@@ -198,7 +232,7 @@
     var chairId = Number($('#cmdChair').value), c = D.chairs.find(function (x) { return x.id === chairId; });
     var t = total(), pct = Number(c.comissao_pct || 0), pay = $('input[name=pay]:checked').value, b = $('#cmdSave'); b.disabled = true;
     var obs = $('#cmdObs').value.trim(); if (C.appt && C.appt.sinal_status === 'pago') obs = ('sinal ' + brl(C.appt.sinal_valor) + ' já recebido. ' + obs).trim();
-    var r = await sb.from('imperio_sales').insert({ chair_id: chairId, appointment_id: C.appt ? C.appt.id : null, itens: C.items, total: t, pagamento: pay, comissao_pct: pct, comissao_valor: Math.round(t * pct) / 100, obs: obs || null });
+    var r = await sb.from('imperio_sales').insert({ chair_id: chairId, appointment_id: C.appt ? C.appt.id : null, itens: C.items, total: t, pagamento: pay, cliente_nome: $('#cmdCli').value.trim() || null, cliente_whatsapp: zapDigits() || null, comissao_pct: pct, comissao_valor: Math.round(t * pct) / 100, obs: obs || null });
     if (r.error) { b.disabled = false; return fail(r.error); }
     if (C.appt) await sb.from('imperio_appointments').update({ status: 'atendido' }).eq('id', C.appt.id);
     b.disabled = false; toast('Comanda fechada: ' + brl(t) + ' · comissão ' + brl(Math.round(t * pct) / 100));

@@ -5,7 +5,7 @@
    CADEIRAS: renomeie cada cadeira com o nome do barbeiro em `cadeiras`.
    ===================================================================== */
 window.SITE = {
-  versao: 'v1.7.2',
+  versao: 'v1.8.0',
 
   negocio: {
     nome: 'Barbearia do Império',

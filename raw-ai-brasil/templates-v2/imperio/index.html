@@ -342,6 +342,21 @@ footer a:hover { color: var(--accent); }
 .film-hint { position: absolute; right: 24px; bottom: 24px; z-index: 3; font-size: .7rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .film { height: auto; } .film-sticky { position: relative; height: 80svh; } }
 @media (max-width: 760px) { .film { height: 220vh; } .film-copy { bottom: 12vh; } .film-copy h2 { max-width: 12ch; } }
+
+/* fidelidade + QR agenda */
+.promo{padding:56px 0;border-top:1px solid rgba(201,162,74,.25);border-bottom:1px solid rgba(201,162,74,.25);background:linear-gradient(135deg,#17130e,#0c0b0a 60%)}
+.promo-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:stretch}
+.promo-card{border:1px solid rgba(201,162,74,.45);background:var(--accent-soft);padding:30px 28px;min-width:0}
+.promo-card .big{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(2.6rem,6vw,4.2rem);line-height:.95;color:var(--accent);margin:8px 0 10px}
+.promo-card p{margin:0 0 16px;color:var(--cream,#f3eadc)}
+.stamps{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;max-width:420px}
+.stamps i{aspect-ratio:1;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.8rem;color:var(--accent)}
+.stamps i:last-child{background:var(--accent);color:#111;font-weight:700;font-size:.7rem}
+.promo-small{font-size:.8rem;opacity:.7;margin-top:12px}
+.promo-qr{border:1px solid rgba(255,255,255,.12);padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0}
+.promo-qr img{width:min(190px,100%);background:#fff;padding:10px;border-radius:10px}
+.promo-qr strong{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.6rem;letter-spacing:.04em}
+@media (max-width:820px){.promo-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -388,6 +403,24 @@ footer a:hover { color: var(--accent); }
   </div>
 </header>
 <div class="pole" aria-hidden="true"></div>
+
+<section class="promo" id="fidelidade">
+  <div class="container promo-grid">
+    <div class="promo-card reveal">
+      <span class="overline">Cartão fidelidade</span>
+      <div class="big">10 cortes =<br>50% OFF no próximo</div>
+      <p>A cada 10 cortes no Império, o seu próximo corte sai pela metade do preço. É automático: informe seu WhatsApp no caixa e a gente marca o seu cartão.</p>
+      <div class="stamps" aria-hidden="true"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i></div>
+      <p class="promo-small">Válido para corte masculino e corte + barba. Um desconto por cartão completo.</p>
+    </div>
+    <div class="promo-qr reveal">
+      <strong>Agende pelo QR</strong>
+      <img src="assets/qr-agenda.png" alt="QR code da agenda da Barbearia do Império" loading="lazy">
+      <small>Aponte a câmera e veja os horários livres de cada barbeiro.</small>
+      <a class="btn btn-line" href="agenda.html">Abrir agenda</a>
+    </div>
+  </div>
+</section>
 
 <section class="film" id="transformacao" hidden>
   <div class="film-sticky">
