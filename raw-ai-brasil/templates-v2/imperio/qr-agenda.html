@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QR · Agenda — Barbearia do Império</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#C9A24A;--bg:#0c0b0a;--card:#1a1715;--cream:#f3eadc;--muted:#a39a8e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:24px}
+.card{background:var(--card);border:1px solid #3a322a;border-radius:20px;max-width:440px;width:100%;padding:32px 28px;text-align:center}
+.logo{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:44px;letter-spacing:1px;margin:14px 0 4px;color:var(--accent);line-height:1}
+p{margin:0;color:var(--muted)}
+.qr{background:#fff;border-radius:14px;padding:14px;margin:22px auto 16px;width:min(300px,100%)}
+.qr img{display:block;width:100%}
+.steps{font-size:15px;color:var(--cream);line-height:1.6}
+a.btn{display:inline-block;margin-top:18px;background:var(--accent);color:#111;font-weight:600;padding:12px 22px;border-radius:999px;text-decoration:none}
+.v{margin-top:18px;font-size:11px;color:#5d554c}
+@media print{body{background:#fff}.card{border:2px solid #111;background:#fff;color:#111}p,.steps{color:#333}a.btn{display:none}.v{display:none}}
+</style></head><body>
+<div class="card">
+  <img class="logo" src="assets/logo.jpg" alt="Barbearia do Império">
+  <h1>Veja a agenda aberta</h1>
+  <p>Barbearia do Império · Sobradinho-DF</p>
+  <div class="qr"><img src="assets/qr-agenda.png" alt="QR code para a agenda da Barbearia do Império"></div>
+  <div class="steps">Aponte a câmera do celular 📱<br>e escolha seu horário livre.</div>
+  <a class="btn" href="agenda.html">Abrir agenda</a>
+  <div class="v">imperio v1.6.1</div>
+</div>
+</body></html>
